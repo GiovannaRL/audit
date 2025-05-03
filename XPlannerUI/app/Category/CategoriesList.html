@@ -1,0 +1,48 @@
+﻿<section layout="column" ng-cloak class="md-inline-form padding-top-half">
+    <section class="padding-bottom" layout-gt-sm="row" layout-align="space-around none">
+        <section flex-gt-sm="45">
+            <md-card-content class="card-header" layout="column" layout-align="center center">
+                <h3 style="margin-bottom: 0px; margin-top: 10px;">Categories</h3>
+            </md-card-content>
+            <div class="checkbox-grid" kendo-grid="categoryListGrid" options="categoryOptions" k-on-data-bound="dataBound(categoryListGrid, 'category')">
+            </div>
+        </section>
+        <section flex-gt-sm="45">
+            <md-card-content class="card-header" layout="column" layout-align="center center">
+                <h3 style="margin-bottom: 0px; margin-top: 10px;">Subcategories</h3>
+            </md-card-content>
+            <div class="checkbox-grid" kendo-grid="subcategoryListGrid" options="subcategoryOptions" k-on-data-bound="dataBound(subcategoryListGrid, 'subcategory')">
+            </div>
+        </section>
+    </section>
+</section>
+<!-- FAB button -->
+<div class="lock-size fixed-element" layout="row" layout-align="center center" ng-cloak ng-show="logged_domain == 1">
+    <md-fab-speed-dial md-open="buttons.open" md-direction="up"
+                       class="md-fling">
+        <md-fab-trigger>
+            <md-button aria-label="menu" class="md-fab md-accent">
+                <md-icon md-svg-src="{{buttons.open ? 'close' : 'menu'}}"></md-icon>
+            </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+            <div ng-repeat="button in buttons">
+                <md-button aria-label="{{button.label}}" class="md-fab md-mini"
+                           ng-click="button.click.func(button.click.params)">
+                    <md-tooltip md-direction="left" md-visible="false"
+                                md-autohide="true">
+                        {{button.label}}
+                    </md-tooltip>
+                    <md-icon md-svg-src="{{button.icon}}" aria-label="{{button.label}}"></md-icon>
+                </md-button>
+            </div>
+        </md-fab-actions>
+    </md-fab-speed-dial>
+</div>
+
+<!--<style parse-style>
+    .k-grid-content {
+        max-height: {{grid_content_height - 160}}px;
+        min-height: {{grid_content_height -160}}px;
+    }
+</style>-->

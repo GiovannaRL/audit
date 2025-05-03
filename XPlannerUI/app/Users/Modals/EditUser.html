@@ -1,0 +1,102 @@
+﻿<md-dialog aria-label="edit_multi" class="all-screen" flex-gt-sm="60" flex-xs="100" flex="80">
+    <md-toolbar layout="row" layout-align="center center">
+        {{edit ? 'Edit' : 'Add'}} User
+    </md-toolbar>
+    <md-dialog-content class="md-inline-form not-scrollable" ng-cloak>
+        <div flex>
+            <md-tabs class="full-size" md-stretch-tabs="always" md-selected="selectedIndex" md-border-bottom>
+                <md-tab label="Information">
+                    <form name="EditUserForm" id="EditUserForm">
+                        <section layout-gt-xs="row" layout-align="space-between start">
+                            <md-input-container class="md-block" flex-gt-xs="45">
+                                <label>Role</label>
+                                <md-select name="role_id" ng-model="user.role_id" required ng-change="updateProjects()">
+                                    <md-option ng-repeat="role in roles" ng-value="role.id">
+                                        {{role.name}}
+                                    </md-option>
+                                </md-select>
+                                <div ng-messages="EditUserForm.role_id.$error">
+                                    <div ng-message="required">Role is required</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-xs="45">
+                                <label>Email</label>
+                                <input name="email" ng-model="user.email" required>
+                                <div ng-messages="EditUserForm.email.$error">
+                                    <div ng-message="required">Email is required</div>
+                                </div>
+                            </md-input-container>
+                        </section>
+                        <section layout-gt-xs="row" layout-align="space-between start">
+                            <md-input-container class="md-block" flex-gt-xs="45">
+                                <label>First Name</label>
+                                <input name="first_name" ng-model="user.first_name" required>
+                                <div ng-messages="EditUserForm.first_name.$error">
+                                    <div ng-message="required">First name is required</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-xs="45">
+                                <label>Last Name</label>
+                                <input name="last_name" ng-model="user.last_name" required>
+                                <div ng-messages="EditUserForm.last_name.$error">
+                                    <div ng-message="required">Last name is required</div>
+                                </div>
+                            </md-input-container>
+                        </section>
+                        <section layout-gt-xs="row" layout-align="space-between start">
+                            <md-input-container class="md-block" flex-gt-xs="95">
+                                <label>Comment</label>
+                                <input name="comment" ng-model="user.comment">
+                            </md-input-container>
+                        </section>
+                        <section layout-gt-xs="row" layout-align="space-between start">
+                            <md-input-container class="md-block" flex-gt-xs="95">
+                                <label>Email Content</label>
+                                <input name="email_content" ng-model="email_content">
+                            </md-input-container>
+                        </section>
+                        <section layout="row" layout-align="center center" ng-if="edit">
+                            <md-button class="md-raised gray-color" ng-click="resetPassword()">Reset Password</md-button>
+                        </section>
+                    </form>
+                </md-tab>
+                <md-tab label="Projects" ng-click="verifyRole()">
+                    <section style="padding-top: 15px; text-align: center;" ng-if="!showProjects">
+                        You don't have permissions to see the projects
+                    </section>
+                    <div ng-show="showProjects">
+                        <md-input-container class="md-block" flex-gt-xs="40">
+                            <label>Status</label>
+                            <md-select ng-model="project_status">
+                                <md-option value="0" ng-selected="true">All</md-option>
+                                <md-option ng-repeat="status in statusList" value="{{status.id}}">
+                                    {{status.name}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <md-content>
+                                <div class="checkbox-grid" kendo-grid="userProjectsGrid" options="options" k-on-data-bound="dataBound()">
+                                </div>
+                            </md-content>
+                        </md-input-container>
+                    </div>
+                </md-tab>
+            </md-tabs>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Cancel</md-button>
+        <md-button class="md-primary" ng-click="save()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>
+
+<style parse-style>
+    .full-size {
+        min-height:{{style_height}}px !important;
+    }
+
+    .k-grid-content {
+        min-height:{{gridHeight - 60}}px;
+        max-height:{{gridHeight - 60}}px;
+</style>

@@ -1,0 +1,27 @@
+﻿<section class="md-inline-form">
+    <aw-asset-inventory-grid is-template="false" params="params" emit-buttons="emitButtons(value)" grid-height-subtract="250" linked-room="linked_room"></aw-asset-inventory-grid>
+</section>
+
+<!-- FAB button -->
+<div class="lock-size fixed-element" layout="row" layout-align="center center" ng-cloak>
+    <md-fab-speed-dial md-open="buttons.open" md-direction="up"
+                       class="md-fling">
+        <md-fab-trigger>
+            <md-button aria-label="menu" class="md-fab md-accent">
+                <md-icon md-svg-src="{{buttons.open ? 'close' : 'menu'}}"></md-icon>
+            </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+            <div ng-repeat="button in buttons">
+                <md-button aria-label="{{button.label}}" class="md-fab md-mini"
+                           ng-click="button.click.func(button.click.params)">
+                    <md-tooltip md-direction="left" md-visible="false"
+                                md-autohide="true">
+                        {{button.label}}
+                    </md-tooltip>
+                    <md-icon md-svg-src="{{button.icon}}" aria-label="{{button.label}}"></md-icon>
+                </md-button>
+            </div>
+        </md-fab-actions>
+    </md-fab-speed-dial>
+</div>

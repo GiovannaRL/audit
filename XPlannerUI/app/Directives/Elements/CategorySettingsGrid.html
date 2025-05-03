@@ -1,0 +1,24 @@
+﻿<md-input-container class="md-block" flex-gt-xs="35" style="margin: 0 0 0 16px">
+    <md-checkbox ng-if="isSubcategory" ng-model="data.use_category_settings" class="checkbox" aria-label="use category settings">Use category settings</md-checkbox>
+</md-input-container>
+<md-card-content class="gray-color" layout-gt-sm="row" layout-align-gt-sm="space-between bottom">
+    <!--<section layout-gt-sm="row" layout-align-gt-sm="space-between bottom" class="md-block">-->
+    <md-input-container class="md-block" flex-gt-xs="35">
+        <label class="padding-right padding-left" style="margin-top: 40px;margin-bottom: 0px;"><strong ng-if="!data.use_category_settings">Asset Attributes</strong></label>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-xs="30" ng-show="!data.use_category_settings && isSubcategory" style="margin-bottom: 10px">
+        <label>Default Asset Code</label>
+        <md-select name="asset_code" ng-model="data.asset_code">
+            <md-option ng-repeat="code in assetCodes" ng-value="code.prefix">
+                {{code.description}} -- ({{code.prefix}})
+            </md-option>
+        </md-select>
+    </md-input-container>
+    <section class="disable-enable-all" ng-class="{'padding-top': isSubcategory}" flex-gt-xs="{{isSubcategory ? '35' : '70'}}" layout="row" layout-align="end bottom">
+        <md-button ng-click="EnableDisableAll('E')" class="md-raised">Enable All</md-button>
+        <md-button ng-click="EnableDisableAll('D')" class="md-raised">Disable All</md-button>
+    </section>
+    <!--</section>-->
+</md-card-content>
+<div kendo-grid="settingsGrid" options="options" style="margin-top: 5px;" ng-show="!data.use_category_settings">
+</div>

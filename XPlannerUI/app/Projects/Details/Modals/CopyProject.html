@@ -1,0 +1,25 @@
+﻿<md-dialog aria-label="copy_from" ng-cloak flex-gt-sm="35">
+    <md-toolbar layout="row" layout-align="center center">
+        Copy Project
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloack>
+        <form name="copyProjectForm" id="copyProjectForm">
+            <md-input-container class="md-block" flex-gt-sm="100">
+                <label>Project Name</label>
+                <input name="project_name" ng-model="project_name" required maxlength="200">
+                <div ng-messages="copyProjectForm.project_name.$error">
+                    <div ng-message="required">Project name is mandatory</div>
+                </div>
+            </md-input-container>
+            <section flex>
+                <md-checkbox ng-model="copyUsers" aria-label="CopyUsers" style="margin: 0px; top: -10px">
+                    Copy user permission to this project
+                </md-checkbox>
+            </section>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="copy()">Copy</md-button>
+    </md-dialog-actions>
+</md-dialog>

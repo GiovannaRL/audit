@@ -1,0 +1,47 @@
+﻿<section layout="row" layout-align="end center">
+    <button class="md-icon-button md-button md-accent gray-color" ng-click="save()"><md-icon md-svg-src="save_black" aria-label="save"></md-icon></button>
+</section>
+<form name="vendorContact" id="vendorContact" novalidate>
+    <section layout="row" layout-align="space-between center">
+        <md-input-container class="md-block" flex-gt-xs="30">
+            <label>Name</label>
+            <input name="name" ng-model="data.name" required>
+            <div ng-messages="vendorContact.name.$error">
+                <div ng-message="required">Name is required</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-xs="30">
+            <label>Title</label>
+            <input name="title" ng-model="data.title">
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-xs="30">
+            <label>Email</label>
+            <input name="email" type="email" ng-model="data.email" maxlength="50">
+            <div ng-messages="vendorContact.email.$error">
+                <div ng-message="email">Must be a valid email address</div>
+            </div>
+        </md-input-container>
+    </section>
+    <section layout="row" layout-align="space-between center">
+        <md-input-container class="md-block" flex-gt-sm="15">
+            <label>Phone #</label>
+            <input name="phone" ng-model="data.phone" maxlength="20">
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm="15">
+            <label>Mobile #</label>
+            <input name="mobile" ng-model="data.mobile" maxlength="20">
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm="15">
+            <label>Fax #</label>
+            <input name="fax" ng-model="data.fax" maxlength="20">
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm="40">
+            <label>Comment</label>
+            <textarea ng-model="data.comment" name="comment" md-maxlength="1000" rows="1" columns="1"></textarea>
+            <div ng-messages="vendorContact.comment.$error" role="alert">
+                <div ng-message="md-maxlength">Only 1000 characters are allowed</div>
+            </div>
+        </md-input-container>
+    </section>
+    <section layout="row" layout-align="space-between center"></section>
+</form>

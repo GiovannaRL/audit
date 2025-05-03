@@ -1,0 +1,32 @@
+﻿<md-dialog aria-label="requestToAddAW" flex-gt-xs="35">
+    <md-toolbar layout="row" layout-align="center center">
+        Request to Add Asset to AudaxWare
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak>
+        <form name="requestToAddAW" id="requestToAddAW">
+            <section layout-gt-xs="row" layout-align="space-between center">
+                <md-input-container class="md-block" flex-gt-xs="90" ng-if="ctrl.custom">
+                    <label>Type</label>
+                    <md-select name="requestType" ng-model="ctrl.data.requestType">
+                        <md-option ng-value="1" ng-selected="true">Modify asset {{ctrl.asset_code}}</md-option>
+                        <md-option ng-value="2">New asset</md-option>
+                    </md-select>
+                    <div ng-messages="requestToAddAW.requestType.$error">
+                        <div ng-message="required">Type is required</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <section layout-gt-xs="row" layout-align="space-between start">
+                <md-input-container class="md-block" flex-gt-xs="90">
+                    <label>Comment</label>
+                    <textarea ng-model="ctrl.data.comment" name="comment" md-maxlength="1000" maxlength="1000" rows="1" columns="1"></textarea>
+                </md-input-container>
+            </section>
+
+</form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="ctrl.close()">Cancel</md-button>
+        <md-button class="md-primary" ng-click="ctrl.save()">Request</md-button>
+    </md-dialog-actions>
+</md-dialog>

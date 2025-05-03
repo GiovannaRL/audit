@@ -1,0 +1,21 @@
+﻿<md-dialog aria-label="make available to project" ng-cloak flex-gt-xs="30">
+    <md-toolbar layout="row" layout-align="center center">
+        Import from Excel
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloack>
+        <form name="uploadForm" id="uploadForm" layout="column" layout-align="space-between none">
+            <md-input-container class="md-block">
+                <label for="assets">Import File (.xlsx)</label>
+                <input name="assets" id="assets" ngf-select ng-value="files.assets.name" ng-model="files.assets" accept=".xlsx" required />
+                <div ng-messages="uploadForm.assets.$error">
+                    <div ng-message="required">Assets file is is required</div>
+                </div>
+            </md-input-container>
+        </form>
+
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="save()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>

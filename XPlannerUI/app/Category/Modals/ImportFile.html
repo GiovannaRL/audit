@@ -1,0 +1,20 @@
+﻿<md-dialog aria-label="import_category" flex-gt-xs="30">
+    <md-toolbar layout="row" layout-align="center center">
+        Import Categories from Excel
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak>
+        <form name="importForm" id="importForm" layout="column" layout-align="space-between none">
+            <md-input-container class="md-block">
+                <label for="assets">Import File (.xlsx)</label>
+                <input name="categoriesFile" id="categoriesFile" ngf-select ng-value="file.name" ng-model="file" accept=".xlsx" required />
+                <div ng-messages="importForm.categoriesFile.$error">
+                    <div ng-message="required">Excel file is required</div>
+                </div>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="cancel()">Cancel</md-button>
+        <md-button class="md-primary" ng-click="import()">Import</md-button>
+    </md-dialog-actions>
+</md-dialog>

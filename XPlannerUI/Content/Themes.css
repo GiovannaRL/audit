@@ -1,0 +1,185 @@
+﻿/* The changes makes in this file must always be replicated in the Themes.txt file */
+
+/***************************************************** ALL THEMES **********************************************************/
+
+md-toolbar.breadcrumb.md-THEME_NAME-theme {
+    background-color: white;
+    color: rgba(0,0,0,.54);
+}
+
+md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar),
+md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar) md-icon, md-toolbar:not(.md-menu-toolbar) md-icon {
+    color: rgba(255,255,255,0.87);
+}
+
+    md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar) md-icon, md-toolbar:not(.md-menu-toolbar) md-icon {
+        fill: rgba(255,255,255,0.87);
+    }
+
+.md-THEME_NAME-theme h1.md-primary {
+    color: '{{primary-color}}';
+}
+
+.md-THEME_NAME-theme h3.md-accent {
+    color: '{{accent-color}}';
+}
+
+.md-THEME_NAME-theme md-menu-sidenav-title:hover h1, .md-THEME_NAME-theme md-menu-sidenav-title:hover md-icon, .md-THEME_NAME-theme md-menu-sidenav-subitem span:hover {
+    color: '{{accent-color}}';
+}
+
+md-divider.md-DEFAULT_THEME-theme.section {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    border-color: '{{primary-color}}';
+}
+
+md-content.md-THEME_NAME-theme {
+    background-color: white;
+}
+
+md-input-container.md-THEME_NAME-theme .md-input[disabled], md-input-container .md-input[disabled],
+md-input-container.md-THEME_NAME-theme .md-input [disabled], md-input-container .md-input [disabled] {
+    border-bottom-color: rgba(0,0,0,0.12);
+    background-image: none;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+md-data-table-toolbar.explorer > md-icon.md-THEME_NAME-theme {
+    color: rgba(0, 0, 0, 0.71);
+}
+
+md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+    color: rgba(0,0,0,0.54);
+}
+
+md-toolbar.toolbar-tab > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar.toolbar-tab > md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar.toolbar-tab > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-toolbar.toolbar-tab > md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-toolbar.toolbar-tab > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-toolbar.toolbar-tab > md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-toolbar.toolbar-tab > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon, md-toolbar.toolbar-tab > md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+    color: '{{primary-color}}';
+}
+
+.md-THEME_NAME-theme .k-grouping-header {
+    background-color: '{{primary-color}}';
+}
+
+    .md-THEME_NAME-theme .k-grouping-header > .k-group-indicator {
+        background-color: '{{primary-hue-2}}';
+        border-color: '{{primary-hue-2}}';
+    }
+
+.md-THEME_NAME-theme .primary-color-header .k-grid-header, .md-THEME_NAME-theme .k-panelbar .primary-color-header .k-header:not(.k-grid-toolbar), .md-THEME_NAME-theme .primary-color-header .k-grid-header .k-header {
+    background-color: '{{primary-color}}';
+}
+
+    .md-THEME_NAME-theme .primary-color-header .k-grid-header .k-header .k-link.k-state-active, .md-THEME_NAME-theme .primary-color-header .k-grid-header .k-link.k-state-active, .md-THEME_NAME-theme .primary-color-header .k-grid-header .k-link.k-state-active:link,
+    .md-THEME_NAME-theme .primary-color-header .k-header-column-menu.k-state-active, .md-THEME_NAME-theme .primary-color-header .k-link.k-state-active, .md-THEME_NAME-theme .primary-color-header .k-grid-filter.k-state-active {
+        background-color: '{{primary-color}}';
+    }
+
+.md-THEME_NAME-theme .k-pager-numbers .k-state-selected {
+    border-color: '{{accent-color}}';
+}
+
+.md-THEME_NAME-theme .k-pager-numbers .k-state-selected {
+    color: '{{primary-color}}';
+}
+
+.md-THEME_NAME-theme .k-grid-header .k-header .k-link.k-state-active,
+.md-THEME_NAME-theme .k-grid-header .k-link.k-state-active,
+.md-THEME_NAME-theme .k-grid-header .k-link.k-state-active:link {
+    color: '{{accent-color}}';
+}
+
+.md-THEME_NAME-theme .primary-color-header .k-grid-header .k-header .k-link:not(.k-state-active),
+.md-THEME_NAME-theme .primary-color-header .k-grid-header .k-header .md-icon-button {
+    color: rgba(255, 255, 255, 0.81);
+}
+
+.md-THEME_NAME-theme .primary-color-header .k-grid-header .k-header .k-link.k-state-active,
+.md-THEME_NAME-theme .primary-color-header .k-grid-header .k-link.k-state-active,
+.md-THEME_NAME-theme .primary-color-header .k-grid-header .k-link.k-state-active:link {
+    color: '{{accent-hue-3-0.7}}';
+}
+
+.md-THEME_NAME-theme .md-stepper-indicator.md-active .md-stepper-number,
+.md-THEME_NAME-theme .md-stepper-indicator.md-completed .md-stepper-number {
+    background-color: '{{primary-300}}';
+}
+
+.md-THEME_NAME-theme .k-panelbar.k-header > .k-state-active > .k-link.k-header:not(k-state-hover) {
+    color: '{{primary-color}}';
+}
+
+.md-THEME_NAME-theme .k-header, .md-THEME_NAME-theme .k-toolbar, .md-THEME_NAME-theme .k-panelbar .k-grid-toolbar {
+    background-color: white;
+}
+
+.md-THEME_NAME-theme .k-splitbar.k-state-focused {
+    background-color: '{{primary-color}}';
+    border-color: '{{primary-color}}';
+}
+
+.md-button.md-THEME_NAME-theme:not([disabled]).md-focused.button-notification:hover,
+.md-button.md-THEME_NAME-theme:not([disabled]).button-notification:hover {
+    background-color: '{{primary-color}}';
+    color: white;
+}
+
+.md-button.md-THEME_NAME-theme:not([disabled]).md-focused.button-notification {
+    background-color: white;
+}
+
+.md-THEME_NAME-theme.notification-num {
+    background-color: '{{accent-color}}';
+}
+
+.top-nav-bar-buttons-group > button.md-icon-button > md-icon.md-THEME_NAME-theme.md-primary,
+.top-nav-bar-buttons-group > button.md-icon-button.md-THEME_NAME-theme.md-primary > *,
+.top-nav-bar-buttons-group > h1 > button.md-icon-button > md-icon.md-THEME_NAME-theme.md-primary,
+.top-nav-bar-buttons-group > h1 > button.md-icon-button.md-THEME_NAME-theme.md-primary > * {
+    color: '{{primary-color}}';
+}
+
+.md-button.md-THEME_NAME-theme:not([disabled]).button-notification:hover,
+.md-button:not([disabled]).button-notification:hover {
+    background-color: white;
+    color: black;
+}
+
+md-icon.md-THEME_NAME-theme {
+    color: #444444;
+}
+
+.md-THEME_NAME-theme .k-checkbox:checked {
+    background-color: '{{accent-color}}';
+    border-color: '{{accent-color}}';
+    color: #ffffff;
+}
+
+.md-THEME_NAME-theme .k-checkbox::before {
+    content: "";
+}
+
+.md-button.md-THEME_NAME-theme.md-primary.select-all,
+.md-button.md-THEME_NAME-theme.md-primary.select-all:not([disabled]):hover {
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: rgb(230, 230, 230);
+    color: rgb(158,158,158);
+    margin-bottom: 15px;
+}
+
+.md-button.md-THEME_NAME-theme.md-primary.select-all:not([disabled]):hover {
+    cursor: pointer;
+}
+
+/*************************************************** DEFAULT THEME ********************************************************/
+
+/* specific code here */
+
+/*************************************************** GREEN THEME ********************************************************/
+
+/* specific code here */
+
+/*************************************************** CYAN THEME ********************************************************/
+
+/* specific code here */

@@ -1,0 +1,40 @@
+﻿<md-dialog aria-label="addAssetCategory" flex="50" class="all-screen">
+    <md-toolbar layout="row" layout-align="center center" ng-cloak>
+        {{edit ? 'Edit' : 'Add'}} Asset Category
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak class="md-inline-form not-scrollable">
+        <form name="addCategoryForm" id="addCategoryForm">
+            <section layout-gt-sm="row" layout-align-gt-sm="space-between bottom" class="md-block" style="margin-bottom: -50px">
+                <md-input-container class="md-block" flex-gt-xs="60">
+                    <label>Name</label>
+                    <input name="description" ng-model="category.description" maxlength="50" required aw-exists="{{anotherCategories}}">
+                    <div ng-messages="addCategoryForm.description.$error">
+                        <div ng-message="required">Category name is required</div>
+                        <div ng-message="exists">Category name already exists at the enterprise domain and cannot be duplicated</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="35">
+                    <label>Default Asset Code</label>
+                    <md-select name="asset_code" ng-model="category.asset_code">
+                        <md-option ng-repeat="code in assetCodes" ng-value="code.prefix">
+                            {{code.description}} -- ({{code.prefix}})
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </section>
+        </form>
+        <aw-category-settings-grid data="category"></aw-category-settings-grid>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="add()">{{edit ? 'Save' : 'Add'}}</md-button>
+        <md-button ng-if="!edit" class="md-primary" ng-click="add(true)">Add and Close</md-button>
+    </md-dialog-actions>
+</md-dialog>
+
+<style parse-style>
+    .k-grid-content {
+        max-height:{{style_height}}px;
+    }
+    
+</style>

@@ -1,0 +1,25 @@
+﻿<form name="searchForm" id="searchForm">
+    <section layout="row">
+        <md-autocomplete md-input-name="autocompleteField"
+                         md-input-maxlength="{{max}}"
+                         md-no-cache="false"
+                         md-selected-item="selectedItem"
+                         md-search-text="searchText"
+                         md-items="item in querySearch(searchText)"
+                         md-item-text="item[textProperty] + (item[textProperty2] ? ' ' + textPropertySeparator + ' ' + item[textProperty2] : '')"
+                         md-floating-label="{{label}}" flex="{{flex}}">
+            <md-item-template>
+                <div class="item-template-wrapper">
+                    <span class="title" md-highlight-text="searchText" md-highlight-flags="gi">{{item[textProperty] + (item[textProperty2] ? ' ' + textPropertySeparator + ' ' + item[textProperty2] : '')}}</span>
+                    <span class="descriptive" ng-if="descriptiveProperty && _.get(item, descriptiveProperty)">({{ _.get(item, descriptiveProperty) }})</span>
+                </div>
+            </md-item-template>
+        </md-autocomplete>
+        <button ng-if="addOption && checkAdd(searchText)" class="md-icon-button md-button md-accent" type="button" ng-click="createNew(searchText)">
+            <md-icon class="material-icons">add</md-icon>
+            <md-tooltip md-direction="bottom">
+                Create a new one
+            </md-tooltip>
+        </button>
+    </section>
+</form>

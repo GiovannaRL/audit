@@ -1,0 +1,89 @@
+﻿<md-dialog aria-label="split_room" class="max-width-65 width-65">
+    <md-toolbar layout="row" layout-align="center center" ng-cloak>
+        Split Room
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak>
+        <form name="copyFromForm" id="copyFromCenterFor">
+            <section layout-gt-sm="row" style="height:60px" layout-align="space-between start">
+                <md-input-container class="md-block" flex-gt-sm="50">
+                    <label>Phase</label>
+                    <md-select name="actual_phases" ng-model="data.actual_cp_phase_id" ng-init="data.actual_cp_phase_id = params.phase_id" ng-disabled="true">
+                        <md-option ng-repeat="phase in phases" value="{{phase.phase_id}}">
+                            {{phase.description}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="50">
+                    <label>Department</label>
+                    <md-select name="actual_departments" ng-model="data.actual_cp_department_id" ng-init="data.actual_cp_department_id = params.department_id" ng-disabled="true">
+                        <md-option ng-repeat="dpt in actual_departments" value="{{dpt.department_id}}">
+                            {{dpt.description}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="25">
+                    <label>Room Name</label>
+                    <input name="actual_room_name" ng-model="data.actual_room_name" ng-init="data.actual_room_name = params.room_name" maxlength="50" ng-disabled="true">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="15">
+                    <label>Room Number</label>
+                    <input name="actual_room_number" ng-model="data.actual_room_number" ng-init="data.actual_room_number = params.room_number" maxlength="10" ng-disabled="true">
+                </md-input-container>
+            </section>
+            <section layout-gt-sm="row" style="height:60px" layout-align="space-between start" ng-repeat="qty in room_count" ng-value="qty">
+                <md-input-container class="md-block" flex-gt-sm="50">
+                    <label>Phase</label>
+                    <md-select name="phases[qty]" ng-model="data.cp_phase_id[qty]" ng-change="getData('department', data.cp_phase_id[qty], qty)" ng-required="params.phase_id" ng-init="data.cp_phase_id[qty] = params.phase_id">
+                        <md-option ng-repeat="phase in phases" value="{{phase.phase_id}}">
+                            {{phase.description}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="copyFromForm.phases[qty].$error">
+                        <div ng-message="required">Phase is mandatory</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="50">
+                    <label>Department</label>
+                    <md-select name="departments[qty]" ng-model="data.cp_department_id[qty]" ng-init="data.cp_department_id[qty] = params.department_id" ng-required="params.department_id">
+                        <md-option ng-repeat="dpt in departments[qty]" value="{{dpt.department_id}}">
+                            {{dpt.description}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="copyFromForm.departments[qty].$error">
+                        <div ng-message="required">Department is mandatory</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="25">
+                    <label>Room Name</label>
+                    <input name="room_name[qty]" ng-model="data.room_name[qty]" ng-init="data.room_name[qty] = params.room_name" maxlength="50" required>
+                    <div ng-messages="copyFromForm.room_name[qty].$error">
+                        <div ng-message="required">Room name is required</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="15">
+                    <label>Room Number</label>
+                    <input name="room_number[qty]" ng-model="data.room_number[qty]" ng-init="data.room_number[qty] = ''" maxlength="10">
+                </md-input-container>
+            </section>
+            <section layout-gt-sm="row" layout-align="space-between start">
+                <md-input-container class="md-block" flex-gt-sm="30">
+                    <md-checkbox ng-model="data.link_template" aria-label="link_template" style="margin: 0px;padding-top:10px">
+                        Create linked template
+                    </md-checkbox>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="70" ng-show="data.link_template">
+                    <label>Template name</label>
+                    <input name="template_name" ng-model="data.template_name" maxlength="50" aw-exists="{{anotherTemplates}}" ng-required="data.link_template">
+                    <div ng-messages="copyFromForm.template_name.$error">
+                        <div ng-message="required">Template is name is mandatory</div>
+                        <div ng-message="exists">Template name already exists</div>
+                    </div>
+                </md-input-container>
+            </section>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Cancel</md-button>
+        <md-button class="md-primary" ng-click="copy()">Split</md-button>
+    </md-dialog-actions>
+</md-dialog>

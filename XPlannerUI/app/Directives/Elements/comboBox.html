@@ -1,0 +1,9 @@
+﻿<md-input-container class="md-block" flex="100">
+    <label>{{label}}</label>
+    <md-select ng-model="selectedItem" ng-change="change()" ng-required="isRequired">
+        <md-option ng-value="option" ng-repeat="option in data">{{option[textProperty] + (option[textProperty2] ? ' ' + textPropertySeparator + ' ' + option[textProperty2] : '')}}</md-option>
+    </md-select>
+    <div ng-messages="form[name].$error">
+        <div ng-message="required">{{label}} is required</div>
+    </div>
+</md-input-container>

@@ -1,0 +1,40 @@
+﻿<md-dialog aria-label="add_cost_center" ng-cloak>
+    <md-toolbar layout="row" layout-align="center center">
+        {{edit ? 'Add cost center to project' : 'Edit Cost Center'}}
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloack class="md-inline-form">
+        <form name="addCostCenterForm" id="addCostCenterFor">
+            <md-input-container class="md-block">
+                <label>Code</label>
+                <input name="code" ng-model="costCenter.code" required maxlength="20" aw-exists="{{anotherCostCenters}}" property="code">
+                <div ng-messages="addCostCenterForm.code.$error">
+                    <div ng-message="required">Code is mandatory</div>
+                    <div ng-message="maxlength">Only 20 caracteres are allowed</div>
+                    <div ng-message="exists">Code already exists for this project</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Description</label>
+                <input name="description" ng-model="costCenter.description" required maxlength="100">
+                <div ng-messages="addCostCenterForm.description.$error">
+                    <div ng-message="required">Description is mandatory</div>
+                    <div ng-message="maxlength">Only 100 caracteres are allowed</div>
+                </div>
+            </md-input-container>
+            <section flex>
+                <md-checkbox ng-model="costCenter.is_default" aria-label="default" style="margin: 0px; top: -10px">
+                    Default
+                </md-checkbox>
+            </section>
+            <section flex>
+                <md-checkbox ng-model="costCenter.updateAll" aria-label="update all equipment" style="margin: 0px;">
+                    Update all assets in the project to this cost center
+                </md-checkbox>
+            </section>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="add()">{{edit ? 'Update' : 'Add'}}</md-button>
+    </md-dialog-actions>
+</md-dialog>

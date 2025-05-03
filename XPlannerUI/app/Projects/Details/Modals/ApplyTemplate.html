@@ -1,0 +1,71 @@
+﻿<md-dialog aria-label="apply_template" flex-gt-xs="35">
+    <md-toolbar layout="row" layout-align="center center" ng-cloak>
+        Apply Template
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak>
+        <form name="applyTemplateForm" id="applyTemplateForm">
+            <section layout-gt-xs="row" layout-align="center center">
+                <md-input-container flex-gt-xs="60">
+                    <label>Template Scope</label>
+                    <md-select name="template_type" ng-model="template_type" required>
+                        <md-option ng-repeat="tpt in template_types" value="{{tpt.id}}">
+                            {{tpt.name}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="applyTemplateForm.template_type.$error">
+                        <div ng-message="required" class="my-message">Template Type is required</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <section layout-gt-xs="row" layout-align="center center">
+                <md-input-container flex-gt-xs="60">
+                    <label>Template</label>
+                    <md-select name="template" ng-model="data.template" required>
+                        <md-option ng-repeat="tpt in templates" ng-value="tpt">
+                            {{tpt.name}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="applyTemplateForm.template.$error">
+                        <div ng-message="required" class="my-message">Template is required</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <section layout-gt-xs="row" layout-align="center center">
+                <md-input-container flex-gt-xs="60">
+                    <label>Asset Default Cost</label>
+                    <md-select name="cost_field" ng-model="data.cost_field" required  ng-disabled="data.link_template"> 
+                        <md-option ng-repeat="cost in costList" value="{{cost.value}}">
+                            {{cost.name}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="applyTemplateForm.cost_field.$error">
+                        <div ng-message="required" class="my-message">Asset Default Cost is required</div>
+                    </div>
+                </md-input-container>
+                <!--<md-input-container flex-gt-xs="45">
+                    <label>Default MIS Room</label>
+                    <md-select name="mis" ng-model="data.mis">
+                        <md-option ng-repeat="room in misRooms track by $index" value="{{room}}">
+                            {{room.drawing_room_number}} - {{room.drawing_room_name}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="applyTemplateForm.mis.$error"></div>
+                </md-input-container>-->
+            </section>
+            <md-checkbox ng-model="data.delete_assets" aria-label="default" ng-disabled="data.link_template">
+                Delete the asset(s) in the room when applying this template.
+            </md-checkbox>
+            <md-checkbox ng-model="data.link_template" aria-label="default" ng-disabled="link_disabled" ng-show="template_type == 3" ng-change="updateCheckbox()">
+                Link room to template (only available for project templates) 
+                <md-button class="md-icon-button" style="margin:0;padding:0">
+                    <md-icon class="md-bottom md-18">info</md-icon>
+                    <md-tooltip>All changes made on the template will be applied on the room</md-tooltip>
+                </md-button>
+            </md-checkbox>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="save()">Apply</md-button>
+    </md-dialog-actions>
+</md-dialog>

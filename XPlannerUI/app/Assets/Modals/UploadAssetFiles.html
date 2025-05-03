@@ -1,0 +1,76 @@
+﻿<md-dialog aria-label="make available to project" ng-cloak flex-gt-xs="30">
+    <md-toolbar layout="row" layout-align="center center">
+        Upload Files
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloack>
+        <form name="uploadForm" id="uploadForm" layout="column" layout-align="space-between none">
+            <section ng-show="!show_firefox">
+                <md-input-container class="md-block">
+                    <label for="cutsheet">Cutsheet (pdf)</label>
+                    <input name="cutsheet" id="cutsheet" ngf-select ng-value="files.cutsheet.name" ng-model="files.cutsheet" accept=".pdf" aw-upload-file-size="fileSizeLimit"/>
+                    <div ng-messages="uploadForm.cutsheet.$error">
+                        <div ng-message="awUploadFileSize">The file size limit is {{fileSizeLimit}}Mb</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label for="photo">Photo (jpg)</label>
+                    <input name="photo" id="photo" ngf-select ng-value="files.photo.name" ng-model="files.photo" accept="image/jpeg" aw-upload-file-size="fileSizeLimit"/>
+                    <div ng-messages="uploadForm.photo.$error">
+                        <div ng-message="awUploadFileSize">The file size limit is {{fileSizeLimit}}Mb</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label for="cadblock">CAD Block (dwg)</label>
+                    <input name="cadblock" id="cadblock" ngf-select ng-value="files.cadblock.name" ng-model="files.cadblock" accept=".dwg" aw-upload-file-size="fileSizeLimit"/>
+                    <div ng-messages="uploadForm.cadblock.$error">
+                        <div ng-message="awUploadFileSize">The file size limit is {{fileSizeLimit}}Mb</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label for="revit">Revit (rvt, rft, rfa)</label>
+                    <input name="revit" id="revit" ngf-select ng-value="files.revit.name" ng-model="files.revit" accept=".rvt,.rft,.rfa" aw-upload-file-size="fileSizeLimit"/>
+                    <div ng-messages="uploadForm.revit.$error">
+                        <div ng-message="awUploadFileSize">The file size limit is {{fileSizeLimit}}Mb</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <section ng-show="show_firefox">
+                <md-input-container class="md-block">
+                    <label for="cutsheetF" style="padding-bottom:28px">Cutsheet (pdf)</label>
+                    <input type="file" name="cutsheetF" id="cutsheetF" accept=".pdf" ng-model="files.cutsheet" aw-upload-file-size="fileSizeLimit" firefox/>
+                    <div ng-messages="uploadForm.cutsheetF.$error">
+                        <div ng-message="awUploadFileSize">The file size limit is {{fileSizeLimit}}Mb</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label for="cadblockF" style="padding-bottom:28px">CAD Block (dwg)</label>
+                    <input type="file" name="cadblockF" id="cadblockF" accept=".dwg" ng-model="files.cadblock" aw-upload-file-size="fileSizeLimit" firefox/>
+                    <div ng-messages="uploadForm.cadblockF.$error">
+                        <div ng-message="awUploadFileSize">The file size limit is {{fileSizeLimit}}Mb</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label for="photoF" style="padding-bottom:28px">Photo (jpg)</label>
+                    <input type="file" name="photoF" id="photoF" accept="image/jpeg" ng-model="files.photo" aw-upload-file-size="fileSizeLimit" firefox/>
+                    <div ng-messages="uploadForm.photoF.$error">
+                        <div ng-message="awUploadFileSize">The file size limit is {{fileSizeLimit}}Mb</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label for="revitF" style="padding-bottom:28px">Revit (rvt, rft, rfa)</label>
+                    <input type="file" name="revitF" id="revitF" accept=".rvt,.rft,.rfa" ng-model="files.revit" aw-upload-file-size="fileSizeLimit" firefox/>
+                    <div ng-messages="uploadForm.revitF.$error">
+                        <div ng-message="awUploadFileSize">The file size limit is {{fileSizeLimit}}Mb</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <section ng-if="uploadForm.$error.awUploadFileSize && uploadForm.$error.awUploadFileSize.length > 0">
+                <span class="error-message">If you have to upload a file with more than {{fileSizeLimit}}Mb, please reduce the size of the file or contact Audaxware at &lt;support@audaxware.com&gt;</span>
+            </section>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="cancel()">Cancel</md-button>
+        <md-button class="md-primary" ng-click="upload()">Upload</md-button>
+    </md-dialog-actions>
+</md-dialog>

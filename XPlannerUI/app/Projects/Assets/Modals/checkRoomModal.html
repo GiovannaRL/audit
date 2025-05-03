@@ -1,0 +1,19 @@
+﻿<md-dialog aria-label="check_room" ng-cloack flex-gt-sm="70" layout="column">
+    <md-toolbar layout="row" layout-align="center center">
+        Check Asset Room
+    </md-toolbar>
+    <md-dialog-content layout-padding>
+        <div kendo-grid="roomsGrid" options={{options}}  k-on-data-bound="dataBound(roomsGrid)">
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+    </md-dialog-actions>
+</md-dialog>
+
+<style parse-style>
+    .k-grid-content {
+        max-height:{{gridHeight - 120}}px;
+        min-height:{{gridHeight - 120}}px;
+    }
+</style> 

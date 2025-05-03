@@ -1,0 +1,55 @@
+﻿<md-dialog aria-label="copy_move_room">
+    <md-toolbar layout="row" layout-align="center center" ng-cloak>
+        {{action}} Room To
+    </md-toolbar>
+    <md-dialog-content layout-gt-sm="row" layout-padding class="md-inline-form" ng-cloak>
+
+        <section flex-gt-sm="35" layout="column" layout-align="start center" layout-align-gt-sm="center start" layout-fill>
+            <md-radio-group ng-model="action" ng-click="reload()" layout-gt-sm="row" layout-align="start center" ng-show="copyMove">
+                <md-radio-button value="Copy" style="color: black; margin-right: 1em">Copy</md-radio-button>
+                <md-radio-button value="Move" style="color: black;" ng-disabled="rooms.length > 1">Move</md-radio-button>
+            </md-radio-group>
+            <form name="copyMoveRoom" id="copyMoveRoom" novalidate style="padding-top: 3em">
+                <section layout="row" layout-align="start center" ng-repeat="room in rooms" style="margin-top: -3em">
+                    <section flex-gt-sm="85" layout="row" layout-align="space-between start" ng-if="action == 'Copy'">
+
+                        <md-input-container class="md-block" flex="45" flex-gt-sm="50">
+                            <label>Room Name</label>
+                            <input name="room_name" ng-model="room.Item2" maxlength="50" ng-required="rooms.length == 1" ng-disabled="room.complete">
+                            <div ng-messages="copyMoveRoom.room_name.$error">
+                                <div ng-message="required">Room name is required</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block"  flex="45" flex-gt-sm="40">
+                            <label>Room Number</label>
+                            <input name="room_number" ng-model="room.Item1" maxlength="10" ng-disabled="room.complete">
+                            <!--<div ng-messages="copyMoveRoom.room_number.$error">
+                                <div ng-message="required">Room number is required</div>
+                            </div>-->
+                        </md-input-container>
+                    </section>
+                    <button ng-show="room.Item2 && action == 'Copy'" class="md-icon-button md-button" ng-class="{'md-accent': room.complete, 'md-primary': !room.complete}" style="top: -0.7em" ng-click="room.complete ? removeRoom($index) : addRoom()">
+                        <i class="material-icons">{{room.complete ? 'cancel' : 'add_circle'}}</i>
+                        <md-tooltip md-direction="bottom">{{room.complete ? 'Remove' : 'Insert Another'}}</md-tooltip>
+                    </button>
+                </section>
+            </form>
+            <md-checkbox ng-model="copy_options_colors" aria-label="default">
+                Copy options if they exist
+            </md-checkbox>
+        </section>
+        <section flex-gt-sm="65" layout-aling="center center">
+            <section layout="row" id="autocomplete-group">
+                <h3 class="md-accent" flex="5">To:</h3>
+                <md-input-container class="md-block no-md-errors-spacer" flex="50">
+                    <aw-autocomplete ng-model="toProject" name="toProject" add-option="false" controller-name="projects" params="toProject" text-property="project_description" selected-item="toProject" selected-id="toProject.project_id" selected-domain="toProject.domain_id" label="Project *" id-property="project_id" required></aw-autocomplete>
+                </md-input-container>
+            </section>
+            <div class="checkbox-grid" kendo-grid="departmentsGrid" options="options" k-on-data-bound="dataBound(departmentsGrid)"></div>
+        </section>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="save()">{{action}}</md-button>
+    </md-dialog-actions>
+</md-dialog>

@@ -1,0 +1,30 @@
+﻿<md-dialog aria-label="addAssetSubcategory" flex-gt-xs="30">
+    <md-toolbar layout="row" layout-align="center center" ng-cloak>
+        Clone Room Template
+    </md-toolbar>
+    <md-dialog-content ng-cloak class="not-scrollable padding-top">
+        <form name="cloneTemplateForm" id="cloneTemplateForm">
+            <md-input-container class="md-block">
+                <label>Name</label>
+                <input name="description" ng-model="room_template.drawing_room_name" maxlength="250" required>
+                <div ng-messages="cloneTemplateForm.description.$error">
+                    <div ng-message="required">Template name is required</div>
+                </div>
+            </md-input-container>
+            <section aw-combo-box 
+                     name="project" 
+                     ng-model="room_template.project" 
+                     controller-name="projects" 
+                     params="projectParams" 
+                     text-property="project_description" 
+                     id-property="project_id" 
+                     selected-item="room_template.project" 
+                     label="Related project" 
+                     order-by="project_description"></section>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="save()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>

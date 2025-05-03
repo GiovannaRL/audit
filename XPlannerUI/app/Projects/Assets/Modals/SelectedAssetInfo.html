@@ -1,0 +1,44 @@
+﻿<md-dialog aria-label="selectedAssetInfo" ng-cloak flex="30">
+    <md-toolbar layout="row" layout-align="center center">
+        {{ctrl.item.equipment_desc + ' (' + ctrl.item.equipment_code + ')'}}
+    </md-toolbar>
+    <md-dialog-content>
+        <form name="infoForm" id="infoForm">
+            <md-content>
+                <section layout-gt-sm="row" layout-align="space-between center">
+                    <md-input-container flex-sm="100">
+                        <label>Planned Qty</label>
+                        <input name="plannedQty" ng-model="ctrl.item.budget_qty" aw-only-numbers>
+                        <div ng-messages="infoForm.plannedQty.$error">
+                            <div ng-message="number">Only numbers are allowed</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Budget Override</label>
+                        <input name="budgetoverride" ng-model="ctrl.item.unit_budget" aw-currency>
+                        <div ng-messages="infoForm.budgetoverride.$error">
+                            <div ng-message="currency">Only currency values are allowed</div>
+                        </div>
+                    </md-input-container>
+                </section>
+                <section layout-gt-sm="row" layout-align="center center">
+                    <md-input-container flex-gt-sm="50">
+                        <label>Resp</label>
+                        <md-select ng-model="ctrl.item.default_resp" name="resp">
+                            <md-option ng-repeat="resp in ctrl.resps" value="{{resp.value}}">
+                                {{resp.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </section>
+                <md-checkbox flex-gt-sm="100" ng-model="ctrl.item.comment" aria-label="Add Quantity">
+                    Add quantity to existing asset
+                </md-checkbox>
+            </md-content>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button class="md-primary" ng-hide="ctrl.largeMedia" ng-click="ctrl.close()">Close</md-button>
+        <md-button class="md-primary" ng-click="ctrl.ok(infoForm)">OK</md-button>
+    </md-dialog-actions>
+</md-dialog>

@@ -1,0 +1,48 @@
+﻿<md-dialog aria-label="make available to po" flex-gt-xs="30">
+    <md-toolbar layout="row" layout-align="center center">
+        Upload Files
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak>
+        <form name="uploadForm" id="uploadForm" layout="column" layout-align="space-between none">
+            <section ng-show="!show_firefox">
+                <md-input-container class="md-block">
+                    <label for="quote">Quote (pdf)</label>
+                    <input name="quote" id="quote" ngf-select ng-value="files.quote.name" ng-model="files.quote" accept=".pdf" aw-upload-file-size="fileSizeLimit" />
+                    <div ng-messages="uploadForm.quote.$error">
+                        <div ng-message="awUploadFileSize">The file size limit is {{fileSizeLimit}}Mb</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label for="po">PO (pdf)</label>
+                    <input name="po" id="po" ngf-select ng-value="files.po.name" ng-model="files.po" accept=".pdf" aw-upload-file-size="fileSizeLimit" />
+                    <div ng-messages="uploadForm.po.$error">
+                        <div ng-message="awUploadFileSize">The file size limit is {{fileSizeLimit}}Mb</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <section ng-show="show_firefox">
+                <md-input-container class="md-block">
+                    <label for="cutsheetF" style="padding-bottom:28px">Quote (pdf)</label>
+                    <input type="file" name="quoteF" id="quoteF" accept=".pdf" ng-model="files.quote" aw-upload-file-size="fileSizeLimit" firefox />
+                    <div ng-messages="uploadForm.quoteF.$error">
+                        <div ng-message="awUploadFileSize">The file size limit is {{fileSizeLimit}}Mb</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label for="poF" style="padding-bottom:28px">PO (pdf)</label>
+                    <input type="file" name="poF" id="poF" accept=".pdf" ng-model="files.po" aw-upload-file-size="fileSizeLimit" firefox />
+                    <div ng-messages="uploadForm.cadblockF.$error">
+                        <div ng-message="awUploadFileSize">The file size limit is {{fileSizeLimit}}Mb</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <section ng-if="uploadForm.$error.awUploadFileSize && uploadForm.$error.awUploadFileSize.length > 0">
+                <span class="error-message">If you have to upload a file with more than {{fileSizeLimit}}Mb, please reduce the size of the file or contact Audaxware at &lt;support@audaxware.com&gt;</span>
+            </section>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="save()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>

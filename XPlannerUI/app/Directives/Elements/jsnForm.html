@@ -1,0 +1,132 @@
+﻿<div ng-form="jsnForm">
+        <section layout-gt-xs="row" layout-align-gt-sm="space-between bottom">
+            <md-input-container class="md-block" flex-gt-xs="20" ng-if="!new">
+                <aw-autocomplete-jsn name="jsn_id"
+                                     ng-model="asset.jsn"
+                                     add-option="true"
+                                     id-property="id"
+                                     text-property="jsn_code"
+                                     controller-name="jsn"
+                                     params="controllerParams"
+                                     max="5"
+                                     selected-item="asset.jsn"
+                                     selected-id="asset.jsn_id"
+                                     label="JSN Number"
+                                     ng-disabled="!asset.jsn.jsn_ow"></aw-autocomplete-jsn>
+            </md-input-container>
+        </section>        
+        <section layout-gt-xs="row" layout-align-gt-sm="space-between bottom">
+            <md-input-container class="md-block" flex-gt-xs="25" ng-if="new">
+                <label>JSN</label>
+                <input name="jsn_code" ng-model="asset.jsn.jsn_code" maxlength="5" aw-exists="{{anotherJSN}}" ng-required="new" capitalize ng-disabled="!asset.jsn.jsn_ow">
+                <div ng-messages="jsnForm.jsn_code.$error">
+                    <div ng-message="required">JSN is required</div>
+                    <div ng-message="exists">JSN already exists in that domain</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs="20">
+                <label>JSN Suffix</label>
+                <input name="jsn_suffix" ng-model="asset.jsn_suffix" maxlength="5" ng-disabled="!asset.jsn.jsn_ow">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs="50" ng-if="!inventoryEditing">
+                <label>Nomenclature</label>
+                <input name="nomenclature" ng-model="asset.jsn.nomenclature" maxlength="250" ng-required="new" ng-readonly="!new" ng-disabled="!asset.jsn.jsn_ow">
+                <div ng-messages="jsnForm.nomenclature.$error">
+                    <div ng-message="required">Nomenclature is required</div>
+                </div>
+            </md-input-container>
+            <section flex="10" style="text-align:  center">
+                <md-icon class="material-icons" ng-click="toggleLock()">
+                    {{asset.jsn.jsn_ow ? 'lock_open' : 'lock'}}
+                    <md-tooltip>
+                        {{asset.jsn.jsn_ow ? 'Lock' : 'Unlock'}} edition
+                    </md-tooltip>
+                </md-icon>
+            </section>
+        </section>
+        <section layout-gt-sm="row" layout-align-gt-sm="space-between bottom" class="md-block" ng-if="!inventoryEditing">
+            <!--<md-input-container class="md-block" flex-gt-xs="20">
+                <aw-autocomplete name="asset_code"
+                                 ng-model="asset.jsn.asset_code"
+                                 id-property="prefix"
+                                 domain-property="domain_id"
+                                 text-property="description"
+                                 text-property-2="prefix"
+                                 text-property-separator="--"
+                                 controller-name="assetCodes"
+                                 params="controllerParamsCode"
+                                 selected-item="asset.jsn.asset_code"
+                                 label="Code *" required></aw-autocomplete>
+                <div ng-messages="jsnForm.asset_code.$error">
+                    <div ng-message="required">Code is required</div>
+                </div>
+            </md-input-container>-->
+            <md-input-container class="md-block" flex-gt-sm="100">
+                <label>Comment</label>
+                <textarea ng-model="asset.jsn.comments" name="jsn_comments" md-maxlength="1000" maxlength="1000" rows="1"
+                          columns="1" ng-readonly="!new" ng-disabled="!asset.jsn.jsn_ow"></textarea>
+            </md-input-container>
+        </section>
+        <section layout-gt-sm="row" layout-align-gt-sm="space-between bottom" class="md-block" ng-if="!inventoryEditing">
+            <md-input-container class="md-block" flex-gt-sm="100">
+                <label>Description</label>
+                <textarea ng-model="asset.jsn.description" name="jsn_description" md-maxlength="10000" maxlength="10000"
+                          rows="1" columns="1" ng-required="new" ng-readonly="!new" ng-disabled="!asset.jsn.jsn_ow"></textarea>
+                <div ng-messages="jsnForm.jsn_description.$error">
+                    <div ng-message="required">Description is required</div>
+                </div>
+            </md-input-container>
+        </section>
+        <section layout-gt-xs="row" layout-align-gt-sm="space-between bottom">
+            <md-input-container class="md-block" flex-gt-xs="30">
+                <label>Utility 1</label>
+                <md-select name="jsn_utility1" ng-model="asset.jsn.utility1" ng-disabled="!asset.jsn.jsn_ow">
+                    <md-option ng-repeat="u1 in utility1" ng-value="u1.code">
+                        {{u1.code == 'N/A' ? u1.description : u1.code + ': ' + u1.description}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs="30">
+                <label>Utility 2</label>
+                <md-select name="jsn_utility2" ng-model="asset.jsn.utility2" ng-disabled="!asset.jsn.jsn_ow">
+                    <md-option ng-repeat="u1 in utility2" ng-value="u1.code">
+                        {{u1.code == 'N/A' ? u1.description : u1.code + ': ' + u1.description}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs="30">
+                <label>Utility 3</label>
+                <md-select name="jsn_utility3" ng-model="asset.jsn.utility3" ng-disabled="!asset.jsn.jsn_ow">
+                    <md-option ng-repeat="u1 in utility3" ng-value="u1.code">
+                        {{u1.code == 'N/A' ? u1.description : u1.code + ': ' + u1.description}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+        </section>
+        <section layout-gt-xs="row" layout-align-gt-sm="space-between bottom">
+            <md-input-container class="md-block" flex-gt-xs="30">
+                <label>Utility 4</label>
+                <md-select name="jsn_utility4" ng-model="asset.jsn.utility4" ng-disabled="!asset.jsn.jsn_ow">
+                    <md-option ng-repeat="u1 in utility4" ng-value="u1.code">
+                        {{u1.code == 'N/A' ? u1.description : u1.code + ': ' + u1.description}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs="30">
+                <label>Utility 5</label>
+                <md-select name="jsn_utility5" ng-model="asset.jsn.utility5" ng-disabled="!asset.jsn.jsn_ow">
+                    <md-option ng-repeat="u1 in utility5" ng-value="u1.code">
+                        {{u1.code == 'N/A' ? u1.description : u1.code + ': ' + u1.description}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs="30">
+                <label>Utility 6</label>
+                <md-select name="jsn_utility6" ng-model="asset.jsn.utility6" ng-disabled="!asset.jsn.jsn_ow">
+                    <md-option ng-repeat="u1 in utility6" ng-value="u1.code">
+                        {{u1.code == 'N/A' ? u1.description : u1.code + ': ' + u1.description}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+        </section>
+</div>

@@ -1,0 +1,12 @@
+﻿<ul kendo-panel-bar>
+    <li  style="background-color:none" class="k-state-active" >
+        {{label}}
+        <ul>
+            <li style="background-color:white">
+                <!--The line-height is modified by the Kendo-UI styles and it causes problem
+                with the angular materials so we restore it here-->
+                    <ng-transclude style="line-height:normal"></ng-transclude>
+            </li>
+        </ul>
+    </li>
+</ul>

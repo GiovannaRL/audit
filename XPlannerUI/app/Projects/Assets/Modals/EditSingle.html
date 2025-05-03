@@ -1,0 +1,858 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.datepicker').kendoMaskedTextBox({
+            mask: "99/99/9999"
+        });
+
+    });
+</script>
+
+<md-dialog aria-label="edit_single" class="all-screen width-70 max-width-70">
+    <md-toolbar layout="row" layout-align="center center">
+        Edit Asset
+    </md-toolbar>
+    <md-dialog-content layout="column" class="md-inline-form" ng-cloak>
+        <div flex class="tabs-wrapper">
+            <md-tabs class="full-size" md-border-bottom>
+                <md-tab label="Details" md-on-select="selectDetailsTab()">
+                    <section layout="column" layout-align="top center">
+                        <h4>{{data.asset_description}}</h4>
+                    </section>
+                    <form name="editAssetForm" id="editAssetForm" ng-cloak class="padding-top padding-bottom">
+                        <section layout="row" layout-align="space-between center">
+                            <section flex="65" layout="column">
+                                <section layout="row" layout-align="space-between center">
+                                    <md-input-container class="md-block" flex="45">
+                                        <label>Asset code</label>
+                                        <input name="asset_code" ng-model="data.asset_code" disabled>
+                                    </md-input-container>
+                                    <md-input-container class="md-block" flex="45">
+                                        <label>CAD ID</label>
+                                        <input name="cad_id" ng-model="data.cad_id">
+                                    </md-input-container>
+                                </section>
+                                <section layout="row" layout-align="space-between center" class="lock-input-group">
+                                    <md-input-container class="md-block" flex="95">
+                                        <label>Description</label>
+                                        <input name="asset_description" ng-model="data.asset_description" ng-disabled="!data.asset_description_ow">
+                                    </md-input-container>
+                                    <md-icon class="material-icons" flex="5" ng-click="toggleLock('asset_description')">
+                                        {{getLockIcon('asset_description')}}
+                                        <md-tooltip>
+                                            {{getLockTooltip('asset_description')}}
+                                        </md-tooltip>
+                                    </md-icon>
+                                </section>
+                                <section layout="row" layout-align="space-between center" class="lock-input-group">
+                                    <md-input-container class="md-block" flex="40">
+                                        <label>Manufacturer</label>
+                                        <input name="asset_manufacturer" ng-model="data.manufacturer_description" ng-disabled="!data.manufacturer_description_ow">
+                                    </md-input-container>
+                                    <md-icon class="material-icons" flex="5" ng-click="toggleLock('manufacturer_description')">
+                                        {{getLockIcon('manufacturer_description')}}
+                                        <md-tooltip>
+                                            {{getLockTooltip('manufacturer_description')}}
+                                        </md-tooltip>
+                                    </md-icon>
+                                    <md-input-container class="md-block" flex="20">
+                                        <label>Model Name</label>
+                                        <input name="asset_serial_name" ng-model="data.serial_name" ng-disabled="!data.serial_name_ow">
+                                    </md-input-container>
+                                    <md-icon class="material-icons" flex="5" ng-click="toggleLock('serial_name')">
+                                        {{getLockIcon('serial_name')}}
+                                        <md-tooltip>
+                                            {{getLockTooltip('serial_name')}}
+                                        </md-tooltip>
+                                    </md-icon>
+                                    <md-input-container class="md-block" flex="20">
+                                        <label>Model Number</label>
+                                        <input name="asset_serial_number" ng-model="data.serial_number" ng-disabled="!data.serial_number_ow">
+                                    </md-input-container>
+                                    <md-icon class="material-icons" flex="5" ng-click="toggleLock('serial_number')">
+                                        {{getLockIcon('serial_number')}}
+                                        <md-tooltip>
+                                            {{getLockTooltip('serial_number')}}
+                                        </md-tooltip>
+                                    </md-icon>
+                                </section>
+                                <section layout="row" layout-align="space-between center">
+                                    <md-input-container class="md-block" flex="45">
+                                        <label>
+                                            Status
+                                            <md-tooltip>
+                                                Delivered = Delivered to the facility</br>
+                                                Received = Received at the warehouse
+                                            </md-tooltip>
+                                        </label>
+                                        <md-select ng-model="data.current_location">
+                                            <md-option ng-repeat="status in statusList" value="{{status.value}}">
+                                                {{status.name}}
+                                            </md-option>
+                                        </md-select>
+                                        <md-icon class="material-icons info-icon md-primary">
+                                            info
+                                        </md-icon>
+                                    </md-input-container>
+                                    <section flex="45"
+                                             aw-combo-box
+                                             ng-model="data.resp"
+                                             name="resp"
+                                             form="editAssetForm"
+                                             controller-name="responsability"
+                                             params="controllerParams"
+                                             order-by="domain_id"
+                                             text-property="name"
+                                             id-property="name"
+                                             selected-id="data.resp"
+                                             no-domain-property
+                                             label="Responsibility"></section>
+                                </section>
+
+                            </section>
+
+                            <section flex="30">
+                                <section layout="row" layout-align="center center">
+                                    <img ng-src="{{image}}" style="width:150px" title="no picture" ng-style="{'transform': 'rotate({{data.photo_rotate * 90}}deg)'}">
+                                </section>
+                            </section>
+                        </section>
+
+                        <section layout="row" layout-align="space-between center">
+                            <md-input-container flex-gt-xs="30" ng-if="(data.current_location == 'Received' || data.current_location == 'Delivered' || data.current_location == 'Completed')">
+                                <label>Delivered Date</label>
+                                <md-datepicker name="delivered_date" ng-model="data.delivered_date"></md-datepicker>
+                                <div ng-messages="editAssetForm.delivered_date.$error">
+                                    <div ng-message="valid">The entered value is not a date</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex-gt-xs="30" ng-if="(data.current_location == 'Received' || data.current_location == 'Completed')">
+                                <label>Received Date</label>
+                                <md-datepicker name="received_date" ng-model="data.received_date"></md-datepicker>
+                                <div ng-messages="editAssetForm.received_date.$error">
+                                    <div ng-message="valid">The entered value is not a date</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-xs="30">
+                            </md-input-container>
+                        </section>
+
+                        <section layout="row" layout-align="space-between center">
+                            <md-input-container flex-gt-xs="30">
+                                <label>Install Date</label>
+                                <md-datepicker name="install_date" ng-model="data.estimated_delivery_date"></md-datepicker>
+                                <div ng-messages="editAssetForm.install_date.$error">
+                                    <div ng-message="valid">The entered value is not a date</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-xs="30">
+                                <label>Lead Time(Days)</label>
+                                <input name="lead_time" ng-model="data.lead_time" aw-only-numbers />
+                                <div ng-messages="editAssetForm.lead_time.$error" role="alert">
+                                    <div ng-message="number" class="my-message">
+                                        Only numbers are allowed
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-xs="30">
+                            </md-input-container>
+                        </section>
+                        <section layout-gt-xs="row" layout-align="space-between center">
+                            <md-input-container class="md-block" flex-gt-xs="30">
+                                <label>Planned Qty</label>
+                                <input name="planned_qty"
+                                       ng-model="data.budget_qty"
+                                       aw-only-numbers ng-readonly="!canChangeBudgetQty()"
+                                       ng-change="changeQty()"
+                                       autocomplete="off" />
+                                <div ng-messages="editAssetForm.planned_qty.$error" role="alert">
+                                    <div ng-message="number" class="my-message">
+                                        Only numbers are allowed
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-xs="30">
+                                <label>Lease Qty</label>
+                                <input name="lease_qty" ng-model="data.lease_qty" aw-only-numbers autocomplete="off" />
+                                <div ng-messages="editAssetForm.lease_qty.$error" role="alert">
+                                    <div ng-message="number" class="my-message">
+                                        Only numbers are allowed
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block label-info-icon" flex-gt-xs="30">
+                                <label>
+                                    DNP Qty
+                                    <md-icon class="material-icons info-icon md-primary">
+                                        info
+                                        <md-tooltip>
+                                            DNP refers to Do Not Purchase Assets or Deferred assets. This quantity will not be accounted for in the budget.
+                                        </md-tooltip>
+                                    </md-icon>
+                                </label>
+                                <input name="dnp_qty"
+                                       ng-model="data.dnp_qty"
+                                       aw-only-numbers aw-less-than="{{data.budget_qty - data.lease_qty}}"
+                                       allow-equal="true"
+                                       autocomplete="off" />
+                                <div ng-messages="editAssetForm.dnp_qty.$error" role="alert">
+                                    <div ng-message="number">Only numbers are allowed</div>
+                                    <div ng-message="less-than">DNP Qty cannot be greater than planned qty - po qty</div>
+                                </div>
+                            </md-input-container>
+                        </section>
+                        <section layout-gt-xs="row" layout-align="space-between start">
+                            <section flex-gt-xs="{{data.detailed_budget ? 30: 45}}"
+                                     aw-combo-box
+                                     name="cost_center"
+                                     controller-name="costCenters"
+                                     params="ccControllerParams"
+                                     text-property="code"
+                                     text-property2="description"
+                                     text-property-separator="-"
+                                     id-property="id"
+                                     selected-id="data.cost_center_id"
+                                     no-domain-property
+                                     label="Cost Center"></section>
+                            <md-input-container class="md-block" flex-gt-xs="{{data.detailed_budget ? 30: 45}}">
+                                <label>Unit Budget(Net) $</label>
+                                <input name="unit_budget" ng-model="data.unit_budget" aw-currency aw-currency-model>
+                                <div ng-messages="editAssetForm.unit_budget.$error" role="alert">
+                                    <div ng-message="currency" class="my-message">
+                                        Unit Budget must be currency
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <!--<md-input-container class="md-block" flex-gt-xs="20">
+                                <label>Unit Budget (Adjusted)</label>
+                                <input name="unit_budget_adjusted" ng-model="data.unit_budget_adjusted" aw-currency aw-currency-model ng-disabled="true">
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-xs="20">
+                                <label>Unit Budget</label>
+                                <input name="unit_budget_total" ng-model="data.unit_budget_total" aw-currency aw-currency-model ng-disabled="true">
+                            </md-input-container>-->
+                            <md-input-container class="md-block label-info-icon" flex-gt-xs="30" ng-if="data.detailed_budget">
+                                <label>
+                                    Unit + Options Budget $
+                                    <md-icon class="material-icons info-icon md-primary">
+                                        info
+                                        <md-tooltip>
+                                            This is a calculated budget totaling the Asset Unit Budget and the values entered for the asset options.
+                                        </md-tooltip>
+                                    </md-icon>
+                                </label>
+                                <input name="unit_budget_options" ng-model="data.total_unit_budget" aw-currency-model disabled>
+                            </md-input-container>
+                        </section>
+                        <section layout-gt-xs="row" layout-align="space-between start">
+                            <md-input-container class="md-block" flex-gt-xs="35">
+                                <label>Placement</label>
+                                <md-select name="placement" ng-model="data.placement" ng-disabled="!data.placement_ow">
+                                    <md-option ng-repeat="placement in placementList" ng-value="placement.value">
+                                        {{placement.name}}
+                                    </md-option>
+                                </md-select>
+                                <md-icon class="material-icons" flex="5" ng-click="toggleLock('placement')">
+                                    {{getLockIcon('placement')}}
+                                    <md-tooltip>
+                                        {{getLockTooltip('placement')}}
+                                    </md-tooltip>
+                                </md-icon>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-xs="35">
+                                <aw-autocomplete ng-model="selectedTemporaryLocation"
+                                                 name="temporary_location"
+                                                 add-option="true"
+                                                 controller-name="temporaryLocation"
+                                                 params="projectControllerParams"
+                                                 selected-item="selectedTemporaryLocation"
+                                                 id-property="name"
+                                                 label="Temporary Location"
+                                                 max="100" check-not-selected></aw-autocomplete>
+                                <div ng-messages="editAssetForm.temporary_location.$error">
+                                    <div ng-message="autocomplete-not-selected">Keep the field empty, choose an option or add a new one</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-xs="35">
+                                <aw-autocomplete ng-model="selectedFinalDisposition"
+                                                 name="final_disposition"
+                                                 add-option="true"
+                                                 controller-name="finalDisposition"
+                                                 params="projectControllerParams"
+                                                 selected-item="selectedFinalDisposition"
+                                                 id-property="name"
+                                                 label="Final Disposition"
+                                                 max="100" check-not-selected></aw-autocomplete>
+                                <div ng-messages="editAssetForm.final_disposition.$error">
+                                    <div ng-message="autocomplete-not-selected">Keep the field empty, choose an option or add a new one</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-xs="25">
+                                <md-checkbox ng-model="data.biomed_check_required" aria-label="Biomed Check Required" style="margin-top: 7px;">
+                                    Biomed Check Required
+                                </md-checkbox>
+                            </md-input-container>
+                        </section>
+                        <md-input-container class="md-block" flex-gt-xs="100">
+                            <label>Comment</label>
+                            <textarea ng-model="data.comment" name="comment" md-maxlength="1000" rows="1"></textarea>
+                            <div ng-messages="!editAssetForm.comment.$valid && editAssetForm.comment.$error" role="alert">
+                                <div ng-message="md-maxlength" class="my-message">
+                                    Only 1000 characters are allowed!
+                                </div>
+                            </div>
+                        </md-input-container>
+                        <md-chips ng-model="data.tags"
+                                  placeholder="+tag"
+                                  secondary-placeholder="Add a tag and press Enter"></md-chips>
+                    </form>
+                </md-tab>
+                <md-tab label="Options" md-on-select="optionsTab = true">
+                    <md-content style="overflow-x:hidden; overflow-y:hidden">
+                        <section layout="column" layout-align="top center">
+                            <h4>{{data.asset_description}}</h4>
+                        </section>
+                        <section layout="row" class="grid-toolbar no-top-margin" ng-if="!addOp">
+                            <section ng-cloak layout="column" flex="50" layout-align="none start" ng-show="addOp && data.detailed_budget">
+                                <md-input-container class="md-block" style="margin: 0px">
+                                    <label>Asset Default Cost</label>
+                                    <md-select ng-model="selected_costField">
+                                        <md-option ng-repeat="cost in costField" ng-value="cost.value">
+                                            {{cost.name}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </section>
+                            <section layout="row" class="no-vertical-margin" layout-align="end center" flex="{{addOp && data.detailed_budget ? 50 : 100}}">
+                                <md-checkbox ng-model="data.detailed_budget" aria-label="detailed budget" ng-change="toggleDetailedBudget()">
+                                    Detailed budget
+                                </md-checkbox>
+                                <md-icon class="material-icons info-icon md-primary">
+                                    info
+                                    <md-tooltip>
+                                        Values entered for options will be added to the Asset Unit Budget.
+                                    </md-tooltip>
+                                </md-icon>
+                            </section>
+                        </section>
+
+                        <section layout="row" ng-cloak class="grid-toolbar" ng-show="!addOp">
+                            <section layout="row" layout-align="space-between center" class="gray-color" flex="50">
+                                <button class="md-icon-button md-button" ng-click="toggleAddOption()" ng-disabled="data.none_option">
+                                    <i class="material-icons">add</i><div class="md-ripple-container"></div>
+                                    <md-tooltip md-direction="bottom">Add Option(s)</md-tooltip>
+                                </button>
+                                <button class="md-icon-button md-button" ng-click="toggleEditOption()" ng-disabled="data.none_option">
+                                    <i class="material-icons">edit</i><div class="md-ripple-container"></div>
+                                    <md-tooltip md-direction="bottom">Edit Option</md-tooltip>
+                                </button>
+                                <button class="md-icon-button md-button" ng-click="deleteOptions()" ng-disabled="data.none_option">
+                                    <i class="material-icons">delete</i>
+                                    <md-tooltip md-direction="bottom">Delete Option(s)</md-tooltip>
+                                </button>
+                                <md-input-container class="md-block" flex="100" style="margin: 0px;">
+                                    <label>Profile</label>
+                                    <md-select ng-model="selectedProfile" name="profile" ng-change="changeProfile()">
+                                        <md-optgroup label="Project">
+                                            <md-option ng-repeat="profile in profiles" ng-value="profile">
+                                                {{profile.profile}}
+                                            </md-option>
+                                        </md-optgroup>
+                                        <md-optgroup label="Global">
+                                            <md-option ng-repeat="profile in globalProfiles" ng-value="profile">
+                                                {{profile.profile_text}}
+                                            </md-option>
+                                        </md-optgroup>
+                                    </md-select>
+                                </md-input-container>
+                            </section>
+                            <section layout="row" layout-align="end center" flex="100">
+                                <md-checkbox class="no-vertical-margin" ng-model="data.none_option" aria-label="options none">
+                                    Disable options for this entry
+                                </md-checkbox>
+                                <md-icon class="material-icons info-icon md-primary">
+                                    info
+                                    <md-tooltip>
+                                        This selection acknowledges there are no options selected for the asset and the “pending” status for options selection will be removed in the asset grid.
+                                    </md-tooltip>
+                                </md-icon>
+                            </section>
+                        </section>
+                        <div ng-show="!addOp && !data.none_option" class="checkbox-grid" kendo-grid="optionsGrid" k-on-data-bound="dataBound(optionsGrid)" options="options">
+                        </div>
+                        <aw-add-option ng-if="addOp"
+                                       asset-info="assetInfo"
+                                       ctrl="newOptionCtrl"
+                                       added-options="optionsAdded"
+                                       is-inventory="true"
+                                       option="optionToEdit">
+                        </aw-add-option>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Budget" md-on-select="selectBudgetTab()">
+                    <form name="editBudgetForm" id="editBudgetForm" ng-cloak class="padding-top padding-bottom">
+                        <aw-accordion label="Budget" expanded="true">
+                            <section layout-gt-xs="row" layout-align="space-between center">
+                                <md-input-container class="md-block label-info-icon" flex-gt-xs="30">
+                                    <label>
+                                        Unit Budget(Net) $
+                                        <md-icon class="material-icons info-icon md-primary">info<md-tooltip>Unit Budget (Net) + Options Budget</md-tooltip></md-icon>
+                                    </label>
+                                    <input name="total_unit_budget" ng-model="data.total_unit_budget" aw-currency aw-currency-model ng-disabled="true" style="border:0">
+                                </md-input-container>
+                                <md-input-container class="md-block label-info-icon" flex-gt-xs="30">
+                                    <label>
+                                        Unit Budget (Adjusted)
+                                        <md-icon class="material-icons info-icon md-primary">info<md-tooltip>Unit Budget (Net) + Unit Markup ($) + Unit Escalation ($)</md-tooltip></md-icon>
+                                    </label>
+                                    <input name="unit_budget_adjusted" ng-model="data.unit_budget_adjusted" aw-currency aw-currency-model ng-disabled="true" style="border:0">
+                                </md-input-container>
+                                <md-input-container class="md-block label-info-icon" flex-gt-xs="30">
+                                    <label>
+                                        Unit Budget
+                                        <md-icon class="material-icons info-icon md-primary">info<md-tooltip>Unit Budget (Adjusted) + Unit Freight + Unit Install + Unit Tax ($</md-tooltip></md-icon>
+                                    </label>
+                                    <input name="unit_budget_total" ng-model="data.unit_budget_total" aw-currency aw-currency-model ng-disabled="true" style="border:0">
+                                </md-input-container>
+                            </section>
+                            <section layout-gt-xs="row" layout-align="space-between center">
+                                <md-input-container class="md-block" flex-gt-xs="15">
+                                    <label>Unit Markup %</label>
+                                    <input name="unit_markup" ng-model="data.unit_markup" aw-currency ng-change="calculateBudgets()">
+                                    <div ng-messages="editBudgetForm.unit_markup.$error" role="alert">
+                                        <div ng-message="currency" class="my-message">
+                                            Unit Markup must be currency
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block label-info-icon" flex-gt-xs="20">
+                                    <label>
+                                        Unit Markup $
+                                        <md-icon class="material-icons info-icon md-primary">info<md-tooltip>Unit Markup (%) * Unit Budget (Net)</md-tooltip></md-icon>
+                                    </label>
+                                    <input name="unit_markup_calc" ng-model="data.unit_markup_calc" aw-currency aw-currency-model ng-disabled="true" style="border:0">
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-xs="15">
+                                    <label>Unit Freight (Net)</label>
+                                    <input name="unit_freight_net" ng-model="data.unit_freight_net" aw-currency aw-currency-model ng-change="calculateBudgets()">
+                                    <div ng-messages="editBudgetForm.unit_freight_net.$error" role="alert">
+                                        <div ng-message="currency" class="my-message">
+                                            Unit Freight (Net) must be currency
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-xs="20">
+                                    <label>Unit Freight Markup (%)</label>
+                                    <input name="unit_freight_markup" ng-model="data.unit_freight_markup" aw-currency ng-change="calculateBudgets()">
+                                    <div ng-messages="editBudgetForm.unit_freight_markup.$error" role="alert">
+                                        <div ng-message="currency" class="my-message">
+                                            Unit Freight Markup (%) must be currency
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block label-info-icon" flex-gt-xs="15">
+                                    <label>
+                                        Unit Freight
+                                        <md-icon class="material-icons info-icon md-primary">info<md-tooltip>Unit Freight (Net) * [1 + Unit Freight Markup (%)]</md-tooltip></md-icon>
+                                    </label>
+                                    <input name="unit_freight" ng-model="data.unit_freight" aw-currency aw-currency-model ng-disabled="true" style="border:0">
+                                </md-input-container>
+                            </section>
+                            <section layout-gt-xs="row" layout-align="space-between center">
+                                <md-input-container class="md-block" flex-gt-xs="15">
+                                    <label>Unit Escalation %</label>
+                                    <input name="unit_escalation" ng-model="data.unit_escalation" aw-currency ng-change="calculateBudgets()">
+                                    <div ng-messages="editBudgetForm.unit_escalation.$error" role="alert">
+                                        <div ng-message="currency" class="my-message">
+                                            Unit Escalation must be currency
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block label-info-icon" flex-gt-xs="20">
+                                    <label>
+                                        Unit Escalation $
+                                        <md-icon class="material-icons info-icon md-primary">info<md-tooltip>Unit Escalation (%) * Unit Budget (Net)</md-tooltip></md-icon>
+                                    </label>
+                                    <input name="unit_escalation_calc" ng-model="data.unit_escalation_calc" aw-currency aw-currency-model ng-disabled="true" style="border:0">
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-xs="15">
+                                    <label>Unit Install (Net)</label>
+                                    <input name="unit_install_net" ng-model="data.unit_install_net" aw-currency aw-currency-model ng-change="calculateBudgets()">
+                                    <div ng-messages="editBudgetForm.unit_install_net.$error" role="alert">
+                                        <div ng-message="currency" class="my-message">
+                                            Unit Install (Net) must be currency
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-xs="20">
+                                    <label>Unit Install Markup (%)</label>
+                                    <input name="unit_install_markup" ng-model="data.unit_install_markup" aw-currency ng-change="calculateBudgets()">
+                                    <div ng-messages="editBudgetForm.unit_install_markup.$error" role="alert">
+                                        <div ng-message="currency" class="my-message">
+                                            Unit Install Markup % must be currency
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block label-info-icon" flex-gt-xs="15">
+                                    <label>
+                                        Unit Install
+                                        <md-icon class="material-icons info-icon md-primary">info<md-tooltip>Unit Install (Net) * [1 + Unit Install Markup (%)]</md-tooltip></md-icon>
+                                    </label>
+                                    <input name="unit_install" ng-model="data.unit_install" aw-currency aw-currency-model ng-disabled="true" style="border:0">
+                                </md-input-container>
+                            </section>
+                            <section layout-gt-xs="row" layout-align="space-between center">
+                                <md-input-container class="md-block" flex-gt-xs="15">
+                                    <label>Unit Tax %</label>
+                                    <input name="unit_tax" ng-model="data.unit_tax" aw-currency ng-change="calculateBudgets()">
+                                    <div ng-messages="editBudgetForm.unit_tax.$error" role="alert">
+                                        <div ng-message="currency" class="my-message">
+                                            Unit Tax must be currency
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block label-info-icon" flex-gt-xs="20">
+                                    <label>
+                                        Unit Tax $
+                                        <md-icon class="material-icons info-icon md-primary">info<md-tooltip>Unit Tax (%) * Unit Budget (Adjusted)</md-tooltip></md-icon>
+                                    </label>
+                                    <input name="unit_tax_calc" ng-model="data.unit_tax_calc" aw-currency aw-currency-model ng-disabled="true" style="border:0">
+                                </md-input-container>
+                                <md-input-container class="md-block label-info-icon" flex-gt-xs="15" ng-show="data.detailed_budget">
+                                    <label>
+                                        Options $
+                                        <md-icon class="material-icons info-icon md-primary">info<md-tooltip>Options</md-tooltip></md-icon>
+                                    </label>
+                                    <input name="options" ng-model="data.options" aw-currency aw-currency-model ng-disabled="true" style="border:0">
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-xs="{{data.detailed_budget ? 40: 55}}">
+                                </md-input-container>
+                            </section>
+                        </aw-accordion>
+                        <aw-accordion label="Totals (units x quantities)">
+                            <section layout-gt-xs="row" layout-align="space-between center" style="padding-top:10px">
+                                <md-input-container class="md-block label-info-icon" flex-gt-xs="25">
+                                    <label>
+                                        Total Budget (Adjusted)
+                                        <md-icon class="material-icons info-icon md-primary">info<md-tooltip>Unit Budget (Adjusted) * Net New</md-tooltip></md-icon>
+                                    </label>
+                                    <input name="total_budget_adjusted" ng-model="data.total_budget_adjusted" aw-currency aw-currency-model ng-disabled="true" style="border:0">
+                                </md-input-container>
+                                <md-input-container class="md-block label-info-icon" flex-gt-xs="20">
+                                    <label>
+                                        Total Tax ($)
+                                        <md-icon class="material-icons info-icon md-primary">info<md-tooltip>Unit Tax ($) * Net New</md-tooltip></md-icon>
+                                    </label>
+                                    <input name="total_tax" ng-model="data.total_tax" aw-currency aw-currency-model ng-disabled="true" style="border:0">
+                                </md-input-container>
+                                <md-input-container class="md-block label-info-icon" flex-gt-xs="20">
+                                    <label>
+                                        Total Install (Net)
+                                        <md-icon class="material-icons info-icon md-primary">info<md-tooltip>Unit Install (Net) * Net New</md-tooltip></md-icon>
+                                    </label>
+                                    <input name="total_install_net" ng-model="data.total_install_net" aw-currency aw-currency-model ng-disabled="true" style="border:0">
+
+                                </md-input-container>
+                                <md-input-container class="md-block label-info-icon" flex-gt-xs="20">
+                                    <label>
+                                        Total Install
+                                        <md-icon class="material-icons info-icon md-primary">info<md-tooltip>Unit Install * Net New</md-tooltip></md-icon>
+                                    </label>
+                                    <input name="total_install" ng-model="data.total_install" aw-currency aw-currency-model ng-disabled="true" style="border:0">
+                                </md-input-container>
+                            </section>
+                            <section layout-gt-xs="row" layout-align="space-between center">
+                                <md-input-container class="md-block label-info-icon" flex-gt-xs="25">
+                                    <label>
+                                        Total Freight (Net)
+                                        <md-icon class="material-icons info-icon md-primary">info<md-tooltip>Unit Freight (Net) * New New</md-tooltip></md-icon>
+                                    </label>
+                                    <input name="total_freight_net" ng-model="data.total_freight_net" aw-currency aw-currency-model ng-disabled="true" style="border:0">
+                                </md-input-container>
+                                <md-input-container class="md-block label-info-icon" flex-gt-xs="20">
+                                    <label>
+                                        Total Freight
+                                        <md-icon class="material-icons info-icon md-primary">info<md-tooltip>Unit Freight * Net New</md-tooltip></md-icon>
+                                    </label>
+                                    <input name="total_freight" ng-model="data.total_freight" aw-currency aw-currency-model ng-disabled="true" style="border:0">
+                                </md-input-container>
+                                <md-input-container class="md-block label-info-icon" flex-gt-xs="20">
+                                    <label>
+                                        Total Budget (Net)
+                                        <md-icon class="material-icons info-icon md-primary">info<md-tooltip>Unit Budget (Net) * Net New</md-tooltip></md-icon>
+                                    </label>
+                                    <input name="total_budget_amt" ng-model="data.total_budget_amt" aw-currency aw-currency-model ng-disabled="true" style="border:0">
+                                </md-input-container>
+                                <md-input-container class="md-block label-info-icon" flex-gt-xs="20">
+                                    <label>
+                                        Total Budget
+                                        <md-icon class="material-icons info-icon md-primary">info<md-tooltip>Total Freight + Total Install + Total Tax + Total Budget (Adjusted)</md-tooltip></md-icon>
+                                    </label>
+                                    <input name="total_budget" ng-model="data.total_budget" aw-currency aw-currency-model ng-disabled="true" style="border:0">
+                                </md-input-container>
+                            </section>
+                        </aw-accordion>
+                        
+                        <aw-accordion label="Budget Copilot" ng-click="showHideBudgetCopilot()">
+                        </aw-accordion>
+                        <div ng-model="showBudgetCoPilot" ng-show="showBudgetCopilot">
+                            <section layout="row" class="grid-toolbar" ng-show="!replace" layout-align="space-between center">
+                                <section flex="30" flex-order="1">
+                                    <md-input-container class="md-block" style="margin-bottom: 0px;">
+                                        <label>Source Project</label>
+                                        <md-select ng-model="sourceProject" ng-change="projectOptionChanged()">
+                                            <md-optgroup label="All Projects" name="All_Projects">
+                                                <md-option ng-value="0">
+                                                    All Projects
+                                                </md-option>
+                                            </md-optgroup>
+                                            <md-optgroup label="Favorite Projects" name="Favorite_Projects">
+                                                <md-option ng-repeat="op in favProjectOptions" ng-value="op.project_id">
+                                                    {{op.name}}
+                                                </md-option>
+                                            </md-optgroup>
+                                            <md-optgroup label="Projects">
+                                                <md-option ng-repeat="op in projectOptions" ng-value="op.project_id">
+                                                    {{op.name}}
+                                                </md-option>
+                                            </md-optgroup>
+                                        </md-select>
+                                    </md-input-container>
+                                </section>
+                                <section flex="35" flex-order="2" layout="row">
+                                    <md-input-container class="md-block no-md-errors-spacer" style="margin-bottom: 0px;" flex="100" flex-gt-sm="80">
+                                        <label>Search</label>
+                                        <input name="search" ng-model="searchBoxValue" ng-enter="searchAssets(searchBoxValue)">
+                                    </md-input-container>
+                                    <button class="md-icon-button md-button gray-color" style="bottom: -1.2em; padding-left: 0px; margin-left: 0px" ng-click="clearAllFilters()">
+                                        <i class="material-icons">delete_sweep</i><div class="md-ripple-container"></div>
+                                        <md-tooltip md-direction="bottom">Clear all filters</md-tooltip>
+                                    </button>
+                                </section>
+                                <section flex="15" flex-order="3">
+                                    <md-input-container class="md-block" style="margin-bottom: 0px;" flex="80">
+                                        <label>Select a period</label>
+                                        <md-select ng-model="monthPeriod" ng-change="searchAssets()">
+                                            <md-option ng-value="1">Last month</md-option>
+                                            <md-option ng-value="6">Last 6 months</md-option>
+                                            <md-option ng-value="12" selected>Last year</md-option>
+                                            <md-option ng-value="24">Last 2 years</md-option>
+                                            <md-option ng-value="36">Last 3 years</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </section>
+                            </section>
+                            <div>
+                                <md-input-container layout-gt-xs="row" class="md-block">
+                                    <label>
+                                        <strong>Source Assets:</strong>
+                                    </label>
+                                </md-input-container>
+                                <section layout-gt-xs="row" ng-cloak class="md-inline-form padding-top">
+                                    <div kendo-grid="sourceAssetsGrid" options="sourceOptions" k-on-data-bound="sourceDataBound(sourceAssetsGrid)" style="height: 100%; width:100%"></div>
+                                </section>
+                                <md-input-container layout-gt-xs="row" class="md-block">
+                                    <label>
+                                        <strong>Budget Options:</strong>
+                                    </label>
+                                </md-input-container>
+                                <section layout="row" ng-cloak class="md-inline-form padding-bottom padding-top level-below-grid">
+                                    <div kendo-grid="budgetOptionsGrid" options="budgetOptions" k-on-data-bound="budgetDataBound(budgetOptionsGrid)" style="height: 100%; width:100%"></div>
+                                </section>
+                            </div>               
+                        </div>
+                        </aw-accordion>
+                    </form>
+                </md-tab>
+                <md-tab label="Government" md-on-select="selectGovernmentTab()">
+                    <section layout-gt-xs="row" layout-align="space-between start">
+                        <md-input-container class="md-block" flex-gt-xs="30">
+                            <label>CLIN</label>
+                            <input name="clin" ng-model="data.clin" maxlength="50" />
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-xs="30">
+                            <label>ECN</label>
+                            <input name="ecn" ng-model="data.ecn" maxlength="20" />
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-xs="30">
+                            <label>Class</label>
+                            <md-select name="class" ng-model="data.class" ng-disabled="!data.class_ow">
+                                <md-option ng-repeat="c in classes" ng-value="c.id">
+                                    {{c.name}}
+                                </md-option>
+                            </md-select>
+                            <md-icon class="material-icons" flex="5" ng-click="toggleLock('class')">
+                                {{getLockIcon('class')}}
+                                <md-tooltip>
+                                    {{getLockTooltip('class')}}
+                                </md-tooltip>
+                            </md-icon>
+                        </md-input-container>
+                    </section>
+                    <aw-jsn-form asset="jsn_asset" inventory-editing="{{true}}"> </aw-jsn-form>
+                </md-tab>
+                <md-tab label="Documents" md-on-select="selectDocumentsTab()">
+                    <!-- The Modal -->
+                    <section layout="column" ng-if="showZoomPicture && !editPhotosMode" ng-cloak class="md-inline-form padding-top padding-bottom-half">
+                        <div ng-model="myModal" class="modal">
+                            <span class="close" ng-click="closeZoomPicture()">&times;</span>
+                            <img class="modal-content" ng-src="{{selectedImg}}">
+                        </div>
+                    </section>
+
+                    <section layout="column" ng-cloak class="md-inline-form padding-top padding-bottom-half">
+                        <section layout="row" layout-align="start start" class="no-space" ng-if="!editPhotosMode && !showZoomPicture">
+                            <button class="md-icon-button md-button" ng-click="toggleEditPicturesMode()">
+                                <i class="material-icons">add</i><div class="md-ripple-container"></div>
+                                <md-tooltip md-direction="bottom">Add more file(s)</md-tooltip>
+                            </button>
+                            <button class="md-icon-button md-button" ng-click="deleteDocuments()">
+                                <i class="material-icons">delete</i><div class="md-ripple-container"></div>
+                                <md-tooltip md-direction="bottom">Delete photo(s)</md-tooltip>
+                            </button>
+                            <button class="md-icon-button md-button" ng-click="setAsTagPhoto()">
+                                <i class="material-icons">label</i><div class="md-ripple-container"></div>
+                                <md-tooltip md-direction="bottom">Set image as Tag Photo</md-tooltip>
+                            </button>
+                            <button class="md-icon-button md-button" ng-click="setAsAssetPhoto()">
+                                <i class="material-icons">insert_photo</i><div class="md-ripple-container"></div>
+                                <md-tooltip md-direction="bottom">Set image as Asset Photo</md-tooltip>
+                            </button>
+                            <button class="md-icon-button md-button" ng-click="rotatePhoto(-1)">
+                                <i class="material-icons">rotate_left</i><div class="md-ripple-container"></div>
+                                <md-tooltip md-direction="bottom">Rotate Left</md-tooltip>
+                            </button>
+                            <button class="md-icon-button md-button" ng-click="rotatePhoto(1)">
+                                <i class="material-icons">rotate_right</i><div class="md-ripple-container"></div>
+                                <md-tooltip md-direction="bottom">Rotate Right</md-tooltip>
+                            </button>
+                        </section>
+                        <section layout="row" layout-align="space-around center" ng-if="editPhotosMode && !showZoomPicture">
+                            <h4>Add file(s) mode</h4>
+                        </section>
+                        <aw-accordion label="Images" expanded="true" ng-if="!editPhotosMode && !showZoomPicture">
+                            <section ng-repeat="photos in photosFileMatrix" layout="row" layout-align="start start" class="inventory-pictures">
+                                <section ng-repeat="photo in photos track by $index" class="edit-asset-pictures-row">
+                                    <section layout="row" layout-align="start center">
+                                        <md-checkbox ng-model="photo.isChecked" aria-label="check_photo"></md-checkbox>
+                                    </section>
+                                    <section class="boxshadow-edit-asset">
+                                        <img id="{{photo.id}}" src="{{photo.file}}" alt="photo" ng-click="zoomPicture(photo.file)" class="pictureWithZoom" ng-style="{'transform': 'rotate({{photo.rotate * 90}}deg)'}">
+                                    </section>
+                                    <section layout="row" layout-align="start center" class="association-type-icon">
+                                        <button class="md-icon-button md-button" ng-if="photo.isTagPhoto">
+                                            <i class="material-icons">label</i><div class="md-ripple-container"></div>
+                                            <md-tooltip md-direction="bottom">Tag Photo</md-tooltip>
+                                        </button>
+                                        <button class="md-icon-button md-button" ng-if="photo.isAssetPhoto">
+                                            <i class="material-icons">insert_photo</i><div class="md-ripple-container"></div>
+                                            <md-tooltip md-direction="bottom">Asset Photo</md-tooltip>
+                                        </button>
+                                    </section>
+                                </section>
+                            </section>
+                        </aw-accordion>
+                        <aw-accordion label="Artwork" expanded="true" ng-if="!editPhotosMode && !showZoomPicture">
+                            <section ng-repeat="photos in artworkFileMatrix" layout="row" layout-align="start start" class="inventory-pictures">
+                                <section ng-repeat="photo in photos track by $index" class="edit-asset-pictures-row">
+                                    <section layout="row" layout-align="start center">
+                                        <md-checkbox ng-model="photo.isChecked" aria-label="check_photo"></md-checkbox>
+                                    </section>
+                                    <section class="boxshadow-edit-asset">
+                                        <img id="{{photo.id}}" src="{{photo.file}}" alt="photo" ng-click="zoomPicture(photo.file)" class="pictureWithZoom">
+                                    </section>
+                                </section>
+                            </section>
+                        </aw-accordion>
+                        <section ng-show="editPhotosMode" layout="row" layout-align="space-around center">
+                            <form name="uploadForm" id="uploadForm" layout="column" layout-align="space-between none" flex="80" novalidate>
+                                <section layout-gt-sm="row" layout-align="space-between start" ng-repeat="imgDt in imgData">
+                                    <md-input-container class="md-block" flex-gt-sm="30">
+                                        <label for="{{'type' + imgDt.idx}}">Type</label>
+                                        <md-select name="{{'type' + imgDt.idx}}" ng-model="imgDt.type" aria-label="type" required>
+                                            <md-option value="4">Image</md-option>
+                                            <md-option value="6">Asset Photo</md-option>
+                                            <md-option value="7">Tag Photo</md-option>
+                                            <md-option value="8">Artwork</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <md-input-container class="md-block" flex-gt-sm="30">
+                                        <label for="{{'label' + imgDt.idx}}">Label</label>
+                                        <input name="{{'label' + imgDt.idx}}" ng-model="imgDt.label" maxlength="10" ng-required="imgDt.type === 8">
+                                    </md-input-container>
+                                    <md-input-container class="md-block" flex-gt-sm="30" ng-if="!show_firefox">
+                                        <label for="{{'file' + imgDt.idx}}">Picture (jpg)</label>
+                                        <input name="{{'file' + imgDt.idx}}" id="{{'file' + imgDt.idx}}" ngf-select ng-value="imgDt.file.picture.name" ng-model="imgDt.file.picture" accept="image/jpeg" aw-upload-file-size="fileSizeLimit" required />
+                                    </md-input-container>
+                                    <!--<section ng-show="show_firefox">-->
+                                    <md-input-container class="md-block" ng-if="show_firefox">
+                                        <label for="{{'photoFx' + imgDt.idx}}" style="padding-bottom:28px">Picture (jpg)</label>
+                                        <input type="file" name="{{'photoFx' + imgDt.idx}}" id="{{'photoFx' + imgDt.idx}}" ng-model="imgDt.file.picture" accept="image/jpg" aw-upload-file-size="fileSizeLimit" firefox />
+                                    </md-input-container>
+                                    <!--</section>-->
+                                    <md-input-container class="md-block" flex-gt-sm="5">
+                                        <button class="md-icon-button md-button" style="color: black;" ng-click="addDocument(imgDt.idx)">
+                                            <i class="material-icons">add</i><div class="md-ripple-container"></div>
+                                            <md-tooltip md-direction="bottom">Add File</md-tooltip>
+                                        </button>
+                                    </md-input-container>
+                                    <md-input-container class="md-block" flex-gt-sm="5">
+                                        <button class="md-icon-button md-button" style="color: black;" ng-click="deleteDocument(imgDt.idx)">
+                                            <i class="material-icons">delete</i><div class="md-ripple-container"></div>
+                                            <md-tooltip md-direction="bottom">Delete File</md-tooltip>
+                                        </button>
+                                    </md-input-container>
+                                </section>
+                                <section ng-show="uploadForm.$error.awUploadFileSize && uploadForm.$error.awUploadFileSize.length > 0">
+                                    <span class="error-message">If you have to upload a file with more than {{fileSizeLimit}}Mb, please reduce the size of the file or contact Audaxware at &lt;support@audaxware.com&gt;</span>
+                                </section>
+                                <!--<md-button class="md-accent md-raised" ng-click="addMoreDocuments()">Include more</md-button>-->
+                            </form>
+                        </section>
+                    </section>
+                </md-tab>
+
+                <!-- NEW TAB -->
+                <md-tab label="Attributes" md-on-select="selectAttributesTab()">
+                    <section>
+                        <aw-Asset-Settings-Grid asset="data" required-settings="requiredSettings" updated-jsn-data="updatejsn" origin="inventory"></aw-Asset-Settings-Grid>
+                    </section>
+                </md-tab>
+
+
+            </md-tabs>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions ng-cloak>
+        <section ng-if="!editPhotosMode">
+            <md-button class="md-primary" ng-click="addOp && optionsTab ? toggleAddOption() : close()">Cancel</md-button>
+            <md-button ng-show="!addOp || (addOp && optionsTab)" class="md-primary" ng-click="addOp && optionsTab ? addNewOptionToGrid() : save()">{{addOp && optionsTab ? (optionToEdit ? 'Edit Option' : 'Add Options') : 'Save'}}</md-button>
+            <md-button class="md-primary" ng-show="jsn_asset.jsn.jsn_code != null && !(addOp && optionsTab)" ng-click="save(true)">Save and Synchronize</md-button>
+        </section>
+        <section ng-if="editPhotosMode">
+            <md-button class="md-primary" ng-click="toggleEditPicturesMode()">
+                Cancel
+                <md-tooltip md-direction="top">Exit add file(s) mode</md-tooltip>
+            </md-button>
+            <md-button class="md-primary" ng-click="savePictures()">Upload</md-button>
+        </section>
+    </md-dialog-actions>
+</md-dialog>
+
+
+
+<style parse-style>
+
+    .full-size .md-tab {
+        width: 150px;
+    }
+
+    .tabs-wrapper {
+        position: relative;
+    }
+
+    .full-size {
+        min-height:{{style_height}}px !important;
+    }
+
+</style>

@@ -1,0 +1,50 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.datepicker').kendoMaskedTextBox({
+            mask: "99/99/9999"
+        });
+
+    });
+</script>
+
+<md-dialog aria-label="request PO" ng-cloak flex="30">
+    <md-toolbar layout="row" layout-align="center center">
+        Receive PO
+    </md-toolbar>
+    <md-dialog-content layout="column" class="md-inline-form padding-top">
+        <form name="receivePOForm" id="receivePOForm" ng-cloak class="padding-top">
+            <div layout="column" class="kendo-date" layout-align="center center" flex="70" flex-offset="15">
+                <label>Received Date *</label>
+                <input kendo-date-picker
+                       ng-model="po.po_received_date"
+                       k-min="po.po_requested_date"
+                       class="datepicker"
+                       k-format="MM/dd/yyyy"
+                       name="po_received_date"
+                       aw-valid-date required />
+                <div ng-if="receivePOForm.po_received_date.$touched" ng-messages="receivePOForm.po_received_date.$error" role="alert">
+                    <div ng-message="valid-date" class="my-message kendo-date-validation">
+                        Invalid Date
+                    </div>
+                    <div ng-message="required" class="my-message kendo-date-validation">
+                        Received date is required
+                    </div>
+                </div>
+            </div>
+            <md-input-container class="md-block">
+                <label>PO Number</label>
+                <input name="po_number" ng-model="po.po_number" required>
+                <div ng-messages="receivePOForm.po_number.$error" role="alert">
+                    <div ng-message="required" class="my-message">
+                        PO Number is required
+                    </div>
+                </div>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="save()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>

@@ -1,0 +1,40 @@
+﻿<md-dialog aria-label="requestSubscription" ng-cloak class="max-width-40 width-40">
+    <md-toolbar layout="row" layout-align="center center">
+        Request Subscription
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak>
+        <form name="requestSubscriptionForm" id="requestSubscriptionForm">
+            <md-input-container class="md-block">
+                <label>Name</label>
+                <input name="name" ng-model="data.name" maxlength="200" property="name" required>
+                <div ng-messages="requestSubscriptionForm.name.$error">
+                    <div ng-message="required">Name is required</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Email</label>
+                <input type="email" name="email" ng-model="data.email" maxlength="200" required>
+                <div ng-messages="requestSubscriptionForm.user_email.$error">
+                    <div ng-message="required">Email is required</div>
+                    <div ng-message="email">Not a valid email</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Phone Number</label>
+                <input name="phone_number" ng-model="data.phone_number" maxlength="10" required aw-only-numbers>
+                <div ng-messages="requestSubscriptionForm.phone.$error">
+                    <div ng-message="required">Phone number is required</div>
+                    <div ng-message="number">Only numbers</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Message</label>
+                <textarea ng-model="data.message" name="message" columns="1" md-maxlength="2000" maxlength="2000" rows="1"></textarea>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="send()">Send</md-button>
+    </md-dialog-actions>
+</md-dialog>

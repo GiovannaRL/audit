@@ -1,0 +1,22 @@
+﻿<md-dialog aria-label="request PO" flex-gt-sm="70">
+    <md-toolbar layout="row" layout-align="center center">
+        Expirated Quote POs
+    </md-toolbar>
+    <md-dialog-content layout="column" class="md-inline-form padding-top" ng-cloak>
+        <section layout="column" layout-align="top center" class="gray-color" style="margin-bottom: 1em">
+            <h3>The following POs have passed the quote expiration date</h3>
+        </section>
+        <div kendo-grid="expiratedPOsGrid" options={{options}} k-on-data-bound="dataBound(expiratedPOsGrid)">
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+    </md-dialog-actions>
+</md-dialog>
+
+<style parse-style>
+    .k-grid-content {
+        max-height:{{gridHeight - 120}}px;
+        min-height:{{gridHeight - 120}}px;
+    }
+</style> 

@@ -1,0 +1,77 @@
+﻿<md-dialog aria-label="add_address" ng-cloak>
+    <md-toolbar layout="row" layout-align="center center">
+        Add address to project
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloack class="md-inline-form">
+        <form name="addAddressForm" id="addAddressForm">
+            <md-input-container class="md-block">
+                <label>Nickname</label>
+                <input name="nickname" ng-model="address.nickname" required maxlength="20" aw-exists="{{anotherAddresses}}" property="nickname">
+                <div ng-messages="addAddressForm.nickname.$error">
+                    <div ng-message="required">Nickname is mandatory</div>
+                    <div ng-message="maxlength">Only 20 caracteres are allowed</div>
+                    <div ng-message="exists">Nickname already exists for this project</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Description</label>
+                <input name="description" ng-model="address.description" maxlength="100">
+                <div ng-messages="addAddressForm.description.$error">
+                    <div ng-message="maxlength">Only 100 caracteres are allowed</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Address 1</label>
+                <input name="address1" ng-model="address.address1" required maxlength="50">
+                <div ng-messages="addAddressForm.address1.$error">
+                    <div ng-message="required">Address 1 is mandatory</div>
+                    <div ng-message="maxlength">Only 50 caracteres are allowed</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Address 2</label>
+                <input name="address2" ng-model="address.address2" maxlength="50">
+                <div ng-messages="addAddressForm.address2.$error">
+                    <div ng-message="maxlength">Only 50 caracteres are allowed</div>
+                </div>
+            </md-input-container>
+            <section layout-gt-xs="row" layout-fill layout-align="space-between bottom" class="md-block">
+                <md-input-container class="md-block" flex-gt-xs="35">
+                    <label>City</label>
+                    <input name="city" ng-model="address.city" maxlength="25" required>
+                    <div ng-messages="addAddressForm.city.$error">
+                        <div ng-message="required">City is mandatory</div>
+                        <div ng-message="maxlength">Only 25 caracteres are allowed</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="20">
+                    <label>State</label>
+                    <md-select name="state" ng-model="address.state" required>
+                        <md-option ng-repeat="state in statesList" value="{{state.id}}">
+                            {{state.abrv}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="addAddressForm.state.$error">
+                        <div ng-message="required">State is mandatory</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="35">
+                    <label>Zip</label>
+                    <input name="zip" ng-model="address.zip" maxlength="10" aw-only-numbers required>
+                    <div ng-messages="addAddressForm.zip.$error">
+                        <div ng-message="required">Zip is mandatory</div>
+                        <div ng-message="maxlength">Only 10 digits are allowed</div>
+                        <div ng-message="number">Only numbers are allowed</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <md-checkbox ng-model="address.is_default" aria-label="default" style="margin: 0px; top: -20px">
+                Default
+            </md-checkbox>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="add()">{{saveButtonText}}</md-button>
+    </md-dialog-actions>
+</md-dialog>

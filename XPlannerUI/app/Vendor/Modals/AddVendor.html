@@ -1,0 +1,42 @@
+﻿<md-dialog aria-label="addVendor" class="max-width-40 width-40">
+    <md-toolbar layout="row" layout-align="center center" ng-cloak>
+        Add Vendor
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak>
+        <form name="addVendorForm" id="addVendorForm">
+            <md-input-container class="md-block">
+                <label>Name</label>
+                <input name="name" ng-model="vendor.name" maxlength="50" aw-exists="{{anotherVendors}}" required>
+                <div ng-messages="addVendorForm.name.$error">
+                    <div ng-message="required">Vendor name is required</div>
+                    <div ng-message="maxlength">Only 100 characters are allowed</div>
+                    <div ng-message="exists">Vendor name already exists in that domain</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Territory</label>
+                <input name="territory" ng-model="vendor.territory" maxlength="50">
+                <div ng-messages="addVendorForm.territory.$error"></div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Hospitals</label>
+                <input name="hospitals" ng-model="vendor.hospitals" maxlength="50">
+                <div ng-messages="addVendorForm.hospitals.$error"></div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Comment</label>
+                <textarea ng-model="vendor.comment" name="comment" columns="1" md-maxlength="1000" rows="1"></textarea>
+                <div ng-messages="addVendorForm.comment.$error" role="alert">
+                    <div ng-message="md-maxlength" class="my-message">
+                        Only 1000 characters are allowed!
+                    </div>
+                </div>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="add()">Add</md-button>
+        <md-button class="md-primary" ng-click="add(true)">Add and Close</md-button>
+    </md-dialog-actions>
+</md-dialog>

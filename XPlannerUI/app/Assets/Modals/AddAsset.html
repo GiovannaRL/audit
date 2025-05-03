@@ -1,0 +1,124 @@
+﻿<md-dialog aria-label="addNewAsset" flex-gt-xs="45">
+    <md-toolbar layout="row" layout-align="center center">
+        Add new asset
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak>
+        <form name="addNewAssetForm" id="addNewAssetForm">
+            <section layout-gt-xs="row" layout-align="space-between start">
+                <md-input-container class="md-block" flex-gt-xs="60">
+                    <aw-autocomplete 
+                        name="category" 
+                        ng-model="selectedCategory" 
+                        id-property="subcategory_id" 
+                        text-property="description" 
+                        controller-name="categorySubcategory" 
+                        params="categoryControllerParams" 
+                        selected-item="selectedCategory" 
+                        label="Category and Subcategory *" required></aw-autocomplete>
+                    <div ng-messages="addNewAssetForm.category.$error">
+                        <div ng-message="required">Category and Subcategory is required</div>
+                    </div>
+                </md-input-container>
+                <section flex-gt-xs="35"
+                         aw-combo-box
+                         ng-model="asset.default_resp"
+                         name="resp"
+                         form="addNewAssetForm"
+                         query-Controller-action="New"
+                         controller-name="responsability"
+                         text-property="name"
+                         id-property="name"
+                         no-domain-property
+                         selected-id="asset.default_resp"
+                         params="controllerParams"
+                         label="Resp"
+                         order-by="domain_id"
+                         required></section>
+            </section>
+            <md-input-container class="md-block">
+                <label>Suffix</label>
+                <input name="description" ng-model="asset.asset_suffix">
+            </md-input-container>
+            <section layout-gt-xs="row" layout-align="space-between start">
+                <!--<md-input-container class="md-block" flex-gt-xs="65">
+                    <label>Code</label>
+                    <md-select name="asset_code" ng-model="asset.asset_code" required>
+                        <md-option ng-repeat="code in assetCodes" ng-value="code.prefix">
+                            {{code.description}} -- ({{code.prefix}})
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="addNewAssetForm.asset_code.$error">
+                        <div ng-message="required">Code is required</div>
+                    </div>
+                </md-input-container>-->
+                <md-input-container class="md-block" flex-gt-xs="60">
+                    <aw-autocomplete name="asset_code"
+                                     ng-model="asset.asset_code"
+                                     id-property="prefix"
+                                     domain-property="domain_id"
+                                     text-property="description"
+                                     text-property-2="prefix"
+                                     text-property-separator="--"
+                                     controller-name="assetCodes"
+                                     params="controllerParams"
+                                     selected-item="asset.asset_code"
+                                     label="Code *" required></aw-autocomplete>
+                    <div ng-messages="addNewAssetForm.asset_code.$error">
+                        <div ng-message="required">Code is required</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="30">
+                    <label>Model No</label>
+                    <input name="model_number" ng-model="asset.serial_number">
+                    <div ng-messages="addNewAssetForm.model_number.$error"></div>
+                </md-input-container>
+            </section>
+            <section layout-gt-xs="row" layout-align="space-between start">
+                <md-input-container class="md-block" flex-gt-xs="65">
+                    <aw-autocomplete name="manufacturer" ng-model="asset.manufacturer" add-option="true" id-property="manufacturer_id" text-property="manufacturer_description" controller-name="manufacturer" params="controllerParams" max="100" selected-item="asset.manufacturer" label="Manufacturer *" required></aw-autocomplete>
+                    <div ng-messages="addNewAssetForm.manufacturer.$error">
+                        <div ng-message="required">Manufacturer is required</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="30">
+                    <label>Model Name</label>
+                    <input name="model_name" ng-model="asset.serial_name">
+                </md-input-container>
+            </section>
+            
+            <section layout-gt-xs="row" layout-align="space-between start">
+                <md-input-container class="md-block" flex-gt-xs="30">
+                    <label>Min $</label>
+                    <input name="min" ng-model="asset.min_cost" aw-currency>
+                    <div ng-messages="addNewAssetForm.min.$error">
+                        <div ng-message="currency">Only money values are allowed</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="30">
+                    <label>Max $</label>
+                    <input name="max" ng-model="asset.max_cost" aw-currency>
+                    <div ng-messages="addNewAssetForm.max.$error">
+                        <div ng-message="currency">Only money values are allowed</div>
+                    </div>
+                </md-input-container>
+                <section flex-gt-xs="30"
+                         aw-combo-box
+                         name="measure"
+                         form="addNewAssetForm"
+                         ng-model="asset.UOM" 
+                         controller-name="assetMeasurement" 
+                         params="controllerParams" 
+                         text-property="eq_unit_desc" 
+                         id-property="eq_unit_measure_id" 
+                         selected-item="asset.UOM" 
+                         selected-id="asset.eq_measurement_id" 
+                         label="Unit of Measure" 
+                         required></section>
+            </section>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="save()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>

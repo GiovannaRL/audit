@@ -1,0 +1,30 @@
+﻿<!--div class="checkbox-grid" kendo-grid="locationsGrid" k-on-data-bound="dataBound()" options="locationsOptions">
+</div>-->
+
+<section layout="row" class="grid-toolbar" ng-cloak>
+    <section flex="80" flex-offset="10" layout="row" layout-align="center center">
+        <md-input-container class="md-block no-md-errors-spacer search-box" flex-gt-sm="40">
+            <label>Search</label>
+            <input name="search" ng-model="searchBoxValue" ng-enter="searchLocations(searchBoxValue)">
+        </md-input-container>
+        <button class="md-icon-button md-button gray-color" style="bottom: -1.2em; padding-left: 0px; margin-left: 0px" ng-click="clearAllFilters()">
+            <i class="material-icons">delete_sweep</i><div class="md-ripple-container"></div>
+            <md-tooltip md-direction="bottom">Clear all filters</md-tooltip>
+        </button>
+    </section>
+    <section layout="row" layout-align="end start" flex="10">
+        <button class="md-icon-button md-button" ng-click="collapseExpand(locationsGrid)" style="bottom: -18px">
+            <md-icon md-svg-icon="collapse_expand"></md-icon>
+            <md-tooltip md-direction="bottom">Collapse/Expand All</md-tooltip>
+        </button>
+    </section>
+</section>
+
+<div id="locationGrid"></div>
+
+<!--<style parse-style>
+    .k-grid-content {
+        max-height:{{gridHeight - 130}}px; 
+        min-height:{{gridHeight - 130}}px;
+    }
+</style>-->

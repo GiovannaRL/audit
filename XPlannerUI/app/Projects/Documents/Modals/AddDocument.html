@@ -1,0 +1,27 @@
+﻿<md-dialog aria-label="add_document" flex-gt-sm="30">
+    <md-toolbar layout="row" layout-align="center center" ng-cloak>
+        Add document to phase
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak>
+        <form name="addDocumentForm" id="addDocumentForm">
+            <md-input-container class="md-block">
+                <label>Save As</label>
+                <input name="saveAs" ng-model="document.saveAs" required maxlength="20">
+                <div ng-messages="addDocumentForm.saveAs.$error">
+                    <div ng-message="required">Save As filename is required</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label for="file">Choose a file</label>
+                <input name="file" id="file" ngf-select ng-value="document.doc.name" ng-model="document.doc" required>
+                <div ng-messages="addDocumentForm.file.$error">
+                    <div ng-message="required">Source File is required</div>
+                </div>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="add()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>

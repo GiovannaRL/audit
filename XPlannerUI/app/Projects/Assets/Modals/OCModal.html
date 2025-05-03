@@ -1,0 +1,130 @@
+﻿<md-dialog aria-label="oc" ng-cloak flex-gt-sm="60">
+    <md-toolbar layout="row" layout-align="center center">
+        {{type | capitalize}} Selection
+    </md-toolbar>
+    <md-dialog-content>
+        <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="{{type}}">
+                <md-content>
+                    <section layout="row" layout-align="start center" id="option-identification">
+                        <h3>{{data.asset.equipment_code}}</h3>
+                        <span>{{data.asset.equipment_desc}}</span>
+                    </section>
+
+                    <form name="ocForm" layout-gt-sm="row" novalidate>
+                        <section flex-gt-sm="45">
+                            <strong>1. Select the location of asset to apply {{type}}</strong>
+
+                            <!-- Phase -->
+                            <md-input-container class="md-block">
+                                <label>Phase</label>
+                                <md-select ng-model="data.location.selected.phases" ng-change="updateLocationsTotal('phases')" name="phase" multiple required>
+                                    <md-option ng-value="option" ng-repeat="option in data.location.tree">{{option.text}}</md-option>
+                                </md-select>
+                                <div ng-if="ocForm.phase.$error" ng-messages="ocForm.phase.$error">
+                                    <div ng-message="required">Phase is required</div>
+                                </div>
+                            </md-input-container>
+                            <!-- End Phase -->
+
+                            <!-- Department -->
+                            <md-input-container class="md-block">
+                                <label>Department</label>
+                                <md-select ng-model="data.location.selected.departments" ng-change="updateLocationsTotal('departments', 'phases')" multiple>
+                                    <section ng-repeat="phase in data.location.selected.phases">
+                                        <md-option ng-value="option" ng-repeat="option in phase.items">{{phase.text + ' - ' + option.text}}</md-option>
+                                    </section>
+                                </md-select>
+                            </md-input-container>
+                            <!-- End Department -->
+
+                            <!-- Room Name-->
+                            <md-input-container class="md-block">
+                                <label>Room Name</label>
+                                <md-select ng-model="data.location.selected.room_names" ng-change="updateLocationsTotal('room_names', 'departments')" multiple>
+                                    <section ng-repeat="department in data.location.selected.departments">
+                                        <md-option ng-value="option" ng-repeat="option in department.items">{{department.text + ' - ' + option.text2}}</md-option>
+                                    </section>
+                                </md-select>
+                            </md-input-container>
+                            <!-- End Room Name-->
+
+                            <!-- Room -->
+                            <md-input-container class="md-block">
+                                <label>Room</label>
+                                <md-select ng-model="data.location.selected.rooms" ng-change="updateLocationsTotal('rooms', 'room_names')" name="rooms" multiple ng-required="data.location.selected.room_names">
+                                    <section ng-repeat="room in data.location.selected.room_names">
+                                        <md-option ng-value="option.id" ng-repeat="option in room.items">{{option.text}}</md-option>
+                                    </section>
+                                </md-select>
+                                <div ng-messages="ocForm.rooms.$error">
+                                    <div ng-message="required">When Room Name is selected room is required</div>
+                                </div>
+                            </md-input-container>
+                            <!-- End Room -->
+                        </section>
+
+                        <section flex-gt-sm="45" flex-offset-gt-sm="10">
+                            <strong>2. Select from the available asset {{type}} for {{data.location.total}} locations</strong>
+
+                            <md-input-container class="md-block">
+                                <label>{{type | capitalize | limitTo: type.length - 1}}</label>
+                                <md-select ng-model="data.options.selected" name="asset_oc" multiple ng-required="!data.options.radio" ng-disabled="data.options.radio">
+                                    <md-option ng-value="option.id" ng-repeat="option in data.options.availables">{{option.description}}</md-option>
+                                </md-select>
+                                <div ng-messages="ocForm.asset_oc.$error">
+                                    <div ng-message="required">Asset {{type | limitTo: type.length - 1}} is required</div>
+                                </div>
+                            </md-input-container>
+                            <md-radio-group ng-model="data.options.radio" layout="row">
+                                <md-radio-button value="none">None</md-radio-button>
+                                <md-radio-button value="erase">Erase asset options</md-radio-button>
+                            </md-radio-group>
+                        </section>
+                    </form>
+                </md-content>
+            </md-tab>
+            <md-tab label="Locations">
+                <md-content>
+                    <section layout="row" layout-align="start center" id="option-identification">
+                        <h3>{{data.asset.equipment_code}}</h3>
+                        <span>{{data.asset.equipment_desc}}</span>
+                    </section>
+                    <div style="margin-bottom: 3em;">
+                        <aw-accordion ng-repeat="location in locations" label="Options: {{location.typeName}}" expanded="false">
+
+                            <md-data-table-container>
+                                <table md-data-table md-progress="deferred">
+                                    <thead md-order="query.order" md-trigger="onorderchange">
+                                        <tr>
+                                            <th name="Phase"></th>
+                                            <th name="Department"></th>
+                                            <th name="Room"></th>
+                                            <th name="Planned Qty"></th>
+                                            <th name="Resp"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr md-auto-select md-disable-select="false" data-ng-repeat="asset in location.locationData">
+                                            <td>{{asset.phase}}</td>
+                                            <td>{{asset.department}}</td>
+                                            <td>{{asset.room}}</td>
+                                            <td>{{asset.planned_qty}}</td>
+                                            <td>{{asset.resp}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </md-data-table-container>
+                        </aw-accordion>
+                    </div>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" style="padding: 0em 1em;">
+        <md-button class="md-primary" ng-click="apply()">Apply</md-button>
+        <!--<md-button class="md-primary" ng-click="clear()">Clear</md-button>-->
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <!-- The buttons here -->
+    </md-dialog-actions>
+</md-dialog>

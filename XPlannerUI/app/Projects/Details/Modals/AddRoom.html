@@ -1,0 +1,82 @@
+﻿<md-dialog aria-label="add_room" class="max-width-65 width-65">
+    <md-toolbar layout="row" layout-align="center center" ng-cloak>
+        Add Room
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak>
+        <form name="addRoomForm" id="copyFromCenterFor">
+            <section layout-gt-sm="row" style="height:60px" layout-align="space-between start" ng-repeat="qty in room_count" ng-value="qty">
+                <md-input-container class="md-block" flex-gt-sm="50">
+                    <label>Phase</label>
+                    <md-select name="phases[qty]" ng-model="data.cp_phase_id[qty]" ng-change="getData('departments', data.cp_phase_id[qty], qty)" ng-required="params.phase_id" aria-label="phases">
+                        <md-option ng-repeat="phase in phases" value="{{phase.phase_id}}">
+                            {{phase.description}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="addRoomForm.phases[qty].$error">
+                        <div ng-message="required">Phase is mandatory</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="50">
+                    <label>Department</label>
+                    <md-select name="departments[qty]" ng-model="data.cp_department_id[qty]" ng-required="params.department_id" aria-label="departments">
+                        <md-option ng-repeat="dpt in departments[qty]" value="{{dpt.department_id}}">
+                            {{dpt.description}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="addRoomForm.departments[qty].$error">
+                        <div ng-message="required">Department is mandatory</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="25">
+                    <label>Room Name</label>
+                    <input name="room_name[qty]" ng-model="data.room_name[qty]" maxlength="50" required>
+                    <div ng-messages="addRoomForm.room_name[qty].$error">
+                        <div ng-message="required">Room name is required</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="15">
+                    <label>Room Number</label>
+                    <input name="room_number[qty]" ng-model="data.room_number[qty]" maxlength="10">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="5">
+                    <button class="md-icon-button md-button" style="color: black;" ng-click="addRoom(qty)">
+                        <i class="material-icons">add</i><div class="md-ripple-container"></div>
+                        <md-tooltip md-direction="bottom">Add Room</md-tooltip>
+                    </button>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="5">
+                    <button class="md-icon-button md-button" style="color: black;" ng-click="deleteRoom(qty)">
+                        <i class="material-icons">delete</i><div class="md-ripple-container"></div>
+                        <md-tooltip md-direction="bottom">Delete Room</md-tooltip>
+                    </button>
+                </md-input-container>
+            </section>
+            <section layout-gt-sm="row" layout-align="space-between start">
+                <md-input-container class="md-block" flex-gt-sm="30">
+                    <md-select name="is_linked_template" ng-model="data.is_linked_template" ng-init="data.is_linked_template = 1" aria-label="is_linked_template">
+                        <md-option ng-repeat="temp in template_options" value="{{temp.value}}">
+                            {{temp.description}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="50" ng-show="data.is_linked_template != 1" >
+                    <label>Template</label>
+                    <md-select name="template_id" ng-model="data.template_id" ng-required="data.is_linked_template != 1">
+                        <md-option ng-repeat="temp in templates" value="{{temp.template_id}}">
+                            {{temp.name}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="addRoomForm.template_id.$error">
+                        <div ng-message="required">Template is mandatory</div>
+                    </div>
+                </md-input-container>
+            </section>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Cancel</md-button>
+        <md-button class="md-primary" ng-click="copy()">Add</md-button>
+    </md-dialog-actions>
+</md-dialog>
+
+

@@ -1,0 +1,21 @@
+﻿<md-dialog aria-label="lockProject" flex-gt-xs="30">
+    <md-toolbar layout="row" layout-align="center center" ng-cloak>
+        Lock Project
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak class="not-scrollable">
+        <form name="lockProjectForm" id="lockProjectForm">
+            <md-input-container class="md-block">
+                <label>Lock/Submmittal Date</label>
+                <input name="submittalDate" ng-model="data.locked_date" disabled>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Lock comment/Submmittal</label>
+                <input name="submittal" ng-model="data.locked_comment" maxlength="30">
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="cancel()">Cancel</md-button>
+        <md-button class="md-primary" ng-click="lock()">Lock</md-button>
+    </md-dialog-actions>
+</md-dialog>

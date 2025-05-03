@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>AudaxwareDB</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{5a96414d-4187-4273-b94d-04e447eefcb9}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>AudaxwareDB</RootNamespace>
+    <AssemblyName>AudaxwareDB</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <DefaultCollation>Latin1_General_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\Sequences\" />
+    <Folder Include="PostPublishScripts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\__MigrationHistory.sql" />
+    <Build Include="dbo\Tables\user_notification.sql" />
+    <Build Include="dbo\Tables\inventory_options.sql" />
+    <Build Include="dbo\Tables\Sessions.sql" />
+    <Build Include="dbo\Tables\AspNetUsers.sql" />
+    <Build Include="dbo\Tables\responsability.sql" />
+    <Build Include="dbo\Tables\AspNetRoles.sql" />
+    <Build Include="dbo\Tables\project.sql" />
+    <Build Include="dbo\Tables\AspNetUserRoles.sql" />
+    <Build Include="dbo\Tables\purchase_order.sql" />
+    <Build Include="dbo\Tables\AspNetUserLogins.sql" />
+    <Build Include="dbo\Tables\user_project_mine.sql" />
+    <Build Include="dbo\Tables\AspNetUserClaims.sql" />
+    <Build Include="dbo\Tables\assets_category.sql" />
+    <Build Include="dbo\Tables\cost_center.sql" />
+    <Build Include="dbo\Tables\manufacturer_contact.sql" />
+    <Build Include="dbo\Tables\project_department.sql" />
+    <Build Include="dbo\Tables\department_type.sql" />
+    <Build Include="dbo\Tables\domain.sql" />
+    <Build Include="dbo\Tables\assets.sql" />
+    <Build Include="dbo\Tables\report_type.sql" />
+    <Build Include="dbo\Tables\project_report.sql" />
+    <Build Include="dbo\Tables\project_addresses.sql" />
+    <Build Include="dbo\Tables\assets_measurement.sql" />
+    <Build Include="dbo\Tables\manufacturer.sql" />
+    <Build Include="dbo\Tables\project_phase.sql" />
+    <Build Include="dbo\Tables\project_room.sql" />
+    <Build Include="dbo\Tables\project_room_inventory.sql" />
+    <Build Include="dbo\Tables\assets_codes.sql" />
+    <Build Include="dbo\Tables\report_location.sql" />
+    <Build Include="dbo\Tables\phase_documents.sql" />
+    <Build Include="dbo\Tables\assets_options.sql" />
+    <Build Include="dbo\Tables\assets_subcategory.sql" />
+    <Build Include="dbo\Tables\global_contact.sql" />
+    <Build Include="dbo\Tables\inventory_purchase_order.sql" />
+    <Build Include="dbo\Tables\inventory_tab_display_prefs.sql" />
+    <Build Include="dbo\Tables\facility.sql" />
+    <Build Include="dbo\Tables\project_contact.sql" />
+    <Build Include="dbo\Tables\assets_project.sql" />
+    <Build Include="dbo\Tables\client.sql" />
+    <Build Include="dbo\Tables\bundle.sql" />
+    <Build Include="dbo\Tables\project_user.sql" />
+    <Build Include="dbo\Tables\related_assets.sql" />
+    <Build Include="dbo\Tables\role_pages.sql" />
+    <Build Include="dbo\Tables\User_gridView.sql" />
+    <Build Include="dbo\Tables\users_track.sql" />
+    <Build Include="dbo\Tables\vendor.sql" />
+    <Build Include="dbo\Tables\vendor_contact.sql" />
+    <Build Include="dbo\Tables\assets_vendor.sql" />
+    <Build Include="dbo\Tables\bundle_asset.sql" />
+    <Build Include="dbo\Tables\bundle_inventory.sql" />
+    <Build Include="dbo\Tables\lu_state.sql" />
+    <Build Include="dbo\Views\asset_by_room.sql" />
+    <Build Include="dbo\Views\manufacturer_contact_all.sql" />
+    <Build Include="dbo\Views\vendor_contact_all.sql" />
+    <Build Include="dbo\Views\inventory_po_qty_v.sql" />
+    <Build Include="dbo\Views\item_status_v.sql" />
+    <Build Include="dbo\Views\ancillary_v.sql" />
+    <Build Include="dbo\Views\matching_values.sql" />
+    <Build Include="dbo\Views\inventory_w_relo_v.sql" />
+    <Build Include="dbo\Functions\string_list_to_table.sql" />
+    <Build Include="dbo\Stored Procedures\copy_vendor_items.sql" />
+    <Build Include="dbo\Stored Procedures\procurement_chart1.sql" />
+    <Build Include="dbo\Stored Procedures\procurement_chart2.sql" />
+    <Build Include="dbo\Stored Procedures\get_available_assets_to_PO.sql" />
+    <Build Include="dbo\Stored Procedures\create_template.sql" />
+    <Build Include="dbo\Stored Procedures\get_purchase_orders.sql" />
+    <Build Include="dbo\Stored Procedures\copy_manufacturer_items.sql" />
+    <Build Include="dbo\Stored Procedures\copy_options.sql" />
+    <Build Include="dbo\Stored Procedures\change_department_phase.sql" />
+    <Build Include="dbo\Stored Procedures\ins_po_asset.sql" />
+    <Build Include="dbo\Stored Procedures\update_cost.sql" />
+    <Build Include="dbo\Stored Procedures\Get_PO_assigned_assets.sql" />
+    <Build Include="dbo\Stored Procedures\get_asset_rooms.sql" />
+    <Build Include="dbo\Stored Procedures\replace_inventory.sql" />
+    <Build Include="dbo\Stored Procedures\replace_inventory_control.sql" />
+    <Build Include="dbo\Stored Procedures\copy_rooms.sql" />
+    <Build Include="dbo\Stored Procedures\copy_departments.sql" />
+    <Build Include="dbo\Stored Procedures\copy_phases.sql" />
+    <Build Include="dbo\Stored Procedures\room_inventory_po.sql" />
+    <Build Include="dbo\Stored Procedures\copy_inventory.sql" />
+    <Build Include="dbo\Stored Procedures\department_inventory_po.sql" />
+    <Build Include="dbo\Stored Procedures\copy_from_project.sql" />
+    <Build Include="dbo\Stored Procedures\duplicate_asset.sql" />
+    <Build Include="dbo\Stored Procedures\apply_template.sql" />
+    <Build Include="dbo\Sequences\seq_project_room_id.sql" />
+    <Build Include="dbo\Views\AudaxWarePowerBI.sql" />
+    <Build Include="dbo\Tables\dashboard.sql" />
+    <Build Include="dbo\Stored Procedures\get_financials.sql" />
+    <Build Include="dbo\Functions\enterpriseAccessPredicateWithAudaxwareDomain.sql" />
+    <Build Include="dbo\Functions\enterpriseAccessPredicate.sql" />
+    <Build Include="dbo\Security.sql" />
+    <Build Include="dbo\enterpriseSecurityPolicy.sql" />
+    <Build Include="dbo\Users_database.sql" />
+    <Build Include="dbo\Logins.sql" />
+    <Build Include="dbo\Functions\fn_SUM_UNIT_PRICE.sql" />
+    <Build Include="dbo\Stored Procedures\edit_multi_asset.sql" />
+    <Build Include="dbo\Stored Procedures\update_inventories_option.sql" />
+    <Build Include="dbo\Stored Procedures\delete_assets_options.sql" />
+    <Build Include="dbo\Views\asset_inventory.sql" />
+    <Build Include="dbo\Tables\profile.sql" />
+    <Build Include="dbo\Stored Procedures\get_all_category_subcategories.sql" />
+    <Build Include="dbo\Tables\document_types.sql" />
+    <Build Include="dbo\Tables\project_documents.sql" />
+    <Build Include="dbo\Tables\documents_associations.sql" />
+    <Build Include="dbo\Stored Procedures\split_rooms.sql" />
+    <Build Include="dbo\Stored Procedures\get_possible_associations.sql" />
+    <Build Include="dbo\Stored Procedures\get_doc_associations_names.sql" />
+    <Build Include="dbo\Stored Procedures\get_shop_drawing_report_info.sql" />
+    <Build Include="dbo\Stored Procedures\get_inventory_doc_link.sql" />
+    <Build Include="dbo\Stored Procedures\upd_detailed_budget_profile.sql" />
+    <Build Include="dbo\Stored Procedures\duplicate_asset_new_code.sql" />
+    <Build Include="dbo\Stored Procedures\get_project_profiles.sql" />
+    <Build Include="dbo\Stored Procedures\edit_assets_profile.sql" />
+    <Build Include="dbo\Stored Procedures\copy_single_item_inventory.sql" />
+    <Build Include="dbo\Stored Procedures\get_global_profiles_not_project.sql" />
+    <Build Include="dbo\Stored Procedures\update_user_projects.sql" />
+    <Build Include="dbo\Views\joined_category_subcategory.sql" />
+    <Build Include="dbo\Views\asset_summarized.sql" />
+    <Build Include="dbo\Stored Procedures\get_templates.sql" />
+    <Build Include="dbo\Tables\jsn.sql" />
+    <Build Include="dbo\Stored Procedures\delete_room.sql" />
+    <Build Include="dbo\Stored Procedures\asset_import_search.sql" />
+    <Build Include="dbo\Stored Procedures\get_max_asset_codes.sql" />
+    <Build Include="dbo\Views\full_project_name.sql" />
+    <Build Include="dbo\Stored Procedures\copy_project.sql" />
+    <Build Include="dbo\Stored Procedures\add_room_picture.sql" />
+    <Build Include="dbo\Stored Procedures\add_inventory_picture.sql" />
+    <Build Include="dbo\Tables\documents_display_levels.sql" />
+    <Build Include="dbo\Stored Procedures\copy_inventory_budget_values.sql" />
+    <Build Include="dbo\Stored Procedures\unlink_inventory.sql" />
+    <Build Include="dbo\Functions\fn_get_project_comparison_column.sql" />
+    <Build Include="dbo\Stored Procedures\update_link_inventory.sql" />
+    <Build Include="dbo\Stored Procedures\update_link_insert_inventory_pictures.sql" />
+    <Build Include="dbo\Stored Procedures\delete_inventory_document.sql" />
+    <Build Include="dbo\Stored Procedures\copy_inventory_item.sql" />
+    <Build Include="dbo\Stored Procedures\update_inventory_by_project_jsn.sql" />
+    <Build Include="dbo\Stored Procedures\get_linked_inventories.sql" />
+    <Build Include="dbo\Stored Procedures\filter_can_edit_options_item.sql" />
+    <Build Include="dbo\Stored Procedures\add_option_picture.sql" />
+    <Build Include="dbo\Tables\domain_document.sql" />
+    <Build Include="dbo\Stored Procedures\add_asset_option.sql" />
+    <Build Include="dbo\Stored Procedures\delete_asset_option_picture.sql" />
+    <Build Include="dbo\Tables\asset_option_scope.sql" />
+    <Build Include="dbo\Stored Procedures\copy_po.sql" />
+    <Build Include="dbo\Stored Procedures\copy_po_inventory.sql" />
+    <Build Include="dbo\Tables\temporary_location.sql" />
+    <Build Include="dbo\Stored Procedures\update_inventories_cutsheet_filename.sql" />
+    <Build Include="dbo\Stored Procedures\clean_user_projects.sql" />
+    <Build Include="dbo\Tables\domain_manufacturer.sql" />
+    <Build Include="dbo\Stored Procedures\update_domain_manufacturers.sql" />
+    <Build Include="dbo\Stored Procedures\_get_associated_manufacturers_.sql" />
+    <Build Include="dbo\Stored Procedures\get_related_assets.sql" />
+    <Build Include="dbo\Stored Procedures\delete_asset_and_related_asset.sql" />
+    <Build Include="dbo\Stored Procedures\get_expirated_pos.sql" />
+    <Build Include="dbo\Tables\po_vendor_contact.sql" />
+    <Build Include="dbo\Tables\cutsheet_to_generate.sql" />
+    <Build Include="dbo\Tables\final_disposition.sql" />
+    <Build Include="dbo\Stored Procedures\copy_inventory_document.sql" />
+    <Build Include="dbo\Tables\audit_log.sql" />
+    <Build Include="dbo\Stored Procedures\update_asset_costs.sql" />
+    <Build Include="dbo\Stored Procedures\get_all_audit_data.sql" />
+    <Build Include="dbo\Stored Procedures\update_asset_budget.sql" />
+    <Build Include="dbo\Tables\asset_it_connectivity.sql" />
+    <None Include="PostPublishScripts\fiil enterprise claims.sql" />
+    <None Include="PostPublishScripts\Fill document types.sql" />
+    <None Include="PostPublishScripts\InsertDocumentsDisplayLevels.sql" />
+    <None Include="PostPublishScripts\options and profiles.sql" />
+    <None Include="PostPublishScripts\updateDateModified.sql" />
+    <Build Include="dbo\Stored Procedures\copy_room_document.sql" />
+    <Build Include="dbo\Stored Procedures\get_project_treeview.sql" />
+    <Build Include="dbo\Stored Procedures\get_budget_summary_values.sql" />
+    <Build Include="dbo\Stored Procedures\delete_duplicated_inventory_photos.sql" />
+    <Build Include="dbo\Stored Procedures\delete_duplicated_asset_photos.sql" />
+    <Build Include="dbo\Stored Procedures\get_budget_data_from_inventories.sql" />
+    <Build Include="dbo\Functions\fn_aggregate_po_status.sql" />
+    <Build Include="dbo\Functions\fn_remove_duplicated_items.sql" />
+    <Build Include="dbo\Stored Procedures\update_valid_po.sql" />
+    <Build Include="dbo\Stored Procedures\maintenance_update_all_valid_po.sql" />
+    <Build Include="dbo\Stored Procedures\split_inventory_purchase_order.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LocalCamila.publish.xml" />
+    <None Include="CamilaLocal.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="AudaxwareDB.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PostPublishScripts\Script.PostDeployment.sql" />
+    <None Include="PostPublishScripts\UpdatePlacementValues.sql" />
+    <None Include="PostPublishScripts\SplitInventoryRelatedToMultiplePO.sql" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" ng-app="xPlanner" ng-strict-di>
+<head>
+    <!--<meta charset="UTF-8">-->
+    <!--<meta name="viewport" content="width=device-width, height=device-height initial-scale=1" />-->
+    <meta content="width=device-width, height=device-height initial-scale=1" /> <!-- No responsive -->
+    <title>XPlanner</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="build/style.min.css" />
+    <link rel="shortcut icon" href="images/branding/favicon.ico" />
+    <!-- Scripts -->
+    <script src="build/thirdParty.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        // forces the web site to use https
+        if (location.protocol != "https:" && location.hostname.endsWith("audaxware.com")) { location.replace(location.origin.replace("http://", "https://")); }
+        if (location.host == "audaxware.azurewebsites.net") {
+            location.replace("https://preview.audaxware.com")
+        }
+    </script>
+</head>
+<body ng-cloack ng-controller="XPlannerController" layout="column" md-theme="{{theme}}" md-theme-watch="true">
+
+    <section id="progressBar"></section>
+
+    <!-- Top Navbar -->
+    <md-toolbar layout="row" aria-label="Top Menu" ng-if="auth()">
+        <section flex-gt-xs="10" flex-gt-sm="5" flex-xs="15">
+            <md-button class="menu" ng-click="toogleLeft()" style="margin-left: 8px">
+                <md-icon md-svg-icon="menu" aria-label="Menu"></md-icon>
+            </md-button>
+        </section>
+        <section flex-gt-xs="90" flex-gt-sm="95" flex-xs="70" layout="row">
+            <section layout="row" layout-align="none start" flex="100">
+                <h1 style="margin-left: {{ mobileMedia ? 'none' : '0px'}};" layout="column" layout-align="center center" class="text">
+                    Audaxware xPlanner
+                </h1>
+            </section>
+            <section layout="row" layout-align="center end" class="padding-right top-nav-bar-buttons-group">
+                <md-button class="md-icon-button" id="notification" ng-click="toggleNotifications()" ng-class="{'open-notification': showNotifications}" ng-if="!mobileMedia" style="margin-right: 5px;">
+                    <md-icon ng-class="{'md-primary': showNotifications }">
+                        notifications_none
+                    </md-icon>
+                    <span ng-if="messages.length > 0 && !showNotifications" class="md-{{theme}}-theme notification-num">{{messages.length}}</span>
+                </md-button>
+                <md-list class="md-dense" ng-if="!mobileMedia" id="avatar-item">
+                    <md-list-item class="md-3-line" style="top: 8px; padding: 0px;">
+                        <div class="md-list-item-text" layout="column">
+                            <h3 style="color: rgba(255,255,255,0.87)">{{ enterprise | enterpriseName | uppercase }}</h3>
+                        </div>
+                        <img ng-src="images/icons/svg/avatar.svg" class="md-avatar" alt="avatar" ng-click="toggleEnterprises()" />
+                    </md-list-item>
+                </md-list>
+            </section>
+        </section>
+        <section flex-xs="15" ng-if="mobileMedia">
+            <md-button class="menu" ng-click="logoff()">
+                <md-icon md-svg-icon="logout" aria-label="Menu" style="color: white"></md-icon>
+            </md-button>
+        </section>
+    </md-toolbar>
+    <!-- END - Top Navbar -->
+    <!-- Sidenav -->
+    <md-sidenav md-component-id="left" md-is-locked-open="false" ng-if="auth()">
+        <md-toolbar layout="row" layout-align="center center" style="background-color: white; border-bottom: 1px;">
+            <img class="logo" id="logo" ng-src="images/branding/logo.png" ui-sref="index" height="39" width="150">
+        </md-toolbar>
+        <md-divider></md-divider>
+        <md-content flex role="navigation">
+            <md-menu-sidenav>
+                <md-menu-sidenav-item ng-repeat="item in itemsMenu" ng-if="item.visible">
+                    <md-menu-sidenav-title ng-if="!item.toggle" ng-click="item.onclick(item.params)">
+                        <md-icon flex="15" md-svg-icon="{{item.icon}}"></md-icon>
+                        <h1 class="md-body-2" flex>{{item.title}}</h1>
+                    </md-menu-sidenav-title>
+                    <md-menu-sidenav-title ng-if="item.toggle">
+                        <md-toogle-menu layout="row" flex ng-click="toggleMenuItem($index)">
+                            <md-icon flex="15" ng-class="{'md-primary': item.open}" md-svg-icon="{{item.icon}}"></md-icon>
+                            <h1 class="md-body-2" flex ng-class="{'md-primary': item.open}">{{item.title}}</h1>
+                            <md-icon flex="15" ng-class="{'md-primary': item.open}">{{item.open ? 'expand_less' : 'expand_more'}}</md-icon>
+                        </md-toogle-menu>
+                    </md-menu-sidenav-title>
+
+                    <md-menu-sidenav-content ng-if="item.toggle">
+                        <md-menu-sidenav-subitem ng-repeat="sub in item.subItems" ng-if="sub.visible" ng-click="sub.onclick(sub.params)">{{sub.title}}</md-menu-sidenav-subitem>
+                    </md-menu-sidenav-content>
+
+                    <md-divider ng-if="item.visible"></md-divider>
+                </md-menu-sidenav-item>
+            </md-menu-sidenav>
+        </md-content>
+    </md-sidenav>
+    <!-- End sidenav -->
+    <!-- spiner to block the screen -->
+    <section id="spiner"></section>
+
+    <!-- Content -->
+    <ui-view class="middle-content md-{{theme}}-theme" ng-cloack flex="100">
+    </ui-view>
+
+    <!-- Footer -->
+    <footer class="pane-content footer">
+        <p ng-click="thirdParty()">Copyright® {{current_year}} AudaxWare LLC</p>
+    </footer>
+    <!-- END - footer -->
+
+    <!-- Angular app -->
+    <script src="build/all.min.js" type="text/javascript"></script>
+
+    <!-- notifications box -->
+    <div class="_md md-open-menu-container md-whiteframe-z2 md-active md-clickable" id="notification-items" aria-hidden="false" ng-if="showNotifications" click-outside="toggleNotifications(true)" outside-if-not="notification-icon-button" aw-based-width width-element-id="avatar-item">
+        <md-menu-content role="menu" class="notifications-menu-content">
+            <md-menu-item class="ng-scope notifications-menu-item" ng-repeat="msg in messages track by $index">
+                <span class="ng-scope">{{msg.message}}</span>
+            </md-menu-item>
+        </md-menu-content>
+    </div>
+
+    <!-- enterprises box -->
+    <div class="_md md-open-menu-container md-whiteframe-z2 md-active md-clickable" id="enterprise-items" aria-hidden="false" ng-if="showEnterprises" click-outside="toggleEnterprises(true)" outside-if-not="enterprise-icon-button">
+        <md-menu-content role="menu">
+            <md-menu-item class="ng-scope" ng-repeat="domain in userDomains" ng-click="changeDomain(domain, true)">
+                <md-button class="md-{{theme}}-theme md-ink-ripple" type="button" role="menuitem">
+                    <span class="ng-scope">{{domain.name | enterpriseName}}</span>
+                </md-button>
+            </md-menu-item>
+            <md-divider></md-divider>
+            <md-menu-item class="ng-scope">
+                <md-button ng-click="changePassword()">
+                    <span class="md-primary">Change Password</span>
+                </md-button>
+            </md-menu-item>
+            <md-divider></md-divider>
+            <md-menu-item class="avatar-logout">
+                <md-button ng-click="logoff()">
+                    <span class="md-primary">Logout</span>
+                    <md-icon md-svg-icon="logout" class="md-primary" aria-label="Menu"></md-icon>
+                </md-button>
+            </md-menu-item>
+            <md-divider></md-divider>
+        </md-menu-content>
+    </div>
+</body>
+</html>

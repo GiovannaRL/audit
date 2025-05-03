@@ -1,0 +1,36 @@
+﻿
+<div layout="column" layout-align="center center">
+    <form name="loginForm" id="loginForm">
+        <div layout="column" layout-align="center center" class="login-logo">
+            <img id="Image1" src="images/branding/logo.png" style="border-width:0px;">
+            <span>
+                planning - procurement - logistics
+            </span>
+        </div>
+        <md-input-container class="md-block">
+            <label>User</label>
+            <input type="email" ng-model="user.username" name="username" required ng-enter="login()">
+            <div ng-messages="loginForm.username.$error">
+                <div ng-message="required">Username is required</div>
+                <div ng-message="email">Is not a valid email</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Password</label>
+            <input type="password" ng-model="user.password" name="password" required ng-enter="login()">
+            <div ng-messages="loginForm.password.$error">
+                <div ng-message="required">Password is required</div>
+            </div>
+        </md-input-container>
+        <md-checkbox ng-model="user.rememberme" aria-label="Remember me">
+            Keep me logged in
+        </md-checkbox>
+        <section layout="column" layout-align="center center">
+            <md-button class="md-raised" ng-click="login()">Login</md-button>
+        </section>
+        <div class="forget-password" layout="column" layout-align="center center">
+            <a href="" ng-click="forgotPassword()">Forgot your password?</a>
+            <a href="" ng-click="requestSubscription()">Request Subscription</a>
+        </div>
+    </form>
+</div>

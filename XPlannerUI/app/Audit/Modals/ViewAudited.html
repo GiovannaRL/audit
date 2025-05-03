@@ -1,0 +1,47 @@
+﻿<md-dialog aria-label="ViewAudit" flex-gt-xs="55">
+    <md-toolbar layout="row" layout-align="center center">
+        View Audited Data
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak>
+        <section layout-gt-xs="row" layout-align="space-between start">
+            <md-input-container class="md-block">
+                <strong>Table:</strong> {{auditedData.table_name}}
+            </md-input-container>
+            <md-input-container class="md-block">
+                <strong>Operation:</strong> {{auditedData.operation}}
+            </md-input-container>
+            <md-input-container class="md-block">
+                <strong>Updated At:</strong> {{modified_date}}
+            </md-input-container>
+        </section>
+        <section layout-gt-xs="row" layout-align="space-between start">
+            <md-input-container class="md-block" ng-if="auditedData.project_description">
+                <strong>Project Name:</strong> {{auditedData.project_description}}
+            </md-input-container>
+            <md-input-container class="md-block" ng-if="auditedData.asset_code">
+                <strong>Asset Code:</strong> {{auditedData.asset_code}}
+            </md-input-container>
+            <md-input-container class="md-block">
+                <strong>Updated by:</strong> {{auditedData.username}}
+            </md-input-container>
+        </section>
+        <section layout-gt-xs="row" layout-align="space-between start">
+            <md-input-container class="md-block" ng-if="auditedData.comment">
+                <strong>Comment:</strong> {{auditedData.comment}}
+            </md-input-container>
+            <md-input-container class="md-block" ng-if="auditedData.header">
+                <strong>Header:</strong> {{auditedData.header}}
+            </md-input-container>
+        </section>
+        <section layout="column" ng-cloack class="md-inline-form padding-left-half padding-right-half">
+            <div class="checkbox-grid" kendo-grid="auditGrid" options="options" k-on-data-bound="dataBound()">
+            </div>
+        </section>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+    </md-dialog-actions>
+</md-dialog>
+
+
+

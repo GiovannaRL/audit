@@ -1,0 +1,100 @@
+﻿<md-tabs md-border-bottom md-selected="selectedTab">
+    <md-tab label="Details">
+        <form name="detailsForm" id="detailsForm" class="md-inline-form md-block">
+            <aw-accordion label="Information" expanded="true">
+                <section layout-gt-xs="row" layout-fill layout-align="space-between bottom" class="md-block">
+                    <md-input-container class="md-block" flex-gt-xs="30">
+                        <label>Department Type</label>
+                        <md-select ng-model="room_template.department_type" aria-label="department type" required>
+                            <md-option ng-repeat="department_type in department_types" ng-value="department_type" ng-selected="department_type.department_type_id == room_template.department_type_id_template">
+                                {{department_type.description}}
+                            </md-option>
+                        </md-select>
+                        <!--<aw-combo-box ng-model="room_template.department_type" name="department_type" controller-name="departmentType" params="controllerParams" label="Department Type *" text-property="description" id-property="department_type_id" selected-id="room_template.department_type_id" selected-item="room_template.department_type" selected-domain="room_template.department_type_domain_id" domain-property="domain_id" required></aw-combo-box>-->
+                        <div ng-messages="detailsForm.department_type.$error">
+                            <div ng-message="required">Department type is required</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-xs="30">
+                        <label>Name</label>
+                        <input name="description" ng-model="room_template.drawing_room_name" required>
+                        <div ng-messages="detailsForm.description.$error">
+                            <div ng-message="required">Template name is required</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-xs="30">
+                        <label>Scope</label>
+                        <md-select ng-model="room_template.project" aria-label="scope">
+                            <md-option value="null">(Global)</md-option>
+                            <md-option ng-repeat="project in projects" ng-value="project" ng-selected="project.project_id == room_template.project_id_template">
+                                {{project.project_description}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <!--<md-input-container class="md-block" flex-gt-xs="30">
+                        <aw-combo-box name="project" ng-model="room_template.project" controller-name="projects" params="controllerParams" text-property="project_description" id-property="project_id" selected-item="room_template.project" label="Scope" order-by="project_description"></aw-combo-box>
+                    </md-input-container>-->
+                </section>
+                <md-input-container class="md-block">
+                    <label>Comment</label>
+                    <textarea ng-model="room_template.comment" name="comment" columns="1" maxlength="1000" md-maxlength="1000" rows="1"></textarea>
+                </md-input-container>
+            </aw-accordion>
+        </form>
+    </md-tab>
+    <md-tab label="Assets" ng-if="room_template">
+        <section class="padding-bottom padding-left padding-right">
+            <aw-asset-inventory-grid is-template="true" is-global-template="isGlobalTemplate" filter-action-button="true" hide-toolbar="!can_modify" grid-height-subtract="210" params="params" emit-buttons="setAssetsButtons(value, 'assets')"></aw-asset-inventory-grid>
+        </section>
+    </md-tab>
+
+    <md-tab label="Linked Rooms" ng-if="room_template.project">
+        <section class="padding-bottom padding-left padding-right">
+            <div class="k-grid" kendo-grid="linkedTemplatesListGrid" options="options" k-on-data-bound="dataBound()"></div>
+        </section>
+    </md-tab>
+</md-tabs>
+
+<!-- FAB Button -->
+<md-fab-speed-dial md-open="fab[0].open" md-direction="up"
+                   class="md-fling" ng-cloak ng-if="selectedTab === 0">
+    <md-fab-trigger>
+        <md-button aria-label="menu" class="md-fab md-accent">
+            <md-icon md-svg-src="{{fab[0].open ? 'close' : 'menu'}}"></md-icon>
+        </md-button>
+    </md-fab-trigger>
+    <md-fab-actions>
+        <div ng-repeat="button in fab[0].buttons" ng-if="button.show">
+            <md-button aria-label="{{button.label}}" class="md-fab md-mini"
+                       ng-click="button.click()">
+                <md-tooltip md-direction="left" md-visible="false"
+                            md-autohide="true">
+                    {{button.label}}
+                </md-tooltip>
+                <md-icon md-svg-src="{{button.icon}}" aria-label="{{button.label}}"></md-icon>
+            </md-button>
+        </div>
+    </md-fab-actions>
+</md-fab-speed-dial>
+
+<md-fab-speed-dial md-open="fab[1].open" md-direction="up"
+                   class="md-fling" ng-cloak ng-if="selectedTab === 1">
+    <md-fab-trigger>
+        <md-button aria-label="menu" class="md-fab md-accent">
+            <md-icon md-svg-src="{{fab[1].open ? 'close' : 'menu'}}"></md-icon>
+        </md-button>
+    </md-fab-trigger>
+    <md-fab-actions>
+        <div ng-repeat="button in fab[1].buttons" ng-if="button.show">
+            <md-button aria-label="{{button.label}}" class="md-fab md-mini"
+                       ng-click="button.click.func(button.click.params)">
+                <md-tooltip md-direction="left" md-visible="false"
+                            md-autohide="true">
+                    {{button.label}}
+                </md-tooltip>
+                <md-icon md-svg-src="{{button.icon}}" aria-label="{{button.label}}"></md-icon>
+            </md-button>
+        </div>
+    </md-fab-actions>
+</md-fab-speed-dial>
+<!-- FAB Button -->

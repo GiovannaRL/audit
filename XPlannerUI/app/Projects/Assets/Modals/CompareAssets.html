@@ -1,0 +1,34 @@
+﻿<md-dialog aria-label="addDomain" flex-gt-xs="65">
+    <md-toolbar layout="row" layout-align="center center" ng-cloak>
+        Compare Assets
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak>
+        <section class="md-inline-form">
+            <section layout="row">
+                <section layout="row" layout-align="start space-between" layout-wrap class="grid-toolbar" flex="90">
+                    <md-input-container class="md-block">
+                        <strong>Asset 1:</strong> {{asset1Content}}
+                    </md-input-container>
+                </section>
+                <section layout="row" layout-align="start space-between" layout-wrap class="grid-toolbar" flex="90">
+                    <md-input-container class="md-block">
+                        <strong>Asset 2:</strong> {{asset2Content}}
+                    </md-input-container>
+                </section>
+            </section>
+            <div kendo-grid="compareAssetsGrid" options="options" k-on-data-bound="dataBound(compareAssetsGrid)"></div>
+        </section>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" layout-align="end" ng-cloak>
+        <section layout="row" layout-align="end" flex="50">
+            <md-button class="md-primary" ng-click="close()">Close</md-button>
+        </section>
+    </md-dialog-actions>
+</md-dialog>
+
+<style parse-style>
+    .k-grid-content {
+        max-height:{{gridHeight - 150}}px;
+        min-height:{{gridHeight - 150}}px;
+    }
+</style>

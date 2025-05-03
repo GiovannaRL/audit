@@ -1,0 +1,154 @@
+﻿<section layout="column" ng-cloack class="md-inline-form padding-left-half padding-right-half padding-top padding-bottom-half" ng-controller="DetailsCtrl">
+    <form name="detailsForm" id="detailsForm">
+        <aw-accordion label="Information" expanded="true">
+            <section layout-gt-xs="row" layout-fill layout-align="space-between bottom" class="md-block">
+                <md-input-container class="md-block" flex-gt-xs="20">
+                    <label>Room Name</label>
+                    <input type="text" name="room_name" ng-model="data.drawing_room_name" maxlength="100" required>
+                    <div ng-messages="detailsForm.room_name.$error">
+                        <div ng-message="required">Room name is mandatory</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="20">
+                    <label style="line-height:12px">Room No</label>
+                    <input type="text" name="room_number" ng-model="data.drawing_room_number" maxlength="32">
+                    <!--<div ng-messages="detailsForm.room_number.$error">
+                        <div ng-message="required">Room number is mandatory</div>
+                    </div>-->
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="20">
+                    <label>Wayfinding Name</label>
+                    <input type="text" name="final_room_name" ng-model="data.final_room_name" maxlength="100">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="20">
+                    <label>Wayfinding No.</label>
+                    <input type="text" name="final_room_number" ng-model="data.final_room_number" maxlength="32">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="10">
+                    <label>Room Count</label>
+                    <input type="text" name="room_quantity" ng-model="data.room_quantity" maxlength="2" required aw-only-numbers-not-zero>
+                    <div ng-messages="detailsForm.room_quantity.$error">
+                        <div ng-message="required">Room Count is mandatory</div>
+                        <div ng-message="numberNotZero">Only numbers are allowed</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="10" style="margin-left:-34px;">
+                    <md-button class="md-button md-button-updated" ng-click="splitRooms()" ng-show="room_count > 1">
+                        <md-icon md-svg-icon="split"></md-icon>
+                        <md-tooltip md-direction="bottom">
+                            Split Rooms
+                        </md-tooltip>
+                    </md-button>
+                    <!--<md-button class="md-raised md-button md-button-updated" ng-click="splitRooms()" ng-show="room_count > 1"> Split </md-button>-->
+                </md-input-container>
+            </section>
+            <section layout-gt-xs="row" layout-fill layout-align="space-between bottom" class="md-block">
+                <md-input-container class="md-block" flex-gt-xs="20">
+                    <label>Room Code</label>
+                    <input type="text" name="room_code" ng-model="data.room_code" maxlength="20">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="15">
+                    <label style="line-height:12px">Blueprint</label>
+                    <input type="text" name="blueprint" ng-model="data.blueprint" maxlength="50">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="20">
+                    <label>Staff</label>
+                    <input type="text" name="staff" ng-model="data.staff">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="15">
+                    <label>Room Area (sqft)</label>
+                    <input type="text" name="room_area" ng-model="data.room_area" aw-currency>
+                    <div ng-messages="detailsForm.room_area.$error">
+                        <div ng-message="currency">Only currency values are allowed</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="20">
+                    <label>Functional Area</label>
+                    <input type="text" name="functional_area" ng-model="data.functional_area">
+                </md-input-container>
+            </section>
+        </aw-accordion>
+        <aw-accordion label="Template" expanded="false" ng-if="params.room_id">
+            <section layout-gt-xs="row" layout-fill layout-align="space-between bottom" class="md-block">
+                <md-input-container class="md-block" flex-gt-xs="10">
+                    <label style="line-height:12px">Template:</label>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="30">
+                    <label style="line-height:12px">{{linked_template_info}}</label>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="10">
+                    <md-button class="md-raised md-button" ng-click="applyTemplate()"> Change/Apply </md-button>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="10">
+                    <md-button class="md-raised md-button" ng-click="unlinkTemplate()" ng-if="data.linked_template">Unlink</md-button>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="10">
+                    
+                </md-input-container>
+            </section>
+        </aw-accordion>
+        <aw-accordion label="More...">
+            <section class="padding-top">
+                <md-card-content layout-gt-xs="row" layout-align="start center" ng-if="!params.add">
+                    <section flex-gt-xs="45">
+                        <label><strong>Data Added: </strong></label>
+                        <span>{{data.date_added | date:'shortDate'}}</span>
+                    </section>
+                    <section>
+                        <label><strong>Added by: </strong></label>
+                        <span>{{data.added_by}}</span>
+                    </section>
+                </md-card-content>
+                <md-input-container class="md-block">
+                    <label>Comment</label>
+                    <textarea ng-model="data.comment" name="comment" columns="1" md-maxlength="1000"></textarea>
+                    <div ng-messages="!detailsForm.comment.$valid && detailsForm.comment.$error" role="alert">
+                        <div ng-message="md-maxlength" class="my-message">
+                            Only 1000 characters are allowed!
+                        </div>
+                    </div>
+                </md-input-container>
+            </section>
+        </aw-accordion>
+    </form>
+    <!-- FAB button -->
+    <div class="lock-size fixed-element" layout="row" layout-align="center center" ng-cloak ng-if="isNotViewer">
+        <md-fab-speed-dial md-open="buttons.state" md-direction="up"
+                           class="md-fling">
+            <md-fab-trigger>
+                <md-button aria-label="menu" class="md-fab md-accent">
+                    <md-icon md-svg-src="{{buttons.state ? 'close' : 'menu'}}"></md-icon>
+                </md-button>
+            </md-fab-trigger>
+            <md-fab-actions>
+                <div ng-repeat="button in (params.add ? buttons.room.add : buttons.room.edit)">
+                    <md-button aria-label="{{button.label}}" class="md-fab md-mini"
+                               ng-click="button.click('Room')">
+                        <md-tooltip md-direction="left" md-visible="false"
+                                    md-autohide="true">
+                            {{button.label}}
+                        </md-tooltip>
+                        <md-icon md-svg-src="{{button.icon}}" aria-label="{{button.label}}"></md-icon>
+                    </md-button>
+                </div>
+            </md-fab-actions>
+        </md-fab-speed-dial>
+    </div>
+</section>
+
+<!--<div class="md-block" layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm="50">
+        <label>Department</label>
+        <input ng-if="!params.add" type="text" ng-model="data.project_department.description" disabled>
+        <input ng-if="params.add" type="text" ng-model="parent.description" disabled>
+    </md-input-container>
+</div>-->
+
+<style type="text/css">
+    .md-button-updated {
+        min-height:26px !important;
+        line-height:26px !important;
+        min-width:48px !important;
+        font-size: 11px !important;
+    }
+</style>

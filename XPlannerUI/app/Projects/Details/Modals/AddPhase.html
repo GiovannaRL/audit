@@ -1,0 +1,67 @@
+﻿<md-dialog aria-label="add_phase" class="all-screen width-40 max-width-40">
+    <md-toolbar layout="row" layout-align="center center" ng-cloak>
+        Add Phase
+    </md-toolbar>
+    <md-dialog-content ng-cloak class="md-inline-form">
+        <form name="addForm" id="addForm">
+            <md-input-container class="md-block">
+                <label>Description</label>
+                <input type="text" name="description" ng-model="data.description" maxlength="50" required>
+                <div ng-messages="addForm.description.$error">
+                    <div ng-message="required">Phase description is required</div>
+                </div>
+            </md-input-container>
+            <section layout-gt-xs="row" layout-fill layout-align="space-around end" class="md-block">
+                <md-input-container flex-gt-xs="45">
+                    <label>Start Date</label>
+                    <md-datepicker name="start_date" ng-model="data.start_date" required></md-datepicker>
+                    <div ng-messages="addForm.start_date.$error">
+                        <div ng-message="valid">The entered value is not a date</div>
+                        <div ng-message="required">Start date is required</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex-gt-xs="45">
+                    <label>End Date</label>
+                    <md-datepicker name="end_date" ng-model="data.end_date" required md-min-date="data.start_date"></md-datepicker>
+                    <div ng-messages="addForm.end_date.$error">
+                        <div ng-message="valid">The entered value is not a date</div>
+                        <div ng-message="required">End date is required</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <section layout-gt-xs="row" layout-fill layout-align="space-around end" class="md-block">
+                <md-input-container flex-gt-xs="45">
+                    <label>Asset Date</label>
+                    <md-datepicker name="equip_move_in_date" ng-model="data.equip_move_in_date"></md-datepicker>
+                    <div ng-messages="addForm.equip_move_in_date.$error">
+                        <div ng-message="valid">The entered value is not a date</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex-gt-xs="45">
+                    <label>Go Live Date</label>
+                    <md-datepicker name="occupancy_date" ng-model="data.occupancy_date"></md-datepicker>
+                    <div ng-messages="addForm.occupancy_date.$error">
+                        <div ng-message="valid">The entered value is not a date</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <section layout-gt-xs="row" layout-align="center end">
+                <md-input-container>
+                    <label>OFCI Delivery</label>
+                    <md-datepicker name="ofci_delivery" ng-model="data.ofci_delivery"></md-datepicker>
+                    <div ng-messages="addForm.ofci_delivery.$error">
+                        <div ng-message="valid">The entered value is not a date</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <md-input-container class="md-block">
+                <label>Comment</label>
+                <textarea ng-model="data.comment" name="comment" columns="1" md-maxlength="1000" maxlength="1000" rows="1"></textarea>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="add()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>

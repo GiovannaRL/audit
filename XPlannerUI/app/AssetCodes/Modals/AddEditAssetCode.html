@@ -1,0 +1,33 @@
+﻿<md-dialog aria-label="add_assetcode" ng-cloak>
+    <md-toolbar layout="row" layout-align="center center">
+        Add Asset Code
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloack class="md-inline-form">
+        <form name="addAssetCodeForm" id="addAssetCodeForm">
+            <md-input-container class="md-block">
+                <label>Prefix</label>
+                <input name="prefix" ng-model="assetcode.prefix" required maxlength="3" aw-exists="{{anotherAssetCodes}}" property="prefix">
+                <div ng-messages="addAssetCodeForm.prefix.$error">
+                    <div ng-message="required">Prefix is mandatory</div>
+                    <div ng-message="maxlength">Only 3 caracteres are allowed</div>
+                    <div ng-message="exists">Prefix already exists</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Description</label>
+                <input name="description" ng-model="assetcode.description" maxlength="50">
+                <div ng-messages="addAssetCodeForm.description.$error">
+                    <div ng-message="maxlength">Only 50 caracteres are allowed</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Next Number</label>
+                <input name="next_seq" ng-model="assetcode.next_seq" maxlength="50" readonly>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="add()">{{saveButtonText}}</md-button>
+    </md-dialog-actions>
+</md-dialog>

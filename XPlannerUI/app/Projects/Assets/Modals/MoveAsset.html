@@ -1,0 +1,50 @@
+﻿<md-dialog aria-label="add_room" ng-cloak class="max-width-65 width-65">
+    <md-toolbar layout="row" layout-align="center center">
+        Move Asset To
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloack>
+        <form name="moveAssetForm" id="copyFromCenterFor">
+            <section layout-gt-sm="row" style="height:60px" layout-align="space-between start">
+                <md-input-container class="md-block" flex-gt-sm="50">
+                    <label>Phase</label>
+                    <md-select name="phase" ng-model="data.phase_id" required>
+                        <md-option ng-repeat="phase in phases | orderBy: 'description'" value="{{phase.phase_id}}">
+                            {{phase.description}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="moveAssetForm.phase.$error">
+                        <div ng-message="required">Phase is mandatory</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="50">
+                    <label>Department</label>
+                    <md-select name="department" ng-model="data.department_id" required>
+                        <md-option ng-repeat="dpt in departments | orderBy: 'description'" value="{{dpt.department_id}}">
+                            {{dpt.description}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="moveAssetForm.department.$error">
+                        <div ng-message="required">Department is mandatory</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="25">
+                    <label>Room</label>
+                    <md-select name="room" ng-model="data.room_id" required>
+                        <md-option ng-repeat="room in rooms | orderBy: ['drawing_room_name', 'drawing_room_number']" value="{{room.room_id}}">
+                            {{room.drawing_room_name + (room.drawing_room_number != null ? " - " + room.drawing_room_number : "")}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="moveAssetForm.room.$error">
+                        <div ng-message="required">Room is required</div>
+                    </div>
+                </md-input-container>
+            </section>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="close()">Cancel</md-button>
+        <md-button class="md-primary" ng-click="move()">Move</md-button>
+    </md-dialog-actions>
+</md-dialog>
+
+

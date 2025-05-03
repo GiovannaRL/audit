@@ -1,0 +1,43 @@
+﻿<md-dialog aria-label="addAssetSubcategory" flex-gt-xs="50" class="all-screen">
+    <md-toolbar layout="row" layout-align="center center" ng-cloak>
+        {{edit ? 'Edit' : 'Add'}} Asset Subcategory
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak class="not-scrollable">
+        <form name="addSubcategoryForm" id="addSubcategoryForm">
+            <section aw-combo-box
+                     name="category"
+                     form="addSubcategoryForm"
+                     ng-model="subcategory.assets_category"
+                     controller-name="categories"
+                     query-controller-action="ToSub"
+                     params="controllerParams"
+                     text-property="description"
+                     id-property="category_id"
+                     selected-item="subcategory.assets_category"
+                     domain-property="domain_id"
+                     label="Category"
+                     order-by="description"
+                     required></section>
+            <md-input-container class="md-block no-md-errors-spacer" style="margin-bottom: 0px">
+                <label>Name</label>
+                <input name="description" ng-model="subcategory.description" maxlength="50" required>
+                <div ng-messages="addSubcategoryForm.description.$error">
+                    <div ng-message="required">Subcategory name is required</div>
+                </div>
+            </md-input-container>
+        </form>
+        <aw-category-settings-grid data="subcategory" subcategory></aw-category-settings-grid>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="add()">{{edit ? 'Save' : 'Add'}}</md-button>
+        <md-button ng-if="!edit" class="md-primary" ng-click="add(true)">Add and Close</md-button>
+    </md-dialog-actions>
+</md-dialog>
+
+
+<style parse-style>
+    .k-grid-content {
+        max-height:{{style_height}}px;
+    }
+</style>

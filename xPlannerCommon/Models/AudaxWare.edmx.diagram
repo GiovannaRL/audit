@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6c520268540c40cf8e6ae46a1a4db38a" Name="Diagram1" ZoomLevel="12">
+        <EntityTypeShape EntityType="AudaxWare.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.C__RefactorLog" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.AspNetRole" Width="1.5" PointX="3" PointY="73.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="62.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="65.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.AspNetUserRole" Width="1.5" PointX="5.25" PointY="73" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.AspNetUser" Width="1.5" PointX="3" PointY="62.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.assets_category" Width="1.5" PointX="5.25" PointY="80.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.assets_codes" Width="1.5" PointX="3" PointY="75.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.assets_measurement" Width="1.5" PointX="3" PointY="107.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.assets_project" Width="1.5" PointX="13.5" PointY="97.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.assets_subcategory" Width="1.5" PointX="7.5" PointY="78.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.assets_vendor" Width="1.5" PointX="7.5" PointY="118.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.bundle" Width="1.5" PointX="3" PointY="80.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.bundle_asset" Width="1.5" PointX="7.5" PointY="94.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.bundle_inventory" Width="1.5" PointX="18" PointY="99.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.client" Width="1.5" PointX="3" PointY="111.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.cost_center" Width="1.5" PointX="10.5" PointY="97.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.dashboard" Width="1.5" PointX="3" PointY="114.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.department_type" Width="1.5" PointX="3" PointY="118.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.document_types" Width="1.5" PointX="11.25" PointY="95.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.facility" Width="1.5" PointX="3" PointY="121.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.global_contact" Width="1.5" PointX="6" PointY="88.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.inventory_documents" Width="1.5" PointX="13.5" PointY="94" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.inventory_options" Width="1.5" PointX="12.75" PointY="115.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.inventory_tab_display_prefs" Width="1.5" PointX="2.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.jsn" Width="1.5" PointX="3" PointY="129" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.lu_state" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.manufacturer" Width="1.5" PointX="3" PointY="124.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.manufacturer_contact" Width="1.5" PointX="5.25" PointY="123.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.phase_documents" Width="1.5" PointX="12.75" PointY="111.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.profile" Width="1.5" PointX="7.5" PointY="124.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.project_addresses" Width="1.5" PointX="10.5" PointY="101.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.project_user" Width="1.5" PointX="5.25" PointY="68.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.report_location" Width="1.5" PointX="10.5" PointY="65" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.report_type" Width="1.5" PointX="6" PointY="59.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.role_pages" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.Session" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.user_notification" Width="1.5" PointX="8.25" PointY="73.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.user_project_mine" Width="1.5" PointX="8.25" PointY="60.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.users_track" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.vendor" Width="1.5" PointX="3" PointY="143.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.ancillary_v" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.AudaxWarePowerBI" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.full_project_name" Width="1.5" PointX="2.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.inventory_po_qty_v" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.item_status_v" Width="1.5" PointX="14.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.joined_category_subcategory" Width="1.5" PointX="14.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.manufacturer_contact_all" Width="1.5" PointX="14.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.matching_values" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AudaxWare.vendor_contact_all" Width="1.5" PointX="16.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="AudaxWare.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" ManuallyRouted="false" />
+        <AssociationConnector Association="AudaxWare.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="AudaxWare.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="AudaxWare.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="AudaxWare.FK__user_proj__userI__4277DAAA" ManuallyRouted="false" />
+        <AssociationConnector Association="AudaxWare.notifications_user_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="AudaxWare.user_pid_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="AudaxWare.asset_category_asset_subcategory_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="AudaxWare.cat_asset_code_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="AudaxWare.asset_code_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="AudaxWare.vendor_vendor_equipment_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="AudaxWare.bundle_asset_bundle_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="AudaxWare.bundle_inventory_bundle_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="AudaxWare.documents_inventory_type_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="AudaxWare.manufacturer_contact_fk" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AudaxWare.documents_display_levels" Width="1.5" PointX="9" PointY="91.5" />
+        <AssociationConnector Association="AudaxWare.document_type_display_level_fk" />'
+        
+        
+        
+        
+        
+        <EntityTypeShape EntityType="AudaxWare.asset" Width="1.5" PointX="15.75" PointY="102.125" />
+        <AssociationConnector Association="AudaxWare.asset_domain_fk" />
+        <AssociationConnector Association="AudaxWare.asset_domain2_fk" />
+        <AssociationConnector Association="AudaxWare.asset_measurement_fk" />
+        <AssociationConnector Association="AudaxWare.asset_subcategory_asset_fk" />
+        <AssociationConnector Association="AudaxWare.bundle_asset_asset_fk" />
+        <AssociationConnector Association="AudaxWare.equipment_fk" />
+        <AssociationConnector Association="AudaxWare.jsn_fk" />
+        <AssociationConnector Association="AudaxWare.manufacturer_equipment_fk" />
+        <AssociationConnector Association="AudaxWare.related_assets" />
+        <EntityTypeShape EntityType="AudaxWare.asset_summarized" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="AudaxWare.project" Width="1.5" PointX="8.25" PointY="98.25" />
+        <EntityTypeShape EntityType="AudaxWare.project_department" Width="1.5" PointX="15.75" PointY="96.5" />
+        <EntityTypeShape EntityType="AudaxWare.project_phase" Width="1.5" PointX="10.5" PointY="110.125" />
+        <EntityTypeShape EntityType="AudaxWare.project_room" Width="1.5" PointX="20.5" PointY="96.375" />
+        <AssociationConnector Association="AudaxWare.project_fk" />
+        <AssociationConnector Association="AudaxWare.buneld_project_fk" />
+        <AssociationConnector Association="AudaxWare.project_client_fk" />
+        <AssociationConnector Association="AudaxWare.project_id1_fk" />
+        <AssociationConnector Association="AudaxWare.department_type_project_department_fk" />
+        <AssociationConnector Association="AudaxWare.FK__project_room__3CBF0154" />
+        <AssociationConnector Association="AudaxWare.project_facility_fk" />
+        <AssociationConnector Association="AudaxWare.project_phase_equipment_drawing_fk" />
+        <AssociationConnector Association="AudaxWare.FK__project_room__3BCADD1B" />
+        <AssociationConnector Association="AudaxWare.FK__user_project_min__51BA1E3A" />
+        <AssociationConnector Association="AudaxWare.project_id_domain_fk" />
+        <AssociationConnector Association="AudaxWare.project_project_phase_fk" />
+        <AssociationConnector Association="AudaxWare.project_user_proj_fk" />
+        <AssociationConnector Association="AudaxWare.project_phase_department_project_room_fk" />
+        <AssociationConnector Association="AudaxWare.project_phase_project_department_fk" />
+        <AssociationConnector Association="AudaxWare.project_contact" />
+        <EntityTypeShape EntityType="AudaxWare.jsn_rollup" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="AudaxWare.assets_options" Width="1.5" PointX="0.76398397086373715" PointY="31.10499975043582" />
+        <AssociationConnector Association="AudaxWare.asset_domain1_fk" />
+        <AssociationConnector Association="AudaxWare.assets_options_project_domain_id_project_id_fk" />
+        <AssociationConnector Association="AudaxWare.inventory_options_fk" />
+        <EntityTypeShape EntityType="AudaxWare.domain_document" Width="1.5" PointX="11.861720871115905" PointY="31.49555851495618" />
+        <AssociationConnector Association="AudaxWare.assets_options_document_fk" />
+        <AssociationConnector Association="AudaxWare.inventory_options_document_fk" />
+        <AssociationConnector Association="AudaxWare.domain_document_type_id_fk" />
+        <EntityTypeShape EntityType="AudaxWare.asset_option_scope" Width="1.5" PointX="7.2484589215593687" PointY="5.0014022313996227" />
+        <AssociationConnector Association="AudaxWare.assets_options_scope_fk" />
+        <EntityTypeShape EntityType="AudaxWare.temporary_location" Width="1.5" PointX="0.1586557869606911" PointY="10.107651789722802" />
+        <AssociationConnector Association="AudaxWare.temporary_location_project_fk" />
+        <EntityTypeShape EntityType="AudaxWare.domain" Width="1.5" PointX="2.7169049543872963" PointY="17.860886254283081" />
+        <AssociationConnector Association="AudaxWare.FK_dbo_AspNetUserRoles_dbo_Domain_domain_id" />
+        <AssociationConnector Association="AudaxWare.user_domain_fk" />
+        <AssociationConnector Association="AudaxWare.approval_pending_domain_fk" />
+        <AssociationConnector Association="AudaxWare.domain2_fk" />
+        <AssociationConnector Association="AudaxWare.domain_fk" />
+        <AssociationConnector Association="AudaxWare.domain4_fk" />
+        <AssociationConnector Association="AudaxWare.domain3_fk" />
+        <AssociationConnector Association="AudaxWare.domain1_fk" />
+        <AssociationConnector Association="AudaxWare.bundle_domain_fk" />
+        <AssociationConnector Association="AudaxWare.client_domain_fk" />
+        <AssociationConnector Association="AudaxWare.dashboard_domain_fk" />
+        <AssociationConnector Association="AudaxWare.domain5_fk" />
+        <AssociationConnector Association="AudaxWare.department_type_domain_fk" />
+        <AssociationConnector Association="AudaxWare.domain_document_domain_id_fk" />
+        <AssociationConnector Association="AudaxWare.facility_domain_fk" />
+        <AssociationConnector Association="AudaxWare.FK__manufactu__domai__595B4002" />
+        <AssociationConnector Association="AudaxWare.FK__project__domain___5F141958" />
+        <AssociationConnector Association="AudaxWare.FK__vendor__domain_i__07220AB2" />
+        <AssociationConnector Association="AudaxWare.fk_jsn_domain" />
+        <AssociationConnector Association="AudaxWare.notifications_domain_fk" />
+        <AssociationConnector Association="AudaxWare.domain_manufacturer" />
+        <EntityTypeShape EntityType="AudaxWare.vendor_contact" Width="1.5" PointX="0.10710546751837502" PointY="17.593001850691159" />
+        <AssociationConnector Association="AudaxWare.vendor_contact_fk" />
+        <EntityTypeShape EntityType="AudaxWare.cutsheet_to_generate" Width="1.5" PointX="11.281294008382268" PointY="2.1271861354481363" />
+        <EntityTypeShape EntityType="AudaxWare.purchase_order" Width="1.5" PointX="0.15058856837013204" PointY="0.55321155514251974" />
+        <AssociationConnector Association="AudaxWare.project_purchase_order_fk" />
+        <AssociationConnector Association="AudaxWare.project_addresses_fk" />
+        <AssociationConnector Association="AudaxWare.project_room_po_fk" />
+        <AssociationConnector Association="AudaxWare.vendor_purchase_order_fk" />
+        <AssociationConnector Association="AudaxWare.po_vendor_contact" />
+        <EntityTypeShape EntityType="AudaxWare.final_disposition" Width="1.5" PointX="3.2249707631883076" PointY="17.753997229856438" />
+        <AssociationConnector Association="AudaxWare.final_disposition_project_fk" />
+        <EntityTypeShape EntityType="AudaxWare.inventory_purchase_order" Width="1.5" PointX="8.4400997964852031" PointY="12.252306973679135" />
+        <AssociationConnector Association="AudaxWare.purchase_order_inventory_purchase_order_fk" />
+        <EntityTypeShape EntityType="AudaxWare.audit_log" Width="1.5" PointX="6.1211063275677651" PointY="10.318798725641704" />
+        <AssociationConnector Association="AudaxWare.project_audit_fk" />
+        <EntityTypeShape EntityType="AudaxWare.documents_associations" Width="1.5" PointX="5.6865227584198692" PointY="21.278846586718618" />
+        <EntityTypeShape EntityType="AudaxWare.project_documents" Width="1.5" PointX="4.2666125354667255" PointY="17.405516245125568" />
+        <AssociationConnector Association="AudaxWare.doc_association_asset_fk" />
+        <AssociationConnector Association="AudaxWare.proj_documents_type_fk" />
+        <AssociationConnector Association="AudaxWare.doc_association_doc_fk" />
+        <AssociationConnector Association="AudaxWare.doc_association_project_fk" />
+        <AssociationConnector Association="AudaxWare.proj_documents_proj_fk" />
+        <EntityTypeShape EntityType="AudaxWare.responsability" Width="1.5" PointX="6.356146454045617" PointY="9.7006059781185385" />
+        <AssociationConnector Association="AudaxWare.fk_responsability_domain" />
+        <EntityTypeShape EntityType="AudaxWare.asset_it_connectivity" Width="1.5" PointX="9.7100651644682827" PointY="8.07046102363172" />
+        <AssociationConnector Association="AudaxWare.project_it_fk" />
+        <EntityTypeShape EntityType="AudaxWare.inventory_w_relo_v" Width="1.5" PointX="8.53574963311467" PointY="19.301260644244618" />
+        <EntityTypeShape EntityType="AudaxWare.User_gridView" Width="1.5" PointX="2.3958085991422684" PointY="28.807593657079895" />
+        <AssociationConnector Association="AudaxWare.FK__User_grid__domai__20ACD28B" />
+        <EntityTypeShape EntityType="AudaxWare.project_room_inventory" Width="1.5" PointX="2.8363263433968307" PointY="22.169411341738613" />
+        <AssociationConnector Association="AudaxWare.inventory_in_fk" />
+        <AssociationConnector Association="AudaxWare.inventory_out_fk" />
+        <AssociationConnector Association="AudaxWare.asset_project_room_inventory_fk" />
+        <AssociationConnector Association="AudaxWare.bundle_inventory_project_room_inventory_fk" />
+        <AssociationConnector Association="AudaxWare.cost_center1_fk" />
+        <AssociationConnector Association="AudaxWare.doc_association_inventory_fk" />
+        <AssociationConnector Association="AudaxWare.documents_inventory_pri_fk" />
+        <AssociationConnector Association="AudaxWare.inventory_fk" />
+        <AssociationConnector Association="AudaxWare.project_room_inventory_inventory_purchase_order_fk" />
+        <AssociationConnector Association="AudaxWare.linked_document_inventory_fk" />
+        <AssociationConnector Association="AudaxWare.project_room_project_room_inventory_fk" />
+        <EntityTypeShape EntityType="AudaxWare.project_report" Width="1.5" PointX="6.8597564263547568" PointY="15.60164200496005" />
+        <AssociationConnector Association="AudaxWare.FK__project_r__gener__2F2FFC0C" />
+        <AssociationConnector Association="AudaxWare.FK__project_r__cost___30242045" />
+        <AssociationConnector Association="AudaxWare.FK__project_report__3118447E" />
+        <AssociationConnector Association="AudaxWare.FK__project_r__repor__2E3BD7D3" />
+        <AssociationConnector Association="AudaxWare.FK__project_report__320C68B7" />
+        <AssociationConnector Association="AudaxWare.FK__report_lo__repor__414EAC47" />
+        <EntityTypeShape EntityType="AudaxWare.asset_inventory" Width="1.5" PointX="11.901601178525761" PointY="0.75038403307571266" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

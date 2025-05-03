@@ -1,0 +1,48 @@
+﻿<md-dialog aria-label="addAssetSubcategory" flex-gt-xs="50">
+    <md-toolbar layout="row" layout-align="center center" ng-cloak>
+        Add Room Template
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak class="not-scrollable">
+        <form name="addTemplateForm" id="addTemplateForm">
+            <section aw-combo-box 
+                     ng-model="room_template.department_type" 
+                     name="department_type"
+                     form="addTemplateForm"
+                     controller-name="departmentType" 
+                     params="controllerParams" 
+                     text-property="description" 
+                     id-property="department_type_id" 
+                     selected-id="room_template.department_type_id" 
+                     selected-domain="room_template.department_type_domain_id" 
+                     selected-item="room_template.department_type" 
+                     order-by="description" 
+                     label="Department Type" 
+                     required></section>
+            <md-input-container class="md-block" style="margin-bottom: 0px">
+                <label>Name</label>
+                <input name="description" ng-model="room_template.drawing_room_name" maxlength="250" required>
+                <div ng-messages="addTemplateForm.description.$error">
+                    <div ng-message="required">Template name is required</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Scope</label>
+                <md-select ng-model="room_template.project" aria-label="scope">
+                    <md-option value="{}" ng-selected="true">Global</md-option>
+                    <md-option ng-repeat="project in projects" ng-value="project">
+                        {{project.project_description}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Comment</label>
+                <textarea ng-model="room_template.comment" name="comment" columns="1" maxlength="1000" md-maxlength="1000" rows="1"></textarea>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="save()">Save</md-button>
+        <md-button ng-if="!edit" class="md-primary" ng-click="save(true)">Save and Close</md-button>
+    </md-dialog-actions>
+</md-dialog>

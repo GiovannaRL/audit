@@ -1,0 +1,150 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xPlannerAPI.Tests", "xPlannerAPI.Tests\xPlannerAPI.Tests.csproj", "{85E0A813-B61C-4B1D-B973-F21EFF63DF6A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E08CF501-1B88-4B9E-91EE-7F2B67B00AE3} = {E08CF501-1B88-4B9E-91EE-7F2B67B00AE3}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigrateOldDatabase", "MigrateOldDatabase\MigrateOldDatabase.csproj", "{941EC76B-D5D0-4DBF-BB06-5015558F9778}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E08CF501-1B88-4B9E-91EE-7F2B67B00AE3} = {E08CF501-1B88-4B9E-91EE-7F2B67B00AE3}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "reportsWebJob", "reportsWebJob\reportsWebJob.csproj", "{37D6E232-BBFD-4CFC-9054-BBB0EBEB8584}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CutSheetWebJob", "cutSheetWebJob\CutSheetWebJob.csproj", "{B8626999-A167-4562-83EF-A8581FC25534}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xPlannerCommon", "xPlannerCommon\xPlannerCommon.csproj", "{5F35FCF8-1B50-4271-8844-2613337666C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POWebJob", "POWebJob\POWebJob.csproj", "{4ADD1674-2E85-43BD-9924-D449B20FF6E3}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "AudaxwareDB", "AudaxwareDB\AudaxwareDB.sqlproj", "{5A96414D-4187-4273-B94D-04E447EEFCB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfflineXPlanner", "OfflineXPlanner\OfflineXPlanner.csproj", "{5A589208-389C-46A1-B658-1D5952698F03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDFHelper", "PDF\PDFHelper\PDFHelper.csproj", "{4A22DC5E-D6EB-4183-AB6D-C7C0B41102E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDFHelper_Tests", "PDF\PDFHelper_Tests\PDFHelper_Tests.csproj", "{E4098C51-E7A0-405A-B1A5-5796BAB9FCD1}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "OfflineXPlannerSetup", "OfflineXPlannerSetup\OfflineXPlannerSetup.vdproj", "{C44FB247-FE93-42D6-931E-79C488B89B7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xPlannerAPI", "xPlannerAPI\xPlannerAPI.csproj", "{E08CF501-1B88-4B9E-91EE-7F2B67B00AE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPlannerUI", "XPlannerUI\XPlannerUI.csproj", "{F251B770-0F79-4DC9-8680-A71152A03E44}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{85E0A813-B61C-4B1D-B973-F21EFF63DF6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85E0A813-B61C-4B1D-B973-F21EFF63DF6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85E0A813-B61C-4B1D-B973-F21EFF63DF6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85E0A813-B61C-4B1D-B973-F21EFF63DF6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{941EC76B-D5D0-4DBF-BB06-5015558F9778}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{941EC76B-D5D0-4DBF-BB06-5015558F9778}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{941EC76B-D5D0-4DBF-BB06-5015558F9778}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{941EC76B-D5D0-4DBF-BB06-5015558F9778}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37D6E232-BBFD-4CFC-9054-BBB0EBEB8584}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37D6E232-BBFD-4CFC-9054-BBB0EBEB8584}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37D6E232-BBFD-4CFC-9054-BBB0EBEB8584}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37D6E232-BBFD-4CFC-9054-BBB0EBEB8584}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8626999-A167-4562-83EF-A8581FC25534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8626999-A167-4562-83EF-A8581FC25534}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8626999-A167-4562-83EF-A8581FC25534}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8626999-A167-4562-83EF-A8581FC25534}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F35FCF8-1B50-4271-8844-2613337666C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F35FCF8-1B50-4271-8844-2613337666C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F35FCF8-1B50-4271-8844-2613337666C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F35FCF8-1B50-4271-8844-2613337666C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ADD1674-2E85-43BD-9924-D449B20FF6E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ADD1674-2E85-43BD-9924-D449B20FF6E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ADD1674-2E85-43BD-9924-D449B20FF6E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ADD1674-2E85-43BD-9924-D449B20FF6E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A96414D-4187-4273-B94D-04E447EEFCB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A96414D-4187-4273-B94D-04E447EEFCB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A96414D-4187-4273-B94D-04E447EEFCB9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5A96414D-4187-4273-B94D-04E447EEFCB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A96414D-4187-4273-B94D-04E447EEFCB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A96414D-4187-4273-B94D-04E447EEFCB9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{5A589208-389C-46A1-B658-1D5952698F03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A589208-389C-46A1-B658-1D5952698F03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A589208-389C-46A1-B658-1D5952698F03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A589208-389C-46A1-B658-1D5952698F03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A22DC5E-D6EB-4183-AB6D-C7C0B41102E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A22DC5E-D6EB-4183-AB6D-C7C0B41102E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A22DC5E-D6EB-4183-AB6D-C7C0B41102E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A22DC5E-D6EB-4183-AB6D-C7C0B41102E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4098C51-E7A0-405A-B1A5-5796BAB9FCD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4098C51-E7A0-405A-B1A5-5796BAB9FCD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4098C51-E7A0-405A-B1A5-5796BAB9FCD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4098C51-E7A0-405A-B1A5-5796BAB9FCD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C44FB247-FE93-42D6-931E-79C488B89B7D}.Debug|Any CPU.ActiveCfg = Debug
+		{C44FB247-FE93-42D6-931E-79C488B89B7D}.Debug|Any CPU.Build.0 = Debug
+		{C44FB247-FE93-42D6-931E-79C488B89B7D}.Release|Any CPU.ActiveCfg = Release
+		{C44FB247-FE93-42D6-931E-79C488B89B7D}.Release|Any CPU.Build.0 = Release
+		{E08CF501-1B88-4B9E-91EE-7F2B67B00AE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E08CF501-1B88-4B9E-91EE-7F2B67B00AE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E08CF501-1B88-4B9E-91EE-7F2B67B00AE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E08CF501-1B88-4B9E-91EE-7F2B67B00AE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F251B770-0F79-4DC9-8680-A71152A03E44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F251B770-0F79-4DC9-8680-A71152A03E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F251B770-0F79-4DC9-8680-A71152A03E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F251B770-0F79-4DC9-8680-A71152A03E44}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4FB667AF-7DE2-42E6-BC81-E973A76A850A}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 14
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://audaxware.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = xPlannerAPI.Tests\\xPlannerAPI.Tests.csproj
+		SccProjectName1 = xPlannerAPI.Tests
+		SccLocalPath1 = xPlannerAPI.Tests
+		SccProjectUniqueName2 = MigrateOldDatabase\\MigrateOldDatabase.csproj
+		SccProjectName2 = MigrateOldDatabase
+		SccLocalPath2 = MigrateOldDatabase
+		SccProjectUniqueName3 = reportsWebJob\\reportsWebJob.csproj
+		SccProjectName3 = reportsWebJob
+		SccLocalPath3 = reportsWebJob
+		SccProjectUniqueName4 = cutSheetWebJob\\CutSheetWebJob.csproj
+		SccProjectName4 = cutSheetWebJob
+		SccLocalPath4 = cutSheetWebJob
+		SccProjectUniqueName5 = xPlannerCommon\\xPlannerCommon.csproj
+		SccProjectName5 = xPlannerCommon
+		SccLocalPath5 = xPlannerCommon
+		SccProjectUniqueName6 = POWebJob\\POWebJob.csproj
+		SccProjectName6 = POWebJob
+		SccLocalPath6 = POWebJob
+		SccProjectUniqueName7 = AudaxwareDB\\AudaxwareDB.sqlproj
+		SccProjectName7 = AudaxwareDB
+		SccLocalPath7 = AudaxwareDB
+		SccProjectUniqueName8 = OfflineXPlanner\\OfflineXPlanner.csproj
+		SccProjectName8 = OfflineXPlanner
+		SccLocalPath8 = OfflineXPlanner
+		SccProjectUniqueName9 = PDF\\PDFHelper\\PDFHelper.csproj
+		SccProjectName9 = PDF/PDFHelper
+		SccLocalPath9 = PDF\\PDFHelper
+		SccProjectUniqueName10 = PDF\\PDFHelper_Tests\\PDFHelper_Tests.csproj
+		SccProjectName10 = PDF/PDFHelper_Tests
+		SccLocalPath10 = PDF\\PDFHelper_Tests
+		SccProjectUniqueName11 = OfflineXPlannerSetup\\OfflineXPlannerSetup.vdproj
+		SccProjectName11 = OfflineXPlannerSetup
+		SccLocalPath11 = OfflineXPlannerSetup
+		SccProjectUniqueName12 = xPlannerAPI\\xPlannerAPI.csproj
+		SccProjectName12 = xPlannerAPI
+		SccLocalPath12 = xPlannerAPI
+		SccProjectUniqueName13 = XPlannerUI\\XPlannerUI.csproj
+		SccProjectName13 = XPlannerUI
+		SccLocalPath13 = XPlannerUI
+	EndGlobalSection
+EndGlobal

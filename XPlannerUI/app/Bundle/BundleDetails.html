@@ -1,0 +1,78 @@
+﻿<section layout="column" ng-cloak class="md-inline-form padding-top-half padding-bottom">
+    <form name="detailsForm" id="detailsForm" novalidate>
+        <aw-accordion label="Information" expanded="true">
+            <section layout-gt-sm="row" layout-align-gt-sm="space-between center" class="padding-bottom-half">
+                <section flex-gt-sm="45">
+                    <md-input-container class="md-block" style="margin-bottom: 0px;">
+                        <label>Name</label>
+                        <input name="name" ng-model="bundle.name" required>
+                        <div ng-messages="detailsForm.name.$error">
+                            <div ng-message="required">Bundle name is required</div>
+                        </div>
+                    </md-input-container>
+                    <section aw-combo-box
+                             ng-model="bundle.project" 
+                             name="project"
+                             form=""
+                             controller-name="projects" 
+                             params="projectParams" 
+                             text-property="project_description" 
+                             id-property="project_id" 
+                             selected-id="bundle.project_id" 
+                             selected-domain="bundle.project_domain_id" 
+                             label="Project"></section>
+                    <md-input-container class="md-block">
+                        <label>Comment</label>
+                        <textarea ng-model="bundle.comment" name="comment" columns="1" md-maxlength="1000" maxlength="1000" rows="1"></textarea>
+                        <div ng-messages="!detailsForm.comment.$valid && detailsForm.comment.$error" role="alert">
+                            <div ng-message="md-maxlength" class="my-message">
+                                Only 1000 characters are allowed!
+                            </div>
+                        </div>
+                    </md-input-container>
+                </section>
+                <md-card-content flex-gt-sm="45" layout-sm="row" layout="column" layout-align="space-between center" layout-align-sm="center center">
+                    <section flex-sm="45">
+                        <label><strong>Data Added: </strong></label>
+                        <span>{{bundle.date_added | date:'MM/dd/yyyy'}}</span>
+                    </section>
+                    <section style="margin: 1em 0px;"></section>
+                    <section flex-sm="45">
+                        <label><strong>Added by: </strong></label>
+                        <span>{{bundle.added_by}}</span>
+                    </section>
+                </md-card-content>
+            </section>
+
+        </aw-accordion>
+        <aw-accordion label="Assets">
+            <section layout="column" ng-cloak class="md-inline-form padding-bottom">
+                <div kendo-grid="bundleAssetsGrid" class="no-header-padding" ng-class="{'checkbox-grid': canModify }" options="options" k-on-data-bound="dataBound()">
+                </div>
+            </section>
+        </aw-accordion>
+    </form>
+    <!-- FAB button -->
+    <div class="lock-size" layout="row" layout-align="center center" ng-cloak>
+        <md-fab-speed-dial md-open="buttons.state" md-direction="up"
+                           class="md-fling">
+            <md-fab-trigger>
+                <md-button aria-label="menu" class="md-fab md-accent">
+                    <md-icon md-svg-src="{{buttons.state ? 'close' : 'menu'}}"></md-icon>
+                </md-button>
+            </md-fab-trigger>
+            <md-fab-actions>
+                <div ng-repeat="button in buttons" ng-if="!button.displayConditionally || canModify">
+                    <md-button aria-label="{{button.label}}" class="md-fab md-mini"
+                               ng-click="button.click()">
+                        <md-tooltip md-direction="left" md-visible="tooltipVisible"
+                                    md-autohide="false">
+                            {{button.label}}
+                        </md-tooltip>
+                        <md-icon md-svg-src="{{button.icon}}" aria-label="{{button.label}}"></md-icon>
+                    </md-button>
+                </div>
+            </md-fab-actions>
+        </md-fab-speed-dial>
+    </div>
+</section>

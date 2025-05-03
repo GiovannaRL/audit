@@ -1,0 +1,114 @@
+﻿<section layout="column" ng-cloak class="md-inline-form padding-top">
+    <section layout="row" class="grid-toolbar" ng-show="showViewsOptions" ng-cloak>
+        <section layout-gt-xs="row" flex="90" flex-offset="5">
+            <section layout="row" layout-align="center center" flex-gt-xs="50" flex-offset-gt-xs="5" ng-cloack>
+                <md-input-container class="md-block" flex-xs="80" style="margin: 0px;">
+                    <md-select ng-model="viewSelected" placeholder="Select a view">
+                        <md-option ng-value="opt" ng-repeat="opt in views" ng-click="loadView(opt)">{{ opt.name | capitalize }}</md-option>
+                    </md-select>
+                </md-input-container>
+                <button class="md-icon-button md-button" ng-click="deleteView(viewSelected)">
+                    <i class="material-icons">delete</i>
+                    <md-tooltip md-direction="bottom">Delete View</md-tooltip>
+                </button>
+            </section>
+            <section layout="row" layout-align="center center" flex-gt-xs="50" flex-offset-gt-xs="5" ng-cloack>
+                <md-input-container class="md-block no-md-errors-spacer" style="margin: 0px;">
+                    <label>Save As</label>
+                    <input type="text" name="name" ng-model="viewName">
+                </md-input-container>
+                <button class="md-icon-button md-button" ng-click="saveView(viewName)">
+                    <i class="material-icons">save</i>
+                    <md-tooltip md-direction="bottom">Save view</md-tooltip>
+                </button>
+            </section>
+        </section>
+        <section layout="row" layout-align="end center" flex="10">
+            <button class="md-icon-button md-button gray-color" ng-click="closeToolbars()">
+                <i class="material-icons">close</i>
+                <md-tooltip md-direction="bottom">Close</md-tooltip>
+            </button>
+        </section>
+    </section>
+
+    <section layout="row" class="grid-toolbar" ng-cloak ng-hide="showViewsOptions">
+        <section layout="row" layout-align="start center" flex="10">
+            <button class="md-icon-button md-button" style="color: black;" ng-click="openAddModal()">
+                <i class="material-icons">add</i><div class="md-ripple-container"></div>
+                <md-tooltip md-direction="bottom">Add Asset</md-tooltip>
+            </button>
+            <button class="md-icon-button md-button" style="color: black;" ng-click="showDetails()">
+                <i class="material-icons">edit</i><div class="md-ripple-container"></div>
+                <md-tooltip md-direction="bottom">Edit asset</md-tooltip>
+            </button>
+            <button class="md-icon-button md-button" style="color: black;" ng-click="delete()">
+                <i class="material-icons">delete</i><div class="md-ripple-container"></div>
+                <md-tooltip md-direction="bottom">Delete Asset(s)</md-tooltip>
+            </button>
+            <button class="md-icon-button md-button" ng-click="chooseDisplayedColumns()">
+                <i class="material-icons">grid_on</i><div class="md-ripple-container"></div>
+                <md-tooltip md-direction="bottom">Select fields to display/hide</md-tooltip>
+            </button>
+        </section>
+        <section layout="row" layout-align="center center" flex="30" layout-fill layout-wrap>
+            <md-input-container class="md-block no-md-errors-spacer" style="margin: 0px;">
+                <md-select ng-model="viewSelected" placeholder="Select a view">
+                    <md-option ng-value="opt" ng-repeat="opt in views" ng-click="loadView(opt)">{{ opt.name | capitalize }}</md-option>
+                </md-select>
+            </md-input-container>
+            <button class="md-icon-button md-button" ng-click="showViewsOptions =!showViewsOptions" style="margin-right: -0.8em;">
+                <i class="material-icons">view_module</i>
+                <md-tooltip md-direction="bottom">Views Options</md-tooltip>
+            </button>
+        </section>
+        <section layout="row" layout-align="center center" flex="50" layout-fill>
+            <md-input-container class="md-block no-md-errors-spacer" style="margin: 0px;" flex="90">
+                <label>Search</label>
+                <input name="search" ng-model="searchBoxValue" ng-enter="search(searchBoxValue)">
+            </md-input-container>
+            <button class="md-icon-button md-button gray-color" style="bottom: -0.5em; padding-left: 0; margin-left: 0" ng-click="clearAllFilters()">
+                <i class="material-icons">delete_sweep</i><div class="md-ripple-container"></div>
+                <md-tooltip md-direction="bottom">Clear all filters</md-tooltip>
+            </button>
+        </section>
+        <section layout="row" flex="10" layout-align="end start">
+            <button class="md-icon-button md-button" ng-click="collapseExpand(assetsListGrid)">
+                <md-icon md-svg-icon="collapse_expand"></md-icon>
+                <md-tooltip md-direction="bottom">Collapse/Expand All</md-tooltip>
+            </button>
+        </section>
+    </section>
+
+    <div id="assetsListGrid"></div>
+    <!-- FAB button -->
+    <div class="lock-size fixed-element" layout="row" layout-align="center center" ng-cloak> 
+        <md-fab-speed-dial md-open="buttons.open" md-direction="up"
+                           class="md-fling">
+            <md-fab-trigger>
+                <md-button aria-label="menu" class="md-fab md-accent">
+                    <md-icon md-svg-src="{{buttons.open ? 'close' : 'menu'}}"></md-icon>
+                </md-button>
+            </md-fab-trigger>
+            <md-fab-actions>
+                <div ng-repeat="button in buttons">
+                    <md-button ng-show="isLoggedAsAudaxware || !button.only_audaxware" aria-label="{{button.label}}" class="md-fab md-mini"
+                               ng-click="button.click.func(button.click.params)">
+                        <md-tooltip md-direction="left" md-visible="false"
+                                    md-autohide="true">
+                            {{button.label}}
+                        </md-tooltip>
+                        <md-icon md-svg-src="{{button.icon}}" aria-label="{{button.label}}" style="color: white;"></md-icon>
+                    </md-button>
+                </div>
+            </md-fab-actions>
+        </md-fab-speed-dial>
+    </div>
+</section>
+
+
+<!--<style parse-style>
+     .k-grid-content {
+        max-height:{{grid_content_height - 150}}px;
+        min-height:{{grid_content_height - 150}}px;
+    }
+</style>-->

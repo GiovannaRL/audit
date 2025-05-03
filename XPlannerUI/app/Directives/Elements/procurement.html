@@ -1,0 +1,81 @@
+﻿<div ng-form="procurementForm">
+    <table width="100%" style="margin-bottom:{{projectLevel ? 0 : 20}}px;">
+        <tr>
+            <td ng-if="projectLevel" valign="bottom">
+                <label>{{title}} (P: {{costs.projected}} / A: {{costs.actual}})</label>
+            </td>
+            <td ng-if="!projectLevel" width="90%" valign="bottom">
+                <md-input-container layout="row" style="margin-bottom:-5px; margin-left:0px;padding-bottom:-1px;">
+                    <label>{{title}} (P: {{costs.projected}} / A: {{costs.actual}})</label>
+                    <input name="{{columnName}}" ng-model="data[columnName]" aw-currency aw-currency-model ng-readonly="readonly">
+                    <div ng-messages="procurementForm[columnName].$error" role="alert">
+                        <div ng-message="currency" class="my-message">
+                            {{title}} must be currency
+                        </div>
+                    </div>
+                </md-input-container>
+            </td>
+            <td rowspan="2" align="left" valign="bottom">
+                <md-button class="md-primary md-icon-button label-info-icon" style="padding:0;margin-left:0;margin-bottom:-14px !important">
+                    <md-icon class="material-icons info-icon md-primary" style="margin:0;padding:0;border:none">
+                        info
+                        <md-tooltip ng-if="infoMessage">
+                            {{infoMessage}}
+                        </md-tooltip>
+                        <md-tooltip ng-if="!infoMessage">
+                            Budget: {{costs.budget}}<br />
+                            Planned: {{costs.planned}}<br />
+                            Projected: {{costs.projected}}<br />
+                            Actual: {{costs.actual}}<br />
+                            Delta: {{costs.delta}}<br>
+                            Planned Qty: {{costs.budget_qty}}<br>
+                            PO Qty: {{costs.po_qty}}<br>
+                            DNP Qty: {{costs.dnp_qty}}<br>
+                        </md-tooltip>
+                    </md-icon>
+                </md-button>
+            </td>
+        </tr>
+        <tr>
+            <td style="margin-top:0px">
+                <md-progress-linear md-mode="determinate" value="{{progress_cost}}"></md-progress-linear>
+            </td>
+        </tr>
+    </table>
+
+    
+
+    <!--<section layout-gt-xs="row" layout-align="start start" class="md-block" flex-gt-xs="{{size}}">
+        <md-input-container class="md-block" flex-gt-xs="90">
+            <md-input-container layout="row" ng-if="projectLevel">
+                <label style="font-size:small;padding-bottom:6px;">{{title}} (P: {{costs.projected_cost}} / A: {{costs.po_total}})</label>
+            </md-input-container>
+            <md-input-container layout="row" ng-if="!projectLevel" style="margin-bottom:0px;">
+                <label>{{title}} (P: {{costs.projected_cost}} / A: {{costs.po_total}})</label>
+                <input name="{{columnName}}" ng-model="data[columnName]" aw-currency>
+                <div ng-messages="procurementForm[columnName].$error" role="alert">
+                    <div ng-message="currency" class="my-message">
+                        {{title}} must be currency
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container layout="row" style="margin-top:1px;">
+                <md-progress-linear md-mode="determinate" value="{{progress_cost}}"></md-progress-linear>
+            </md-input-container>
+        </md-input-container>
+        <md-input-container class="md-block label-info-icon" flex-gt-xs="10">
+            <md-button class="md-primary md-icon-button label-info-icon" style="min-height:1%;height:15px;margin-top:{{projectLevel ? 20 : 35}}px;margin-left:-19px;">
+                <md-icon class="material-icons info-icon md-primary">
+                    info
+                    <md-tooltip>
+                        Budget: {{costs.total_budget}}<br />
+                        Planned: {{costs.planned_budget}}<br />
+                        Projected: {{costs.projected_cost}}<br />
+                        Actual: {{costs.po_total}}<br />
+                        Delta: {{costs.planned_budget_delta}}<br>
+                    </md-tooltip>
+                </md-icon>
+            </md-button>
+        </md-input-container>
+    </section>-->
+</div>
