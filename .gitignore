@@ -26,6 +26,7 @@
 *.dbmdl
 *.jfm
 *.dll
+!/xPlannerAPI/Dlls/*.*
 *.pdb
 
 # Build results
