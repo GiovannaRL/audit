@@ -14,12 +14,15 @@
 
 **/.vs/
 **/node_modules/
+**/build/
+/XPlannerUI/app/xPlannerTemplates.js
 
 # User-specific files
 *.suo
 *.user
 *.sln.docstates
 *.swp
+*.swo
 *.dbmdl
 *.jfm
 *.dll
