@@ -515,8 +515,6 @@
     <Content Include="images\icons\svg\share.svg" />
     <Content Include="images\icons\svg\star.svg" />
     <Content Include="images\icons\svg\swap.svg" />
-    <Content Include="docs\packages\dotConnect.Express.for.PostgreSQL.7.4.535\lib\Devart.Data.dll" />
-    <Content Include="docs\packages\dotConnect.Express.for.PostgreSQL.7.4.535\lib\Devart.Data.PostgreSql.dll" />
     <Content Include="images\slider-h.gif" />
     <Content Include="images\slider-v.gif" />
     <Content Include="images\sprite.png" />
@@ -692,11 +690,6 @@
     <Content Include="ThirdParty\Bootstrap\3.3.5\js\npm.js" />
     <Content Include="ThirdParty\jQuery\jquery-2.1.4.min.js" />
     <Content Include="ThirdParty\KendoUI\material\js\kendo.custom.js" />
-    <Content Include="docs\packages\dotConnect.Express.for.PostgreSQL.7.4.535\content\app.config.transform" />
-    <Content Include="docs\packages\dotConnect.Express.for.PostgreSQL.7.4.535\content\web.config.transform" />
-    <Content Include="docs\packages\dotConnect.Express.for.PostgreSQL.7.4.535\dotConnect.Express.for.PostgreSQL.7.4.535.nupkg" />
-    <Content Include="docs\packages\dotConnect.Express.for.PostgreSQL.7.4.535\dotConnect.Express.for.PostgreSQL.7.4.535.nuspec" />
-    <Content Include="docs\packages\repositories.config" />
     <Content Include="ThirdParty\Angular\cookies\1.5.0\angular-cookies.min.js.map" />
     <Content Include="ThirdParty\Angular\cookies\1.5.0\bower.json" />
     <Content Include="ThirdParty\Angular\cookies\1.5.0\package.json" />
@@ -709,7 +702,6 @@
     <Content Include="ThirdParty\Angular\oauth2\3.0.1\LICENSE" />
     <Content Include="ThirdParty\Angular\oauth2\3.0.1\package.json" />
     <Content Include="ThirdParty\Angular\oauth2\3.0.1\README.md" />
-    <Content Include="docs\Planner_Guide_v1.5.pdf" />
     <Content Include="ThirdParty\Angular\material\sidenav-menu\0.0.2\js\material-menu-sidenav.min.js" />
     <Content Include="ThirdParty\Angular\material\mdPickers\0.7.4\js\mdPickers.min.js.map" />
     <Content Include="npm-shrinkwrap.json" />
