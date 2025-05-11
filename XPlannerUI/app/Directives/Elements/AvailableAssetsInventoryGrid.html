@@ -1,0 +1,64 @@
+﻿<section layout="row" class="grid-toolbar" ng-show="!replace" layout-align="space-between center">
+    <section flex="30" flex-order="1">
+        <md-input-container class="md-block" style="margin-bottom: 0px;" ng-style="isToGlobalTemplate ? {display:'none'} : {display:'block'}">
+            <label>Catalog</label>
+            <md-select ng-model="selectedCatalog" ng-change="catalogOptionChanged()">
+                <md-optgroup label="Catalog" ng-if="!isLink">
+                    <md-option ng-repeat="op in catalogOptions" ng-value="op">
+                        {{op.name}}
+                    </md-option>
+                </md-optgroup>
+                <md-optgroup label="Favorite Projects" name = "Favorite_Projects">
+                    <md-option ng-repeat="op in favProjectOptions" ng-value="op">
+                        {{op.name}}
+                    </md-option>
+                </md-optgroup>                
+                <md-optgroup label="Projects">
+                    <md-option ng-repeat="op in projectOptions" ng-value="op">
+                        {{op.name}}
+                    </md-option>
+                </md-optgroup>
+            </md-select>
+        </md-input-container>
+    </section>
+    <section flex="35" flex-order="2" layout="row">
+        <md-input-container class="md-block no-md-errors-spacer" style="margin-bottom: 3px;" flex="100" flex-gt-sm="80">
+            <label>Search</label>
+            <input name="search" ng-model="searchBoxValue" ng-enter="searchAssets(searchBoxValue)">
+        </md-input-container>
+        <button class="md-icon-button md-button gray-color" style="bottom: -1.2em; padding-left: 0px; margin-left: 0px" ng-click="clearAllFilters()">
+            <i class="material-icons">delete_sweep</i><div class="md-ripple-container"></div>
+            <md-tooltip md-direction="bottom">Clear all filters</md-tooltip>
+        </button>
+    </section>
+    <section flex="10" flex-order="3" >
+        <md-input-container class="md-block" style="margin-bottom: 0px;" ng-style="(isToGlobalTemplate || !selectedCatalog.project_id || isLink || selectedCatalog.project_id == params.project_id) ? {display:'none'} : {display:'block'}">
+            <label>Action</label>
+            <md-select ng-model="action" ng-init="action=1">
+                <md-option ng-value="1">NEW</md-option>
+                <md-option ng-value="2">RELOCATE</md-option>
+            </md-select>
+        </md-input-container>
+    </section>
+    <section flex="15" layout="row" layout-align="end start" flex-order="4">
+        <md-input-container class="md-block" style="margin-bottom: 0px;" ng-style="isToGlobalTemplate || action == 2 ? {display:'none'} : {display:'block'}" flex="80">
+            <label>Asset Default Cost</label>
+            <md-select ng-model="selected_costField">
+                <md-option ng-repeat="cost in costField" ng-value="cost.value">
+                    {{cost.name}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+        <button class="md-icon-button md-button" ng-click="collapseExpand(assetsGrid)" style="{{isToGlobalTemplate ? '' : 'bottom: -18px'}}">
+            <md-icon md-svg-icon="collapse_expand"></md-icon>
+            <md-tooltip md-direction="bottom">Collapse/Expand All</md-tooltip>
+        </button>
+    </section>
+</section>
+<section layout="row" layout-align="end start" class="grid-toolbar" ng-if="replace">
+    <button class="md-icon-button md-button" ng-click="collapseExpand(assetsGrid)">
+        <md-icon md-svg-icon="collapse_expand"></md-icon>
+        <md-tooltip md-direction="bottom">Collapse/Expand All</md-tooltip>
+    </button>
+</section>
+<div id="addAssetsGrid"></div>

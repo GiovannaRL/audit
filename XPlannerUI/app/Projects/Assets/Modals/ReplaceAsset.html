@@ -1,0 +1,39 @@
+﻿<md-dialog aria-label="check_room" flex-gt-sm="80" class="all-screen">
+    <md-toolbar layout="row" layout-align="center center">
+        Replace Selected Asset
+    </md-toolbar>
+    <md-dialog-content layout="column" ng-cloak style="padding-bottom: 0px">
+        <md-stepper id="stepper-replace-asset"
+                    md-mobile-step-text="mobileStep"
+                    md-vertical="false"
+                    md-linear="true"
+                    md-alternative="true">
+            <md-step md-label="Click on a row to select target asset">
+                <md-step-body style="height:{{wizardData.gridHeight+10}}px">
+                    <div kendo-grid="wizardData.assetsGrid" k-on-data-bound="dataBound(wizardData.assetsGrid)" options="wizardData.options" k-on-edit="edit(kendoEvent)">
+                    </div>
+                </md-step-body> 
+            </md-step>
+            <md-step md-label="Confirmation">
+                <md-step-body>
+                    <section layout="column" layout-align="top center" class="gray-color" style="margin-bottom: 1em">
+                        <h4>The following asset(s) will be replaced with {{replaceWith.asset_code}} - {{replaceWith.asset_description}}:</h4>
+                        <p ng-repeat="asset in replacedAssets">{{asset.asset_code}} - {{asset.asset_description}}</p>
+                    </section>
+                </md-step-body>
+            </md-step>
+        </md-stepper>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="cancel()">Cancel</md-button>
+        <md-button class="md-primary" ng-click="back()" ng-if="currentStep > 1">Back</md-button>
+        <md-button class="md-primary" ng-click="next()">{{currentStep == 1 ? 'Next' : 'Replace'}}</md-button>
+    </md-dialog-actions>
+</md-dialog>
+
+<!--<style parse-style>
+    .k-grid-content {
+        max-height: {{options.height - 210}}px;
+        min-height: {{options.height - 210}}px;
+    }
+</style>-->

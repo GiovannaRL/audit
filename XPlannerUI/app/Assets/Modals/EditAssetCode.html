@@ -1,0 +1,31 @@
+﻿<md-dialog aria-label="addNewAsset" flex-gt-xs="25">
+    <md-toolbar layout="row" layout-align="center center">
+        Edit Asset Code
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak style="height:102px">
+        <form name="addNewAssetForm" id="addNewAssetForm">
+            <section layout-gt-xs="row" layout-align="space-between start">
+                <md-input-container class="md-block" flex-gt-xs="90">
+                    <aw-autocomplete name="asset_code"
+                                     ng-model="asset.asset_code"
+                                     id-property="prefix"
+                                     domain-property="domain_id"
+                                     text-property="description"
+                                     text-property-2="prefix"
+                                     text-property-separator="--"
+                                     controller-name="assetCodes"
+                                     params="controllerParams"
+                                     selected-item="asset.asset_code"
+                                     label="Code *" required></aw-autocomplete>
+                    <div ng-messages="addNewAssetForm.asset_code.$error">
+                        <div ng-message="required">Code is required</div>
+                    </div>
+                </md-input-container>
+            </section>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="save()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>

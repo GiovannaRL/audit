@@ -1,0 +1,25 @@
+﻿<md-dialog aria-label="add_po_asset" ng-cloak flex-gt-xs="90" class="all-screen">
+    <md-toolbar layout="row" layout-align="center center">
+        Add Asset to Purchase Order
+    </md-toolbar>
+    <md-dialog-content layout="column" ng-cloak>
+        <section class="padding-bottom padding-left padding-right">
+            <aw-asset-inventory-grid select-only-mode="true" already-associated="alreadyAssociated" is-asset-po-page="true" show-approved-assets="showOnlyApproved" grid-height-subtract="210" params="params" selecteds="selectedInventory"></aw-asset-inventory-grid>
+        </section>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-input-container class="md-block" flex-gt-xs="30">
+            <md-checkbox ng-model="show_unapproved" aria-label="show_unapproved" style="margin-top: 7px;" ng-change="changeGrid()">
+                Show all planned assets (including unapproved) 
+            </md-checkbox>
+        </md-input-container>
+        <md-content flex-gt-xs="50">
+            <md-input-container ng-show="show_unapproved">
+                <b><FONT color="Red">IMPORTANT:</FONT></b> You have selected unapproved assets, they will be automatically approved
+            </md-input-container>
+        </md-content>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="add()">Add</md-button>
+    </md-dialog-actions>
+</md-dialog>
+

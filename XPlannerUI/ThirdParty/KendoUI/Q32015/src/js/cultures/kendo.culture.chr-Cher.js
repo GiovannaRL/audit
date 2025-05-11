@@ -1,0 +1,79 @@
+/*
+* Kendo UI Beta v2015.3.916 (http://www.telerik.com/kendo-ui)
+* Copyright 2015 Telerik AD. All rights reserved.
+*
+* Kendo UI Beta license terms available at
+* http://www.telerik.com/purchase/license-agreement/kendo-ui-beta.aspx
+*/
+
+(function(f, define){
+    define([], f);
+})(function(){
+
+(function( window, undefined ) {
+    var kendo = window.kendo || (window.kendo = { cultures: {} });
+    kendo.cultures["chr-Cher"] = {
+        name: "chr-Cher",
+        numberFormat: {
+            pattern: ["-n"],
+            decimals: 2,
+            ",": ",",
+            ".": ".",
+            groupSize: [3],
+            percent: {
+                pattern: ["-n %","n %"],
+                decimals: 2,
+                ",": ",",
+                ".": ".",
+                groupSize: [3],
+                symbol: "%"
+            },
+            currency: {
+                pattern: ["($n)","$n"],
+                decimals: 2,
+                ",": ",",
+                ".": ".",
+                groupSize: [3],
+                symbol: "$"
+            }
+        },
+        calendars: {
+            standard: {
+                days: {
+                    names: ["ᎤᎾᏙᏓᏆᏍᎬ","ᎤᎾᏙᏓᏉᏅᎯ","ᏔᎵᏁᎢᎦ","ᏦᎢᏁᎢᎦ","ᏅᎩᏁᎢᎦ","ᏧᎾᎩᎶᏍᏗ","ᎤᎾᏙᏓᏈᏕᎾ"],
+                    namesAbbr: ["ᏆᏍᎬ","ᏉᏅᎯ","ᏔᎵᏁ","ᏦᎢᏁ","ᏅᎩᏁ","ᏧᎾᎩ","ᏈᏕᎾ"],
+                    namesShort: ["ᏆᏍ","ᏉᏅ","ᏔᎵ","ᏦᎢ","ᏅᎩ","ᏧᎾ","ᏈᏕ"]
+                },
+                months: {
+                    names: ["ᎤᏃᎸᏔᏅ","ᎧᎦᎵ","ᎠᏅᏱ","ᏝᏬᏂ","ᎠᏂᏍᎬᏘ","ᏕᎭᎷᏱ","ᎫᏰᏉᏂ","ᎦᎶᏂ","ᏚᎵᏍᏗ","ᏚᏂᏅᏗ","ᏅᏓᏕᏆ","ᎤᏍᎩᏱ"],
+                    namesAbbr: ["ᎤᏃᎸ","ᎧᎦᎵ","ᎠᏅᏱ","ᏝᏬᏂ","ᎠᏂᏍ","ᏕᎭᎷ","ᎫᏰᏉ","ᎦᎶᏂ","ᏚᎵᏍ","ᏚᏂᏅ","ᏅᏓᏕ","ᎤᏍᎩ"]
+                },
+                AM: ["AM","am","AM"],
+                PM: ["PM","pm","PM"],
+                patterns: {
+                    d: "M/d/yyyy",
+                    D: "dddd, MMMM dd,yyyy",
+                    F: "dddd, MMMM dd,yyyy h:mm:ss tt",
+                    g: "M/d/yyyy h:mm tt",
+                    G: "M/d/yyyy h:mm:ss tt",
+                    m: "MMMM d",
+                    M: "MMMM d",
+                    s: "yyyy'-'MM'-'dd'T'HH':'mm':'ss",
+                    t: "h:mm tt",
+                    T: "h:mm:ss tt",
+                    u: "yyyy'-'MM'-'dd HH':'mm':'ss'Z'",
+                    y: "MMMM, yyyy",
+                    Y: "MMMM, yyyy"
+                },
+                "/": "/",
+                ":": ":",
+                firstDay: 0
+            }
+        }
+    }
+})(this);
+
+
+return window.kendo;
+
+}, typeof define == 'function' && define.amd ? define : function(_, f){ f(); });

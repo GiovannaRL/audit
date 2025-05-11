@@ -1,0 +1,64 @@
+﻿<md-dialog aria-label="editConn" flex-gt-xs="40">
+    <md-toolbar layout="row" layout-align="center center">
+        Edit Connectivity
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak>
+        <form name="editConnForm" id="editConnForm">
+            <section layout-gt-xs="row" layout-align="space-between start">
+                <md-input-container class="md-block" flex-gt-xs="80">
+                    <label>Asset In</label>
+                    <input name="inventory_id_in" ng-model="conn.asset_in_description" disabled="disabled">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="45">
+                    <label>Port No. In</label>
+                    <input name="port_number_in" ng-model="conn.conn.port_number">
+                </md-input-container>
+            </section>
+            <section layout-gt-xs="row" layout-align="space-between start">
+                <section flex-gt-xs="80"
+                         aw-combo-box
+                         ng-model="conn.conn.inventory_id_out"
+                         name="inventory_id_out"
+                         form="editConnForm"
+                         query-Controller-action="AssetsOut"
+                         controller-name="ITConnectivity"
+                         text-property="asset_description"
+                         id-property="inventory_id"
+                         no-domain-property
+                         selected-id="conn.conn.inventory_id_out"
+                         params="controllerParams"
+                         label="Asset Out"
+                         order-by="asset_description"
+                         required>
+                </section>
+                <md-input-container class="md-block" flex-gt-xs="45">
+                    <label>Port No. Out</label>
+                    <input name="port_number_out" ng-model="conn.conn.port_number_out">
+                </md-input-container>
+            </section>
+            <section layout-gt-xs="row" layout-align="space-between start">
+                <md-input-container class="md-block" flex-gt-xs="45">
+                    <label>Connection Type</label>
+                    <md-select ng-model="conn.conn.connection_type">
+                        <md-option ng-repeat="connType in connTypeList" value="{{connType.value}}">
+                            {{connType.name}}
+                        </md-option>
+                    </md-select>
+            </section>
+
+            <section layout-gt-xs="row" layout-align="space-between start">
+                <md-input-container class="md-block" flex-gt-sm="90">
+                    <label>Comment</label>
+                    <textarea ng-model="conn.conn.comment" name="comment" md-maxlength="1000" rows="1" columns="1"></textarea>
+                    <div ng-messages="editConnForm.comment.$error" role="alert">
+                        <div ng-message="md-maxlength">Only 1000 characters are allowed</div>
+                    </div>
+                </md-input-container>
+            </section>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="save()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>

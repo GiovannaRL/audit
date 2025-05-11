@@ -1,0 +1,27 @@
+﻿<md-dialog aria-label="differences" flex-gt-xs="50">
+    <md-toolbar layout="row" layout-align="center center" ng-cloak>
+        Customized Asset Differences
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak>
+        <section class="md-inline-form">
+            <section layout="row" layout-align="end start" layout-wrap class="grid-toolbar">
+                <button class="md-icon-button md-button" ng-click="collapseExpand(differencesGrid)">
+                    <md-icon md-svg-icon="collapse_expand"></md-icon>
+                    <md-tooltip md-direction="bottom">Collapse/Expand All</md-tooltip>
+                </button>
+            </section>
+            <div kendo-grid="differencesGrid" options="options" k-on-data-bound="dataBound(differencesGrid)"></div>
+        </section>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+    </md-dialog-actions>
+</md-dialog>
+
+
+<style parse-style>
+    .k-grid-content { 
+        max-height:{{gridHeight - 150}}px;
+        min-height:{{gridHeight - 150}}px;
+    }
+</style>

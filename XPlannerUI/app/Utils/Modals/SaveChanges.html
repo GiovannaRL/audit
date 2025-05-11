@@ -1,0 +1,11 @@
+﻿<md-dialog aria-label="saveChanges" flex-gt-xs="30">
+    <md-dialog-content layout-padding ng-cloak class="md-inline-form">
+        <h2 class="md-title ng-binding">Unsaved changes</h2>
+        <p class="ng-binding">Some changes haven't been saved and will be lost. Do you want to save it before leaving the page?</p>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="cancel()">Cancel</md-button>
+        <md-button class="md-primary" ng-click="confirm(false)">No</md-button>
+        <md-button class="md-primary" ng-click="confirm(true)">Yes</md-button>
+    </md-dialog-actions>
+</md-dialog>

@@ -1,0 +1,117 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.datepicker').kendoMaskedTextBox({
+            mask: "99/99/9999"
+        });
+
+    });
+</script>
+
+<md-dialog aria-label="edit_single" class="all-screen width-60 max-width-60">
+    <md-toolbar layout="row" layout-align="center center">
+        Edit Profile
+    </md-toolbar>
+    <md-dialog-content layout="column" class="md-inline-form" ng-cloak>
+        <div flex class="tabs-wrapper">
+            <md-tabs class="full-size" md-border-bottom>
+                <md-tab id="teste" label="Options" md-on-select="optionsTab = true">
+                    <md-content style="overflow-x:hidden; overflow-y:hidden">
+                        <section layout="column" layout-align="top center">
+                            <h4>{{data.asset_description}}</h4>
+                        </section>
+                        <section layout="row" class="grid-toolbar no-top-margin">
+                            <section ng-cloak layout="column" flex="50" layout-align="none start" ng-show="addOp && data.detailed_budget">
+                                <md-input-container class="md-block" style="margin: 0px">
+                                    <label>Asset Default Cost</label>
+                                    <md-select ng-model="selected_costField">
+                                        <md-option ng-repeat="cost in costField" value="{{cost.value}}">
+                                            {{cost.name}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </section>
+                            <section layout="row" class="no-vertical-margin" layout-align="end center" flex="{{addOp && data.detailed_budget ? 50 : 100}}">
+                                <md-checkbox ng-model="data.detailed_budget" aria-label="detailed budget" ng-change="toggleDetailedBudget()">
+                                    Detailed budget
+                                </md-checkbox>
+                                <md-icon class="material-icons info-icon md-primary">
+                                    info
+                                    <md-tooltip>
+                                        Values entered for options will be added to the Asset Unit Budget.
+                                    </md-tooltip>
+                                </md-icon>
+                            </section>
+                        </section>
+                        <section layout="row" ng-cloak ng-show="!addOp" class="grid-toolbar">
+                            <section layout="row" layout-align="start center" class="gray-color">
+                                <button class="md-icon-button md-button" ng-click="toggleAddOption()" ng-disabled="data.none_option || noOptionsAvailable">
+                                    <i class="material-icons">add</i><div class="md-ripple-container"></div>
+                                    <md-tooltip md-direction="bottom">Add Option</md-tooltip>
+                                </button>
+                                <button class="md-icon-button md-button" ng-click="deleteOptions()" ng-disabled="data.none_option || noOptionsAvailable">
+                                    <i class="material-icons">delete</i>
+                                    <md-tooltip md-direction="bottom">Delete Option(s)</md-tooltip>
+                                </button>
+                                <md-input-container class="md-block" flex="100" style="margin: 0px;">
+                                    <label>Profile</label>
+                                    <md-select ng-model="selectedProfile" name="profile" ng-change="changeProfile()">
+                                        <md-optgroup label="Project">
+                                            <md-option ng-repeat="profile in profiles" ng-value="profile">
+                                                {{profile.profile}}
+                                            </md-option>
+                                        </md-optgroup>
+                                        <md-optgroup label="Global">
+                                            <md-option ng-repeat="profile in globalProfiles" ng-value="profile">
+                                                {{profile.profile_text}}
+                                            </md-option>
+                                        </md-optgroup>
+                                    </md-select>
+                                </md-input-container>
+                            </section>
+                            <section layout="row" layout-align="end center" flex="100">
+                                <md-checkbox class="no-vertical-margin" ng-model="data.none_option" aria-label="options none">
+                                    Disable options for this entry
+                                </md-checkbox>
+                                <md-icon class="material-icons info-icon md-primary">
+                                    info
+                                    <md-tooltip>
+                                        This selection acknowledges there are no options selected for the asset and the “pending” status for options selection will be removed in the asset grid.
+                                    </md-tooltip>
+                                </md-icon>
+                            </section>
+                        </section>
+                        <div ng-show="!data.none_option" class="checkbox-grid" kendo-grid="optionsGrid" k-on-data-bound="dataBound(optionsGrid)" options="options">
+                        </div>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions ng-cloak>
+        <md-button class="md-primary" ng-click="addOp && optionsTab ? toggleAddOption() : close()">Cancel</md-button>
+        <md-button ng-show="!addOp || (addOp && optionsTab && !noOptionsAvailable)" class="md-primary" ng-click="addOp && optionsTab && !noOptionsAvailable ? addOptions() : save()">{{addOp && optionsTab && !noOptionsAvailable ? 'Add Options' : 'Save'}}</md-button>
+    </md-dialog-actions>
+</md-dialog>
+
+
+
+
+<style parse-style>
+    .full-size .md-tab {
+        width: 120px;
+    }
+
+    .tabs-wrapper {
+        position: relative;
+    }
+
+    .full-size {
+        min-height:{{style_height}}px !important;
+    }
+
+    .k-grid-content {
+        min-height:{{grid_height - 150}}px;
+        max-height:{{grid_height - 150}}px;
+    }
+</style>

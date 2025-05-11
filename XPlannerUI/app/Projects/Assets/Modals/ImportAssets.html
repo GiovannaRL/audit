@@ -1,0 +1,88 @@
+﻿<md-dialog aria-label="importAssets" flex-gt-xs="80" class="all-screen">
+    <md-toolbar layout="row" layout-align="center center">
+        Import Assets
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak class="md-inline-form">
+        <form name="importAssetsForm" id="importAssetsForm">
+            <md-stepper id="stepper-import"
+                        md-mobile-step-text="mobileStep"
+                        md-vertical="false"
+                        md-linear="true"
+                        md-alternative="true">
+
+                <md-step md-label="Select File">
+                    <md-step-body style="padding-top: 3em;" class="padding-right padding-left">
+                        <section layout-gt-xs="row" layout-align-gt-xs="space-around start">
+                            <md-dialog-content layout-padding ng-cloack flex-gt-xs="80">
+                                <md-input-container class="md-block">
+                                    <label for="file">Select the excel file (.xlsx)</label>
+                                    <input name="file" id="file" ngf-select ng-value="file.asset.name" ng-model="file.asset" readonly required accept=".xlsx">
+                                    <md-icon class="material-icons md-primary" ng-click="fireFileUpload()">
+                                        file_upload
+                                        <md-tooltip>Select a file to upload</md-tooltip>
+                                    </md-icon>
+                                    <div ng-messages="importAssetsForm.file.$error">
+                                        <div ng-message="required">Source File is required</div>
+                                    </div>
+                                </md-input-container>
+                            </md-dialog-content>
+                        </section>
+                        <section layout-gt-xs="row" layout-align-gt-xs="space-around start">
+                            <md-dialog-content layout-padding ng-cloack flex-gt-xs="80">
+                                <md-input-container class="md-block">
+                                    <label for="arrangeColumnsType">Select the column format</label>
+                                    <md-select name="arrangeColumnsType" ng-model="file.arrangeColumnsType" required>
+                                        <md-option ng-value="0">Audaxware</md-option>
+                                        <md-option ng-value="1">Government PRCL</md-option>
+
+                                    </md-select>
+                                    <div ng-messages="importAssetsForm.arrangeColumnsType.$error">
+                                        <div ng-message="required">Column format is required</div>
+                                    </div>
+                                </md-input-container>
+                            </md-dialog-content>
+                        </section>
+                        <section layout-gt-xs="row" layout-align-gt-xs="space-around start">
+                            <md-input-container class="md-block" flex-gt-xs="40">
+                                <a href="excel_templates/import_model_template.xlsx" download="import_model">Download AudaxWare Template</a>                                
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <a href="excel_templates/import_model_PRCLTemplate.xlsx" download="import_model">Download Government PRCL Template</a>
+                            </md-input-container>
+                        </section>
+                    </md-step-body>
+                </md-step>
+                <md-step md-label="Confirm worksheet columns">
+                    <md-step-body>
+                        <div layout="row" layout-align-gt-sm="space-between start" class="md-block" style="padding-top:20px;padding-bottom:10px">
+                            <label flex="90">The following columns found on your excel file are currently not supported and will be ignored:</label>
+                        </div>
+                        <div ng-bind-html="fieldsList"></div>
+                        </br>
+                        <div layout="row" layout-align-gt-sm="space-between start" class="md-block" style="padding-top:20px;padding-bottom:10px" ng-if="hasUnusedSheets">
+                            <label flex="90">The following worksheets found on your excel file  will be ignored:</label>
+                        </div>
+                        <div ng-bind-html="unusedSheetsList"></div>                   
+                    </md-step-body>
+                </md-step>
+                <md-step md-label="Review import actions">
+                    <md-step-body style="height:{{gridHeight+ 50}}px">
+                        <div layout="row" layout-align-gt-sm="space-between start" class="md-block" style="padding-top:10px">
+                            <label flex="20">Errors: {{totalErrors}} </label>
+                            <label flex="20">New Catalog Items: {{totalNewCatalog}}</label>
+                            <label flex="20">New Inventory Items: {{totalNew}}</label>
+                            <label flex="20">Changed Inventory Items: {{totalChanged}}</label>
+                            <label flex="20">Selected to import: {{wizardData.importGrid.selecteds != undefined ? wizardData.importGrid.selecteds.length : 0}}</label>
+                        </div>
+                        <div style="padding-top:10px" class="k-grid" kendo-grid="wizardData.importGrid" options="wizardData.options"></div>
+                    </md-step-body>
+                </md-step>
+            </md-stepper>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="cancel()">Cancel</md-button>
+        <md-button class="md-primary" ng-click="back()" ng-if="currentStep > 1">Back</md-button>
+        <md-button class="md-primary" ng-click="next()">{{currentStep === 3 ? 'Import' : 'Next'}}</md-button>
+    </md-dialog-actions>
+</md-dialog>

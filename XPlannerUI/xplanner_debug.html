@@ -1,0 +1,366 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" ng-app="xPlanner">
+<head>
+    <!--<meta charset="UTF-8">-->
+    <!--<meta name="viewport" content="width=device-width, height=device-height initial-scale=1" />-->
+    <meta content="width=device-width, height=device-height initial-scale=1" /> <!-- No responsive -->
+    <title>XPlanner</title>
+
+    <link href="ThirdParty/Angular/material/1.1.0/css/angular-material.css" rel="stylesheet" />
+    <link rel="stylesheet" href="ThirdParty/KendoUI/R12020SP1/styles/kendo.common-material.min.css" />
+    <link rel="stylesheet" href="ThirdParty/KendoUI/R12020SP1/styles/kendo.material.min.css" />
+    <link rel="stylesheet" href="ThirdParty/KendoUI/material/css/kendo.custom.css" />
+    <link rel="stylesheet" href="ThirdParty/Angular/material/mfb/0.6.2/css/mfb.css" />
+    <link rel="stylesheet" href="ThirdParty/Angular/material/data-table/0.9.4/css/md-data-table.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="ThirdParty/Angular/toastr/1.6.0/css/angular-toastr.css" />
+    <link rel="stylesheet" href="ThirdParty/Angular/ng-progress/1.1.2/css/ngProgress.css" />
+    <link rel="stylesheet" href="ThirdParty/Angular/material/sidenav-menu/0.0.2/css/material-menu-sidenav.min.css" />
+    <!--<link rel="stylesheet" href="ThirdParty/Angular/material/mdPickers/0.7.4/css/mdPickers.min.css" />-->
+    <link rel="stylesheet" href="ThirdParty/Angular/material/steppers/2.0.0/css/material-steppers.min.css" />
+    <link rel="stylesheet" href="Content/Site.css" />
+    <link rel="shortcut icon" href="images/branding/favicon.ico" />
+    <!-- Scripts -->
+    <script src="ThirdParty/jQuery/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="ThirdParty/JSZip/2014.3.1029/jszip.min.js" type="text/javascript"></script>
+    <script src="ThirdParty/Angular/1.7.9/angular.js" type="text/javascript"></script>
+    <!--<script src="ThirdParty/Angular/1.4.8/angular-resource.js" type="text/javascript"></script>-->
+    <script src="ThirdParty/Angular/1.7.9/angular-resource.js" type="text/javascript"></script>
+    <script src="ThirdParty/Angular/1.7.9/angular-messages.js" type="text/javascript"></script>
+    <script src="ThirdParty/Angular/ui-router/0.3.2/angular-ui-router.js" type="text/javascript"></script>
+    <script src="ThirdParty/Angular/local-storage/0.1.5/angular-local-storage.js" type="text/javascript"></script>
+    <script src="ThirdParty/Angular/toastr/1.6.0/js/angular-toastr.tpls.js" type="text/javascript"></script>
+    <script src="ThirdParty/KendoUI/R12020SP1/src/js/kendo.all.js" type="text/javascript"></script>
+    <script src="ThirdParty/KendoUI/material/js/kendo.custom.js" type="text/javascript"></script>
+    <script src="ThirdParty/Angular/1.7.9/angular-animate.js" type="text/javascript"></script>
+    <script src="ThirdParty/Angular/1.7.9/angular-sanitize.min.js" type="text/javascript"></script>
+    <script src="ThirdParty/Angular/1.7.9/angular-aria.js" type="text/javascript"></script>
+    <script src="ThirdParty/Angular/material/1.1.0/js/angular-material.js" type="text/javascript"></script>
+    <script src="ThirdParty/Angular/material/mfb/0.6.2/js/mfb-directive.js" type="text/javascript"></script>
+    <script src="ThirdParty/Angular/material/data-table/0.9.4/js/md-data-table.js" type="text/javascript"></script>
+    <!--<script src="ThirdParty/Angular/cookies/1.5.0/angular-cookies.js" type="text/javascript"></script>-->
+    <script src="ThirdParty/Angular/1.7.9/angular-cookies.js" type="text/javascript"></script>
+    <script src="ThirdParty/Angular/oauth2/query-string.js" type="text/javascript"></script>
+    <script src="ThirdParty/Angular/oauth2/3.0.1/dist/angular-oauth2.js" type="text/javascript"></script>
+    <script src="ThirdParty/Angular/ng-progress/1.1.2/js/ngprogress.js" type="text/javascript"></script>
+    <script src="ThirdParty/Angular/material/file-upload/12.2.13/js/ng-file-upload.js" type="text/javascript"></script>
+    <script src="ThirdParty/Angular/material/sidenav-menu/0.0.2/js/material-menu-sidenav.min.js" type="text/javascript"></script>
+    <script src="ThirdParty/Super-Json/0.0.2/super-json.js" type="text/javascript"></script>
+    <script src="ThirdParty/moment/2.13.0/js/moment.min.js" type="text/javascript"></script>
+    <!--<script src="ThirdParty/Angular/material/mdPickers/0.7.4/js/mdPickers.min.js" type="text/javascript"></script>-->
+    <script src="ThirdParty/Angular/material/steppers/2.0.0/js/material-steppers.min.js" type="text/javascript"></script>
+    <script src="ThirdParty/Angular/clickoutside/clickoutside.directive.js" type="text/javascript"></script>
+    <script src="node_modules/powerbi-client/dist/powerbi.js" type="text/javascript"></script>
+    <script src="node_modules/angular-powerbi/dist/angular-powerbi.js" type="text/javascript"></script>
+    <script src="ThirdParty/jQuery/cookie/1.4.1/js-cookie.js" type="text/javascript"></script>
+
+</head>
+<body ng-cloack ng-controller="XPlannerController" layout="column" md-theme="{{theme}}" md-theme-watch="true">
+
+    <section id="progressBar"></section>
+
+    <!-- Top Navbar -->
+    <md-toolbar layout="row" aria-label="Top Menu" ng-if="auth()">
+        <section flex-gt-xs="10" flex-gt-sm="5" flex-xs="15">
+            <md-button class="menu" ng-click="toogleLeft()" style="margin-left: 8px">
+                <md-icon md-svg-icon="menu" aria-label="Menu"></md-icon>
+            </md-button>
+        </section>
+        <section flex-gt-xs="90" flex-gt-sm="95" flex-xs="70" layout="row">
+            <section layout="row" layout-align="none start" flex="100">
+                <h1 style="margin-left: {{ mobileMedia ? 'none' : '0px'}};" layout="column" layout-align="center center" class="text">
+                    Audaxware xPlanner
+                </h1>
+            </section>
+            <section layout="row" layout-align="center end" class="padding-right top-nav-bar-buttons-group">
+                <md-button class="md-icon-button" id="notification" ng-click="toggleNotifications()" ng-class="{'open-notification': showNotifications}" ng-if="!mobileMedia" style="margin-right: 5px;">
+                    <md-icon ng-class="{'md-primary': showNotifications }">
+                        notifications_none
+                    </md-icon>
+                    <span ng-if="messages.length > 0 && !showNotifications" class="md-{{theme}}-theme notification-num">{{messages.length}}</span>
+                </md-button>
+                <md-list class="md-dense" ng-if="!mobileMedia" id="avatar-item">
+                    <md-list-item class="md-3-line" style="top: 8px; padding: 0px;">
+                        <div class="md-list-item-text" layout="column">
+                            <h3 style="color: rgba(255,255,255,0.87)">{{ enterprise | enterpriseName }}</h3>
+                        </div>
+                        <img ng-src="images/icons/svg/avatar.svg" class="md-avatar" alt="avatar" ng-click="toggleEnterprises()" />
+                    </md-list-item>
+                </md-list>
+            </section>
+        </section>
+        <section flex-xs="15" ng-if="mobileMedia">
+            <md-button class="menu" ng-click="logoff()">
+                <md-icon md-svg-icon="logout" aria-label="Menu" style="color: white"></md-icon>
+            </md-button>
+        </section>
+    </md-toolbar>
+    <!-- END - Top Navbar -->
+    <!-- Sidenav -->
+    <md-sidenav md-component-id="left" md-is-locked-open="false" ng-if="auth()">
+        <md-toolbar layout="row" layout-align="center center" style="background-color: white; border-bottom: 1px;">
+            <img class="logo" id="logo" ng-src="images/branding/logo.png" ui-sref="index" height="39" width="150">
+        </md-toolbar>
+        <md-divider></md-divider>
+        <md-content flex role="navigation">
+            <md-menu-sidenav>
+                <md-menu-sidenav-item ng-repeat="item in itemsMenu" ng-if="item.visible">
+                    <md-menu-sidenav-title ng-if="!item.toggle" ng-click="item.onclick(item.params)">
+                        <md-icon flex="15" md-svg-icon="{{item.icon}}"></md-icon>
+                        <h1 class="md-body-2" flex>{{item.title}}</h1>
+                    </md-menu-sidenav-title>
+                    <md-menu-sidenav-title ng-if="item.toggle">
+                        <md-toogle-menu layout="row" flex ng-click="toggleMenuItem($index)">
+                            <md-icon flex="15" ng-class="{'md-primary': item.open}" md-svg-icon="{{item.icon}}"></md-icon>
+                            <h1 class="md-body-2" flex ng-class="{'md-primary': item.open}">{{item.title}}</h1>
+                            <md-icon flex="15" ng-class="{'md-primary': item.open}">{{item.open ? 'expand_less' : 'expand_more'}}</md-icon>
+                        </md-toogle-menu>
+                    </md-menu-sidenav-title>
+
+                    <md-menu-sidenav-content ng-if="item.toggle">
+                        <md-menu-sidenav-subitem ng-repeat="sub in item.subItems" ng-if="sub.visible" ng-click="sub.onclick(sub.params)">{{sub.title}}</md-menu-sidenav-subitem>
+                    </md-menu-sidenav-content>
+
+                    <md-divider></md-divider>
+                </md-menu-sidenav-item>
+            </md-menu-sidenav>
+        </md-content>
+    </md-sidenav>
+    <!-- End sidenav -->
+    <!-- spiner to block the screen -->
+    <section id="spiner"></section>
+
+    <!-- Content -->
+    <ui-view class="middle-content md-{{theme}}-theme" ng-cloack flex="100">
+    </ui-view>
+
+    <!-- Footer -->
+    <footer class="pane-content footer">
+        <p ng-click="thirdParty()">Copyright® {{current_year}} AudaxWare LLC</p>
+    </footer>
+    <!-- END - footer -->
+    <!-- Angular app -->
+    <script src="app/polyfills.js" type="text/javascript"></script>
+    <script src="app/xPlanner.js" type="text/javascript"></script>
+    <script src="app/xPlannerRun.js" type="text/javascript"></script>
+    <script src="build/xPlannerConfig.bundle.js" type="text/javascript"></script>
+    <!-- Angular Services -->
+    <script src="app/Services/WebApiService.js" type="text/javascript"></script>
+    <script src="app/Services/HttpService.js" type="text/javascript"></script>
+    <script src="app/Security/Services/AuthService.js" type="text/javascript"></script>
+    <script src="app/Services/DialogService.js" type="text/javascript"></script>
+    <script src="app/Services/AssetsService.js" type="text/javascript"></script>
+    <script src="app/Services/GridService.js" type="text/javascript"></script>
+    <script src="app/Services/ProgressService.js" type="text/javascript"></script>
+    <script src="app/Services/TreeViewService.js" type="text/javascript"></script>
+    <script src="app/Services/FabService.js" type="text/javascript"></script>
+    <script src="app/Services/AudaxwareDataService.js" type="text/javascript"></script>
+    <script src="app/Services/GridViewService.js" type="text/javascript"></script>
+    <script src="app/Services/ThemeService.js" type="text/javascript"></script>
+    <script src="app/Services/KendoGridService.js" type="text/javascript"></script>
+    <script src="app/Services/KendoAssetInventoryService.js" type="text/javascript"></script>
+    <script src="app/Services/FileService.js" type="text/javascript"></script>
+    <script src="app/Services/LocalStorageAwService.js" type="text/javascript"></script>
+    <script src="app/Utils/UtilsService.js" type="text/javascript"></script>
+    <script src="app/Services/AssetOptionService.js" type="text/javascript"></script>
+    <script src="app/Services/FormService.js" type="text/javascript"></script>
+    <script src="app/Security/Services/RouteService.js" type="text/javascript"></script>
+    <!-- Angular Constants -->
+    <script src="app/Constants/StatusList.js" type="text/javascript"></script>
+    <script src="app/Constants/StatesList.js" type="text/javascript"></script>
+    <script src="app/Constants/CostList.js" type="text/javascript"></script>
+    <script src="app/Constants/AssetColumnsType.js" type="text/javascript"></script>
+    <script src="app/Constants/AssetColumnsName.js" type="text/javascript"></script>
+    <script src="app/Constants/AssetInventoryColumns.js" type="text/javascript"></script>
+    <script src="app/Constants/OptionTypes.js" type="text/javascript"></script>
+    <!--<script src="app/Constants/RespList.js" type="text/javascript"></script>-->
+    <script src="app/Constants/PlacementList.js" type="text/javascript"></script>
+    <script src="app/Constants/AssetProperty.js" type="text/javascript"></script>
+    <script src="app/Constants/Editors.js" type="text/javascript"></script>
+    <script src="app/Constants/POStatusList.js" type="text/javascript"></script>
+    <script src="app/Constants/DocumentStatusList.js" type="text/javascript"></script>
+    <script src="app/Constants/AssetClassList.js" type="text/javascript"></script>
+    <script src="app/Constants/AssetOptionSettings.js" type="text/javascript"></script>
+    <script src="app/Constants/AssetOptionScope.js" type="text/javascript"></script>
+    <script src="app/Constants/DocumentTypes.js" type="text/javascript"></script>
+    <!-- Angular Directives -->
+    <script src="app/Directives/Elements/inputMoney.js" type="text/javascript"></script>
+    <script src="app/Directives/Elements/comboBox.js" type="text/javascript"></script>
+    <script src="app/Directives/Validation/onlyNumbers.js" type="text/javascript"></script>
+    <script src="app/Directives/Validation/currency.js" type="text/javascript"></script>
+    <script src="app/Directives/Validation/ValidDate.js" type="text/javascript"></script>
+    <script src="app/Directives/Attributes/Utils.js" type="text/javascript"></script>
+    <script src="app/Directives/Elements/autocomplete.js" type="text/javascript"></script>
+    <script src="app/Directives/Elements/autocompleteJsn.js" type="text/javascript"></script>
+    <script src="app/Directives/Elements/accordion.js" type="text/javascript"></script>
+    <script src="app/Directives/Attributes/dateFormatter.js" type="text/javascript"></script>
+    <script src="app/Directives/Validation/Exists.js" type="text/javascript"></script>
+    <script src="app/Directives/Validation/LessThan.js" type="text/javascript"></script>
+    <script src="app/Directives/Validation/Numeric.js" type="text/javascript"></script>
+    <script src="app/Directives/Validation/autocompleteValidate.js" type="text/javascript"></script>
+    <script src="app/Directives/Validation/NumericVariable.js" type="text/javascript"></script>
+    <script src="app/Directives/Validation/onlyNumbersAndLetters.js" type="text/javascript"></script>
+    <script src="app/Directives/Elements/currency.js" type="text/javascript"></script>
+    <script src="app/Directives/Elements/locationsGrid.js" type="text/javascript"></script>
+    <script src="app/Directives/Elements/downloadFile.js" type="text/javascript"></script>
+    <script src="app/Directives/Elements/CategorySettingsGrid.js" type="text/javascript"></script>
+    <script src="app/Directives/Elements/AssetSettingsGrid.js" type="text/javascript"></script>
+    <script src="app/Directives/Elements/AssetInventoryGrid.js" type="text/javascript"></script>
+    <script src="app/Directives/Elements/ITConnectivityGrid.js" type="text/javascript"></script>
+    <script src="app/Directives/Elements/ContactsGrid.js" type="text/javascript"></script>
+    <script src="app/Directives/Validation/match.js" type="text/javascript"></script>
+    <script src="app/Directives/Validation/Password.js" type="text/javascript"></script>
+    <script src="app/Directives/Attributes/BasedWidth.js" type="text/javascript"></script>
+    <script src="app/Directives/Elements/AvailableAssestInventoryGrid.js" type="text/javascript"></script>
+    <script src="app/Directives/Validation/UploadFileSize.js" type="text/javascript"></script>
+    <script src="app/Directives/Elements/PoVendorContact.js" type="text/javascript"></script>
+    <script src="app/Directives/Elements/jsnFormCtrl.js" type="text/javascript"></script>
+    <script src="app/Directives/Elements/procurement.js" type="text/javascript"></script>
+    <script src="app/Directives/Elements/AddOption.js" type="text/javascript"></script>
+
+    <!-- Angular Filters -->
+    <script src="app/Filters/Utils.js" type="text/javascript"></script>
+    <!-- Angular Controllers -->
+    <script src="app/XPlannerController.js" type="text/javascript"></script>
+    <script src="app/toastr/ToastrCtrl.js" type="text/javascript"></script>
+    <script src="app/Security/Login/LoginCtrl.js" type="text/javascript"></script>
+    <script src="app/Index/IndexCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Assets/Modals/OCModalCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Assets/Modals/CheckRoomModalCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Assets/Modals/AIAddModalCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Assets/Modals/ReplaceAssetModalCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Assets/Modals/ConnectAssetModalCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Assets/Modals/EditAssetModalCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Assets/Modals/MoveAssetCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Assets/Modals/ImportAssetsCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Assets/Modals/CompareAssetsCtrl.js" type="text/javascript"></script>
+    <!--<script src="app/Projects/Assets/AssetsInventoryCtrl.js" type="text/javascript"></script>-->
+    <script src="app/Reports/ReportList.js" type="text/javascript"></script>
+    <script src="app/Projects/Details/Modals/CopyFromCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Details/DetailsCtrl.js" type="text/javascript"></script>
+    <script src="app/POs/POCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Addresses/Modals/AddEditAddressCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Addresses/AddressesGridCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Cost Center/Modals/AddCostCenterCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Cost Center/CostCenterGridCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Documents/Modals/AddDocumentCtrl.js" type="text/javascript"></script>
+    <!--<script src="app/Projects/Documents/DocumentsTabCtrl.js" type="text/javascript"></script>-->
+    <script src="app/Projects/Details/Modals/CopyRoomToCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Details/Modals/SaveAsTemplateCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Details/Modals/ApplyTemplateCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Details/Modals/SplitRoomCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Details/Modals/AddRoomCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Details/Modals/CopyProjectCtrl.js" type="text/javascript"></script>
+    <script src="app/Assets/Modals/AddAssetCtrl.js" type="text/javascript"></script>
+    <script src="app/Assets/Modals/EditAssetCodeCtrl.js" type="text/javascript"></script>
+    <script src="app/Assets/Options/AssetOptionGridCtrl.js" type="text/javascript"></script>
+    <script src="app/Manufacturer/Modals/AddManufacturerCtrl.js" type="text/javascript"></script>
+    <script src="app/Vendor/Modals/AddVendorCtrl.js" type="text/javascript"></script>
+    <script src="app/Assets/Modals/AddAssetCodeCtrl.js" type="text/javascript"></script>
+    <script src="app/Category/Modals/AddCategoryCtrl.js" type="text/javascript"></script>
+    <script src="app/Category/Modals/AddSubcategoryCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Connectivity/Modals/EditConnectivityCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Connectivity/ConnectivityTabCtrl.js" type="text/javascript"></script>
+    <script src="app/Domains/DomainsGridCtrl.js" type="text/javascript"></script>
+    <script src="app/Domains/Modals/EditDomainCtrl.js" type="text/javascript"></script>
+    <script src="app/Users/UsersListCtrl.js" type="text/javascript"></script>
+    <script src="app/Audit/AuditedListCtrl.js" type="text/javascript"></script>
+    <script src="app/Audit/Modals/ViewAuditedCtrl.js" type="text/javascript"></script>
+    <script src="app/AssetCodes/AssetCodeListCtrl.js" type="text/javascript"></script>
+    <script src="app/AssetCodes/Modals/AddEditAssetCodeCtrl.js" type="text/javascript"></script>
+    <script src="app/Assets/AssetsWorkspaceCtrl.js" type="text/javascript"></script>
+    <script src="app/Assets/AssetsListCtrl.js" type="text/javascript"></script>
+    <script src="app/Assets/AssetDetailsCtrl.js" type="text/javascript"></script>
+    <script src="app/Assets/Modals/AddAssetOptionColorCtrl.js" type="text/javascript"></script>
+    <script src="app/Assets/Modals/AssignVendorCtrl.js" type="text/javascript"></script>
+    <script src="app/Assets/Modals/AssignProjectCtrl.js" type="text/javascript"></script>
+    <script src="app/Assets/Modals/UploadAssetFilesCtrl.js" type="text/javascript"></script>
+    <script src="app/Assets/Modals/UploadAssetsCtrl.js" type="text/javascript"></script>
+    <script src="app/POs/Modals/UploadPOFilesCtrl.js" type="text/javascript"></script>
+    <script src="app/Manufacturer/ManufacturersListCtrl.js" type="text/javascript"></script>
+    <script src="app/Manufacturer/ManufacturerDetailsCtrl.js" type="text/javascript"></script>
+    <script src="app/Vendor/VendorsListCtrl.js" type="text/javascript"></script>
+    <script src="app/Category/CategoriesListCtrl.js" type="text/javascript"></script>
+    <!--<script src="app/Contact/ContactsGridCtrl.js" type="text/javascript"></script>-->
+    <script src="app/Contact/Modals/AddEditContactCtrl.js" type="text/javascript"></script>
+    <script src="app/Manufacturer/ManufacturerVendorsGridCtrl.js" type="text/javascript"></script>
+    <script src="app/Vendor/VendorDetailsCtrl.js" type="text/javascript"></script>
+    <script src="app/Vendor/VendorManufacturersGridCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Details/LevelBelowListCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Details/Modals/LevelBelowAddCtrl.js" type="text/javascript"></script>
+    <script src="app/Room Templates/RoomTemplatesListCtrl.js" type="text/javascript"></script>
+    <script src="app/Room Templates/Modals/AddTemplateCtrl.js" type="text/javascript"></script>
+    <script src="app/Room Templates/RoomTemplateDetailsCtrl.js" type="text/javascript"></script>
+    <script src="app/Room Templates/Modals/CloneTemplateCtrl.js" type="text/javascript"></script>
+    <script src="app/Assets/AssetVendorGridCtrl.js" type="text/javascript"></script>
+    <script src="app/POs/Modals/AddPOCtrl.js" type="text/javascript"></script>
+    <script src="app/POs/PODetailsCtrl.js" type="text/javascript"></script>
+    <!--<script src="app/Connectivity/ConnectivityList.js" type="text/javascript"></script>-->
+    <script src="app/POs/Modals/RequestPOQuoteCtrl.js" type="text/javascript"></script>
+    <script src="app/POs/Modals/ReceiveQuoteCtrl.js" type="text/javascript"></script>
+    <script src="app/POs/Modals/ReceivePOCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Assets/AssetsMainCtrl.js" type="text/javascript"></script>
+    <script src="app/POs/Modals/AddPOAsset.js" type="text/javascript"></script>
+    <script src="app/Subscription/Modals/SubscriptionCtrl.js" type="text/javascript"></script>
+    <script src="app/Security/Login/Modals/ForgotPasswordCtrl.js" type="text/javascript"></script>
+    <script src="app/Security/Reset Password/ResetPasswordCtrl.js" type="text/javascript"></script>
+    <script src="app/Security/Change Password/ChangePasswordCtrl.js" type="text/javascript"></script>
+    <script src="app/Contact Us/Modals/ContactUsCtrl.js" type="text/javascript"></script>
+    <script src="app/Reports/Modals/GenerateReportCtrl.js" type="text/javascript"></script>
+    <script src="app/Bundle/BundleListCtrl.js" type="text/javascript"></script>
+    <script src="app/Bundle/BundleDetailsCtrl.js" type="text/javascript"></script>
+    <script src="app/Dashboard/Dashboard.js" type="text/javascript"></script>
+    <script src="app/Dashboard/Modals/UploadDashboardFilesCtrl.js" type="text/javascript"></script>
+    <script src="app/Utils/Modals/SaveChangesCtrl.js" type="text/javascript"></script>
+    <script src="app/Utils/Modals/ViewersChangesCtrl.js" type="text/javascript"></script>
+    <script src="app/Room Templates/Assets/Modals/EditAssetGlobalCtrl.js" type="text/javascript"></script>
+    <script src="app/Utils/Modals/DisplayColumnsCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Documents/ProjectDocumentsTabCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Documents/Modals/AddProjectDocumentCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Documents/Modals/AddDocAssociationCtrl.js" type="text/javascript"></script>
+    <script src="app/Category/Modals/ImportCategoriesFileCtrl.js" type="text/javascript"></script>
+    <script src="app/Users/Modals/EditUserCtrl.js" type="text/javascript"></script>
+    <script src="app/Assets/Modals/CustomizedDifferencesCtrl.js" type="text/javascript"></script>
+    <script src="app/Assets/Modals/AddJSNCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Documents/RoomDocumentsTab.js" type="text/javascript"></script>
+    <script src="app/Projects/Documents/Modals/UploadRoomPictureCtrl.js" type="text/javascript"></script>
+    <script src="app/Projects/Details/Modals/LockProjectModalCtrl.js" type="text/javascript"></script>
+    <script src="app/Utils/Modals/ProgressBarCtrl.js" type="text/javascript"></script>
+    <script src="app/Utils/Modals/ThirdPartyCopyrightCtrl.js" type="text/javascript"></script>
+    <script src="app/POs/Modals/ExpiratedQuotePOsCtrl.js" type="text/javascript"></script>
+
+    <!-- notifications box -->
+    <div class="_md md-open-menu-container md-whiteframe-z2 md-active md-clickable" id="notification-items" aria-hidden="false" ng-if="showNotifications" click-outside="toggleNotifications(true)" outside-if-not="notification-icon-button" aw-based-width width-element-id="avatar-item">
+        <md-menu-content role="menu" class="notifications-menu-content">
+            <md-menu-item class="ng-scope notifications-menu-item" ng-repeat="msg in messages track by $index">
+                <span class="ng-scope">{{msg.message}}</span>
+            </md-menu-item>
+        </md-menu-content>
+    </div>
+
+    <!-- enterprises box -->
+    <div class="_md md-open-menu-container md-whiteframe-z2 md-active md-clickable" id="enterprise-items" aria-hidden="false" ng-if="showEnterprises" click-outside="toggleEnterprises(true)" outside-if-not="enterprise-icon-button">
+        <md-menu-content role="menu">
+            <md-menu-item class="ng-scope" ng-repeat="domain in userDomains" ng-click="changeDomain(domain, true)">
+                <md-button class="md-{{theme}}-theme md-ink-ripple" type="button" role="menuitem">
+                    <span class="ng-scope">{{domain.name | enterpriseName | capitalize}}</span>
+                </md-button>
+            </md-menu-item>
+            <md-divider></md-divider>
+            <md-menu-item class="ng-scope">
+                <md-button ng-click="changePassword()">
+                    <span class="md-primary">Change Password</span>
+                </md-button>
+            </md-menu-item>
+            <md-divider></md-divider>
+            <md-menu-item class="avatar-logout">
+                <md-button ng-click="logoff()">
+                    <span class="md-primary">Logout</span>
+                    <md-icon md-svg-icon="logout" class="md-primary" aria-label="Menu"></md-icon>
+                </md-button>
+            </md-menu-item>
+            <md-divider></md-divider>
+        </md-menu-content>
+    </div>
+</body>
+</html>

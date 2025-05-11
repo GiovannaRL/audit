@@ -1,0 +1,45 @@
+﻿
+
+body {
+	font-family: verdana;
+	font-size: 80%;
+	/*background-image: url(/equimap/images/fading_background_8.png);*/
+
+    background-repeat: repeat-x;
+}
+
+ html, body
+{
+    margin: 0;
+    padding: 0;
+    height: 100% !important;
+}
+
+table {
+	border-collapse: collapse;
+}
+th {
+	background-color: #FFF;
+	text-align: left;
+}
+
+.coversheet_title{
+	background-color:gray;
+	color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.coversheet_subtitle {
+    color: #000000;
+    background-color: #D3D3D3;
+    font-size: 14px;
+}
+
+.coversheet_table {
+    font-size: 12px;
+}
+
+.coversheet_table tr td {
+    padding:5px;
+}

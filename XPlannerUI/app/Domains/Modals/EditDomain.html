@@ -1,0 +1,65 @@
+﻿<md-dialog aria-label="addDomain" ng-cloak flex-gt-xs="50">
+    <md-toolbar layout="row" layout-align="center center">
+        {{edit ? 'Edit' : 'Add'}} Enterprise
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloack>
+        <form name="addDomainForm" id="addDomainForm">
+            <section layout-gt-xs="row" flex="100" layout-align="space-between start">
+                <md-input-container class="md-block" flex-gt-sm="{{edit ? 100 : 45}}" flex-sm="{{edit ? 100 : 45}}">
+                    <label>Name</label>
+                    <input name="name" ng-model="domain.name" maxlength="60" required aw-exists="{{anotherDomains}}" property="name">
+                    <div ng-messages="addDomainForm.name.$error">
+                        <div ng-message="required">Domain name is required</div>
+                        <div ng-message="exists">Domain name already exists</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="45" flex-sm="45" ng-if="!edit">
+                    <label>Administrator email</label>
+                    <input name="email" ng-model="domain.email" maxlength="100" required>
+                    <div ng-messages="addDomainForm.email.$error">
+                        <div ng-message="required">Administrator email is required</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <section layout-gt-xs="row" flex="100" layout-align="space-between start">
+                <md-input-container class="md-block" flex-gt-sm="45" flex-sm="45">
+                    <label>Type</label>
+                    <md-select ng-model="domain.type" name="type" required ng-change="changeDomain(domain.type)">
+                        <md-option value="E">Enterprise</md-option>
+                        <md-option value="M">Manufacturer</md-option>
+                    </md-select>
+                    <div ng-messages="addDomainForm.type.$error">
+                        <div ng-message="required">Type is required</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="45" flex-sm="45" ng-if="domain.type == 'M'">
+                    <label>Manufacturers</label>
+                    <md-select ng-model-options="{trackBy: '$value.manufacturer_id'}" ng-model="domain.manufacturers" name="manufacturer" required multiple>
+                        <md-option ng-repeat="mnf in availableManufacturers" ng-value="mnf">
+                            {{mnf.manufacturer_description}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="addDomainForm.manufacturer.$error">
+                        <div ng-message="required">Manufacturer is required</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <section layout-gt-xs="row" flex="100" layout-align="space-between start">
+                <md-input-container class="md-block" flex-gt-sm="45" flex-sm="45">
+                    <md-checkbox ng-disabled="domain.type === 'M'" ng-model="domain.show_audax_info" aria-label="show_audaxware_data">
+                        Show Audaxware Data
+                    </md-checkbox>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="45" flex-sm="45" ng-if="edit">
+                    <md-checkbox ng-model="domain.enabled" aria-label="enabled">
+                        Enabled
+                    </md-checkbox>
+                </md-input-container>
+            </section>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="save()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>

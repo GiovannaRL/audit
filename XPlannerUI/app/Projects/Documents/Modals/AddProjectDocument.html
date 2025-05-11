@@ -1,0 +1,56 @@
+﻿<md-dialog aria-label="add_document" flex-gt-sm="30">
+    <md-toolbar layout="row" layout-align="center center" ng-cloak>
+        {{edit ? 'Edit document added to project' : 'Add document to project'}}
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak>
+        <form name="addDocumentForm" id="addDocumentForm">
+            <md-input-container class="md-block">
+                <label>Name</label>
+                <input name="saveAs" ng-model="document.filename" required>
+                <div ng-messages="addDocumentForm.saveAs.$error">
+                    <div ng-message="required">Name is required</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Type</label>
+                <md-select name="documentType" ng-model="document.document_types" required>
+                    <md-option ng-repeat="type in documentTypes" ng-value="type">
+                        {{type.name}}
+                    </md-option>
+                </md-select>
+                <div ng-messages="addDocumentForm.documentType.$error">
+                    <div ng-message="required">Type is required</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Status</label>
+                <md-select name="status" ng-model="document.status">
+                    <md-option ng-repeat="st in statusList" ng-value="st.value">
+                        {{st.name}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Version</label>
+                <input name="version" ng-model="document.version" maxlength="30">
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label for="file">{{(edit ? 'Override uploaded file' : 'File to upload') + (document.document_types.name === 'Shop Drawing' ? ' (.pdf)' : '')}}</label>
+                <input name="file" id="file" ngf-select ng-value="document.doc.name" ng-model="document.doc" readonly ng-required="!edit" ng-disabled="!document.document_types" accept="{{document.document_types.name === 'Shop Drawing' ? '.pdf' : '*'}}">
+                <md-icon class="material-icons md-primary" ng-click="fireFileUpload()">
+                    file_upload
+                    <md-tooltip>
+                        {{edit ? 'Select file to override that uploaded' : 'Select a file to upload'}}
+                    </md-tooltip>
+                </md-icon>
+                <div ng-messages="addDocumentForm.file.$error">
+                    <div ng-message="required">Source File is required</div>
+                </div>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="cancel()">Cancel</md-button>
+        <md-button class="md-primary" ng-click="upload()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>

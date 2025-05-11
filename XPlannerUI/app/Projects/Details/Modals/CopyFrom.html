@@ -1,0 +1,75 @@
+﻿<md-dialog aria-label="copy_from" ng-cloak flex-gt-sm="35">
+    <md-toolbar layout="row" layout-align="center center">
+        Copy From
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloack>
+        <form name="copyFromForm" id="copyFromCenterFor">
+            <section layout-gt-sm="row" layout-align="space-between center">
+                <md-input-container class="md-block" flex-gt-sm="30">
+                    <label>Status</label>
+                    <md-select name="status" ng-model="data.status" ng-change="getData('project')" required>
+                        <md-option ng-repeat="status in statusList" value="{{status.id}}">
+                            {{status.name}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="copyFromForm.status.$error">
+                        <div ng-message="required">Status is mandatory</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="60">
+                    <label>Project</label>
+                    <md-select name="projects" ng-model="data.cp_project_id" ng-change="getData('phase')" required>
+                        <md-option ng-repeat="proj in projects | orderBy: ['client_project_number', 'project_description']" value="{{proj.project_id}}">
+                            {{(proj.client_project_number ? proj.client_project_number + ' - ' : '') + proj.project_description}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="copyFromForm.projects.$error">
+                        <div ng-message="required">Project is mandatory</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <section layout-gt-sm="row" layout-align="space-between center">
+                <md-input-container class="md-block" flex-gt-sm="45">
+                    <label>Phase</label>
+                    <md-select name="phases" ng-model="data.cp_phase_id" ng-change="getData('department')" ng-required="params.phase_id">
+                        <md-option ng-repeat="phase in phases" value="{{phase.phase_id}}">
+                            {{phase.description}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="copyFromForm.phases.$error">
+                        <div ng-message="required">Phase is mandatory</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="45">
+                    <label>Department</label>
+                    <md-select name="departments" ng-model="data.cp_department_id" ng-change="getData('room')" ng-required="params.department_id">
+                        <md-option ng-repeat="dpt in departments" value="{{dpt.department_id}}">
+                            {{dpt.description}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="copyFromForm.departments.$error">
+                        <div ng-message="required">Department is mandatory</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <md-input-container class="md-block">
+                <label>Room</label>
+                <md-select name="rooms" ng-model="data.cp_room_id" ng-required="params.room_id">
+                    <md-option ng-repeat="room in rooms" value="{{room.room_id}}">
+                        {{room.drawing_room_name + (room.drawing_room_number ? ' - ' + room.drawing_room_number : '')}}
+                    </md-option>
+                </md-select>
+                <div ng-messages="copyFromForm.rooms.$error">
+                    <div ng-message="required">Room is mandatory</div>
+                </div>
+            </md-input-container>
+            <md-checkbox ng-model="data.cp_opt_col" aria-label="copy_options_colors" style="margin: 0px; top: -15px">
+                Copy options if they exist
+            </md-checkbox>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="copy()">Copy</md-button>
+    </md-dialog-actions>
+</md-dialog>

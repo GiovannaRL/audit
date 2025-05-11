@@ -1,0 +1,24 @@
+﻿<md-dialog aria-label="add_asset" flex-gt-xs="35">
+    <md-toolbar layout="row" layout-align="center center">
+        Request to Add Asset to Audaxware
+    </md-toolbar>
+    <form name="detailsForm" id="detailsForm">
+        <md-dialog-content style="padding-top: 2em;" layout-align="center center" ng-cloak>
+            <md-input-container class="md-block" flex="100">
+                {{ctrl.confirmationMsg}}
+            </md-input-container>
+            <md-input-container class="md-block" flex="100">
+                <label>Comment (Fill only if you are going to deny the request)</label>
+                <textarea ng-model="ctrl.comment" name="comment" md-maxlength="1000" rows="1" columns="1"></textarea>
+                <div ng-messages="detailsForm.comment.$error" role="alert">
+                    <div ng-message="md-maxlength">Only 1000 characters are allowed</div>
+                </div>
+            </md-input-container>
+        </md-dialog-content>
+     </form>
+    <md-dialog-actions>
+        <md-button class="md-primary" ng-click="ctrl.close()">Close</md-button>
+        <md-button class="md-primary" ng-click="ctrl.reject()">Reject</md-button>
+        <md-button class="md-primary" ng-click="ctrl.accept()">Accept</md-button>
+    </md-dialog-actions>
+</md-dialog>

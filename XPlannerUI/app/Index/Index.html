@@ -1,0 +1,161 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        $("#horizontal").kendoSplitter({
+            orientation: 'horizontal',
+            panes: [
+                { collapsible: true, size: "20%", scrollable: true },
+                { collapsible: false, scrollable: true }
+            ]
+        });
+    });
+</script>
+
+<div id="horizontal">
+    <div ng-cloack id="left-pane" class="not-scrollable">
+        <md-tabs md-border-bottom>
+            <md-tab label="Explorer">
+
+                <md-radio-group ng-if="filterOptions.show" ng-model="filterOptions.showProject" layout-wrap layout="row" layout-align="left" ng-change="ChangeProjectsSource()" style="padding-top: 0.5em; padding-right: 0.5em">
+                    <md-radio-button value="a" style="margin-top:1em">All</md-radio-button>
+                    <md-radio-button value="c" style="margin-top:1em">Current</md-radio-button>
+                    <md-radio-button value="m" style="margin-top:1em">Fav.</md-radio-button>
+                    <md-radio-button value="b" style="margin-top:1em">Active</md-radio-button>
+                </md-radio-group>
+
+                <!-- Search -->
+                <md-data-table-toolbar class="explorer" layout="row" layout-align="start center" ng-cloack>
+                    <div layout="row" flex="85" style="padding: 0">
+                        <md-icon class="material-icons" style="margin-right: 0px; margin-left: 0.5em">search</md-icon>
+                        <md-input-container md-no-float class="md-block" flex="80">
+                            <input ng-model="searchTree" placeholder="Search" ng-enter="search()">
+                        </md-input-container>
+                    </div>
+                    <button ng-if="filterOptions.showProject == 'a' && isNotViewer" class="md-icon-button md-button" type="button" ng-click="checkIfViewer()" ui-sref="{{AddStateProject()}}">
+                        <md-icon class="md-accent">add_circle</md-icon>
+                        <md-tooltip md-direction="bottom">
+                            Add a new project
+                        </md-tooltip>
+                    </button>
+                </md-data-table-toolbar>
+                <!-- end search -->
+
+                <div id="projectTree" kendo-tree-view="tree"
+                     k-data-source="treeData"
+                     k-on-change="changeDetailsItem(dataItem)"
+                     k-on-data-bound="dataBound()">
+                    <!--<ul kendo-context-menu="treeContextMenu"
+                        k-data-source="menuData"
+                        k-on-select="onSelect(kendoEvent)">
+                    </ul>
+                    <md-menu k-template ng-right-click="$mdOpenMenu()">
+                        <span>
+                            {{dataItem.text}}
+                        </span>
+                        <md-menu-content>
+                            <md-menu-item ng-if="dataItem.level() <= 2">
+                                <md-button ng-click="checkIfRoom(dataItem)" ui-sref="{{AddState(dataItem)}}">
+                                    {{dataItem.level() == 0 ? 'Add New Phase' : dataItem.level() == 1 ? 'Add New Department' : dataItem.level() == 2 ? 'Add New Room' : ''}}
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item ng-if="dataItem.level() == 0 && (filterOptions.showProject == 'a' || filterOptions.showProject == 'c')">
+                                <md-button ng-click="addToMine(dataItem)">
+                                    Add to Favorites
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-divider ng-if="dataItem.level() <= 2"></md-menu-divider>
+                            <md-menu-item ng-if="dataItem.level() == 0 && filterOptions.showProject == 'm'">
+                                <md-button ng-click="removeFromMine(dataItem)">
+                                    Remove from Favorites
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ng-click="remove(dataItem)">
+                                    Delete
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>-->
+                    <!--<span k-template ng-click="changeDetailsItem(dataItem)">
+                        {{dataItem.text}}
+                    </span>-->
+                </div>
+            </md-tab>
+            <!-- Removed while is not implemented -->
+            <!--<md-tab label="Filters">
+            </md-tab>-->
+        </md-tabs>
+    </div>
+
+    <div id="center-pane">
+        <md-toolbar class="breadcrumb gray-color" layout="row" layout-align="none center" ng-if="path.project_id">
+            <!--TODO JULIANA: ASK CAMILA TO HELP ME TO LET THIS PART OF THE CODE LESS UGLY-->
+            <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td width="60%" class="breadcrumb-items">
+                        <section><span ng-click="changeDetailsItemBreadcrumb('project', path)">{{path.project_name || 'New Project'}}&nbsp;</span></section>
+                        <section ng-if="path.phase_id && (path.phase_id != -1 || add)"><strong>>&nbsp;</strong> <span ng-click="changeDetailsItemBreadcrumb('phase', path)">{{path.phase_name || 'New Phase'}}&nbsp;</span></section>
+                        <section ng-if="path.department_id && (path.department_id != -1 || add)"><strong>>&nbsp;</strong> <span ng-click="changeDetailsItemBreadcrumb('department', path)">{{path.department_name || 'New Department'}}&nbsp;</span></section>
+                        <section ng-if="path.room_id && (path.room_id != -1 || add)"><strong>>&nbsp;</strong> <span ng-click="changeDetailsItemBreadcrumb('room', path)">{{path.room_name || 'New Room'}}</span></section>
+                    </td>
+                    <td>
+                        <aw-procurement data="path" column-name="procurement" title="Total Budget" project-level="true" costs="costs"></aw-procurement>
+                        <!--<table width="100%" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td><label style="font-size:small">PO Total: {{costs.po_total}}</label></td>
+                                <td align="right" height="10px" style="vertical-align:bottom">
+                                    <label style="font-size:small">Projected Cost: {{costs.projected_cost}}</label>
+                                    <md-button class="md-primary md-icon-button" style="min-height:1%;height:15px" aria-label="teste">
+                                        <md-icon class="material-icons md-18">info</md-icon>
+                                        <md-tooltip>
+                                            Total Budget: {{costs.total_budget}}<br />
+                                            Estimate: {{costs.planned_budget}}<br />
+                                            <section style="display:inline" ng-if="project_level == 0">Total Budget Delta: {{costs.client_budget_delta}}<br /></section>
+                                            Estimate Delta: {{costs.planned_budget_delta}}<br>
+                                            PO Freight: {{costs.total_po_freight}}
+                                        </md-tooltip>
+                                    </md-button>
+
+                                </td>
+                            </tr>
+                            <tr><td colspan="2">
+                                    <md-progress-linear md-mode="determinate" value="{{progress_cost}}"></md-progress-linear>
+                                </td></tr>
+                        </table>-->
+                    </td>
+                </tr>
+
+            </table>
+            <!--ENDS HERE-->
+        </md-toolbar>
+
+        <md-toolbar class="toolbar-tab" ng-if="showTabs">
+            <md-tabs md-border-bottom md-no-select-click>
+                <md-tab md-active="activeTab == tab.name" 
+                        ng-repeat="tab in tabs" 
+                        label="{{tab.label}}" 
+                        ng-click="goToProjectState(tab)" 
+                        ng-if="((!add && ((tab.name !== 'roomDocuments' || path.room_id) && (tab.name !== 'documents' || !path.phase_id || path.phase_id == -1))) || tab.name === 'details') "></md-tab>
+            </md-tabs>
+        </md-toolbar>
+
+        <md-content class="padding-left-half padding-right-half">
+            <ui-view></ui-view>
+        </md-content>
+    </div>
+</div>
+
+<style type="text/css">
+    .level-below-grid .k-grid-content {
+        max-height: 200px;
+        min-height: 200px;
+    }
+
+    md-tooltip .md-content {
+        height: auto;
+    }
+
+    .k-progressbar {
+        background-color: rgb(210, 223, 249);
+        border-color: rgb(210, 223, 249);
+    }
+</style>

@@ -1,0 +1,56 @@
+﻿<md-dialog aria-label="contact_us" class="width-40">
+    <md-toolbar layout="row" layout-align="center center">
+        Contact Us
+    </md-toolbar>
+    <md-dialog-content ng-cloak class="padding-top">
+        <form name="contactUsForm" id="contactUsForm" layout="column" novalidate class="padding-top">
+            <section layout-gt-xs="row" layout-align-gt-xs="space-between start">
+                <md-input-container class="md-block" flex-gt-xs="45">
+                    <label>Name</label>
+                    <input type="text" ng-model="data.name" name="name" required ng-enter="send()">
+                    <div ng-messages="contactUsForm.name.$error">
+                        <div ng-message="required">Name is required</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="45">
+                    <label>Email</label>
+                    <input type="email" ng-model="data.email" name="email" required ng-enter="send()">
+                    <div ng-messages="contactUsForm.email.$error">
+                        <div ng-message="required">Email is required</div>
+                        <div ng-message="email">Not a valid email</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <section layout-gt-xs="row" layout-align-gt-xs="space-between start">
+                <md-input-container class="md-block" flex-gt-xs="45">
+                    <label>Phone Number</label>
+                    <input type="text" ng-model="data.phone_number" name="phone_number" ng-enter="send()">
+                    <div ng-messages="contactUsForm.phone_number.$error">
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="45">
+                    <label>Subject</label>
+                    <md-select ng-model="data.subject" required name="subject">
+                        <md-option value="Suggestion">Suggestion</md-option>
+                        <md-option value="Support">Support</md-option>
+                        <md-option value="Bug report">Bug report</md-option>
+                    </md-select>
+                    <div ng-messages="contactUsForm.subject.$error">
+                        <div ng-message="required" class="my-message">Subject is required</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <md-input-container class="md-block">
+                <label>Message</label>
+                <textarea ng-model="data.message" name="message" columns="1" md-maxlength="2000" maxlength="2000" rows="1" required></textarea>
+                <div ng-messages="contactUsForm.message.$error" role="alert">
+                    <div ng-message="required" class="my-message">Message is required</div>
+                </div>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="send()">Send</md-button>
+    </md-dialog-actions>
+</md-dialog>

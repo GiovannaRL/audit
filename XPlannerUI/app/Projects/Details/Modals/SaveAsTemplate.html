@@ -1,0 +1,42 @@
+﻿<md-dialog aria-label="save_template" flex-gt-xs="30">
+    <md-toolbar layout="row" layout-align="center center"  ng-cloak>
+        Save as Template
+    </md-toolbar>
+    <md-dialog-content ng-cloak>
+        <form name="saveAsTemplateForm" id="saveAsTemplateForm">
+            <!--<md-input-container class="md-block">
+                <aw-autocomplete ng-model="template.saveAs" name="saveAs" query-controller-action="FromDepartment" flex="100" add-option="false" endpoint="template_room" params="controllerParams" max="250" selected-text="template.saveAs" text-property="description" id-property="template_room_id" label="Save As *" required></aw-autocomplete>
+                <div ng-messages="saveAsTemplateForm.saveAs.$error">
+                    <div ng-message="required">Save as is required</div>
+                </div>
+            </md-input-container>-->
+            <md-input-container class="md-block">
+                <label>Save As</label>
+                <input name="saveAs" ng-model="template.drawing_room_name" maxlength="50" required>
+                <div ng-messages="saveAsTemplateForm.saveAs.$error">
+                    <div ng-message="required">Save as is required</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Scope</label>
+                <md-select name="scope" ng-model="template.scope" aria-label="Scope" required>
+                    <md-option ng-value="1">Global</md-option>
+                    <md-option ng-value="2" selected>Project</md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Comment</label>
+                <textarea ng-model="template.comment" name="comment" columns="1" md-maxlength="1000"></textarea>
+                <div ng-messages="saveAsTemplateForm.comment.$error">
+                    <div ng-message="md-maxlength" class="my-message">
+                        Only 1000 characters are allowed!
+                    </div>
+                </div>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row"  ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="save()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>

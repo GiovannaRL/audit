@@ -1,0 +1,168 @@
+﻿<md-dialog aria-label="generateReport" flex="50" class="all-screen">
+    <md-toolbar layout="row" layout-align="center center">
+        Generate Report
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak class="md-inline-form">
+        <form name="generateReportForm" id="generateReportForm">
+            <md-stepper id="stepper-generating-report"
+                        md-mobile-step-text="mobileStep"
+                        md-vertical="false"
+                        md-linear="true"
+                        md-alternative="true">
+
+                <md-step md-label="Settings">
+                    <md-step-body style="padding-top: 3em;" class="padding-right padding-left">
+                        <section layout-gt-xs="row" layout-align-gt-xs="space-around start">
+                            <md-input-container class="md-block" flex-gt-xs="35">
+                                <label>Name</label>
+                                <input name="name" ng-model="report.name" maxlength="50" required aw-only-numbers-and-letters>
+                                <div ng-messages="generateReportForm.name.$error">
+                                    <div ng-message="required">Report name is required</div>
+                                    <div ng-message="number-and-letter">Report name only allows numbers, letters, underline, underscore and spaces</div>
+                                </div>
+                            </md-input-container>
+                            <section flex-gt-xs="35"
+                                     aw-combo-box 
+                                     ng-model="report.report_type" 
+                                     name="type"
+                                     form="generateReportForm"
+                                     controller-name="reportTypes" 
+                                     text-property="name" 
+                                     id-property="id" 
+                                     selected-id="report.report_type_id" 
+                                     label="Type" 
+                                     order-by="name" 
+                                     required></section>
+                        </section>
+                        <section layout-gt-xs="row" layout-align-gt-xs="space-around start">
+                            <md-input-container class="md-block" flex-gt-xs="85">
+                                <label>Description</label>
+                                <input name="description" ng-model="report.description" maxlength="200">
+                            </md-input-container>
+                        </section>
+                        <section layout-gt-xs="row" layout-align-gt-xs="space-around start">
+                            <md-checkbox flex-gt-xs="85" ng-model="report.isPrivate" aria-label="private" style="top: -15px" name="private">
+                                Private
+                            </md-checkbox>
+                        </section>
+                    </md-step-body style="height:{{locations.height + 30}}px">
+
+                </md-step>
+                <md-step md-label="Filter">
+                    <md-step-body>
+                        <!--<section style="padding-top: 3em;">
+                            <h2 align=center class="gray-color" ng-if="report.report_type.name.toLowerCase() === 'shop drawing'">
+                                This type of report do not requires filter information!
+                            </h2>
+                        </section>-->
+                        <aw-locations-grid
+                            params="locations.params" 
+                            selecteds="locations.selecteds" 
+                            height="locations.height" 
+                            select-all="true">
+                        </aw-locations-grid>
+                    </md-step-body>
+                </md-step>
+                <md-step md-label="Details">
+                    <md-step-body style="padding-top: 3em;">
+                        <h2 align=center class="gray-color" ng-if="report.report_type.name.toLowerCase() === 'it connectivity'">
+                            This type of report do not requires specific information!
+                        </h2>
+                        <section ng-if="report.report_type.name.toLowerCase() !== 'it connectivity' && report.report_type.name.toLowerCase() !== 'copied project inventory comparison'">
+                            <section layout-gt-xs="row" layout-alignt-gt-xs="space-around center" ng-if="report.report_type.name.toLowerCase() !== 'shop drawing'">
+                               <md-input-container class="md-block" flex-gt-xs="50" flex-offset-gt-xs="25" ng-if="report.report_type.name.toLowerCase() !== 'procurement'">
+                                    <label>Cost Center</label>
+                                    <md-select name="cost_center" ng-model="report.cost_center1">
+                                        <md-option value="-1">All</md-option>
+                                        <md-option ng-repeat="cost in costCenters" ng-value="cost">
+                                            {{cost.code + ' - ' + cost.description}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-xs="40" flex-offset-gt-xs="30" ng-if="report.report_type.name.toLowerCase() === 'procurement'">
+                                    <label>PO Status</label>
+                                    <md-select name="po_status" ng-model="report.po_status">
+                                        <md-option value="All">All</md-option>
+                                        <md-option ng-repeat="status in poStatuses" ng-value="status.value">
+                                            {{status.name}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </section>
+                            <section layout-gt-xs="row" layout-alignt-gt-xs="space-around start" ng-if="report.report_type.name.toLowerCase() !== 'procurement' && report.report_type.name.toLowerCase() !== 'shop drawing'">
+                                <section flex-gt-xs="80" flex-offset-gt-xs="10" layout-gt-xs="row" layout-align-gt-xs="space-between start" layout="column">
+                                    <md-checkbox ng-model="report.include_cutsheets" aria-label="cutsheets" name="cursheets" ng-if="report.report_type.name.toLowerCase() === 'asset book'">
+                                        Include Cutsheets
+                                    </md-checkbox>
+                                    <md-checkbox ng-model="report.use_cad_id" aria-label="cadIDs" name="cadIDs" ng-if="report.report_type.name.toLowerCase() === 'asset by room' || report.report_type.name.toLowerCase() === 'asset book'">
+                                        Use CAD ID's
+                                    </md-checkbox>
+                                    <md-checkbox ng-model="report.include_budgets" aria-label="budgets" name="budgets" ng-if="report.report_type.name.toLowerCase() === 'room by room (government)'">
+                                        Include Budgets
+                                    </md-checkbox>
+                                    <md-checkbox ng-model="report.include_photo" aria-label="photo" name="photo" ng-if="report.report_type.name.toLowerCase() === 'government inventory'">
+                                        Include Photo
+                                    </md-checkbox>
+                                    <md-checkbox ng-model="report.include_jsn" aria-label="jsn" name="jsn" ng-if="report.report_type.name.toLowerCase() === 'asset book'">
+                                        Include JSN
+                                    </md-checkbox>
+                                    <md-checkbox ng-model="report.remove_logo" aria-label="Logo" name="Logo" ng-if="report.report_type.name.toLowerCase() === 'equipment with costs' || report.report_type.name.toLowerCase() === 'room equipment list' || report.report_type.name.toLowerCase() === 'equipment dimensional and utilities'">
+                                        Remove Audaxware Logo
+                                    </md-checkbox>
+                                    <md-checkbox ng-model="report.ignore_description_difference" aria-label="description" name="description" ng-if="report.report_type.name.toLowerCase() === 'asset book'">
+                                        ignore Description Difference
+                                    </md-checkbox>
+                                    <md-checkbox ng-model="report.remove_ecn" aria-label="ecn" name="ecn" ng-if="report.report_type.name.toLowerCase() === 'door list'">
+                                        Remove ECN Column
+                                    </md-checkbox>
+
+                                </section>
+                            </section>
+
+                            <section layout-gt-xs="row" layout-alignt-gt-xs="space-around start" ng-if="report.report_type.name.toLowerCase() === 'shop drawing'">
+                                <section flex-gt-xs="50" flex-offset-gt-xs="25" layout-gt-xs="row" layout-align-gt-xs="space-between start" layout="column">
+                                    <md-checkbox ng-model="report.include_docs_without_link" aria-label="doc_without_link" name="doc_without_link">
+                                        Include Shop Drawings Without Link
+                                    </md-checkbox>
+                                </section>
+                            </section>
+
+                            <section layout="column" layout-align="start start" flex-offset-gt-xs="30" ng-if="report.report_type.name.toLowerCase() === 'procurement'">
+                                <md-checkbox ng-model="report.include_po_cover" aria-label="po_cover" name="po_cover">
+                                    Include POs Cover
+                                </md-checkbox>
+                                <md-checkbox ng-model="report.include_po_uploaded" aria-label="po_uploaded" name="po_uploaded">
+                                    Include Uploaded POs
+                                </md-checkbox>
+                                <md-checkbox ng-model="report.include_quote_uploaded" aria-label="quote_uploaded" name="quote_uploaded">
+                                    Include Uploaded Quotes
+                                </md-checkbox>
+                            </section>
+
+                            
+                        </section>
+                        <section ng-if="report.report_type.name.toLowerCase() === 'copied project inventory comparison'">
+                            <md-input-container class="md-block">
+                                <label>Project</label>
+                                <md-select name="project" ng-model="report.compare_with_project_id" required>
+                                    <md-option ng-repeat="p in projects | orderBy : 'project_description'" ng-value="p.project_id">
+                                        {{p.project_description}}
+                                    </md-option>
+                                </md-select>
+                                <div ng-messages="generateReportForm.project.$error">
+                                    <div ng-message="required">Project is required</div>
+                                </div>
+                            </md-input-container>
+                        </section>
+
+                    </md-step-body>
+                </md-step>
+            </md-stepper>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="cancel()">Cancel</md-button>
+        <md-button class="md-primary" ng-click="back()" ng-if="currentStep > 1">Back</md-button>
+        <md-button class="md-primary" ng-click="next()">{{currentStep === 3 ? 'Generate' : 'Next'}}</md-button>
+    </md-dialog-actions>
+</md-dialog>

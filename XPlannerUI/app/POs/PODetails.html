@@ -1,0 +1,288 @@
+﻿<section layout="column" ng-cloak class="md-inline-form padding-left-half padding-right-half padding-top padding-bottom">
+    <form name="poForm" id="poForm" novalidate>
+        <aw-accordion label="Information" expanded="true">
+            <section layout-gt-xs="row" flex="100" layout-align="space-between bottom" layout-align-sm="space-between bottom">
+                <md-input-container class="md-block" flex-gt-sm="50" flex-sm="40">
+                    <label>Description</label>
+                    <input name="description" ng-model="data.description" required>
+                    <div ng-messages="poForm.description.$error">
+                        <div ng-message="required">PO description is required</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="20" flex-sm="30">
+                    <label>Status</label>
+                    <input name="status" ng-model="data.status" readonly>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="20" flex-sm="30">
+                    <label>Quote Expiration Date</label>
+                    <md-datepicker ng-model="data.quote_expiration_date" name="expiration_date" md-min-date="minQuoteExDate" ng-disabled="data.status !== 'Quote Requested'"></md-datepicker>
+                    <div ng-messages="requestPOForm.quote_expiration_date.$error">
+                        <div ng-message="valid">Invalid Date</div>
+                    </div>
+                    <!--<input name="quote_expiration_date" ng-model="data.quote_expiration_date" ng-disabled="data.status !== 'Quote Requested'" aw-date-formatter>-->
+                </md-input-container>
+            </section>
+            <section layout-gt-xs="row" layout-align-gt-xs="space-between start" class="md-block" layout-wrap layout-fill>
+                <md-input-container ng-if="data" class="md-block" flex-gt-xs="30">
+                    <aw-autocomplete ng-model="data.vendor"
+                                     watch-object="true"
+                                     watched-object-id="data.po_id"
+                                     descriptive-property="domain.name"
+                                     selected-item="data.vendor"
+                                     selected-id="data.vendor_id"
+                                     selected-domain="data.vendor_domain_id"
+                                     name="vendor"
+                                     add-option="false"
+                                     id-property="vendor_id"
+                                     controller-name="vendor"
+                                     params="vendorCtrlParams"
+                                     max="50"
+                                     label="Vendor *"
+                                     required></aw-autocomplete>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="30">
+                    <label>Ship To</label>
+                    <md-select name="ship_to" ng-model="data.ship_to">
+                        <md-option ng-repeat="address in addressList" ng-value="address.id">
+                            {{address.nickname}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <!--<section flex-gt-xs="30"
+                         aw-combo-box
+                         ng-model="data.project_addresses"
+                         name="ship_to"
+                         controller-name="address"
+                         params="addressCtrlParams"
+                         text-property="nickname"
+                         id-property="id"
+                         selected-id="data.ship_to"
+                         selected-domain="data.domain_id"
+                         domain-property="domain_id"
+                         label="Ship To"></section>-->
+                <md-input-container class="md-block" flex-gt-xs="30">
+                    <label>Requisition #</label>
+                    <input name="requisition_number" ng-model="data.po_requested_number" ng-disabled="data.status === 'Open' || data.status === 'Quote Received'">
+                    <div ng-messages="poForm.requisition_number.$error">
+                        <div ng-message="required">Requisition number is required</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <section layout-gt-xs="row" layout-align-gt-xs="space-between start" class="md-block" layout-wrap layout-fill>
+                <md-input-container class="md-block" flex-gt-xs="30">
+                    <label>Quote #</label>
+                    <input name="quote" ng-model="data.quote_number" ng-disabled="data.status === 'Open' || data.status === 'Quote Requested'" ng-required="data.status !== 'Open' && data.status !== 'Quote Requested'">
+                    <div ng-messages="poForm.quote.$error">
+                        <div ng-message="required">Quote number is required</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="30">
+                    <label>Requested date</label>
+                    <input name="quote_requested_date" ng-model="data.quote_requested_date" readonly aw-date-formatter>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="30">
+                    <label>Received date</label>
+                    <input name="quote_received_date" ng-model="data.quote_received_date" readonly aw-date-formatter>
+                </md-input-container>
+            </section>
+            <section layout-gt-xs="row" layout-align-gt-xs="space-between start" class="md-block" layout-wrap layout-fill>
+                <md-input-container class="md-block" flex-gt-xs="30">
+                    <label>PO No.</label>
+                    <input name="po" ng-model="data.po_number" ng-disabled="data.status !== 'PO Issued'" ng-required="data.status === 'PO Issued'">
+                    <div ng-messages="poForm.po.$error">
+                        <div ng-message="required">PO number is required</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="30">
+                    <label>Requested date</label>
+                    <input name="po_requested_date" ng-model="data.po_requested_date" readonly aw-date-formatter>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs="30">
+                    <label>Received date</label>
+                    <input name="po_received_date" ng-model="data.po_received_date" readonly aw-date-formatter>
+                </md-input-container>
+            </section>
+            <!--<md-checkbox ng-model="data.upd_asset_value" aria-label="asset_update" name="asset_updatex" style="top: -30px">
+                Allows automatically update asset min/max value
+            </md-checkbox>-->
+        </aw-accordion>
+        <aw-accordion label="More...">
+            <section layout="column" class="padding-top">
+                <md-card-content layout-gt-sm="row" layout-align="start center" ng-if="!params.add">
+                    <section flex-gt-sm="45">
+                        <label><strong>Data Added: </strong></label>
+                        <span>{{data.date_added | date:'shortDate'}}</span>
+                    </section>
+                    <section>
+                        <label><strong>Added by: </strong></label>
+                        <span>{{data.added_by}}</span>
+                    </section>
+                </md-card-content>
+            </section>
+            <md-input-container class="md-block">
+                <label>Comment</label>
+                <textarea ng-model="data.comment" name="comment" columns="1" md-maxlength="1000" maxlength="1000"></textarea>
+                <div ng-messages="poForm.comment.$error" role="alert">
+                    <div ng-message="md-maxlength" class="my-message">
+                        Only 1000 characters are allowed
+                    </div>
+                </div>
+            </md-input-container>
+        </aw-accordion>
+        <aw-accordion label="Financials">
+            <section layout-gt-xs="column" layout-align-gt-sm="none start" layout-align-sm="none center" class="padding-top">
+                <section layout-sm="column" layout-xs="column" layout-gt-sm="row" layout-align-gt-sm="space-around bottom" class="md-block" layout-wrap layout-fill>
+                    <section layout-sm="row" flex-gt-sm="20" layout-align-sm="space-between bottom">
+                        <md-input-container class="md-block" flex-sm="45">
+                            <label>Quote amount</label>
+                            <input name="quote_amount" ng-model="data.quote_amount" aw-currency aw-currency-model>
+                            <div ng-messages="poForm.quote_amount.$error">
+                                <div ng-message="currency">Only currency values are allowed</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-sm="45">
+                            <label>Install</label>
+                            <input name="install" ng-model="data.install" aw-currency aw-currency-model>
+                            <div ng-messages="poForm.install.$error">
+                                <div ng-message="currency">Only currency values are allowed</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-sm="45">
+                            <label>Quote Discount</label>
+                            <input name="quote_discount" ng-model="data.quote_discount" aw-currency aw-currency-model>
+                            <div ng-messages="poForm.quote_discount.$error">
+                                <div ng-message="currency">Only currency values are allowed</div>
+                            </div>
+                        </md-input-container>
+                    </section>
+                    <section layout-sm="row" flex-gt-sm="20" layout-align-sm="space-between bottom">
+                        <md-input-container class="md-block" flex-sm="45">
+                            <label>Freight</label>
+                            <input name="freight" ng-model="data.freight" aw-currency aw-currency-model>
+                            <div ng-messages="poForm.freight.$error">
+                                <div ng-message="currency">Only currency values are allowed</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-sm="45">
+                            <label>Warranty</label>
+                            <input name="warranty" ng-model="data.warranty" aw-currency aw-currency-model>
+                            <div ng-messages="poForm.warranty.$error">
+                                <div ng-message="currency">Only currency values are allowed</div>
+                            </div>
+                        </md-input-container>
+                    </section>
+                    <section layout-sm="row" flex-gt-sm="20" layout-align-sm="space-between bottom">
+                        <md-input-container class="md-block" flex-sm="45">
+                            <label>Tax</label>
+                            <input name="tax" ng-model="data.tax" aw-currency aw-currency-model>
+                            <div ng-messages="poForm.tax.$error">
+                                <div ng-message="currency">Only currency values are allowed</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-sm="45">
+                            <label>Contingency</label>
+                            <input name="misc" ng-model="data.misc" aw-currency aw-currency-model>
+                            <div ng-messages="poForm.misc.$error">
+                                <div ng-message="currency">Only currency values are allowed</div>
+                            </div>
+                        </md-input-container>
+                    </section>
+                </section>
+            </section>
+        </aw-accordion>
+        <aw-accordion label="Assigned Assets">
+            <div kendo-grid="assignedAssetsGrid" class="checkbox-grid no-multilines" k-on-data-bound="dataBound()" options="options">
+            </div>
+        </aw-accordion>
+        <aw-accordion label="Vendor Contact">
+            <!--<aw-po-vendor-contact ng-if="data" data="data.vendor"></aw-po-vendor-contact>-->
+            <aw-contacts-grid ng-if="data" purchase-order="data" can-edit="true" contact-type="vendor" params="data.vendor"></aw-contacts-grid>
+        </aw-accordion>
+    </form>
+</section>
+
+<!-- FAB button -->
+<div class="lock-size fixed-element" layout="row" layout-align="center center" ng-cloak ng-if="isNotViewer">
+    <md-fab-speed-dial md-open="buttonsOpened" md-direction="up"
+                       class="md-scale">
+        <md-fab-trigger>
+            <md-button aria-label="menu" class="md-fab md-accent">
+                <md-icon md-svg-src="{{buttonsOpened ? 'close' : 'menu'}}"></md-icon>
+            </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+            <!-- Save button -->
+            <md-button aria-label="save" class="md-fab md-mini"
+                       ng-click="save()">
+                <md-tooltip md-direction="left" md-visible="false"
+                            md-autohide="true">
+                    Save
+                </md-tooltip>
+                <md-icon md-svg-src="save" aria-label="save"></md-icon>
+            </md-button>
+            <!-- upload files button -->
+            <md-button aria-label="upload_files" class="md-fab md-mini"
+                       ng-click="filesUpload()">
+                <md-tooltip md-direction="left" md-visible="false"
+                            md-autohide="true">
+                    Upload Files
+                </md-tooltip>
+                <md-icon md-svg-src="file_upload" aria-label="upload_files"></md-icon>
+            </md-button>
+            <!-- request quote button -->
+            <md-button aria-label="request_quote" class="md-fab md-mini"
+                       ng-click="requestPOQuote('Quote')">
+                <md-tooltip md-direction="left" md-visible="false"
+                            md-autohide="true">
+                    Request Quote
+                </md-tooltip>
+                <md-icon md-svg-src="request" aria-label="request_quote"></md-icon>
+            </md-button>
+            <!-- receive quote button -->
+            <md-button aria-label="receive_quote" class="md-fab md-mini"
+                       ng-click="receiveQuote()" ng-if="data.status !== 'Open'">
+                <md-tooltip md-direction="left" md-visible="false"
+                            md-autohide="true">
+                    Receive Quote
+                </md-tooltip>
+                <md-icon md-svg-src="receive" aria-label="receive_quote"></md-icon>
+            </md-button>
+            <!-- request po button -->
+            <md-button aria-label="request_po" class="md-fab md-mini"
+                       ng-click="requestPOQuote('PO')" ng-if="data.status !== 'Open' && data.status !== 'Quote Requested'">
+                <md-tooltip md-direction="left" md-visible="false"
+                            md-autohide="true">
+                    Request PO
+                </md-tooltip>
+                <md-icon md-svg-src="file_simple" aria-label="request_po"></md-icon>
+            </md-button>
+            <!-- receive po button -->
+            <md-button aria-label="receive_po" class="md-fab md-mini"
+                       ng-click="receivePO()" ng-if="data.status === 'PO Requested' || data.status === 'PO Received'">
+                <md-tooltip md-direction="left" md-visible="false"
+                            md-autohide="true">
+                    Receive PO
+                </md-tooltip>
+                <md-icon md-svg-src="file" aria-label="receive_po"></md-icon>
+            </md-button>
+            <!-- delete button -->
+            <md-button aria-label="delete" class="md-fab md-mini"
+                       ng-click="del()">
+                <md-tooltip md-direction="left" md-visible="false"
+                            md-autohide="true">
+                    Delete
+                </md-tooltip>
+                <md-icon md-svg-src="delete_forever" aria-label="delete"></md-icon>
+            </md-button>
+            <!-- back button -->
+            <md-button aria-label="back" class="md-fab md-mini"
+                       ng-click="back()">
+                <md-tooltip md-direction="left" md-visible="false"
+                            md-autohide="true">
+                    Back to List
+                </md-tooltip>
+                <md-icon md-svg-src="reply" aria-label="back"></md-icon>
+            </md-button>
+        </md-fab-actions>
+    </md-fab-speed-dial>
+</div>

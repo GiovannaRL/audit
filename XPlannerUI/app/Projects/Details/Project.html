@@ -1,0 +1,273 @@
+﻿<section layout="column" ng-cloak class="md-inline-form padding-top padding-bottom-half" ng-controller="DetailsCtrl">
+    <form name="detailsForm" id="detailsForm" novalidate">
+        <!-- Prevent implicit submission of the form (like pressing enter key on text input)-->
+        <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+
+        <section layout="column" layout-align="none end" ng-if="!params.add" ng-cloak>
+            <md-icon class="material-icons" aria-label="favorite" style="margin-right: 1em; margin-bottom: 0.5em; color: #FFD700" ng-click="toggleFavorite()">
+                {{isInFavorites ? 'star' : 'star_border'}}
+            </md-icon>
+        </section>
+        <aw-accordion label="Information" expanded="true">
+            <section layout-gt-xs="row" flex="100" layout-align="space-between start">
+                <md-input-container class="md-block" flex-gt-sm="30" flex-sm="60">
+                    <label>Name</label>
+                    <input name="projectName" ng-model="data.project_description" required maxlength="200">
+                    <div ng-messages="detailsForm.projectName.$error">
+                        <div ng-message="required">Project name is mandatory</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="20" flex-sm="35">
+                    <label>Status</label>
+                    <md-select ng-model="data.status" ng-change="changeProjectStatus()" ng-disabled="!canChangeStatus()">
+                        <md-option ng-repeat="status in statusList" value="{{status.id}}">
+                            {{status.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="20" flex-sm="35" ng-click="changeProjectStatus()">
+                    <label>Lock comment/Submmittal</label>
+                    <input name="submittal" ng-model="data.locked_comment" maxlength="30" disabled>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="20" flex-sm="35">
+                    <label>Lock/Submmittal Date</label>
+                    <input name="submittalDate" ng-model="data.locked_date" disabled>
+                </md-input-container>
+            </section>
+            <section layout="column" layout-gt-sm="row" layout-align-gt-sm="space-between start" class="md-block" layout-wrap layout-fill>
+                <section layout-gt-xs="row" flex-gt-sm="50" layout-align="space-between start">
+                    <md-input-container flex-gt-sm="25" flex-gt-xs="60" class="md-block">
+                        <aw-autocomplete ng-model="data.client" name="client" add-option="true" controller-name="clients" params="controllerParams" max="100" selected-item="data.client" selected-id="data.client_id" selected-domain="data.client_domain_id" label="Client *" watch-object="!params.add" watched-object-id="data.project_id" required></aw-autocomplete>
+                        <div ng-messages="detailsForm.client.$error">
+                            <div ng-message="required">Client is mandatory</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm="15" flex-gt-xs="35">
+                        <label>Client project #</label>
+                        <input name="clientProjectNumber" ng-model="data.client_project_number" maxlength="25">
+                        <div ng-messages="detailsForm.clientProjectNumber.$error"></div>
+                    </md-input-container>
+                </section>
+                <section flex-gt-sm="5"></section>
+                <section layout-gt-xs="row" flex-gt-sm="45" layout-align="space-between center">
+                    <md-input-container flex-gt-sm="25" flex-gt-xs="60" class="md-block">
+                        <aw-autocomplete ng-model="data.facility" name="facility" add-option="true" controller-name="facilities" params="controllerParams" selected-item="data.facility" selected-id="data.facility_id" selected-domain="data.facility_domain_id" label="Facility *" max="100" watch-object="!params.add" watched-object-id="data.project_id" required></aw-autocomplete>
+                        <div ng-messages="detailsForm.facility.$error">
+                            <div ng-message="required">Facility is mandatory</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm="15" flex-gt-xs="35">
+                        <label>Facility project #</label>
+                        <input name="facilityProjectNumber" ng-model="data.facility_project_number" maxlength="25">
+                        <div ng-messages="detailsForm.facilityProjectNumber.$error"></div>
+                    </md-input-container>
+                </section>
+            </section>
+        </aw-accordion>
+        <aw-accordion label="More...">
+            <section layout="column" class="padding-top">
+                <md-card-content layout-gt-sm="row" layout-align="start center" ng-if="!params.add">
+                    <section flex-gt-sm="45">
+                        <label><strong>Data Added: </strong></label>
+                        <span>{{data.date_added | date:'shortDate'}}</span>
+                    </section>
+                    <section>
+                        <label><strong>Added by: </strong></label>
+                        <span>{{data.added_by}}</span>
+                    </section>
+                </md-card-content>
+            </section>
+            <md-input-container class="md-block">
+                <label>Comment</label>
+                <textarea ng-model="data.comment" name="comment" columns="1" md-maxlength="1000" maxlength="1000"></textarea>
+                <div ng-messages="!detailsForm.comment.$valid && detailsForm.comment.$error" role="alert">
+                    <div ng-message="md-maxlength" class="my-message">
+                        Only 1000 characters are allowed!
+                    </div>
+                </div>
+            </md-input-container>
+        </aw-accordion>
+        <aw-accordion label="Phases" ng-if="!params.add">
+            <section layout="column" ng-cloak class="md-inline-form padding-bottom level-below-grid" ng-controller="LevelBelowListCtrl">
+                <div class="checkbox-grid" kendo-grid="itemsGrid" options="options" k-on-data-bound="dataBound(itemsGrid)">
+                </div>
+            </section>
+        </aw-accordion>
+        <aw-accordion label="Financials" expanded="false">
+            <!--<section layout-gt-xs="column" layout-align-gt-sm="none start" layout-align-sm="none center" class="padding-top">-->
+            <div layout="row" layout-align="space-between start">
+                <aw-procurement data="data" column-name="medial_budget" project-level="false" title="Total Budget" costs="financialCosts"></aw-procurement>
+                <aw-procurement data="data" column-name="warehouse_budget" project-level="false" title="Warehouse" costs="financialCosts.warehouse"></aw-procurement>
+                <aw-procurement data="data" column-name="tax_budget" project-level="false" title="Tax" costs="financialCosts.Tax"></aw-procurement>
+            </div>
+            <div layout="row" layout-align="space-between start">
+                <aw-procurement data="data" column-name="misc_budget" project-level="false" title="Contingency" costs="financialCosts.contingency"></aw-procurement>
+                <aw-procurement data="data" column-name="freight_budget" project-level="false" title="Freight" costs="financialCosts.freight"></aw-procurement>
+                <aw-procurement data="data" column-name="warranty_budget" project-level="false" title="Warranty" costs="financialCosts.warranty"></aw-procurement>
+            </div>
+            <div layout="row" layout-align="space-between start">
+                <aw-procurement data="data" column-name="markup_budget" project-level="false" title="Markup" costs="financialCosts.markup"></aw-procurement>
+                <aw-procurement data="data" column-name="escalation_budget" project-level="false" title="Escalation" costs="financialCosts.escalation"></aw-procurement>
+                <aw-procurement data="data" column-name="install_budget" project-level="false" title="Install" costs="financialCosts.install"></aw-procurement>
+            </div>
+            <div layout="row" layout-align="space-between end">
+                <aw-procurement data="data" column-name="asset_budget" readonly="true" info-message="This field is calculated by subtracting the other fields from the Total Budget" costs="financialCosts" project-level="false" title="Asset"></aw-procurement>
+            </div>
+                <!--<md-input-container class="md-block" flex-gt-xs="45">
+            Total Budget
+            <input name="medial_budget" ng-model="data.medial_budget" aw-currency aw-currency-model aria-label="medial_budget">
+            <div ng-messages="detailsForm.medial_budget.$error">
+                <div ng-message="currency">Only currency values are allowed</div>
+            </div>
+        </md-input-container>-->
+                <!--<section layout-sm="column" layout-xs="column" layout-gt-sm="row" layout-align-gt-sm="space-around bottom" class="md-block" layout-wrap layout-fill>-->
+                <!--<section layout-sm="row" flex-gt-sm="20" layout-align-sm="space-between bottom">
+
+            <md-input-container class="md-block" flex-sm="45">
+                <label>Warehouse</label>
+                <input name="warehouse_budget" ng-model="data.warehouse_budget" aw-currency aw-currency-model>
+                <div ng-messages="detailsForm.warehouse_budget.$error">
+                    <div ng-message="currency">Only currency values are allowed</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-sm="45">
+                <label>Freight</label>
+                <input name="freight_budget" ng-model="data.freight_budget" aw-currency aw-currency-model>
+                <div ng-messages="detailsForm.freight_budget.$error">
+                    <div ng-message="currency">Only currency values are allowed</div>
+                </div>
+            </md-input-container>
+        </section>-->
+                <!--<section layout-sm="row" flex-gt-sm="20" layout-align-sm="space-between bottom">
+
+            <md-input-container class="md-block" flex-sm="45">
+                <label>Tax</label>
+                <input name="tax_budget" ng-model="data.tax_budget" aw-currency aw-currency-model>
+                <div ng-messages="detailsForm.tax_budget.$error">
+                    <div ng-message="currency">Only currency values are allowed</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-sm="45">
+                <label>Warranty</label>
+                <input name="warranty_budget" ng-model="data.warranty_budget" aw-currency aw-currency-model>
+                <div ng-messages="detailsForm.warranty_budget.$error">
+                    <div ng-message="currency">Only currency values are allowed</div>
+                </div>
+            </md-input-container>
+        </section>-->
+                <!--<section layout-sm="row" flex-gt-sm="20" layout-align-sm="space-between bottom">
+            <md-input-container class="md-block" flex-sm="45" style="margin-bottom:0">
+                <label>Misc</label>
+                <input name="misc_budget" ng-model="data.misc_budget" aw-currency aw-currency-model>
+                <div ng-messages="detailsForm.misc_budget.$error">
+                    <div ng-message="currency">Only currency values are allowed</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-sm="45" style="margin-top:0">
+                <section layout-sm="column" flex-sm="45" layout-align-sm="none start">
+                    Asset Budget
+                    <md-button class="md-icon-button" style="margin:0;padding:0">
+                        <md-icon class="md-bottom md-18">info</md-icon>
+                        <md-tooltip>This field is calculated by subtracting the other fields from the Total Budget</md-tooltip>
+                    </md-button>
+                </section>
+                <input name="asset_budget" ng-model="asset_budget" ng-disabled="true" aw-currency aw-currency-model aria-label="asset_budget">
+            </md-input-container>
+        </section>-->
+                <!--</section>-->
+                <!--</section>-->
+        </aw-accordion>
+        <aw-accordion label="Project Defaults">
+            <section layout-gt-xs="row" flex="100" layout-align="space-between start">
+                <md-input-container class="md-block" flex-sm="25">
+                    <label>Asset Default Budget</label>
+                    <md-select ng-model="data.default_cost_field" name="default_cost_field" required>
+                        <md-option ng-repeat="cost in costs" value="{{cost.id}}">
+                            {{cost.name}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="detailsForm.default_cost_field.$error">
+                        <div ng-message="required">Asset Default Budget is mandatory</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-sm="15">
+                    <label>Asset Markup (%)</label>
+                    <input name="markup" ng-model="data.markup" aw-currency>
+                    <div ng-messages="detailsForm.markup.$error">
+                        <div ng-message="currency">Only currency values are allowed</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-sm="15">
+                    <label>Escalation (%)</label>
+                    <input name="escalation" ng-model="data.escalation" aw-currency>
+                    <div ng-messages="detailsForm.escalation.$error">
+                        <div ng-message="currency">Only currency values are allowed</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-sm="15">
+                    <label>Tax Rate (%)</label>
+                    <input name="tax" ng-model="data.tax" aw-currency>
+                    <div ng-messages="detailsForm.tax.$error">
+                        <div ng-message="currency">Only currency values are allowed</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-sm="15">
+                    <label>Freight Markup (%)</label>
+                    <input name="freight_markup" ng-model="data.freight_markup" aw-currency>
+                    <div ng-messages="detailsForm.freight_markup.$error">
+                        <div ng-message="currency">Only currency values are allowed</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-sm="15">
+                    <label>Install Markup (%)</label>
+                    <input name="install_markup" ng-model="data.install_markup" aw-currency>
+                    <div ng-messages="detailsForm.install_markup.$error">
+                        <div ng-message="currency">Only currency values are allowed</div>
+                    </div>
+                </md-input-container>
+            </section>
+        </aw-accordion>
+        <aw-accordion label="Cost Center" class="layout-bottom" ng-if="!params.add">
+            <section layout="column" ng-cloak class="md-inline-form" ng-controller="CostCenterGridCtrl">
+                <div class="checkbox-grid" kendo-grid="costCenterGrid" options="options" k-on-data-bound="dataBound(costCenterGrid)">
+                </div>
+            </section>
+        </aw-accordion>
+        <aw-accordion label="Address" class="padding-bottom" ng-if="!params.add">
+            <section layout="column" ng-cloak class="md-inline-form" ng-controller="AddressesGridCtrl">
+                <div class="checkbox-grid" kendo-grid="addressesGrid" options="options" k-on-data-bound="dataBound(addressesGrid)">
+                </div>
+            </section>
+        </aw-accordion>
+    </form>
+    <!-- FAB button -->
+    <div class="lock-size fixed-element" layout="row" layout-align="center center" ng-cloak ng-if="isNotViewer">
+        <md-fab-speed-dial md-open="buttons.state" md-direction="up"
+                           class="md-fling">
+            <md-fab-trigger>
+                <md-button aria-label="menu" class="md-fab md-accent">
+                    <md-icon md-svg-src="{{buttons.state ? 'close' : 'menu'}}"></md-icon>
+                </md-button>
+            </md-fab-trigger>
+            <md-fab-actions>
+                <div ng-repeat="button in (params.add ? buttons.project.add : buttons.project.edit)">
+                    <md-button aria-label="{{button.label}}" class="md-fab md-mini"
+                               ng-click="button.click('Project')">
+                        <md-tooltip md-direction="left" md-visible="false"
+                                    md-autohide="true">
+                            {{button.label}}
+                        </md-tooltip>
+                        <md-icon md-svg-src="{{button.icon}}" aria-label="{{button.label}}"></md-icon>
+                    </md-button>
+                </div>
+            </md-fab-actions>
+        </md-fab-speed-dial>
+    </div>
+</section>
+
+<style type="text/css">
+    .k-grid-content {
+        max-height: 160px;
+        min-height: 160px;
+    }
+</style>

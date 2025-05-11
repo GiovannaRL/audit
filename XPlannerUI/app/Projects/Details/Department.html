@@ -1,0 +1,105 @@
+﻿<section layout="column" ng-cloak class="md-inline-form padding-left-half padding-right-half padding-top padding-bottom-half" ng-controller="DetailsCtrl">
+    <form name="detailsForm" id="detailsForm">
+        <aw-accordion label="Information" expanded="true">
+            <section layout-gt-xs="row" layout-fill layout-align="space-between bottom" class="md-block">
+                <md-input-container class="md-block" flex-gt-xs="40">
+                    <label>Description</label>
+                    <input name="department_name" ng-model="data.description" required maxlength="50">
+                    <div ng-messages="detailsForm.department_name.$error">
+                        <div ng-message="required">Department description is mandatory</div>
+                    </div>
+                </md-input-container>
+                <section flex-gt-xs="20"
+                         aw-combo-box 
+                         ng-model="data.department_type" 
+                         name="department_type"
+                         form="detailsForm"
+                         controller-name="departmentType" 
+                         params="controllerParams" 
+                         text-property="description" 
+                         id-property="department_type_id" 
+                         selected-id="data.department_type_id" 
+                         selected-domain="data.department_type_domain_id" 
+                         domain-property="domain_id" label="Type",
+                         watch-object="!params.add" 
+                         watched-object-id="data.department_type.department_type_id" 
+                         required></section>
+                <md-input-container class="md-block" flex-gt-xs="20">
+                    <label>Dept Area</label>
+                    <input type="text" name="dept_area" ng-model="data.area" aw-only-numbers>
+                    <div ng-messages="detailsForm.dept_area.$error">
+                        <div ng-message="number">Only numbers are allowed</div>
+                    </div>
+                </md-input-container>
+            </section>
+        </aw-accordion>
+        <aw-accordion label="More...">
+            <section class="padding-top">
+                <md-card-content layout-gt-xs="row" layout-align="start center" ng-if="!params.add">
+                    <section flex-gt-xs="45">
+                        <label><strong>Data Added: </strong></label>
+                        <span>{{data.date_added | date:'shortDate'}}</span>
+                    </section>
+                    <section>
+                        <label><strong>Added by: </strong></label>
+                        <span>{{data.added_by}}</span>
+                    </section>
+                </md-card-content>
+
+                <section layout-gt-sm="row" layout-align="space-around bottom" class="md-block">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Contact Name</label>
+                        <input ng-model="data.contact_name">
+                    </md-input-container>
+                    <div flex-gt-sm="10"></div>
+                    <md-input-container class="md-block" flex-gt-sm="20">
+                        <label>Contact Phone</label>
+                        <input ng-model="data.contact_phone">
+                    </md-input-container>
+                    <div flex-gt-sm="10"></div>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Contact Email</label>
+                        <input name="Zip" ng-model="data.contact_email">
+                    </md-input-container>
+                </section>
+                <md-input-container class="md-block">
+                    <label>Comment</label>
+                    <textarea ng-model="data.comment" name="comment" columns="1" md-maxlength="1000"></textarea>
+                    <div ng-messages="!detailsForm.comment.$valid && detailsForm.comment.$error" role="alert">
+                        <div ng-message="md-maxlength" class="my-message">
+                            Only 1000 characters are allowed!
+                        </div>
+                    </div>
+                </md-input-container>
+            </section>
+        </aw-accordion>
+        <aw-accordion label="Rooms" ng-if="!params.add">
+            <section layout="column" ng-cloak class="md-inline-form level-below-grid" ng-controller="LevelBelowListCtrl">
+                <div class="checkbox-grid" kendo-grid="itemsGrid" options="options" k-on-data-bound="dataBound(itemsGrid)">
+                </div>
+            </section>
+        </aw-accordion>
+    </form>
+    <!-- FAB button -->
+    <div class="lock-size fixed-element" layout="row" layout-align="center center" ng-cloak ng-if="isNotViewer">
+        <md-fab-speed-dial md-open="buttons.state" md-direction="up" class="md-fling">
+            <md-fab-trigger>
+                <md-button aria-label="menu" class="md-fab md-accent">
+                    <md-icon md-svg-src="{{buttons.state ? 'close' : 'menu'}}"></md-icon>
+                </md-button>
+            </md-fab-trigger>
+            <md-fab-actions>
+                <div ng-repeat="button in (params.add ? buttons.department.add : buttons.department.edit)">
+                    <md-button aria-label="{{button.label}}" class="md-fab md-mini"
+                               ng-click="button.click('Department')">
+                        <md-tooltip md-direction="left" md-visible="false"
+                                    md-autohide="true">
+                            {{button.label}}
+                        </md-tooltip>
+                        <md-icon md-svg-src="{{button.icon}}" aria-label="{{button.label}}"></md-icon>
+                    </md-button>
+                </div>
+            </md-fab-actions>
+        </md-fab-speed-dial>
+    </div>
+</section>

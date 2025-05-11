@@ -1,0 +1,37 @@
+﻿<md-dialog aria-label="request PO" flex="30">
+    <md-toolbar layout="row" layout-align="center center">
+        Request {{type}}
+    </md-toolbar>
+    <md-dialog-content layout="column" class="md-inline-form padding-top" ng-cloak>
+        <form name="requestPOForm" id="requestPOForm" ng-cloak class="padding-top">
+            <md-input-container flex="70" flex-offset="15">
+                <label>Requested Date</label>
+                <md-datepicker ng-model="po.date" name="requested_date" md-min-date="minDate" required></md-datepicker>
+                <div ng-messages="requestPOForm.requested_date.$error">
+                    <div ng-message="valid">Invalid Date</div>
+                    <div ng-message="required">Requested date is required</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex="70" flex-offset="15">
+                <label>Expiration Date</label>
+                <md-datepicker ng-model="po.quote_expiration_date" name="expiration_date" md-min-date="minDate"></md-datepicker>
+                <div ng-messages="requestPOForm.expiration_date.$error">
+                    <div ng-message="valid">Invalid Date</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" ng-if="type === 'po'" style="margin-top: -15px">
+                <label>Requisition Number</label>
+                <input name="po_requested_number" ng-model="po.po_requested_number">
+                <!--<div ng-messages="requestPOForm.po_requested_number.$error" role="alert">
+            <div ng-message="required" class="my-message">
+                Requisition Number is required
+            </div>
+        </div>-->
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="save()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>

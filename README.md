@@ -1,20 +1,77 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# AudaxWare xPlanner
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+The xPlanner project has a set of projects that compose the xPlanner portal and tools.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## Getting Started
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+The first step is to retrieve the source to your local folder and then install the pre-requisites. You can see further details in the next sub-topics.
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+
+### Prerequisites
+
+You must have `Visual Studio 2015` or earlier. If you install Visual Studio 2019 all the `pre-requisites` will be properly installed. You will also need to install SQL Server Express 2017 and SQL Management Studio tools. 
+
+### Setting up a local database
+
+The first step is to restore a recent backup from the production or development environments and restore on your local machine with the database name `audaxware`. Alternatively, you can publish an empty datbase directly from the solution, but in this case you will not have any data, including the catalog.
+
+#### Creating database backup
+
+You must connect to the database instance running on the cloud at `audaxware.database.windows.net` with the proper credentials. When you connect, you will see two databases `audaxware` and `audaxware_dev`. The `audaxware_dev` database is for the development environment and the `audaxware` is for production. For debug, you must use the `audaxware_dev`. Please notice that some tables in the database have links to the environment (e.g.: blob storage), so if you pick the database from production it will not work unless you make some changes. See section "cloning the production database". You must follow the steps below to perform the backup:
+
+- Login to `audaxware.database.windows.net` using SQL Management Studio
+- Go into the database, expand Security->Security Policies and disable the enterpriseSecurityPolicy
+- Right-Click on the Database, select tasks and then Export Data Tier application
+- Click next, then in the box `Save to local disk` select a local path on your computer
+- Click Next and the Finish to create the backup
+- `IMPORTANT`: Re-enable the security policies to ensure we have the proper protection
+
+#### Restoring the database backup
+If you have an older backup, you must delete it. Renaming the database can cause conflict on your data files, so if you would like to have a copy of your local database (in case the restore fails), you must follow the previous steps but on your local system. You must then follow these steps to restore the database on your local system:
+
+- Make sure you have a local instace called "SQLEXPRESS". If you use a different name, the AudaxWare environment will not be able to debug locally.
+- Login to (LOCAL)\SQLEXPRESS using SQL Management Studio
+- Rick-Click on the `Databases` folder and select `Import Data-tier application`
+- Click Next and then select the backup file in the `Import from local disk` field
+- Click Next and in the field `New database name` type `audaxware`
+- Click Next to complete
+
+
+## Remote Debugging on DEV
+1. Open the following URL the Dev Slot Deployment Center by clicking [here](https://portal.azure.com/#@lourencoteodoro1audaxware.onmicrosoft.com/resource/subscriptions/97d3b2ca-1fbd-421b-b76b-f9f2662c76f8/resourceGroups/main/providers/Microsoft.Web/sites/audaxwareCentralUS/slots/DEV/vstscd)
+2. Under the tab FTPS credentials, copy the user name (it should be $audaxwareCentralUS__DEV) and the password, you will need it for publising
+	IMPORTANT: Do not use the User Scope, that might also publish to production, which can lead you to mistakes.
+3. Open the solution and select build debug for Any CPU and then build
+4. Right click on xPlannerAPI and then select publish, then make sure the profile is set to audaxwareCentralUS-DEV - Web Deploy.pubxml
+5. Click published, you will be asked for user name and password, enter the ones you pick from step #2
+	IMPORTANT: You might get a user name with audaxwareCentralUS__DEV\$audaxwareCentralUS__DEV, make sure you only use the part after \ (e.g.: $audaxwareCentralUS__DEV)
+6. On cloud exporer navigate to "Visual Studio Enterprise -> App Services -> audaxwareCentralUS -> Deployment Slots -> audaxwareCentralUS(DEV)", right click and select "Attach Debugger"
+
+
+When you finish, navigate to the Dev Slot App Service by clicking [here](https://portal.azure.com/#@lourencoteodoro1audaxware.onmicrosoft.com/resource/subscriptions/97d3b2ca-1fbd-421b-b76b-f9f2662c76f8/resourceGroups/main/providers/Microsoft.Web/sites/audaxwareCentralUS/slots/DEV/appServices) and restart the app service. If you do not do this, the debug will fail later
+
+
+## Running the tests
+
+TODO
+
+### Making changes to the database
+
+### Recreating the Data Model
+
+
+## Build
+
+
+
+## References
+ TODO
+* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+* [Maven](https://maven.apache.org/) - Dependency Management
+* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+
+
+## Authors
+
+* **Lourenço Teodoro** - *Initial work*
+

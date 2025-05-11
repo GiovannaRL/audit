@@ -1,0 +1,97 @@
+﻿tr.header > th, table.asset-table tr.main-header > th, td.po-total {
+    background-color: black;
+    color: white;
+    border: none;
+    font-size: 11px;
+    height: 18px;
+}
+
+table.asset-table tr.secondary-header > th {
+    border: none;
+    font-size: 11px;
+	width: 950px;
+}
+
+table.asset-datatable tr:not(.noborder) td:not(.money){
+	border: 1px solid black;
+}
+
+td, th {
+    padding: 2px;
+}
+
+td {
+    font-size: 10px;
+}
+
+h3.toptable {
+    margin: 0px;
+}
+
+h3 {
+    font-size: 2.2em;
+}
+
+td.large-space {
+    width: 40px;
+}
+
+td.medium-space {
+    width: 20px;
+}
+
+tr.blank-row {
+    height: 30px;
+}
+
+table.asset-table{
+	width: 950px;
+}
+
+table.datatable:not(.asset-table) {
+    height: 100px;
+    max-height: 100px;
+    border: 1px solid black;
+    width: 500px;
+}
+
+table.datatable.smaller:not(.asset-table) {
+    width: 400px;
+}
+
+.divider-column {
+    width: 30px;
+}
+
+td.label {
+    width: 20px;
+}
+
+td.value {
+    width: 80px;
+}
+
+td.address-value {
+    width: 120px;
+}
+
+
+td.blank-space {
+    width: 10px;
+}
+
+td.money{
+	border: 1px solid black;
+}
+
+td.money.right{
+	border-left: none;
+	text-align: right;
+	min-width: 120px;
+}
+
+td.money.left{
+	border-right: none;
+	text-align: left;
+}
+

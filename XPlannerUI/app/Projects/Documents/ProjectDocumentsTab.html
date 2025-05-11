@@ -1,0 +1,21 @@
+﻿<section layout="column" ng-cloak class="md-inline-form">
+    <div class="checkbox-grid primary-color-header" kendo-grid="documentsGrid" options="options" k-on-data-bound="dataBound(documentsGrid)">
+        <div k-detail-template>
+            <section class="md-inline-form" layout-padding>
+                <div class="nested-grid primary-color-header" kendo-grid="docAssociationsGrid" options="getDocAssociations(dataItem)"></div>
+            </section>
+        </div>
+    </div>
+</section>
+
+<style parse-style>
+    .k-grid-content {
+        max-height:{{gridHeight - 160}}px; 
+        min-height:{{gridHeight - 160}}px;
+    }
+
+    .nested-grid .k-grid-content {
+        max-height:{{nestedGridHeight - 140}}px; 
+        min-height:{{nestedGridHeight - 140}}px;
+    }
+</style> 

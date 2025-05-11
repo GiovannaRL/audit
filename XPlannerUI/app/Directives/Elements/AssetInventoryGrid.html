@@ -1,0 +1,149 @@
+﻿<section layout="column" ng-cloak class="md-inline-form padding-top">
+    <!-- Views -->
+    <section layout="row" class="grid-toolbar" ng-show="showViewsOptions" ng-cloak>
+        <section layout-gt-xs="row" flex="90" flex-offset="5">
+            <section layout="row" layout-align="center center" flex-gt-xs="50" flex-offset-gt-xs="5" ng-cloack>
+                <md-input-container class="md-block" flex-xs="80" style="margin: 0px;">
+                    <md-select ng-model="viewSelected" placeholder="Select a view">
+                        <md-option ng-value="opt" ng-repeat="opt in views" ng-click="loadView(opt)">{{ opt.name | capitalize }}</md-option>
+                    </md-select>
+                </md-input-container>
+                <button class="md-icon-button md-button" ng-click="deleteView(viewSelected)">
+                    <i class="material-icons">delete</i>
+                    <md-tooltip md-direction="bottom">Delete View</md-tooltip>
+                </button>
+            </section>
+            <section layout="row" layout-align="center center" flex-gt-xs="50" flex-offset-gt-xs="5" ng-cloack>
+                <md-input-container class="md-block no-md-errors-spacer" style="margin: 0px;">
+                    <label>Save As</label>
+                    <input type="text" name="name" ng-model="viewName">
+                </md-input-container>
+                <md-input-container class="md-block" ng-show="show_private_checkbox">
+                    <md-checkbox ng-model="is_private" aria-label="is_private">
+                        Private
+                    </md-checkbox>
+                    <md-button class="md-primary md-icon-button label-info-icon" style="padding:0;margin-left:0;">
+                        <md-icon class="material-icons info-icon md-primary">
+                            info
+                            <md-tooltip>
+                                If you want to show this view for all user in this enterprise, unselect the private checkbox </br>
+                                The same will happen if you delete or update the view. </br>
+                                Only the ones who created the view will be able to delete or update it.
+                            </md-tooltip>
+                        </md-icon>
+                    </md-button>
+                </md-input-container>
+                <button class="md-icon-button md-button" ng-click="saveView(viewName)">
+                    <i class="material-icons">save</i>
+                    <md-tooltip md-direction="bottom">Save view</md-tooltip>
+                </button>
+
+            </section>
+        </section>
+        <section layout="row" layout-align="end center" flex="10">
+            <button class="md-icon-button md-button gray-color" ng-click="closeToolbars()">
+                <i class="material-icons">close</i>
+                <md-tooltip md-direction="bottom">Close</md-tooltip>
+            </button>
+        </section>
+    </section>
+
+    <section layout="row" layout-align="space-between none" ng-cloak layout-wrap class="grid-toolbar" ng-hide="showViewsOptions || showActionButtons">
+        <section layout="row" layout-align="start center" flex="60" layout-fill layout-wrap>
+            <button class="md-icon-button md-button" ng-click="openAddModal()" ng-if="!hideToolbar2">
+                <i class="material-icons">add</i><div class="md-ripple-container"></div>
+                <md-tooltip md-direction="bottom">Add Asset</md-tooltip>
+            </button>
+            <button class="md-icon-button md-button" ng-click="edit()" ng-if="!hideToolbar2">
+                <i class="material-icons">edit</i><div class="md-ripple-container"></div>
+                <md-tooltip md-direction="bottom">Edit Asset</md-tooltip>
+            </button>
+            <button class="md-icon-button md-button" ng-click="openLinkModal()" ng-if="!hideToolbar2 && !filterActionButton">
+                <i class="material-icons">link</i><div class="md-ripple-container"></div>
+                <md-tooltip md-direction="bottom">Relocation link to inventory project</md-tooltip>
+            </button>
+            <button class="md-icon-button md-button" ng-click="delete()" ng-if="!hideToolbar2">
+                <i class="material-icons">delete</i><div class="md-ripple-container"></div>
+                <md-tooltip md-direction="bottom">Delete Asset</md-tooltip>
+            </button>
+            <button class="md-icon-button md-button" ng-click="openReplaceModal()" ng-if="!hideToolbar2 && !filterActionButton">
+                <i class="material-icons">swap_horiz</i><div class="md-ripple-container"></div>
+                <md-tooltip md-direction="bottom">Replace Asset</md-tooltip>
+            </button>
+            <button class="md-icon-button md-button" ng-click="openMoveModal()" ng-if="!hideToolbar2 && !filterActionButton">
+                <i class="material-icons">forward</i><div class="md-ripple-container"></div>
+                <md-tooltip md-direction="bottom">Move Asset</md-tooltip>
+            </button>
+            <button class="md-icon-button md-button" ng-click="openConnectModal()" ng-if="!hideToolbar2 && !filterActionButton">
+                <i class="material-icons">device_hub</i><div class="md-ripple-container"></div>
+                <md-tooltip md-direction="bottom">Connect Asset</md-tooltip>
+            </button>
+            <button ng-if="!selectOnlyMode && !isTemplate && !params.room_id && consolidated" class="md-icon-button md-button" ng-click="openCheckRoomModal()">
+                <i class="material-icons">youtube_searched_for</i><div class="md-ripple-container"></div>
+                <md-tooltip md-direction="bottom">Search room for selected asset</md-tooltip>
+            </button>
+            <button class="md-icon-button md-button" ng-click="openCompareAssetsModal()" ng-if="!hideToolbar2 && !filterActionButton">
+                <i class="material-icons">compare</i><div class="md-ripple-container"></div>
+                <md-tooltip md-direction="bottom">Compare Assets</md-tooltip>
+            </button>
+            <button class="md-icon-button md-button" ng-click="chooseDisplayedColumns()" ng-if="!selectOnlyMode">
+                <i class="material-icons">grid_on</i><div class="md-ripple-container"></div>
+                <md-tooltip md-direction="bottom">Select fields to display/hide</md-tooltip>
+            </button>
+           
+            <md-input-container class="md-block no-md-errors-spacer" style="margin: 0px;" flex="35">
+                <label>Search</label>
+                <input name="search" ng-model="searchBoxValue" ng-enter="search(searchBoxValue)">
+            </md-input-container>
+            <button class="md-icon-button md-button gray-color" style="bottom: -0.5em; padding-left: 0px; margin-left: 0px" ng-click="clearAllFilters()">
+                <i class="material-icons">delete_sweep</i><div class="md-ripple-container"></div>
+                <md-tooltip md-direction="bottom">Clear all filters</md-tooltip>
+            </button>
+        </section>
+        <section layout="row" layout-align="end center" flex="15" layout-fill layout-wrap>
+            <md-input-container class="md-block no-md-errors-spacer" style="margin: 0px;">
+                <md-select ng-model="viewSelected" placeholder="Select a view">
+                    <md-option ng-value="opt" ng-repeat="opt in views" ng-click="loadView(opt)">{{ opt.name | capitalize }}</md-option>
+                </md-select>
+            </md-input-container>
+            <button class="md-icon-button md-button" ng-click="showViewsOptions = !showViewsOptions" style="margin-right: -0.8em;" ng-show="!selectOnlyMode">
+                <i class="material-icons">view_module</i>
+                <md-tooltip md-direction="bottom">Views Options</md-tooltip>
+            </button>
+        </section>
+        <section layout="row" layout-align="end center" flex="10" ng-if="!selectOnlyMode">
+            <md-input-container class="no-md-errors-spacer" style="margin: 0px;" flex="80">
+                <label>Freeze columns</label>
+                <md-select ng-model="freeze_qty" placeholder="Freeze columns">
+                    <md-option ng-value="qty" ng-repeat="qty in [0, 1, 2, 3, 4]" ng-click="freezeColumns(qty)">{{qty}}</md-option>
+                </md-select>
+            </md-input-container>
+        </section>
+       
+        <section layout="column" layout-align="center end" flex="10" ng-show="(!isTemplate && !selectOnlyMode) || isAssetPoPage">
+            <md-checkbox class="no-vertical-margin" ng-model="consolidated" ng-change="consolidate()" aria-label="consolidated inventory">
+                Consolidated
+            </md-checkbox>
+        </section>
+        <section layout="row" flex="5" layout-align="end start" ng-if="!(freeze_qty > 0)">
+            <button class="md-icon-button md-button" ng-click="collapseExpand(assetsGrid)">
+                <md-icon md-svg-icon="collapse_expand"></md-icon>
+                <md-tooltip md-direction="bottom">Collapse/Expand All</md-tooltip>
+            </button>
+        </section>
+    </section>
+
+    <div id="assetsGrid" ng-class="{'primary-color-header': freeze_qty > 0}"></div>
+</section>
+
+<style parse-style>
+    .k-grid-content {
+        max-height:{{gridHeight - 140}}px; 
+        min-height:{{isTemplate ? gridHeight - 140 : 0}}px;
+    }
+
+    .k-grid-content-locked {
+        max-height:{{gridHeight - 160}}px; 
+        min-height:{{gridHeight - 160}}px;
+    }
+</style> 

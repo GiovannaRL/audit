@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="28d4bc3a33194d5fb8738cd6a7d97dcb" Name="Diagram1" ZoomLevel="52">
+        <EntityTypeShape EntityType="audaxwareModel.box" Width="1.5" PointX="23.25" PointY="47.375" />
+        <EntityTypeShape EntityType="audaxwareModel.cad_domain" Width="1.5" PointX="20.75" PointY="37.75" />
+        <EntityTypeShape EntityType="audaxwareModel.client" Width="1.5" PointX="3" PointY="45.375" />
+        <EntityTypeShape EntityType="audaxwareModel.cost_center" Width="1.5" PointX="10.5" PointY="47.375" />
+        <EntityTypeShape EntityType="audaxwareModel.department_type" Width="1.5" PointX="3" PointY="42.5" />
+        <EntityTypeShape EntityType="audaxwareModel.equip_load" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="audaxwareModel.equipment" Width="1.5" PointX="18.5" PointY="24" />
+        <EntityTypeShape EntityType="audaxwareModel.equipment_box" Width="1.5" PointX="25.5" PointY="35.625" />
+        <EntityTypeShape EntityType="audaxwareModel.equipment_category" Width="1.5" PointX="3" PointY="50.875" />
+        <EntityTypeShape EntityType="audaxwareModel.equipment_codes" Width="1.5" PointX="3" PointY="48.125" />
+        <EntityTypeShape EntityType="audaxwareModel.equipment_colors" Width="1.5" PointX="20.75" PointY="41.125" />
+        <EntityTypeShape EntityType="audaxwareModel.equipment_drawing" Width="1.5" PointX="12.75" PointY="57" />
+        <EntityTypeShape EntityType="audaxwareModel.equipment_measurement" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="audaxwareModel.equipment_options" Width="1.5" PointX="20.75" PointY="30" />
+        <EntityTypeShape EntityType="audaxwareModel.equipment_subcategory" Width="1.5" PointX="5.25" PointY="48.375" />
+        <EntityTypeShape EntityType="audaxwareModel.facility" Width="1.5" PointX="3" PointY="39.75" />
+        <EntityTypeShape EntityType="audaxwareModel.global_contact" Width="1.5" PointX="6" PointY="38.25" />
+        <EntityTypeShape EntityType="audaxwareModel.inventory_purchase_order" Width="1.5" PointX="23" PointY="42.375" />
+        <EntityTypeShape EntityType="audaxwareModel.inventory_tab_display_prefs" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="audaxwareModel.manufacturer" Width="1.5" PointX="16.25" PointY="33.375" />
+        <EntityTypeShape EntityType="audaxwareModel.manufacturer_contact" Width="1.5" PointX="18.5" PointY="18.375" />
+        <EntityTypeShape EntityType="audaxwareModel.project" Width="1.5" PointX="8.25" PointY="39.5" />
+        <EntityTypeShape EntityType="audaxwareModel.project_department" Width="1.5" PointX="18.75" PointY="46.75" />
+        <EntityTypeShape EntityType="audaxwareModel.project_equipment" Width="1.5" PointX="10.5" PointY="40.625" />
+        <EntityTypeShape EntityType="audaxwareModel.project_phase" Width="1.5" PointX="10.5" PointY="50.75" />
+        <EntityTypeShape EntityType="audaxwareModel.project_room" Width="1.5" PointX="21" PointY="47" />
+        <EntityTypeShape EntityType="audaxwareModel.project_room_inventory" Width="1.5" PointX="15.75" PointY="45.25" />
+        <EntityTypeShape EntityType="audaxwareModel.project_room_relo_inventory" Width="1.5" PointX="15.75" PointY="53.5" />
+        <EntityTypeShape EntityType="audaxwareModel.purchase_order" Width="1.5" PointX="13.5" PointY="40.375" />
+        <EntityTypeShape EntityType="audaxwareModel.relo_equipment" Width="1.5" PointX="10.5" PointY="56.125" />
+        <EntityTypeShape EntityType="audaxwareModel.role_pages" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="audaxwareModel.Session" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="audaxwareModel.template_boxes" Width="1.5" PointX="7.5" PointY="48.375" />
+        <EntityTypeShape EntityType="audaxwareModel.template_department" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="audaxwareModel.template_equipment_box" Width="1.5" PointX="12.75" PointY="48" />
+        <EntityTypeShape EntityType="audaxwareModel.template_room" Width="1.5" PointX="5.25" PointY="43.875" />
+        <EntityTypeShape EntityType="audaxwareModel.template_room_inventory" Width="1.5" PointX="10.5" PointY="44" />
+        <EntityTypeShape EntityType="audaxwareModel.users_track" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="audaxwareModel.vendor" Width="1.5" PointX="11.25" PointY="26" />
+        <EntityTypeShape EntityType="audaxwareModel.vendor_contact" Width="1.5" PointX="13.5" PointY="25.25" />
+        <EntityTypeShape EntityType="audaxwareModel.vendor_equipment" Width="1.5" PointX="23.75" PointY="30.75" />
+        <EntityTypeShape EntityType="audaxwareModel.ancillary_v" Width="1.5" PointX="4.75" PointY="7.75" />
+        <EntityTypeShape EntityType="audaxwareModel.equipment_by_room" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="audaxwareModel.inventory_po_qty_v" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="audaxwareModel.item_status_v" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="audaxwareModel.matching_values" Width="1.5" PointX="10.75" PointY="0.75" />
+        <AssociationConnector Association="audaxwareModel.box_fk" />
+        <AssociationConnector Association="audaxwareModel.project_department_room_fk" />
+        <AssociationConnector Association="audaxwareModel.equipment1_fk" />
+        <AssociationConnector Association="audaxwareModel.project_client_fk" />
+        <AssociationConnector Association="audaxwareModel.cost_center_fk" />
+        <AssociationConnector Association="audaxwareModel.cost_center1_fk" />
+        <AssociationConnector Association="audaxwareModel.project_id1_fk" />
+        <AssociationConnector Association="audaxwareModel.department_type_project_department_fk" />
+        <AssociationConnector Association="audaxwareModel.template_department_template_room_fk" />
+        <AssociationConnector Association="audaxwareModel.connected_equipment_domain_fk" />
+        <AssociationConnector Association="audaxwareModel.connected_equipment_domain1_fk" />
+        <AssociationConnector Association="audaxwareModel.equipment_domain_fk" />
+        <AssociationConnector Association="audaxwareModel.equipment_domain1_fk" />
+        <AssociationConnector Association="audaxwareModel.equipment_domain2_fk" />
+        <AssociationConnector Association="audaxwareModel.equipment_domain3_fk" />
+        <AssociationConnector Association="audaxwareModel.equipment_domain4_fk" />
+        <AssociationConnector Association="audaxwareModel.equipment_domain5_fk" />
+        <AssociationConnector Association="audaxwareModel.equipment_fk" />
+        <AssociationConnector Association="audaxwareModel.equipment_subcategory_equipment_fk" />
+        <AssociationConnector Association="audaxwareModel.manufacturer_equipment_fk" />
+        <AssociationConnector Association="audaxwareModel.equipment_category_equipment_subcategory_fk" />
+        <AssociationConnector Association="audaxwareModel.project_phase_equipment_drawing_fk" />
+        <AssociationConnector Association="audaxwareModel.project_facility_fk" />
+        <AssociationConnector Association="audaxwareModel.project_room_inventory_inventory_purchase_order_fk" />
+        <AssociationConnector Association="audaxwareModel.purchase_order_inventory_purchase_order_fk" />
+        <AssociationConnector Association="audaxwareModel.manufacturer_manufacturer_contact_fk" />
+        <AssociationConnector Association="audaxwareModel.project_fk" />
+        <AssociationConnector Association="audaxwareModel.project_project_phase_fk" />
+        <AssociationConnector Association="audaxwareModel.project_purchase_order_fk" />
+        <AssociationConnector Association="audaxwareModel.project_relo_equipment_fk" />
+        <AssociationConnector Association="audaxwareModel.project_phase_department_project_room_fk" />
+        <AssociationConnector Association="audaxwareModel.project_phase_project_department_fk" />
+        <AssociationConnector Association="audaxwareModel.project_room_project_room_inventory_fk" />
+        <AssociationConnector Association="audaxwareModel.project_room_project_room_relo_inventory_fk" />
+        <AssociationConnector Association="audaxwareModel.relo_equipment_project_room_relo_inventory_fk" />
+        <AssociationConnector Association="audaxwareModel.vendor_purchase_order_fk" />
+        <AssociationConnector Association="audaxwareModel.template_box_fk" />
+        <AssociationConnector Association="audaxwareModel.template_room_fk" />
+        <AssociationConnector Association="audaxwareModel.template_room_template_room_inventory_fk" />
+        <AssociationConnector Association="audaxwareModel.vendor_contact_fk" />
+        <AssociationConnector Association="audaxwareModel.vendor_vendor_equipment_fk" />
+        <AssociationConnector Association="audaxwareModel.project_contact" />
+        <AssociationConnector Association="audaxwareModel.related_equipment" />
+        <EntityTypeShape EntityType="audaxwareModel.inventory_w_relo_v" Width="1.5" PointX="9.375" PointY="5.75" />
+        <EntityTypeShape EntityType="audaxwareModel.AspNetUser" Width="1.5" PointX="10.5" PointY="33.75" />
+        <AssociationConnector Association="audaxwareModel.project_user" />
+        <EntityTypeShape EntityType="audaxwareModel.AspNetRole" Width="1.5" PointX="8.25" PointY="36" />
+        <EntityTypeShape EntityType="audaxwareModel.AspNetUserClaim" Width="1.5" PointX="12.75" PointY="34.625" />
+        <EntityTypeShape EntityType="audaxwareModel.AspNetUserLogin" Width="1.5" PointX="12.75" PointY="37.375" />
+        <AssociationConnector Association="audaxwareModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="audaxwareModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="audaxwareModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="audaxwareModel.domain" Width="1.5" PointX="0.75" PointY="36.625" />
+        <AssociationConnector Association="audaxwareModel.client_domain_fk" />
+        <AssociationConnector Association="audaxwareModel.domain5_fk" />
+        <AssociationConnector Association="audaxwareModel.department_type_domain_fk" />
+        <AssociationConnector Association="audaxwareModel.department_type_domain1_fk" />
+        <AssociationConnector Association="audaxwareModel.domain_fk" />
+        <AssociationConnector Association="audaxwareModel.domain1_fk" />
+        <AssociationConnector Association="audaxwareModel.domain2_fk" />
+        <AssociationConnector Association="audaxwareModel.domain3_fk" />
+        <AssociationConnector Association="audaxwareModel.domain4_fk" />
+        <AssociationConnector Association="audaxwareModel.facility_domain_fk" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

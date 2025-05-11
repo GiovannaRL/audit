@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDFHelper", "PDFHelper\PDFHelper.csproj", "{4A22DC5E-D6EB-4183-AB6D-C7C0B41102E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDFHelper_Tests", "PDFHelper_Tests\PDFHelper_Tests.csproj", "{E4098C51-E7A0-405A-B1A5-5796BAB9FCD1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A22DC5E-D6EB-4183-AB6D-C7C0B41102E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A22DC5E-D6EB-4183-AB6D-C7C0B41102E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A22DC5E-D6EB-4183-AB6D-C7C0B41102E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A22DC5E-D6EB-4183-AB6D-C7C0B41102E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4098C51-E7A0-405A-B1A5-5796BAB9FCD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4098C51-E7A0-405A-B1A5-5796BAB9FCD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4098C51-E7A0-405A-B1A5-5796BAB9FCD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4098C51-E7A0-405A-B1A5-5796BAB9FCD1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://audaxware.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = PDFHelper\\PDFHelper.csproj
+		SccProjectName1 = PDFHelper
+		SccLocalPath1 = PDFHelper
+		SccProjectUniqueName2 = PDFHelper_Tests\\PDFHelper_Tests.csproj
+		SccProjectName2 = PDFHelper_Tests
+		SccLocalPath2 = PDFHelper_Tests
+	EndGlobalSection
+EndGlobal

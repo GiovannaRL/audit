@@ -1,0 +1,23 @@
+﻿<md-dialog aria-label="domain_select">
+    <md-toolbar layout="row" layout-align="center center">
+        Select your enterprise
+    </md-toolbar>
+    <md-dialog-content layout="row" style="padding-top: 2em;" layout-align="center center" ng-cloak>
+        <form name="selectDomainForm" id="selectDomainForm" layout="row" layout-align="start center" flex="100">
+            <md-input-container class="md-block" flex="100">
+                <label>Enterprises available</label>
+                <md-select name="domain" ng-model="ctrl.selected" required flex="100">
+                    <md-option ng-repeat="domain in ctrl.domains" ng-value="domain">
+                        {{domain.name | enterpriseName}}
+                    </md-option>
+                </md-select>
+                <div ng-messages="selectDomainForm.domain.$error">
+                    <div ng-message="required">Select a enterprise</div>
+                </div>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button class="md-primary" ng-click="ctrl.select()">Select</md-button>
+    </md-dialog-actions>
+</md-dialog>

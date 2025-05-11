@@ -1,0 +1,27 @@
+﻿<md-dialog aria-label="make available to project" ng-cloak flex-gt-xs="30">
+    <md-toolbar layout="row" layout-align="center center">
+        Upload Files
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloack>
+        <form name="uploadForm" id="uploadForm" layout="column" layout-align="space-between none">
+            <md-input-container class="md-block">
+                <label>Name</label>
+                <input name="saveAs" ng-model="files.saveAs" required maxlength="40">
+                <div ng-messages="uploadForm.saveAs.$error">
+                    <div ng-message="required">Save As filename is required</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label for="powerbi">Power BI (pbix/pbit)</label>
+                <input name="powerbi" id="powerbi" required ngf-select ng-value="files.powerbi.name" ng-model="files.powerbi" accept=".pbix,.pbit" />
+                <div ng-messages="uploadForm.powerbi.$error">
+                    <div ng-message="required">Power BI file is required</div>
+                </div>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="save()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>

@@ -1,0 +1,86 @@
+﻿<!--<md-dialog aria-label="edit_generic" class="all-screen width-60 max-width-60">-->
+<md-dialog aria-label="edit_generic" class="width-50 max-width-50">
+    <md-toolbar layout="row" layout-align="center center">
+        Edit {{multiple ? 'Multiple Items' : 'Single Item'}}
+    </md-toolbar>
+    <md-dialog-content layout="column" class="md-inline-form" ng-cloak>
+        <div flex class="tabs-wrapper">
+            <!--<md-tabs class="full-size" md-border-bottom>
+                <md-tab label="Details" md-on-select="optionsTab = false">-->
+            <section layout="column" layout-align="top center">
+                <h4>{{data.asset_description}}</h4>
+            </section>
+            <form name="editAssetForm" id="editAssetForm" ng-cloak class="padding-top padding-bottom">
+                <section layout="column" layout-align="center center" ng-if="!multiple">
+                    <img ng-src="{{image}}" style="width:110px" title="no picture">
+                </section>
+                <section layout-gt-xs="row" layout-align="space-around center">
+                    <md-input-container class="md-block" flex-gt-xs="30">
+                        <label>Planned Qty</label>
+                        <input name="planned_qty" ng-model="data.budget_qty" aw-only-numbers required/>
+                        <div ng-messages="editAssetForm.planned_qty.$error" role="alert">
+                            <div ng-message="number" class="my-message">
+                                Only numbers are allowed
+                            </div>
+                            <div ng-message="required" class="my-message">
+                                The quantity is required
+                            </div>
+                        </div>
+                    </md-input-container>
+                </section>
+            </form>
+            <!--</md-tab>
+            <md-tab label="Options" md-on-select="optionsTab = true">
+                <md-content style="overflow-x:hidden; overflow-y:hidden">
+                    <section layout="column" layout-align="top center">
+                        <h4>{{data.asset_description}}</h4>
+                    </section>
+                    <section ng-cloak layout="column" layout-align="none end" ng-show="addOp">
+                        <md-input-container class="md-block" style="margin: 0px">
+                            <label>Asset Default Cost</label>
+                            <md-select ng-model="selected_costField">
+                                <md-option ng-repeat="cost in costField" value="{{cost.value}}">
+                                    {{cost.name}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </section>
+                    <section layout="row" ng-cloak ng-if="!addOp" class="grid-toolbar">
+                        <section layout="row" layout-align="start center" class="gray-color">
+                            <button class="md-icon-button md-button" ng-click="toggleAddOption()" ng-disabled="data.none_option || noOptionsAvailable">
+                                <i class="material-icons">add</i><div class="md-ripple-container"></div>
+                                <md-tooltip md-direction="bottom">Add Option</md-tooltip>
+                            </button>
+                            <button class="md-icon-button md-button" ng-click="deleteOptions()" ng-disabled="data.none_option || noOptionsAvailable">
+                                <i class="material-icons">delete</i>
+                                <md-tooltip md-direction="bottom">Delete Option(s)</md-tooltip>
+                            </button>
+                        </section>
+                        <section layout="row" layout-align="end center" flex="100">
+                            <md-checkbox class="no-vertical-margin" ng-model="data.none_option" aria-label="options none">
+                                Disable options for this entry
+                            </md-checkbox>
+                        </section>
+                    </section>
+                    <div ng-show="!data.none_option" class="checkbox-grid" kendo-grid="optionsGrid" k-on-data-bound="dataBound(optionsGrid)" options="options">
+                    </div>
+                </md-content>
+            </md-tab>
+            </md-tabs>-->
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions ng-cloak>
+        <md-button class="md-primary" ng-click="addOp && optionsTab ? toggleAddOption() : close()">{{addOp && optionsTab ? noOptions ? 'Back' : 'Cancel' : 'Close'}}</md-button>
+        <md-button ng-show="!addOp || (addOp && optionsTab && !noOptions)" class="md-primary" ng-click="addOp && optionsTab && !noOptions ? addOptions() : save()">{{addOp && optionsTab && !noOptions ? 'Add Options' : 'Save'}}</md-button>
+    </md-dialog-actions>
+</md-dialog>
+
+<!--<style parse-style>
+    .tabs-wrapper {
+        position: relative;
+    }
+
+    .full-size {
+        min-height: {{style_height}}px !important;
+    }
+</style>-->

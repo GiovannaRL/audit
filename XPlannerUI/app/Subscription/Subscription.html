@@ -1,0 +1,57 @@
+﻿<script>
+    $("#maskedtextbox").kendoMaskedTextBox({
+        mask: "(000) 000-0000"
+    });
+</script>
+
+
+<div layout="column" layout-align="center center">
+    <form name="requestSubscriptionForm" id="requestSubscriptionForm">
+        <br /><br />      
+        <div layout="column" layout-align="center center" class="login-logo">
+            <img id="Image1" src="images/branding/logo.png" style="border-width:0px;">
+            <span>
+                planning - procurement - logistics
+            </span>
+            <br/>
+            <span>
+                <h2>Request Subscription</h2>
+            </span>
+        </div>
+        <md-input-container class="md-block">
+            <label>Name</label>
+            <input name="name" ng-model="data.name" maxlength="200" property="name" required>
+            <div ng-messages="requestSubscriptionForm.name.$error">
+                <div ng-message="required">Name is required</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Email</label>
+            <input type="email" name="email" ng-model="data.email" maxlength="200" required>
+            <div ng-messages="requestSubscriptionForm.user_email.$error">
+                <div ng-message="required">Email is required</div>
+                <div ng-message="email">Not a valid email</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Phone Number</label>
+            <input id="maskedtextbox" name="phone_number" ng-model="data.phone_number">
+            <div ng-messages="requestSubscriptionForm.phone.$error">
+                <div ng-message="required">Phone number is required</div>
+                <div ng-message="number">Only numbers</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Company Name</label>
+            <input name="company" ng-model="data.company" maxlength="200" property="name">
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Message</label>
+            <textarea ng-model="data.message" name="message" columns="1" md-maxlength="2000" maxlength="2000" rows="1"></textarea>
+        </md-input-container>
+        <div layout="column" layout-align="center center">
+            <md-button class="md-primary" ng-click="send()">Send</md-button>
+        </div>
+    </form>
+
+</div>

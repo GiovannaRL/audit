@@ -1,0 +1,29 @@
+﻿<md-dialog aria-label="make available to project" flex-gt-xs="30">
+    <md-toolbar layout="row" layout-align="center center" ng-cloak>
+        Upload Room Picture(s)
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloack>
+        <form name="uploadForm" id="uploadForm" layout="column" layout-align="space-between none">
+            <section ng-show="!show_firefox">
+                <md-input-container class="md-block" ng-repeat="file in files">
+                    <label for="{{file.id}}">Picture (jpg)</label>
+                    <input name="{{file.id}}" id="{{file.id}}" ngf-select ng-value="file.picture.name" ng-model="file.picture" accept="image/jpeg" aw-upload-file-size="fileSizeLimit" />
+                </md-input-container>
+            </section>
+            <section ng-show="show_firefox">
+                <md-input-container class="md-block" ng-repeat="file in filesF">
+                    <label for="{{file.id}}" style="padding-bottom:28px">Picture (jpg)</label>
+                    <input type="file" name="{{file.id}}" id="{{file.id}}" ng-model="file.picture" accept="image/jpg" aw-upload-file-size="fileSizeLimit" firefox />
+                </md-input-container>
+            </section>
+            <section ng-show="uploadForm.$error.awUploadFileSize && uploadForm.$error.awUploadFileSize.length > 0">
+                <span class="error-message">If you have to upload a file with more than {{fileSizeLimit}}Mb, please reduce the size of the file or contact Audaxware at &lt;support@audaxware.com&gt;</span>
+            </section>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="cancel()">Cancel</md-button>
+        <md-button class="md-primary" ng-click="addMore()">Add More Pictures</md-button>
+        <md-button class="md-primary" ng-click="upload()">Upload</md-button>
+    </md-dialog-actions>
+</md-dialog>

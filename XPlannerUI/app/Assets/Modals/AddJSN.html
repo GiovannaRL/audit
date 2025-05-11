@@ -1,0 +1,14 @@
+﻿<md-dialog aria-label="addNewJSN" flex-gt-xs="45">
+    <md-toolbar layout="row" layout-align="center center">
+        Add new JSN
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak>
+        <form name="addNewJSNForm" id="addNewJSNForm">
+            <aw-jsn-form asset="asset" new="{{true}}"></aw-jsn-form>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="save()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>

@@ -1,0 +1,48 @@
+﻿<script type="text/javascript">
+        $(document).ready(function () {
+            $("#vertical").kendoSplitter({
+                orientation: "vertical",
+                panes: [
+                    { collapsible: false, resizable: false, size: "82px" },
+                    { collapsible: false },
+                    { collapsible: false, resizable: false, size: "25px" }
+                ]
+            });
+            $("#horizontal").kendoSplitter({
+                panes: [
+                    { collapsible: true, size: "20%", scrollable: false },
+                    { collapsible: false, scrollable: false },
+                    { collapsible: true, size: "20%", scrollable: false }
+                ]
+            });
+
+            $("#searchTree").keyup(function () {
+
+                var filterText = $("#searchTree").val();
+                if (filterText !== "") {
+                    $("#projectTree .k-group .k-group .k-in").closest("li").hide();
+                    $("#projectTree .k-group .k-group .k-in:contains(" + filterText + ")").each(function () {
+                        $(this).parents("ul, li").each(function () {
+                            $(this).show();
+                        });
+                    });
+                } else {
+                    $("#projectTree .k-group").find("ul").hide();
+                    $("#projectTree .k-group").find("li").show();
+                }
+            });
+        });
+</script>
+
+<div id="left-pane">
+    <input type="text" class="form-control" id="searchTree" name="searchTree" style="width:90%" ng-model="searchTree" ng-change="filter()" />
+    <!--<input kendo-auto-complete placeholder="'Search...'" id="searchTree" k-data-text-field="'name'" k-data-source="searchData" style="width: 100%;" />-->
+    <div id="projectTree" kendo-tree-view="tree"
+         k-data-source="treeData"
+         k-on-change="selectedItem = dataItem"
+         style="height: 100%">
+        <span k-template ng-click="changeDetailsItem(dataItem)">
+            {{dataItem.text}}
+        </span>
+    </div>
+</div>

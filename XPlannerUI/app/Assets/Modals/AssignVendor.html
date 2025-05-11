@@ -1,0 +1,20 @@
+﻿<md-dialog aria-label="assign vendor" flex-gt-xs="30">
+    <md-toolbar layout="row" layout-align="center center" ng-cloak>
+        Assign Vendor
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak>
+        <form name="assignVendorForm" id="assignVendorForm">
+            <md-input-container class="md-block">
+                <aw-autocomplete name="vendor" ng-model="asset_vendor" add-option="true" id-property="vendor_id" text-property="name" controller-name="vendor" params="controllerParams" max="100" selected-item="asset_vendor" selected-id="asset_vendor.vendor_id" label="Vendor *" watch-object="true" watched-object-id="asset_id" required></aw-autocomplete>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Model No</label>
+                <input name="model_number" ng-model="model_number" maxlength="50" />
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="assign()">Assign</md-button>
+    </md-dialog-actions>
+</md-dialog>

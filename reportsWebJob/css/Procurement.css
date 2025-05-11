@@ -1,0 +1,46 @@
+﻿table.toc {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td.datatab, th.datatab {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+/*th.datatab{
+    background-color: #7C8692;
+    color: white;
+}*/
+
+table.toc > tr.header > th {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+table.toc > tr.content > td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td.integer {
+    mso-number-format: \#\,\#\#0;
+    text-align: center;
+}
+
+td.money{
+	border: 1px solid black;
+}
+
+td.money.right{
+	border-left: none;
+	text-align: right;
+	min-width: 75px;
+}
+
+td.money.left{
+	border-right: none;
+	text-align: left;
+}

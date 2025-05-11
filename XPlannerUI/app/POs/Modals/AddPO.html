@@ -1,0 +1,51 @@
+﻿<md-dialog aria-label="add option" ng-cloak class="max-width-40 width-40">
+    <md-toolbar layout="row" layout-align="center center">
+        Add Purchase Order
+    </md-toolbar>
+    <md-dialog-content layout-padding ng-cloak>
+        <form name="addPOForm" id="addPOForm">
+            <md-input-container class="md-block no-md-errors-spacer">
+                <label>Description</label>
+                <input name="description" ng-model="data.description" maxlength="250" required>
+                <div ng-messages="addPOForm.description.$error">
+                    <div ng-message="required">PO description is required</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" style="bottom: 10px">
+                <aw-autocomplete ng-model="data.vendor"
+                                 name="vendor"
+                                 add-option="true"
+                                 controller-name="vendor"
+                                 params="vendorCtrlParams"
+                                 max="50"
+                                 selected-item="data.vendor"
+                                 selected-id="data.vendor_id"
+                                 selected-domain="data.vendor_domain_id"
+                                 descriptive-property="domain.name"
+                                 id-property="vendor_id"
+                                 label="Vendor *"
+                                 required>
+                </aw-autocomplete>
+                <div ng-messages="addPOForm.vendor.$error">
+                    <div ng-message="required">Vendor is required</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Comment</label>
+                <textarea ng-model="data.comment" name="comment" columns="1" md-maxlength="1000" maxlength="1000" rows="1"></textarea>
+                <div ng-messages="addPOForm.comment.$error" role="alert">
+                    <div ng-message="md-maxlength" class="my-message">
+                        Only 1000 characters are allowed
+                    </div>
+                </div>
+            </md-input-container>
+            <!--<md-checkbox ng-model="data.upd_asset_value" aria-label="upd_asset_value">
+                Allows automatically update asset min/max value
+            </md-checkbox>-->
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" layout-wrap>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="add()">Add</md-button>
+    </md-dialog-actions>
+</md-dialog>

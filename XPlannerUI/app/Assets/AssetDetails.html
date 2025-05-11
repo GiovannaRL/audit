@@ -1,0 +1,314 @@
+﻿<md-tabs md-border-bottom md-selected="selectedTab" md-dynamic-height>
+    <md-tab label="Information">
+        <section ng-cloak class="padding-top-half padding-bottom">
+            <form name="detailsForm" id="detailsForm">
+                <aw-accordion label="Information" expanded="true" layout="column" layout-wrap layout-fill>
+                    <section layout="column" layout-align="none end" layout-wrap layout-fill ng-if="asset.related_asset || asset.isCustom">
+                        <md-button class="md-primary" ng-if="asset.related_asset" ng-click="changeAsset(asset.related_asset)">Click here to see your custom version</md-button>
+                        <md-button class="md-primary" ng-if="asset.isCustom" ng-click="showDifferences()">Click here to see differences from original asset</md-button>
+                    </section>
+                    <section layout-gt-sm="row" layout-align-gt-sm="space-between bottom" class="md-block">
+                        <md-input-container class="md-block" flex-sm="25" flex-gt-sm="25" flex-order-sm="3">
+                            <label>Category</label>
+                            <md-select name="category" ng-model="asset.categorySelected" required ng-change="reloadSubategories()">
+                                <md-option ng-repeat="cat in categories | orderBy : 'description'" ng-value="cat">
+                                    {{cat.description}}
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="detailsForm.category.$error">
+                                <div ng-message="required">Category is required</div>
+                            </div>
+                        </md-input-container>
+                        <!--<md-input-container class="md-block" flex-sm="45" flex-gt-sm="25" flex-order-sm="3">
+                            <aw-combo-box name="category" ng-model="asset.categorySelected" controller-name="categories" params="controllerParams" text-property="description" id-property="category_id" selected-item="asset.categorySelected" selected-domain="asset.categorySelected.domain_id" selected-id="asset.categorySelected.category_id" domain-property="domain_id" label="Category *" watch-object="true" watched-object-id="asset.asset_id" required></aw-combo-box>
+                            <div ng-messages="detailsForm.category.$error">
+                                <div ng-message="required">Category is required</div>
+                            </div>
+                        </md-input-container>-->
+                        <md-input-container class="md-block" flex-sm="25" flex-gt-sm="25" flex-order-sm="4">
+                            <label>Subcategory</label>
+                            <md-select name="subcategory" ng-model="asset.assets_subcategory" required>
+                                <md-option ng-repeat="sub in subcategories | orderBy : 'description'" ng-value="sub">
+                                    {{sub.description}}
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="detailsForm.subcategory.$error">
+                                <div ng-message="required">Subcategory is required</div>
+                            </div>
+                        </md-input-container>
+                        <!--<section layout-gt-xs="row" flex-gt-sm="60" layout-align-gt-sm="space-between none" layout-align-sm="space-between none">-->
+                        <md-input-container class="md-block" flex-gt-xs="35">
+                            <label>Suffix</label>
+                            <input name="description" ng-model="asset.asset_suffix" />
+                        </md-input-container>
+
+                        <!--</section>-->
+                        <!--<section layout-gt-xs="row" flex-gt-sm="35" layout-align-gt-sm="space-between none" layout-align-sm="space-between none" layout-wrap layout-fill>-->
+                        <section flex-gt-xs="10"
+                                 aw-combo-box
+                                 ng-model="asset.default_resp"
+                                 name="resp"
+                                 form="detailsForm"
+                                 controller-name="responsability"
+                                 params="controllerParams"
+                                 text-property="name"
+                                 id-property="name"
+                                 selected-id="asset.default_resp"
+                                 label="Responsibility"
+                                 no-domain-property
+                                 watch-object="true"
+                                 watched-object-id="asset.asset_id"
+                                 order-by="domain_id"
+                                 required></section>
+                        <!--<md-input-container class="md-block" flex-gt-xs="45">
+                            <aw-combo-box ng-model="asset.default_resp" name="resp" controller-name="responsability" text-property="name" id-property="name" selected-id="asset.default_resp" no-domain-property label="Resp" watch-object="true" watched-object-id="asset.asset_id"></aw-combo-box>
+                        </md-input-container>-->
+                        <!--</section>-->
+                    </section>
+                    <section layout-gt-xs="row" layout-align-gt-sm="space-between bottom">
+                        <!--<section layout="row">-->
+                        <md-input-container class="md-block" flex-gt-xs="10">
+                            <label>Code</label>
+                            <input name="code" ng-model="asset.asset_code" disabled />
+
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-xs="3" style="margin-left: -37px; margin-right:-26px">
+                            <button class="md-icon-button md-button" style="color: black;" ng-click="editAssetCode()" ng-show="asset.domain_id == loggedDomain">
+                                <i class="material-icons">edit</i><div class="md-ripple-container"></div>
+                                <md-tooltip md-direction="bottom">Edit asset code</md-tooltip>
+                            </button>
+                        </md-input-container>
+                        <!--</section>-->
+                        <md-input-container class="md-block" flex-sm="35" flex-gt-sm="25" flex-order-sm="1">
+                            <aw-autocomplete name="manufacturer" ng-model="asset.manufacturer" add-option="!isManufacturerDomain" id-property="manufacturer_id" text-property="manufacturer_description" controller-name="manufacturer" params="controllerParams" max="100" selected-item="asset.manufacturer" selected-id="asset.manufacturer_id" label="Manufacturer *" watch-object="true" watched-object-id="asset.asset_id" required></aw-autocomplete>
+                            <div ng-messages="detailsForm.manufacturer.$error">
+                                <div ng-message="required">Manufacturer is required</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-xs="20">
+                            <label>Model Number</label>
+                            <input name="model_number" ng-model="asset.serial_number">
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-xs="20">
+                            <label>Model Name</label>
+                            <input name="model_name" ng-model="asset.serial_name">
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-sm="10" flex-gt-sm="15" flex-order-sm="2">
+                            <label>Placement</label>
+                            <md-select name="placement" ng-model="asset.placement">
+                                <md-option ng-repeat="placement in placementList" ng-value="placement.value">
+                                    {{placement.name}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </section>
+                    <section layout-gt-sm="row" layout-align-gt-sm="space-between bottom" class="md-block">
+                        <!--<section layout-gt-xs="row" flex-gt-sm="50" layout-align-gt-sm="space-between none" layout-align-sm="space-between none">-->
+
+                        <md-input-container class="md-block" flex-gt-xs="20">
+                            <label>Useful Life(yrs)</label>
+                            <input name="useful_life" ng-model="asset.useful_life" aw-only-numbers />
+                            <div ng-messages="detailsForm.useful_life.$error">
+                                <div ng-message="number">Must be number</div>
+                            </div>
+                        </md-input-container>
+                        <!--</section>-->
+                        <md-input-container class="md-block" flex-gt-sm="75">
+                            <label>Comment</label>
+                            <textarea ng-model="asset.comment" name="comment" md-maxlength="1000" rows="1" columns="1"></textarea>
+                            <div ng-messages="detailsForm.comment.$error" role="alert">
+                                <div ng-message="md-maxlength">Only 1000 characters are allowed</div>
+                            </div>
+                        </md-input-container>
+                    </section>
+                    <section layout-gt-sm="row">
+                        <section flex-gt-sm="60" layout-gt-xs="row" layout-align-sm="space-around none" layout-align-gt-sm="space-around none" class="md-block">
+                            <md-input-container class="md-block" flex-gt-xs="30">
+                                <label>Min $</label>
+                                <input name="min_cost" ng-model="asset.min_cost" aw-currency-model aw-currency />
+                                <div ng-messages="detailsForm.min_cost.$error">
+                                    <div ng-message="currency">Must be a valid currency value</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-xs="30">
+                                <label>Max $</label>
+                                <input name="max_cost" ng-model="asset.max_cost" aw-currency-model aw-currency />
+                                <div ng-messages="detailsForm.max_cost.$error">
+                                    <div ng-message="currency">Must be a valid currency value</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-xs="30">
+                                <label>Avg/Last $</label>
+                                <input name="avg_last" ng-model="asset.avg_last_cost" disabled />
+                            </md-input-container>
+                        </section>
+                        <section flex-gt-sm="40" layout-gt-xs="row" layout-align-sm="space-around none" layout-align-gt-sm="space-around none" class="md-block">
+                            <section flex-gt-xs="40"
+                                     aw-combo-box
+                                     name="measure"
+                                     form="detailsForm"
+                                     ng-model="eq_measurement_id"
+                                     controller-name="assetMeasurement"
+                                     params="controllerParams"
+                                     text-property="eq_unit_desc"
+                                     id-property="eq_unit_measure_id"
+                                     selected-id="asset.eq_measurement_id"
+                                     label="Unit of Measure"
+                                     watch-object="true"
+                                     watched-object-id="asset.asset_id"
+                                     required></section>
+                            <!--<md-input-container class="md-block" flex-gt-xs="40">
+                                <aw-combo-box name="measure" ng-model="eq_measurement_id" controller-name="assetMeasurement" params="controllerParams" text-property="eq_unit_desc" id-property="eq_unit_measure_id" selected-id="asset.eq_measurement_id" label="Unit of Measure *" watch-object="true" watched-object-id="asset.asset_id" required></aw-combo-box>
+                                <div ng-messages="detailsForm.measure.$error">
+                                    <div ng-message="required">Unit of measure is required</div>
+                                </div>
+                            </md-input-container>-->
+                            <md-input-container class="md-block" flex-gt-xs="40">
+                                <label>Last Budget Update</label>
+                                <input name="last_budget" ng-model="asset.last_budget_update" disabled aw-date-formatter />
+                            </md-input-container>
+                        </section>
+                    </section>
+                    <section layout-gt-sm="row" style="padding-left: 15px;margin-top:-20px">
+                        <!--<section flex-gt-sm="60" layout-gt-xs="row" layout-align-sm="space-around none" layout-align-gt-sm="space-around none" class="md-block">-->
+                        <md-input-container class="md-block" flex-gt-xs="15">
+                            <md-checkbox ng-model="asset.discontinued" aria-label="discontinued" style="margin-top: 7px;" ng-change="toggleDiscontinued()">
+                                Discontinued
+                            </md-checkbox>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm="15" flex-gt-xs="25">
+                            <label ng-if="asset.discontinued">Alternate Asset</label>
+                            <md-select ng-model="asset.alternate_asset" ng-if="asset.discontinued" aria-label="discontinued">
+                                <md-option ng-repeat="altAsset in alternate_assets" ng-value="altAsset.asset_id">
+                                    {{altAsset.asset_code}}
+                                </md-option>
+                            </md-select>
+
+                        </md-input-container>
+
+                        <!--</section>-->
+                    </section>
+                </aw-accordion>
+                <aw-accordion label="Attributes">
+                    <aw-Asset-Settings-Grid asset="asset" required-settings="requiredSettings" updated-jsn-data="updatejsn"></aw-Asset-Settings-Grid>
+                </aw-accordion>
+                <aw-accordion label="Vendors">
+                    <section layout="column" ng-cloak class="md-inline-form padding-bottom" ng-controller="AssetVendorGridCtrl">
+                        <section layout="row" ng-if="!asset.related_asset" class="grid-toolbar">
+                            <section layout="row" layout-align="start center" flex="100" class="gray-color">
+                                <button class="md-icon-button md-button" style="color: black;" ng-click="addEdit()">
+                                    <i class="material-icons">add</i><div class="md-ripple-container"></div>
+                                    <md-tooltip md-direction="bottom">Add Vendor</md-tooltip>
+                                </button>
+                                <button class="md-icon-button md-button" ng-click="addEdit(true)">
+                                    <i class="material-icons">edit</i><div class="md-ripple-container"></div>
+                                    <md-tooltip md-direction="bottom">Edit Vendor</md-tooltip>
+                                </button>
+                                <button class="md-icon-button md-button" ng-click="delete()">
+                                    <i class="material-icons">delete</i><div class="md-ripple-container"></div>
+                                    <md-tooltip md-direction="bottom">Delete Vendor</md-tooltip>
+                                </button>
+                                <!--<button class="md-icon-button md-button" ng-click="add()">
+                                    <md-icon class="material-icons md-accent">add_circle</md-icon><div class="md-ripple-container"></div>
+                                    <md-tooltip md-direction="bottom">Add New Vendor</md-tooltip>
+                                </button>-->
+                            </section>
+                        </section>
+                        <div class="checkbox-grid primary-color-header" kendo-grid="assetVendorGrid" id="asset-vendors-grid" options="options" k-on-data-bound="dataBound(assetVendorGrid)" class="primary-color-header">
+                        </div>
+                    </section>
+                </aw-accordion>
+                <aw-accordion label="Options">
+                    <section layout="column" ng-cloak class="md-inline-form" ng-controller="AssetOptionGridCtrl">
+                        <div class="checkbox-grid" id="asset-options-grid" kendo-grid="assetOptionGrid" options="options" k-on-data-bound="dataBound(assetOptionGrid)">
+                        </div>
+                    </section>
+                </aw-accordion>
+            </form>
+            <aw-accordion label="Downloads">
+                <section layout-wrap>
+                    <md-list layout-gt-xs="row" layout-align="space-around center">
+                        <section layout="row" layout-align="space-between" flex-gt-xs="45">
+                            <md-list-item flex="45">
+                                <div>
+                                    <md-button class="md-primary" aria-label="cutsheet" ng-click="downloadFile(asset.asset_id, asset.domain_id, 'fullcutsheet')">
+                                        <a>Cutsheet</a>
+                                    </md-button>
+                                </div>
+                            </md-list-item>
+                            <md-list-item flex="45">
+                                <div>
+                                    <md-button class="md-primary" aria-label="photo" ng-click="downloadFile(asset.photo, asset.domain_id, 'photo')" ng-disabled="!asset.photo">
+                                        <a>Photo</a>
+                                    </md-button>
+                                </div>
+                                <div ng-if="asset.photo" ng-mouseover="showPopover()" ng-mouseleave="hidePopover()">
+                                    <i class="material-icons">visibility</i><div class="md-ripple-container"></div>
+                                </div>
+                                <div class="image_popover" ng-show="popoverIsVisible">
+                                    <img ng-src="{{downloadPhoto(asset.photo, asset.domain_id)}}" style="width:110px;border:groove" title="no picture">
+                                </div>
+                            </md-list-item>
+                        </section>
+                        <section layout="row" layout-align="space-between" flex-gt-xs="45">
+                            <md-list-item flex="45">
+                                <div>
+                                    <md-button class="md-primary" aria-label="cadblock" ng-click="downloadFile(asset.cad_block, asset.domain_id, 'cadblock')" ng-disabled="!asset.cad_block">
+                                        <a>CAD Block</a>
+                                    </md-button>
+                                </div>
+                            </md-list-item>
+                            <md-list-item flex="45">
+                                <div>
+                                    <md-button class="md-primary" aria-label="revit" ng-click="downloadFile(asset.revit, asset.domain_id, 'revit')" ng-disabled="!asset.revit">
+                                        <a>Revit</a>
+                                    </md-button>
+                                </div>
+                            </md-list-item>
+                        </section>
+                    </md-list>
+                </section>
+            </aw-accordion>
+            <aw-accordion label="Government Information" expanded="false" layout="column" layout-wrap layout-fill>
+                <aw-jsn-form asset="asset"></aw-jsn-form>
+                <section flex-gt-sm="70" layout="row" class="md-block">
+                    <md-input-container class="md-block" flex-gt-xs="30">
+                        <label>Class</label>
+                        <md-select name="class" ng-model="asset.class">
+                            <md-option ng-repeat="c in classes" ng-value="c.id">
+                                {{c.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </section>
+            </aw-accordion>
+            <!-- FAB Button -->
+            <div class="lock-size" layout="row" layout-align="center center" ng-cloak>
+                <md-fab-speed-dial md-open="buttons.state" md-direction="up" class="md-fling">
+                    <md-fab-trigger>
+                        <md-button aria-label="menu" class="md-fab md-accent">
+                            <md-icon md-svg-src="{{buttons.state ? 'close' : 'menu'}}"></md-icon>
+                        </md-button>
+                    </md-fab-trigger>
+                    <md-fab-actions>
+                        <div ng-repeat="button in buttons" ng-if="button.condition && (button.justAudaxware ? loggedDomain === 1 || asset.domain_id === loggedDomain : !asset.related_asset)">
+                            <md-button aria-label="{{button.label}}" class="md-fab md-mini"
+                                       ng-click="button.click()">
+                                <md-tooltip md-direction="left" md-visible="tooltipVisible"
+                                            md-autohide="false">
+                                    {{button.label}}
+                                </md-tooltip>
+                                <md-icon md-svg-src="{{button.icon}}" aria-label="{{button.label}}"></md-icon>
+                            </md-button>
+                        </div>
+                    </md-fab-actions>
+                </md-fab-speed-dial>
+            </div>
+        </section>
+    </md-tab>
+    <md-tab ng-if="!isManufacturerDomain" label="Used in Projects" layout-fill>
+        <section layout="column" ng-cloak class="md-inline-form padding-bottom padding-top">
+            <div class="k-grid" kendo-grid="projectsGrid" options="options" k-on-data-bound="dataBound()"></div>
+        </section>
+    </md-tab>
+</md-tabs>

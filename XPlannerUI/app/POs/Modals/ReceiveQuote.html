@@ -1,0 +1,72 @@
+﻿<md-dialog aria-label="request PO" flex="30">
+    <md-toolbar layout="row" layout-align="center center">
+        Receive Quote
+    </md-toolbar>
+    <md-dialog-content layout="column" class="md-inline-form padding-top" ng-cloak>
+        <form name="receiveQuoteForm" id="receiveQuoteForm" ng-cloak class="padding-top">
+            <md-input-container flex="70" flex-offset="15">
+                <label>Received Date</label>
+                <md-datepicker ng-model="po.quote_received_date" name="quote_received_date" md-min-date="po.quote_requested_date" required></md-datepicker>
+                <div ng-messages="receiveQuoteForm.quote_received_date.$error">
+                    <div ng-message="valid">Invalid Date</div>
+                    <div ng-message="required">Received date is required</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" style="margin-top: -15px">
+                <label>Quote Number</label>
+                <input name="quote_number" ng-model="po.quote_number" required>
+                <div ng-messages="receiveQuoteForm.quote_number.$error" role="alert">
+                    <div ng-message="required" class="my-message">
+                        Quote Number is required
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" style="margin-bottom: -5px">
+                <label>Quote Amount</label>
+                <input name="quote_amount" ng-model="po.quote_amount" aw-currency aw-currency-model>
+                <div ng-messages="receiveQuoteForm.quote_amount.$error" role="alert">
+                    <div ng-message="currency">Must be currency</div>
+                </div>
+            </md-input-container>
+            <small>The quote amount should include all items including assets, freight, etc. This amount is used to verify data entry in the PO Detail.</small>
+            <!--<section layout-gt-xs="row" layout-align-gt-xs="space-around start">
+                <section flex-gt-xs="45">
+                    <md-input-container class="md-block">
+                        <label>Freight</label>
+                        <input name="freight" ng-model="po.freight" aw-currency aw-currency-model>
+                        <div ng-messages="receiveQuoteForm.freight.$error" role="alert">
+                            <div ng-message="currency">Must be currency</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Warranty</label>
+                        <input name="warranty" ng-model="po.warranty" aw-currency aw-currency-model>
+                        <div ng-messages="receiveQuoteForm.warranty.$error" role="alert">
+                            <div ng-message="currency">Must be currency</div>
+                        </div>
+                    </md-input-container>
+                </section>
+                <section flex-gt-xs="45">
+                    <md-input-container class="md-block">
+                        <label>Tax</label>
+                        <input name="tax" ng-model="po.tax" aw-currency aw-currency-model>
+                        <div ng-messages="receiveQuoteForm.tax.$error" role="alert">
+                            <div ng-message="currency">Must be currency</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Misc</label>
+                        <input name="misc" ng-model="po.misc" aw-currency aw-currency-model>
+                        <div ng-messages="receiveQuoteForm.misc.$error" role="alert">
+                            <div ng-message="currency">Must be currency</div>
+                        </div>
+                    </md-input-container>
+                </section>
+            </section>-->
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions ng-cloak>
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+        <md-button class="md-primary" ng-click="save()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>

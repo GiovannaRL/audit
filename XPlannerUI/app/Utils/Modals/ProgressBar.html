@@ -1,0 +1,10 @@
+﻿<md-dialog aria-label="progressBar" flex-gt-xs="30">
+    <md-dialog-content layout-padding ng-cloak class="md-inline-form">
+        <h2 class="md-title ng-binding">Regenerate All Cutsheets</h2>
+        <p class="ng-binding">The cutsheets are already being generated. You can see the progress here.</p>
+        <md-progress-linear style="display: flex; justify-content: center; width: 95%" md-mode="determinate" value="{{progress}}"></md-progress-linear>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="close()">Close</md-button>
+    </md-dialog-actions>
+</md-dialog>

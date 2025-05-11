@@ -1,0 +1,19 @@
+﻿<md-dialog aria-label="check_room" flex-gt-xs="90" class="all-screen">
+    <md-toolbar layout="row" layout-align="center center" ng-cloak>
+        Establish document(s) association
+    </md-toolbar>
+    <md-dialog-content ng-cloak>
+        <aw-asset-inventory-grid select-only-mode="true" document-link-mode="true" document-link-id="document.id" already-associated="alreadAssociated" params="params" grid-height-subtract="190" selecteds="associations"></aw-asset-inventory-grid>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-cloak>
+        <md-button class="md-primary" ng-click="cancel()">Cancel</md-button>
+        <md-button class="md-primary" ng-click="save()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>
+
+<!--<style parse-style>
+    .k-grid-content {
+        max-height:{{grid_height - 150}}px; 
+        min-height:{{grid_height - 150}}px;
+    }
+</style>-->

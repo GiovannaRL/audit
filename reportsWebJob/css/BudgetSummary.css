@@ -1,0 +1,76 @@
+﻿table {
+    border-collapse: collapse;
+}
+
+    table.bordertab {
+        border-collapse: collapse;
+        border: 1px solid black;
+    }
+
+
+th {
+    background-color: #404040;
+    text-align: center;
+    font-family: Arial;
+    font-size: 10px;
+    color: white;
+    border: 1px solid black;
+}
+
+td {
+    font-family: Arial;
+    font-size: 10px;
+}
+
+.titletext {
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+td.datatab {
+    border: 1px solid black;
+}
+
+td.noborder {
+    border: 0px;
+}
+
+td.text {
+    mso-number-format: \@;
+    text-align: left;
+}
+
+td.integer {
+    mso-number-format: \#\,\#\#0;
+    text-align: right;
+}
+
+
+
+h1 {
+    font-family: Arial;
+    font-size: 22px;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+h2 {
+    font-family: Arial;
+    font-size: 14px;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 5px;
+    margin-top: 0px;
+}
+
+h3 {
+    font-family: Arial;
+    font-size: 14px;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}

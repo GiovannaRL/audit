@@ -1,0 +1,48 @@
+﻿<md-dialog aria-label="check_room" flex-gt-xs="90" class="all-screen">
+    <md-toolbar layout="row" layout-align="center center">
+        {{modalTitle}}
+    </md-toolbar>
+    <md-dialog-content>
+            <md-stepper id="stepper-add-asset"
+                        md-mobile-step-text="mobileStep"
+                        md-vertical="false"
+                        md-linear="true"
+                        md-alternative="true">
+                <div layout="row" layout-margin="" layout-align="center center" ng-if="isLink">
+                    Source asset:
+                    {{ sourceDescription }}
+                </div>
+                <md-step md-label="Assets">
+                    <md-step-body style="height:{{wizardData.style_height + 56}}px">
+                        <aw-available-assets-inventory-grid params="wizardData.params" height="wizardData.style_height" selecteds="wizardData.selectedAssets" project-action="wizardData.projectAction" selected-cost-field="wizardData.selected_costField" is-to-global-template="isToGlobalTemplate" is-relocate="wizardData.isRelocate" is-link="isLink" link-budget-qty="linkBudgetQty" is-template="isTemplate"></aw-available-assets-inventory-grid>
+                    </md-step-body>
+                </md-step>
+                <md-step md-label="Locations">
+                    <md-step-body style="height:{{wizardData.style_height + 56}}px">
+                        <aw-locations-grid height="wizardData.style_height-50" params="wizardData.params" selecteds="wizardData.selecteds" not-linked-only="true"></aw-locations-grid>
+                    </md-step-body>
+                </md-step>
+                <md-step md-label="Confirmation">
+                    <md-step-body>
+                        <section layout="column" layout-align="top center" class="gray-color" style="margin-bottom: 1em">
+                            <h4>Please click ADD to confirm {{confirmMessage}} to {{wizardData.params.room_id ? 'current room' : 'following rooms:'}}</h4>
+                            <p>{{wizardData.addingRooms}}</p>
+                        </section>
+                    </md-step-body>
+                </md-step>
+            </md-stepper>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="close()">Cancel</md-button>
+        <md-button class="md-primary" ng-click="back()" ng-if="currentStep > 1">Back</md-button>
+        <md-button class="md-primary" ng-click="next()">{{currentStep === 3 ? 'Add' : 'Next'}}</md-button>
+    </md-dialog-actions>
+</md-dialog>
+
+
+<style parse-style>
+    #assets .k-grid-content {
+        max-height:{{style_height - 208;}}px; 
+        min-height:{{style_height - 208;}}px;
+    }
+</style>

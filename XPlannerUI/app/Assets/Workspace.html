@@ -1,0 +1,12 @@
+﻿<md-toolbar class="toolbar-tab">
+    <md-tabs md-border-bottom md-no-select-click>
+        <md-tab md-active="activeTab == tab.name" 
+                ng-repeat="tab in tabs"
+                ng-if="tab.visible"
+                label="{{tab.name == 'categories' ? 'categories & subcategories' : tab.name }}" 
+                ng-click="goToWorspaceState(tab.name)"></md-tab>
+    </md-tabs>
+</md-toolbar>
+<md-content class="padding-left padding-right">
+    <ui-view></ui-view>
+</md-content>

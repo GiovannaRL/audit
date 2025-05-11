@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="../ThirdParty/KendoUI/Q32015/styles/kendo.common-material.core.min.css" />
+    <link rel="stylesheet" href="../ThirdParty/KendoUI/Q32015/styles/kendo.common-material.min.css" />
+    <link rel="stylesheet" href="../ThirdParty/KendoUI/Q32015/styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="../ThirdParty/KendoUI/material/css/kendo.custom.css" />
+
+    <script src="../ThirdParty/jQuery/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="../ThirdParty/KendoUI/Q32015/src/js/kendo.all.js" type="text/javascript"></script>
+    <script src="../ThirdParty/KendoUI/material/js/kendo.custom.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <div id="grid"></div>
+    <button id="showSelection">Show selected IDs</button>
+    <script>
+        $(document).ready(function () {
+            //DataSource definition
+            var dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: "http://localhost:51133/xPlannerAPI/api/treeviews/locationsTable/3/115"
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "room_id"
+                    }
+                }
+            });
+
+            //Grid definition
+            var grid = $("#grid").kendoGrid({
+                dataSource: dataSource,
+                height: 550,
+                groupable: true,
+                sortable: true,
+                //define dataBound event handler
+                dataBound: onDataBound,
+                columns: [
+                  //define template column with checkbox and attach click event handler
+                  {
+                      title: 'Select All',
+                      headerTemplate: '<input type="checkbox" id="header-chb" class="k-checkbox"/><label class ="k-checkbox-label" for="header-chb"></label>',
+                      template: function (dataItem) {
+                          return `<input type="checkbox" id="${dataItem.room_id}" class="k-checkbox">
+<label class="k-checkbox-label" for="${dataItem.room_id}"></label>`
+                      },
+                      width: 80
+                  },
+                  {
+                      field: "room_desc",
+                      title: "Room"
+                  }, {
+                      field: "department_desc",
+                      title: "Department"
+                  }, {
+                      field: "phase_desc",
+                      title: "Phase"
+                  }
+                ]
+            }).data("kendoGrid");
+
+            //bind click event to the checkbox
+            grid.table.on("click", ".k-checkbox", selectRow);
+            $('#header-chb').change(function (ev) {
+                var checked = ev.target.checked;
+                $('.k-checkbox').each(function (idx, item) {
+                    if (checked) {
+                        if (!($(item).closest('tr').is('.k-state-selected'))) {
+                            $(item).click();
+                        }
+                    } else {
+                        if ($(item).closest('tr').is('.k-state-selected')) {
+                            $(item).click();
+                        }
+                    }
+                });
+
+            });
+
+            $("#showSelection").bind("click", function () {
+                var checked = [];
+                for (var i in checkedIds) {
+                    if (checkedIds[i]) {
+                        checked.push(i);
+                    }
+                }
+
+                alert(checked);
+            });
+        });
+
+        var checkedIds = {};
+
+        //on click of the checkbox:
+        function selectRow() {
+            var checked = this.checked,
+                row = $(this).closest("tr"),
+                grid = $("#grid").data("kendoGrid"),
+                dataItem = grid.dataItem(row);
+
+            checkedIds[dataItem.id] = checked;
+            if (checked) {
+                //-select the row
+                row.addClass("k-state-selected");
+            } else {
+                //-remove selection
+                row.removeClass("k-state-selected");
+            }
+        }
+
+        //on dataBound event restore previous selected rows:
+        function onDataBound(e) {
+            var view = this.dataSource.view();
+            for (var i = 0; i < view.length; i++) {
+                if (checkedIds[view[i].id]) {
+                    this.tbody.find("tr[data-uid='" + view[i].uid + "']")
+                      .addClass("k-state-selected")
+                      .find(".checkbox")
+                      .attr("checked", "checked");
+                }
+            }
+        }
+    </script>
+</body>
+</html>
