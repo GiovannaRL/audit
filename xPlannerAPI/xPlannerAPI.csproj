@@ -408,8 +408,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="bin\wkhtmltopdf.exe" />
-    <Content Include="wkhtmltopdf.exe" />
+    <Content Include="..\PDF\wkhtmltopdf.exe" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Data\Helper.cs" />

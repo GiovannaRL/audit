@@ -523,17 +523,10 @@
     <Compile Include="Services\ShopDrawingsRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\IllustrationSheet.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="css\*.*" CopyToOutputDirectory="PreserveNewest" DestinationFolder="css\"/>
+    <Content Include="images\*.*" CopyToOutputDirectory="PreserveNewest" DestinationFolder="images\"/>
+    <Content Include="..\PDF\wkhtmltopdf.exe" CopyToOutputDirectory="PreserveNewest"/>
     <Content Include="ILLink\ILLink.Descriptors.LibraryBuild.xml" />
-    <Content Include="images\logo_aw.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="images\logo.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wkhtmltopdf.exe" />
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>

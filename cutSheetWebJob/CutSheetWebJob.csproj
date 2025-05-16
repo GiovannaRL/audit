@@ -466,8 +466,8 @@
     <None Include="Properties\webjob-publish-settings.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Release\css\CoverSheet.css" />
-    <Content Include="bin\Release\wkhtmltopdf.exe" />
+    <Content Include="css\*.*" CopyToOutputDirectory="PreserveNewest" DestinationFolder="css\"/>
+    <Content Include="..\PDF\wkhtmltopdf.exe" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="ILLink\ILLink.Descriptors.LibraryBuild.xml" />
   </ItemGroup>
   <ItemGroup>

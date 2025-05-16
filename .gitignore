@@ -35,7 +35,7 @@
 x64/
 [Bb]in/
 [Oo]bj/
-!/xPlannerAPI/bin/whhtmltopdf.exe
+!/PDF/whhtmltopdf.exe
 # build folder is nowadays used for build scripts and should not be ignored
 #build/
 # NuGet Packages
