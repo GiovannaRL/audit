@@ -20,6 +20,7 @@
 # User-specific files
 *.suo
 *.user
+*.bak
 *.sln.docstates
 *.swp
 *.swo
@@ -27,6 +28,7 @@
 *.jfm
 *.dll
 !/xPlannerAPI/Dlls/*.*
+!/reportsWebJob/Dlls/*.*
 *.pdb
 
 # Build results

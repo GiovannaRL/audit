@@ -12,7 +12,7 @@
             "Room Count", "Planned qty", "Shop Drawing", "Flag", "Lead Time", "Install Date", "Profile", "Cost Center",
         ];
 
-        var requiredColumns = ["Inventory ID", "JSN", "Code", "Source Location", "Target Location"];
+        var requiredColumns = ["JSN", "Code"];
 
         var gridColumn = {
             display: [],

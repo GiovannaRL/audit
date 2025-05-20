@@ -717,32 +717,34 @@
 
                 }
             }
-            
-            if (!local.multiple && $scope.data.po_qty > 0 && $scope.data.budget_qty != $scope.data.po_qty) {
-                toastr.error('This asset is linked to a PO. The Planned Qty column should match the PO (Qty: ' + $scope.data.po_qty +').');
+
+            if (!local.multiple && $scope.data.po_qty > 0 && ($scope.data.budget_qty - $scope.data.dnp_qty) != $scope.data.po_qty) {
+                toastr.error('This asset has already been added to a PO and you cannot change the planned quantity. To edit the planned quantity you must remove the asset from the PO');
                 return false;
             }
 
-            if (local.multiple && ($scope.data.budget_qty >= 0 || $scope.data.lease_qty >= 0 || $scope.data.dnp_qty >= 0)) {
+            if (local.multiple && ($scope.data.budget_qty >= 0 || $scope.data.dnp_qty >= 0)) {
                 // Validate quantity values
                 var isQuantityValid = local.assets.every(function (val) {
                     var budgetQty = $scope.data.budget_qty != null ? $scope.data.budget_qty : val.budget_qty;
-                    var leaseQty = $scope.data.lease_qty != null ? $scope.data.lease_qty : val.lease_qty;
                     var dnpQty = $scope.data.dnp_qty != null ? $scope.data.dnp_qty : val.dnp_qty;
 
-                    return budgetQty - leaseQty >= dnpQty;
+                    return budgetQty - dnpQty >= val.po_qty;
                 });
                 if (!isQuantityValid) {
                     toastr.error('The quantity values provided are not valid. DNP Qty cannot be greater than planned qty - po qty');
                     return false;
                 }
 
-                if ($scope.data.budget_qty > 0) {
+                if ($scope.data.budget_qty >= 0) {
                     const isPOPlannedQtyInvalid = local.assets.every(function (val) {
-                        return val.po_qty >= 0 && $scope.data.budget_qty != val.po_qty;
+                        var budgetQty = $scope.data.budget_qty != null ? $scope.data.budget_qty : val.budget_qty;
+                        var dnpQty = $scope.data.dnp_qty != null ? $scope.data.dnp_qty : val.dnp_qty;
+
+                        return val.po_qty >= 0 && (budgetQty - dnpQty) != val.po_qty;
                     });
                     if (isPOPlannedQtyInvalid) {
-                        toastr.error('One of this assets is linked to a PO. The Planned Qty column should match the PO Qty');
+                        toastr.error('One of this assets has already been added to a PO and you cannot change the planned quantity. To edit the planned quantity you must remove the asset from the PO');
                         return false;
                     }
                 }

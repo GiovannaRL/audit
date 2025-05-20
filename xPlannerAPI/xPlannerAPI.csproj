@@ -448,7 +448,6 @@
     <Compile Include="Controllers\AudaxWareController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
-    <Compile Include="Controllers\CopyRoomController.cs" />
     <Compile Include="Controllers\CostCentersController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\DepartmentTypeController.cs" />
@@ -493,7 +492,6 @@
     <Compile Include="Interfaces\IAssetInventoryConsolidatedRepository.cs" />
     <Compile Include="Interfaces\IBudgetCopilotRepository.cs" />
     <Compile Include="Interfaces\ICopyFromRepository.cs" />
-    <Compile Include="Interfaces\ICopyRoomRepository.cs" />
     <Compile Include="Interfaces\ICostCenterRepository.cs" />
     <Compile Include="Interfaces\IDocumentRepository.cs" />
     <Compile Include="Interfaces\IFileStreamRepository.cs" />
@@ -577,7 +575,6 @@
     <Compile Include="Services\AssetRepository.cs" />
     <Compile Include="Services\AssetRoomRepository.cs" />
     <Compile Include="Services\AssetInventoryConsolidatedRepository.cs" />
-    <Compile Include="Services\CopyRoomRepository.cs" />
     <Compile Include="Services\CostCenterRepository.cs" />
     <Compile Include="Services\CopyFromRepository.cs" />
     <Compile Include="Services\DepartmentRepository.cs" />

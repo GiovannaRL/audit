@@ -669,6 +669,66 @@ namespace xPlannerAPI.Tests.Repositories
         }
 
         [TestMethod]
+        public void ImportCategoryMismatch()
+        {
+            ClearAssets();
+            var item = new ImportItem
+            {
+                Status = ImportItemStatus.NewCatalog,
+                JSN = "A9999",
+                JSNNomeclature = "Example of category too long test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test,subcategory",
+                PlannedQty = 2,
+                //Clin = "Y68",
+                Resp = "OFCI",
+                Phase = "Phase1",
+                Department = "Department1",
+                RoomName = "Room1",
+                RoomNumber = "1234",
+                Manufacturer = "Test",
+                ModelName = "MyModel",
+                UnitBudget = 800,
+            };
+            
+            using (var repo = new AssetsInventoryImporterRepository())
+            {
+                repo.Init(1, _projectIdAudaxWare);
+                repo.ValidateItem(item);
+                Assert.AreEqual(ImportItemStatus.Error, item.Status, "Category length is too long");
+            }
+            ClearAssets();
+        }
+
+        [TestMethod]
+        public void ImportSubCategoryMismatch()
+        {
+            ClearAssets();
+            var item = new ImportItem
+            {
+                Status = ImportItemStatus.NewCatalog,
+                JSN = "A9999",
+                JSNNomeclature = "A, Example of subcategory too long test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test",
+                PlannedQty = 2,
+                //Clin = "Y68",
+                Resp = "OFCI",
+                Phase = "Phase1",
+                Department = "Department1",
+                RoomName = "Room1",
+                RoomNumber = "1234",
+                Manufacturer = "Test",
+                ModelName = "MyModel",
+                UnitBudget = 800,
+            };
+
+            using (var repo = new AssetsInventoryImporterRepository())
+            {
+                repo.Init(1, _projectIdAudaxWare);
+                repo.ValidateItem(item);
+                Assert.AreEqual(ImportItemStatus.Error, item.Status, "SubCategory length is too long");
+            }
+            ClearAssets();
+        }
+
+        [TestMethod]
         public void ImportSameAssetTwice()
         {
             ClearAssets();

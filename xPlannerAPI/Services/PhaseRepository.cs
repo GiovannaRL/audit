@@ -3,6 +3,11 @@ using System.Linq;
 using xPlannerAPI.Interfaces;
 using xPlannerCommon.Models;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Security.Claims;
+using xPlannerAPI.Models;
+using xPlannerAPI.Security.Extensions;
+using xPlannerAPI.App_Data;
 
 namespace xPlannerAPI.Services
 {
@@ -51,6 +56,48 @@ namespace xPlannerAPI.Services
                     transaction.Rollback();
                     return false;
                 }
+            }
+        }
+
+        public IEnumerable<DepartmentTreeView> GetPhaseAsTable(int domainId, ClaimsIdentity identity)
+        {
+            try
+            {
+                var departmentList = new List<DepartmentTreeView>();
+                var departments = _db.project_department.Include("project_phase.project").Where(d => d.domain_id == domainId && d.project_id > 0);
+                var phaseEmpty = _db.project_phase.Include("project_department").Where(p => p.domain_id == domainId && p.project_department.Count == 0);
+
+                foreach (var dept in departments)
+                {
+                    DepartmentTreeView tree = new DepartmentTreeView();
+                    tree.domain_id = dept.domain_id;
+                    tree.project_id = dept.project_id;
+                    tree.phase_id = dept.phase_id;
+                    tree.phase_desc = dept.project_phase.description;
+                    tree.department_id = dept.department_id;
+                    tree.department_desc = dept.description;
+
+                    departmentList.Add(tree);
+                };
+                foreach (var phase in phaseEmpty)
+                {
+                    DepartmentTreeView aux = new DepartmentTreeView();
+                    aux.domain_id = phase.domain_id;
+                    aux.project_id = phase.project_id;
+                    aux.phase_id = phase.phase_id;
+                    aux.phase_desc = phase.description;
+                    aux.department_id = -1;
+                    aux.department_desc = "Create New Department";
+
+                    departmentList.Add(aux);
+                };
+                return departmentList.Where(p => identity.CheckProjectAccess(p.domain_id, p.project_id));
+            }
+            catch (Exception ex)
+            {
+                Helper.RecordLog("TreeViewRepository", "GetPhases", ex);
+                throw new ApplicationException(ex.Message);
+
             }
         }
 

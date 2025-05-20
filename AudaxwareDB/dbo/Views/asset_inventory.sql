@@ -23,6 +23,7 @@ SELECT
         a.asset_id,
         a.asset_domain_id,
 		c.asset_code,
+		c.comment as asset_comment,
 		coalesce(a.cad_id, '') as cad_id,
 		a.asset_description,
         a.manufacturer_description,
@@ -185,7 +186,7 @@ SELECT
 		 cast(coalesce(a.unit_tax_calc, 0) as varchar(15)) as unit_tax_calc, cast(coalesce(a.unit_install, 0) as varchar(15)) as unit_install, cast(coalesce(a.unit_freight, 0) as varchar(15)) as unit_freight, cast(unit_budget_total as varchar(15)) as unit_budget_total, 
 		 total_install_net, total_budget_adjusted, total_tax, total_install, total_freight_net, total_freight, total_budget, ECN, a.placement, a.placement_ow, coalesce(a.biomed_check_required, 0) as biomed_check_required,
 		 a.asset_description_ow, a.temporary_location, a.jsn_ow, a.manufacturer_description_ow, a.serial_number_ow, a.serial_name_ow, a.final_disposition,
-		 a.delivered_date, a.received_date, a.date_modified, a.date_added
+		 a.delivered_date, a.received_date, a.date_modified, a.date_added, am.eq_unit_desc
     FROM project_room_inventory a with (index(project_room_id_indx1))
 		LEFT JOIN (select inventory_id, string_agg(po.quote_number, ', ') as quote_number, string_agg(v.name, ', ') as vendor, string_agg(po.po_requested_number, ', ') as po_requested_number,
 			sum(
@@ -237,4 +238,5 @@ SELECT
 				inner join project_documents pdoc on pdoc.id = da.document_id and  pdoc.project_domain_id = da.project_domain_id
 			WHERE pdoc.type_id = 7
 		 ) as tag_photo_doc on tag_photo_doc.inventory_id = a.inventory_id 
+		 LEFT JOIN assets_measurement am ON c.eq_measurement_id = am.eq_unit_measure_id
 		 WHERE c.approval_pending_domain IS NULL;

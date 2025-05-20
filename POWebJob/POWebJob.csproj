@@ -480,9 +480,6 @@
   <Import Project="..\packages\Microsoft.Web.WebJobs.Publish.17.1.361\build\Microsoft.Web.WebJobs.Publish.targets" Condition="Exists('..\packages\Microsoft.Web.WebJobs.Publish.17.1.361\build\Microsoft.Web.WebJobs.Publish.targets')" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
   <Import Project="..\packages\Microsoft.Azure.DocumentDB.Core.2.22.0\build\Microsoft.Azure.DocumentDB.Core.targets" Condition="Exists('..\packages\Microsoft.Azure.DocumentDB.Core.2.22.0\build\Microsoft.Azure.DocumentDB.Core.targets')" />
-  <!--Target Name="AfterBuild">
-    <Copy SourceFiles="css\*" DestinationFolder="$(OutDir)\css" />
-  </Target-->
   <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

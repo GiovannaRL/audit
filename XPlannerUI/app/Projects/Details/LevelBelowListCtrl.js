@@ -42,7 +42,7 @@
         var dataSource = {
             transport: {
                 read: {
-                    url: HttpService.generic(typePlural, $scope.type === 'phase' ? 'All' : 'AllIventoryPO',
+                    url: HttpService.generic(typePlural, $scope.type === 'phase' ? 'All' : 'AllWithFinancials',
                         AuthService.getLoggedDomain(), $scope.params.project_id,
                         $scope.params.phase_id, $scope.params.department_id, $scope.params.room_id),
                     headers: {

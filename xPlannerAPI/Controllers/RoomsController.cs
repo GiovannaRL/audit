@@ -49,12 +49,12 @@ namespace xPlannerAPI.Controllers
             }
         }
 
-        [ActionName("AllIventoryPO")]
-        public IEnumerable<room_inventory_po_Result> GetAll(int id1, int id2, int id3, int id4)
+        [ActionName("AllWithFinancials")]
+        public IEnumerable<room_inventory_po_Result> GetAllWithFinancials(int id1, int id2, int id3, int id4)
         {
             using (IRoomRepository repository = new RoomRepository())
             {
-                return repository.GetWithInventoryPO(id1, id2, id3, id4);
+                return repository.GetWithFinancials(id1, id2, id3, id4);
             }
         }
 
@@ -211,5 +211,129 @@ namespace xPlannerAPI.Controllers
                 }
             }
         }
+
+
+        [ActionName("SourceRoom")]
+        public HttpResponseMessage GetSourceRoom(int id1, int? id2 = null, int? id3 = null, int? id4 = null, int? id5 = null)
+        {
+            using (IRoomRepository repository = new RoomRepository())
+            {
+                var tableData = repository.GetRoomsAsTable(AudaxWareIdentity, id1, id2, id3, id4, id5);
+                tableData.Select(r => new
+                {
+                    domain_id = id1,
+                    project_id = id2,
+                    phase_description = r.project_department.project_phase.description,
+                    department_desc = r.department_id,
+                    department_description = r.project_department.description,
+                    room_name = r.drawing_room_name,
+                    room_number = r.drawing_room_number
+                }).ToList();
+
+                return Request.CreateResponse(HttpStatusCode.OK, tableData);
+            }
+        }
+
+
+        [ActionName("LocationsTable")]
+        public HttpResponseMessage GetRoomsTable(int id1, int? id2 = null, int? id3 = null, int? id4 = null, int? id5 = null)
+        {
+            using (IRoomRepository repository = new RoomRepository())
+            {
+                var tableData = repository.GetRoomsAsTable(AudaxWareIdentity, id1, id2, id3, id4, id5);
+
+                if (id4 != null)
+                    return Request.CreateResponse(HttpStatusCode.OK, tableData.Select(r => new
+                    {
+                        domain_id = id1,
+                        project_id = id2,
+                        phase_id = id3,
+                        department_id = id4,
+                        room_id = r.room_id,
+                        room_desc = r.drawing_room_name + (string.IsNullOrEmpty(r.drawing_room_number) ? "" : " - " + r.drawing_room_number) + (r.room_quantity > 1 ? " (" + r.room_quantity + ")" : "")
+                    }));
+
+
+                if (id3 != null)
+                    return Request.CreateResponse(HttpStatusCode.OK, tableData.Select(r => new
+                    {
+                        domain_id = id1,
+                        project_id = id2,
+                        phase_id = id3,
+                        department_id = r.department_id,
+                        department_desc = r.project_department.description,
+                        room_id = r.room_id,
+                        room_desc = r.drawing_room_name + (string.IsNullOrEmpty(r.drawing_room_number) ? "" : " - " + r.drawing_room_number) + (r.room_quantity > 1 ? " (" + r.room_quantity + ")" : "")
+                    }));
+
+                if (id2 != null)
+                    return Request.CreateResponse(HttpStatusCode.OK, tableData.Select(r => new
+                    {
+                        domain_id = id1,
+                        project_id = id2,
+                        phase_id = r.project_department.phase_id,
+                        phase_desc = r.project_department.project_phase.description,
+                        department_id = r.department_id,
+                        department_desc = r.project_department.description,
+                        room_id = r.room_id,
+                        room_desc = r.drawing_room_name + (string.IsNullOrEmpty(r.drawing_room_number) ? "" : " - " + r.drawing_room_number) + (r.room_quantity > 1 ? " (" + r.room_quantity + ")" : "")
+                    }));
+
+                return Request.CreateResponse(HttpStatusCode.OK, tableData.Select(r => new
+                {
+                    domain_id = id1,
+                    project_id = r.project_id,
+                    project_desc = r.project_department.project_phase.project.project_description,
+                    phase_id = r.phase_id,
+                    phase_Desc = r.project_department.project_phase.description,
+                    department_id = r.department_id,
+                    department_desc = r.project_department.description,
+                    room_id = r.room_id,
+                    room_desc = r.drawing_room_name + (string.IsNullOrEmpty(r.drawing_room_number) ? "" : " - " + r.drawing_room_number) + (r.room_quantity > 1 ? " (" + r.room_quantity + ")" : "")
+                }));
+
+            }
+        }
+
+        [ActionName("unlinkedRooms")]
+        public HttpResponseMessage GetUnlikedRooms(int id1, int id2, int? id3 = null, int? id4 = null, int? id5 = null)
+        {
+            using (IRoomRepository repository = new RoomRepository())
+            {
+                var tableData = repository.GetRoomsAsTable(AudaxWareIdentity, id1, id2, id3, id4, id5).Where(r => r.linked_template != true);
+
+                return Request.CreateResponse(HttpStatusCode.OK, tableData.Select(r => new
+                {
+                    domain_id = id1,
+                    project_id = id2,
+                    phase_id = r.phase_id,
+                    phase_desc = r.project_department.project_phase.description,
+                    department_id = r.department_id,
+                    department_desc = r.project_department.description,
+                    room_id = r.room_id,
+                    room_desc = r.drawing_room_name + (string.IsNullOrEmpty(r.drawing_room_number) ? "" : " - " + r.drawing_room_number) + (r.room_quantity > 1 ? " (" + r.room_quantity + ")" : "")
+                }));
+            }
+        }
+
+        [ActionName("CopyRoom")]
+        public HttpResponseMessage PostCopyRoom(int id1, int id2, bool id3, bool id4, [FromBody] List<CopyRoom> rooms)
+        {
+            using (IRoomRepository repository = new RoomRepository())
+            {
+                string addedBy = UserName;
+                var success = repository.CopyRoom(id1, id2, id3, id4, addedBy, rooms);
+
+                if (success)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, $"Rooms successfully {(id3 ? "copied" : "moved")}.");
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.Conflict, $"Error {(id3 ? "copying" : "moving")} room. Please contact technical support.");
+                }
+            }
+        }
+
     }
 }

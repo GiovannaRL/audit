@@ -5,6 +5,7 @@ using xPlannerAPI.Models;
 using xPlannerAPI.Interfaces;
 using xPlannerCommon.Models;
 using System.Data.Entity;
+using System.Diagnostics;
 
 namespace xPlannerAPI.Services
 {
@@ -48,19 +49,27 @@ namespace xPlannerAPI.Services
 
         public bool AddAssets(int projectDomainId, int projectId, int poId, List<asset_inventory> ipo, string addedBy)
         {
-            try
+            using (var _dbTransaction = _db.Database.BeginTransaction())
             {
-                foreach (var item in ipo)
+                try
                 {
-                    _db.ins_po_asset((short)projectDomainId, projectId, item.asset_domain_id, item.asset_id, poId,
-                        item.inventory_id > 0 ? item.inventory_id.ToString() : item.inventory_ids, item.budget_qty, 0, addedBy);
-                }
+                    foreach (var item in ipo)
+                    {
+                        _db.ins_po_asset((short)projectDomainId, projectId, item.asset_domain_id, item.asset_id, poId,
+                            item.inventory_id > 0 ? item.inventory_id.ToString() : item.inventory_ids, item.budget_qty, 0, addedBy);
+                    }
 
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
+                    _db.SaveChanges();
+                    _dbTransaction.Commit();
+                
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Trace.TraceError("Error when adding asset to PO: {0}", ex.Message);
+                    _dbTransaction.Rollback();
+                    return false;
+                }
             }
         }
 

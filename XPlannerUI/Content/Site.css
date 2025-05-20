@@ -1525,3 +1525,31 @@ md-input-container:focus {
 .footer > p:hover {
     cursor: pointer;
 }
+
+/* Select header*/
+.SelectWithSearch .select-header-searchbox {
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+}
+
+.SelectWithSearch .select-with-search {
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+    padding-left: 16px;
+    height: 48px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    width: auto;
+}
+
+.SelectWithSearch md-content._md {
+    max-height: 240px;
+}
+
+.SelectWithSearch md-input-container {
+    min-width: 112px;
+}
+

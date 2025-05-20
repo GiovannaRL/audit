@@ -60,8 +60,11 @@
             option: $resource(host + 'assetoptions/:action/:domain_id/:asset_option_id',
                null, {
                    'update': { method: 'PUT' }
-               }),
-            copy_from: $resource(host + 'projects/copyFrom/:domain_id/:project_id/:cp_domain_id/:cp_project_id/:cp_opt_col/:phase_id/:cp_phase_id/:department_id/:cp_department_id/:room_id/:cp_room_id'),
+            }),
+            copy_from: $resource(host + 'Rooms/CopyRoom/:domain_id/:project_id/:copy/:options',
+                {
+                    'save': { method: 'POST' }
+                }),
             asset_inventory: $resource(host + 'assetsInventory/:action/:domain_id/:project_id/:phase_id/:department_id/:room_id', null, {
                 'update': { method: 'PUT' }
             }),

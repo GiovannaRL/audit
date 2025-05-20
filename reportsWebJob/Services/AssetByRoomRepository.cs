@@ -7,6 +7,9 @@ using System.Text;
 using xPlannerCommon.Models;
 using xPlannerCommon.Services;
 using reportsWebJob.Models;
+using System.Data.SqlClient;
+using System.Data;
+using System.Globalization;
 
 namespace reportsWebJob.Services
 {
@@ -70,18 +73,18 @@ namespace reportsWebJob.Services
                     foreach (AssetByRoomItem dt in data)
                     {
                         worksheet.Cells["A10:P10"].Copy(worksheet.Cells["A" + row + ":P" + row]);
-                        worksheet.Cells[row, 1].Value = dt.asset_information.asset_desc;
+                        worksheet.Cells[row, 1].Value = $"{dt.asset_information.asset_code} - {dt.asset_information.asset_description}";
                         row++;
                         if (dt.asset_information.serial_number != null && !dt.asset_information.serial_number.Equals(""))
                         {
                             worksheet.Cells["A10:P10"].Copy(worksheet.Cells["A" + row + ":P" + row]);
-                            worksheet.Cells[row, 1].Value = dt.asset_information.serial_number;
+                            worksheet.Cells[row, 1].Value = $"{dt.asset_information.manufacturer_description}: {dt.asset_information.serial_number}";
                         }
                         row++;
-                        if (dt.asset_information.asset_comment != null && !dt.asset_information.asset_comment.Equals(""))
+                        if (dt.asset_information.comment != null && !dt.asset_information.comment.Equals(""))
                         {
                             worksheet.Cells["A10:P10"].Copy(worksheet.Cells["A" + row + ":P" + row]);
-                            worksheet.Cells[row, 1].Value = dt.asset_information.asset_comment;
+                            worksheet.Cells[row, 1].Value = dt.asset_information.comment;
                         }
                         row++;
                         if (first_header_row == -1)
@@ -96,17 +99,17 @@ namespace reportsWebJob.Services
                         row++;
                         worksheet.Cells["A14:P14"].Copy(worksheet.Cells["A" + row + ":P" + row]);
                         worksheet.Cells[row, 1].Value = dt.asset_information.eq_unit_desc;
-                        worksheet.Cells[row, 2].Value = dt.asset_information.hwd;
-                        worksheet.Cells[row, 4].Value = dt.asset_information.hwd_cm;
+                        worksheet.Cells[row, 2].Value = $"{dt.asset_information.height} | {dt.asset_information.width} | {dt.asset_information.depth}";
+                        worksheet.Cells[row, 4].Value = $"{ConvertInchToCm(dt.asset_information.height)} | {ConvertInchToCm(dt.asset_information.width)} | {ConvertInchToCm(dt.asset_information.depth)}";
                         worksheet.Cells[row, 6].Value = dt.asset_information.weight;
-                        worksheet.Cells[row, 8].Value = dt.asset_information.weight_kg;
-                        worksheet.Cells[row, 10].Value = dt.asset_information.electrical_option;
-                        worksheet.Cells[row, 11].Value = dt.asset_information.data_option;
-                        worksheet.Cells[row, 12].Value = dt.asset_information.water_option;
-                        worksheet.Cells[row, 13].Value = dt.asset_information.plumbing_option;
-                        worksheet.Cells[row, 14].Value = dt.asset_information.medgas_option;
-                        worksheet.Cells[row, 15].Value = dt.asset_information.blocking_option;
-                        worksheet.Cells[row, 16].Value = dt.asset_information.supports_option;
+                        worksheet.Cells[row, 8].Value = ConvertPoundsToKg(dt.asset_information.weight);
+                        worksheet.Cells[row, 10].Value = GetDefaultValue(dt.asset_information.electrical_option);
+                        worksheet.Cells[row, 11].Value = GetDefaultValue(dt.asset_information.data_option);
+                        worksheet.Cells[row, 12].Value = GetDefaultValue(dt.asset_information.water_option);
+                        worksheet.Cells[row, 13].Value = GetDefaultValue(dt.asset_information.plumbing_option);
+                        worksheet.Cells[row, 14].Value = GetDefaultValue(dt.asset_information.medgas_option);
+                        worksheet.Cells[row, 15].Value = GetDefaultValue(dt.asset_information.blocking_option);
+                        worksheet.Cells[row, 16].Value = GetDefaultValue(dt.asset_information.supports_option);
 
                         row++;
                         worksheet.Cells["A15:P15"].Copy(worksheet.Cells["A" + row + ":P" + row]);
@@ -118,12 +121,12 @@ namespace reportsWebJob.Services
                             worksheet.Cells["A17:P17"].Copy(worksheet.Cells["A" + first_total_row + ":P" + first_total_row]);
                         }
 
-                        foreach (AssetByRoomRoom room in dt.rooms)
+                        foreach (AssetByRoomLocation room in dt.rooms)
                         {
                             worksheet.Cells["A16:P16"].Copy(worksheet.Cells["A" + row + ":P" + row]);
                             worksheet.Cells[row, 1].Value = room.resp;
                             worksheet.Cells[row, 3].Value = room.phase_description;
-                            worksheet.Cells[row, 6].Value = room.dept_description;
+                            worksheet.Cells[row, 6].Value = room.department_description;
                             worksheet.Cells[row, 9].Value = room.drawing_room_number;
                             worksheet.Cells[row, 11].Value = room.drawing_room_name;
                             worksheet.Cells[row, 13].Value = room.total;
@@ -163,31 +166,168 @@ namespace reportsWebJob.Services
         {
             List<AssetByRoomItem> allInformation = new List<AssetByRoomItem>();
 
-            StringBuilder select = new StringBuilder("SELECT DISTINCT asset_domain_id, asset_id, ");
-            select.Append(report.use_cad_id == true ? "COALESCE(cad_id, asset_code) AS asset_code, asset_cad_desc AS asset_desc, " : "asset_code, asset_desc, ");
-            select.Append("serial_number, asset_comment, eq_unit_desc, hwd, hwd_cm, weight, weight_kg, electrical_option, data_option, water_option, plumbing_option, medgas_option, blocking_option, supports_option FROM asset_by_room AS abr ");
-            string where = GetWhereClause(report, "abr", "abr").Replace("abr.domain_id", "abr.project_domain_id");
-            select.Append(where);
-            select.Append(" ORDER BY asset_code;");
+            string useCadId = report.use_cad_id == true ? "COALESCE(cad_id, asset_code) AS asset_code," : "asset_code,";
 
-            List<AssetByRoomAsset> items = this._db.Database.SqlQuery<AssetByRoomAsset>(select.ToString()).ToList();
+            string query = $@"
+                CREATE TABLE #TempRoomIds (Id INT);
+                INSERT INTO #TempRoomIds (Id) SELECT value FROM STRING_SPLIT(@roomIds, ',');
 
-            foreach (AssetByRoomAsset asset in items)
+                SELECT DISTINCT 
+                    asset_domain_id,
+                    asset_id,
+                    {useCadId}
+                    asset_description,
+                    manufacturer_description,
+                    COALESCE(serial_name,'') AS serial_name,
+                    COALESCE(serial_number,'') AS serial_number,
+                    asset_comment AS comment,
+                    eq_unit_desc,
+                    height,
+                    width,
+                    depth,
+                    weight,
+                    electrical_option,
+                    data_option,
+                    water_option,
+                    plumbing_option,
+                    medgas_option,
+                    blocking_option,
+                    supports_option                    
+                FROM asset_inventory
+                WHERE
+                    domain_id = @domainId
+                    AND project_id = @projectId
+                    AND room_id IN (SELECT Id FROM #TempRoomIds)
+                GROUP BY
+                    asset_domain_id,
+                    asset_id,
+                    asset_description,
+                    manufacturer_description,
+                    serial_name,
+                    serial_number,
+                    asset_comment,
+                    eq_unit_desc,
+                    height,
+                    width,
+                    depth,
+                    weight,
+                    electrical_option,
+                    data_option,
+                    water_option,
+                    plumbing_option,
+                    medgas_option,
+                    blocking_option,
+                    supports_option,
+                    asset_code
+                ORDER BY
+                    asset_code;
+
+                DROP TABLE #TempRoomIds;
+            ";
+
+            var roomIds = report.report_location.Select(r => r.room_id).ToList();
+            var roomIdsString = string.Join(",", roomIds);
+
+            var parameters = new List<SqlParameter>
             {
-                select.Clear();
-                select.Append("SELECT resp, phase_description, dept_description, drawing_room_number, drawing_room_name, ");
-                select.Append("SUM(budget_qty) AS total, SUM(lease_qty) AS lease, SUM(dnp_qty) AS dnp FROM asset_by_room AS abr ");
-                select.Append(where);
-                select.Append(" AND asset_domain_id = " + asset.asset_domain_id + " AND asset_id = " + asset.asset_id);
-                select.Append(" GROUP BY resp, phase_description, dept_description, drawing_room_number, drawing_room_name ");
-                select.Append("ORDER BY resp, phase_description, dept_description, drawing_room_number, drawing_room_name;");
+                new SqlParameter("@domainId", report.project_domain_id),
+                new SqlParameter("@projectId", report.project_id),
+                new SqlParameter("@roomIds", roomIdsString)
+            };
 
-                List<AssetByRoomRoom> rooms = this._db.Database.SqlQuery<AssetByRoomRoom>(select.ToString()).ToList();
+            List<AssetByRoomInventory> items = _db.Database.SqlQuery<AssetByRoomInventory>(query, parameters.ToArray()).ToList();
 
+            //Query to get rooms by asset
+            string subQuery = $@"
+                    CREATE TABLE #TempRoomIds (Id INT);
+                    INSERT INTO #TempRoomIds (Id) SELECT value FROM STRING_SPLIT(@roomIds, ',');
+
+                    SELECT        
+	                    resp,
+	                    phase_description,
+	                    department_description,
+	                    drawing_room_number,
+	                    drawing_room_name,
+	                    SUM(budget_qty) AS total,
+	                    SUM(lease_qty) AS lease,
+	                    SUM(dnp_qty) AS dnp
+
+                    FROM
+	                    inventory_w_relo_v
+
+                    WHERE
+	                    domain_id = @domainId
+                        AND project_id = @projectId
+                        AND room_id IN (SELECT Id FROM #TempRoomIds)
+                        AND asset_domain_id = @asset_domain_id
+                        AND asset_id = @asset_id
+                        AND asset_description = @asset_description
+                        AND ISNULL(serial_name, '') = ISNULL(@serial_name, '')
+                        AND ISNULL(serial_number, '') = ISNULL(@serial_number, '')
+                    GROUP BY
+	                    resp,
+	                    phase_description,
+	                    department_description,
+	                    drawing_room_number,
+	                    drawing_room_name
+                    ORDER BY 
+	                    resp,
+	                    phase_description,
+	                    department_description,
+	                    drawing_room_number,
+	                    drawing_room_name
+
+                    DROP TABLE #TempRoomIds;                  
+
+                ";
+
+            foreach (var asset in items)
+            {
+                
+                parameters = null;
+                parameters = new List<SqlParameter>
+                {
+                    new SqlParameter("@domainId", report.project_domain_id),
+                    new SqlParameter("@projectId", report.project_id),
+                    new SqlParameter("@roomIds", roomIdsString),
+                    new SqlParameter("@asset_domain_id", asset.asset_domain_id),
+                    new SqlParameter("@asset_id", asset.asset_id),
+                    new SqlParameter("@asset_description", (object)asset.asset_description ?? DBNull.Value),
+                    new SqlParameter("@serial_name", (object)asset.serial_name ?? DBNull.Value),
+                    new SqlParameter("@serial_number", (object)asset.serial_number ?? DBNull.Value)
+                };
+
+                List<AssetByRoomLocation> rooms = _db.Database.SqlQuery<AssetByRoomLocation>(subQuery, parameters.ToArray()).ToList();
                 allInformation.Add(new AssetByRoomItem(asset, rooms));
             }
-
             return allInformation;
+        }
+
+        public static string GetDefaultValue(int? input) =>
+            input == 1 ? "Y" : input == 2 ? "O" : "--";
+
+        public static string ConvertInchToCm(string inches)
+        {
+            if (string.IsNullOrEmpty(inches))
+                return null;
+
+            double aux;
+            if (double.TryParse(inches, NumberStyles.Any, CultureInfo.InvariantCulture, out aux))
+                return (aux * 2.54).ToString(CultureInfo.InvariantCulture);
+
+            return null;
+        }
+
+        public static string ConvertPoundsToKg(string pounds)
+        {
+            if (string.IsNullOrEmpty(pounds))
+                return null;
+
+            double aux;
+            if (double.TryParse(pounds, NumberStyles.Any, CultureInfo.InvariantCulture, out aux))
+                return (aux * 0.453592).ToString(CultureInfo.InvariantCulture);
+
+            return null;
         }
     }
 }

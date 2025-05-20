@@ -184,6 +184,7 @@
     <Compile Include="Controllers\AssetTreeViewControllerTest.cs" />
     <Compile Include="Controllers\CategoriesControllerTest.cs" />
     <Compile Include="Controllers\ClientsControllerTest.cs" />
+    <Compile Include="Controllers\CopyFromControllerTest.cs" />
     <Compile Include="Controllers\DepartmentsControllerTest.cs" />
     <Compile Include="Controllers\FacilitiesControllerTest.cs" />
     <Compile Include="Controllers\OptionsControllerTest.cs" />
@@ -244,6 +245,7 @@
     <EmbeddedResource Include="Repositories\TestData\VanceLabTwoSheets.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Repositories\TestData\ProjectDefault.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ILLink\ILLink.Descriptors.LibraryBuild.xml" />

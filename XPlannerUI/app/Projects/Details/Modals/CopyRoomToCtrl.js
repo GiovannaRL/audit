@@ -19,7 +19,7 @@
             dataSource: {
                 transport: {
                     read: {
-                        url: HttpService.treeview_projects('DepartmentsTable', AuthService.getLoggedDomain()),
+                        url: HttpService.project_locations('Departments', 'DepartmentsTable', AuthService.getLoggedDomain(), local.params.project_id),
                         headers: {
                             Authorization: "Bearer " + AuthService.getAccessToken()
                         }
@@ -79,10 +79,12 @@
 
 
         $scope.reload = function () {
-            $scope.options.dataSource.transport.read.url = HttpService.treeview_projects(($scope.action == "Move" ? "PhasesTable" : "DepartmentsTable"), AuthService.getLoggedDomain());
+            var controller = ($scope.action == "Move") ? "phases" : "departments";
+            var action = ($scope.action == "Move") ? "PhasesTable" : "DepartmentsTable";
+
+            $scope.options.dataSource.transport.read.url = HttpService.project_locations(controller, action, AuthService.getLoggedDomain(), local.params.project_id);
             $scope.departmentsGrid.dataSource.options = $scope.options;
             $scope.departmentsGrid.dataSource.read();
-
         };
 
         $scope.addRoom = function () {

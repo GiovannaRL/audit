@@ -13,10 +13,22 @@
         : '');
     };
 
+    // project_locations
+    this.project_locations = function (controller, action, domain_id, project_id, phase_id, department_id, room_id) {
+        return host + controller + '/' + action + '/' + domain_id +
+            (project_id ? '/' + project_id +
+                (phase_id ? '/' + phase_id +
+                    (department_id ? '/' + department_id +
+                        (room_id ? '/' + room_id : '')
+                        : '')
+                    : '')
+                : '');
+    };
+
     //equipment_inventory
-    this.asset_inventory_consolidated = function (domain_id, project_id, phase_id, department_id, room_id, FilterPoQty, showOnlyApprovedAssets, consolidated) {
+    this.asset_inventory_consolidated = function (domain_id, project_id, phase_id, department_id, room_id, filterPoQty, showOnlyApprovedAssets, consolidated) {
         return host + 'assetsInventoryConsolidated/All/' + domain_id + '/' + project_id + '/' + phase_id +
-            '/' + department_id + '/' + room_id + '/' + FilterPoQty + '/' + showOnlyApprovedAssets + '?groupBy=' + consolidated;
+            '/' + department_id + '/' + room_id + '/' + filterPoQty + '/' + showOnlyApprovedAssets + '?groupBy=' + consolidated;
     };
 
     this.asset_inventory = function (domain_id, project_id, phase_id, department_id, room_id) {

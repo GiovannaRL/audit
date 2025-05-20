@@ -19,7 +19,7 @@ namespace xPlannerAPI {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class StringMessages {
@@ -88,11 +88,29 @@ namespace xPlannerAPI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The description {0} specified for the item is invalid. The category must be no longer than {1} chacarters..
+        /// </summary>
+        internal static string ImportDescriptionCategoryInvalid {
+            get {
+                return ResourceManager.GetString("ImportDescriptionCategoryInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The description &apos;{0}&apos; specified for the item is invalid. The description must be in the format &apos;&lt;Category&gt;, &lt;Subcategory&gt;&apos;.
         /// </summary>
         internal static string ImportDescriptionInvalid {
             get {
                 return ResourceManager.GetString("ImportDescriptionInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The description {0} specified for the item is invalid. The subcategory must be no longer than {1} chacarters..
+        /// </summary>
+        internal static string ImportDescriptionSubcategoryInvalid {
+            get {
+                return ResourceManager.GetString("ImportDescriptionSubcategoryInvalid", resourceCulture);
             }
         }
         

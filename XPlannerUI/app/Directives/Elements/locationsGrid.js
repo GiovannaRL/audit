@@ -21,7 +21,7 @@ function (GridService, HttpService, AuthService, ProgressService, toastr, KendoG
             var _dataSource = new kendo.data.DataSource({
                 transport: {
                     read: {
-                        url: HttpService.treeview_projects(scope.notLinkedOnly ? 'notLinkedRooms' : 'locationsTable',
+                        url: HttpService.project_locations('rooms', scope.notLinkedOnly ? 'unlinkedRooms' : 'locationsTable',
                             AuthService.getLoggedDomain(), scope.params.project_id, scope.params.phase_id,
                             scope.params.department_id, scope.params.room_id),
                         headers: {

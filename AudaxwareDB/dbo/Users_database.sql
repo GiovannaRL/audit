@@ -6,8 +6,6 @@ DENY VIEW DEFINITION ON __MigrationHistory TO rls_users;
 GO
 DENY VIEW DEFINITION ON user_notification TO rls_users;
 GO
-DENY VIEW DEFINITION ON asset_by_room TO rls_users;
-GO
 DENY VIEW DEFINITION ON inventory_options TO rls_users;
 GO
 DENY VIEW DEFINITION ON Sessions TO rls_users;

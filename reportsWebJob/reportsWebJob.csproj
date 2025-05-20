@@ -468,9 +468,9 @@
     <Compile Include="Models\ArtworkItem.cs" />
     <Compile Include="Models\AssetBookInventoryItem.cs" />
     <Compile Include="Models\AssetBookTocItem.cs" />
-    <Compile Include="Models\AssetByRoomAsset.cs" />
+    <Compile Include="Models\AssetByRoomInventory.cs" />
     <Compile Include="Models\AssetByRoomItem.cs" />
-    <Compile Include="Models\AssetByRoomRoom.cs" />
+    <Compile Include="Models\AssetByRoomLocation.cs" />
     <Compile Include="Models\EquipmentWithCostsItem.cs" />
     <Compile Include="Models\AssetStatusCurLocation.cs" />
     <Compile Include="Models\AssetStatusItem.cs" />

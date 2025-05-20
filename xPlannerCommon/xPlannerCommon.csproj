@@ -324,9 +324,6 @@
     <Compile Include="Models\assets_vendor.cs">
       <DependentUpon>AudaxWare.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\asset_by_room.cs">
-      <DependentUpon>AudaxWare.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\asset_import_search_Result.cs">
       <DependentUpon>AudaxWare.tt</DependentUpon>
     </Compile>
@@ -466,9 +463,6 @@
       <DependentUpon>AudaxWare.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_global_profiles_not_project_Result.cs">
-      <DependentUpon>AudaxWare.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\get_inventory_doc_link_Result.cs">
       <DependentUpon>AudaxWare.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_linked_inventories_Result.cs">

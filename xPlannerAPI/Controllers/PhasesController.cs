@@ -8,8 +8,8 @@ using xPlannerAPI.Security.Attributes;
 using xPlannerAPI.Services;
 using xPlannerCommon.Enumerators;
 using xPlannerCommon.Models;
-using xPlannerCommon.App_Data;
 using xPlannerCommon.Services;
+using xPlannerAPI.Interfaces;
 
 namespace xPlannerAPI.Controllers
 {
@@ -83,6 +83,21 @@ namespace xPlannerAPI.Controllers
                 }
 
                 return response;
+            }
+        }
+
+        [ActionName("PhasesTable")]
+        public HttpResponseMessage GetPhaseAsTable(int id1, int id2)
+        {
+            using (IPhaseRepository repository = new PhaseRepository())
+            {
+                var tableData = repository.GetPhaseAsTable(id1, AudaxWareIdentity);
+                var status = HttpStatusCode.OK;
+
+                if (!tableData.Any())
+                    status = HttpStatusCode.NotFound;
+
+                return Request.CreateResponse(status, tableData);
             }
         }
     }

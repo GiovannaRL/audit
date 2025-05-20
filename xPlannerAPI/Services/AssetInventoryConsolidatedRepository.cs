@@ -21,12 +21,12 @@ namespace xPlannerAPI.Services
             this._db = new audaxwareEntities();
         }
 
-        public List<asset_inventory> GetAll(int domainId, int projectId, int? phaseId, int? departmentId, int? roomId, string[] groupBy, bool? FilterPoQty, bool? showOnlyApprovedAssets)
+        public List<asset_inventory> GetAll(int domainId, int projectId, int? phaseId, int? departmentId, int? roomId, string[] groupBy, bool? filterPoQty, bool? showOnlyApprovedAssets)
         {
             try
             {
                 var queryGenarator = new AssetInventoryConsolidatedQueryGeneratorService();
-                string consolidatedQuery = queryGenarator.CreateQuery(domainId, projectId, phaseId, departmentId, roomId, groupBy, FilterPoQty, showOnlyApprovedAssets);
+                string consolidatedQuery = queryGenarator.CreateQuery(domainId, projectId, phaseId, departmentId, roomId, groupBy, filterPoQty, showOnlyApprovedAssets);
                 List<asset_inventory> assets = this._db.Database.SqlQuery<asset_inventory>(consolidatedQuery).ToList();
                 var columns = new List<string>() { "source_location", "target_location", "asset_description", "unit_budget_total", "total_unit_budget", "unit_budget_adjusted", "unit_escalation", "unit_escalation_calc", "unit_freight", "unit_freight_net", "unit_freight_markup", "unit_install", "unit_install_net", "unit_install_markup", "unit_markup", "unit_markup_calc", "unit_tax", "unit_tax_calc" };
 

@@ -39,12 +39,12 @@ namespace xPlannerAPI.Controllers
 
         }
 
-        [ActionName("AllIventoryPO")]
-        public IEnumerable<department_inventory_po_Result> GetAll(int id1, int id2, int id3)
+        [ActionName("AllWithFinancials")]
+        public IEnumerable<department_inventory_po_Result> GetAllWithFinancials(int id1, int id2, int id3)
         {
             using (IDepartmentRepository repository = new DepartmentRepository())
             {
-                return repository.GetWithInventoryPO(id1, id2, id3);
+                return repository.GetWithFinancials(id1, id2, id3);
             }
         }
 
@@ -100,5 +100,32 @@ namespace xPlannerAPI.Controllers
                 return response;
             }
         }
+
+        [ActionName("DepartmentsTable")]
+        public HttpResponseMessage GetDepartmentsAsTable(int id1, int id2)
+        {
+            using (IDepartmentRepository repository = new DepartmentRepository())
+            {
+                var tableData = repository.GetDepartmentAsTable(id1, AudaxWareIdentity).Select(d => new
+                {
+                    domain_id = d.domain_id,
+                    project_id = d.project_phase.project_id,
+                    project_desc =
+                    d.project_phase.project.project_description,
+                    phase_id = d.phase_id,
+                    phase_desc = d.project_phase.description,
+                    department_id = d.department_id,
+                    department_desc = d.description
+                }).ToArray();
+
+                var status = HttpStatusCode.OK;
+
+                if (!tableData.Any())
+                    status = HttpStatusCode.NotFound;
+
+                return Request.CreateResponse(status, tableData);
+            }
+        }
+
     }
 }

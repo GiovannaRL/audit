@@ -113,35 +113,27 @@ namespace xPlannerAPI.Services
         public List<asset_inventory> GetDocLink(short domain_id, int project_id, int document_id)
         {
             return _db.asset_inventory.Where(x => x.domain_id == domain_id && x.project_id == project_id).Where(y => y.linked_document == null || y.linked_document == document_id).ToList();
-            //return this._db.get_inventory_doc_link(domain_id, project_id, document_id).ToList();
         }
 
-        private bool ValidateDNPQtyForConsolidated(EditMultipleData data, List<asset_inventory> inventories) {
-            
-            if (data.edited_data.budget_qty > 0 || data.edited_data.dnp_qty > 0 || data.edited_data.lease_qty > 0)
+        private bool HasPurchaseOrderExceedingAvailableBudget(EditMultipleData data, List<asset_inventory> inventories) {
+
+            bool HasInvalidInventoryQty = inventories.Any(x =>
             {
-                if (inventories.Where(x => ((data.edited_data.budget_qty??x.budget_qty)??0) - ((data.edited_data.lease_qty??x.lease_qty)??0) < ((data.edited_data.dnp_qty??x.dnp_qty)??0)).Count() > 0)
-                {
-                    return false;
-                }
+                var budgetQty = data.edited_data.budget_qty ?? x.budget_qty ?? 0;
+                var dnpQty = data.edited_data.dnp_qty ?? x.dnp_qty ?? 0;
+                var poQty = x.po_qty ?? 0;
+
+                return (budgetQty - dnpQty) < poQty;
+            });
+
+            if (HasInvalidInventoryQty)
+            {
+                return false;
             }
 
             return true;
         }
 
-        private bool ValidatePlannedQtyForAssetsWithPOValueForConsolidated(EditMultipleData data, List<asset_inventory> inventories)
-        {
-
-            if (data.edited_data.budget_qty > 0)
-            {
-                if (inventories.Where(x => x.po_qty > 0 && data.edited_data.budget_qty != x.po_qty).Count() > 0)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
 
         public string EditMultiple(EditMultipleData data)
         {
@@ -152,13 +144,11 @@ namespace xPlannerAPI.Services
                     data.edited_data.jsn_ow = null;
 
                 var oldInventories = _db.asset_inventory.Where(x => data.inventories.Contains(x.inventory_id)).ToList();
+                
                 //VALIDATE DNP QTY FOR CONSOLIDATED
-                if (!ValidateDNPQtyForConsolidated(data, oldInventories)) {
+                if (!HasPurchaseOrderExceedingAvailableBudget(data, oldInventories)) {
                     return "The quantity values provided are not valid. DNP Qty cannot be greater than planned qty - po qty";
                 }
-
-                if (!ValidatePlannedQtyForAssetsWithPOValueForConsolidated(data, oldInventories))
-                    return "This asset is linked to a PO. The Planned Qty column should match the PO Qty";
 
                 var inventories = data.inventories;
 

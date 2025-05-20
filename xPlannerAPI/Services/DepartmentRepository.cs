@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using xPlannerAPI.Interfaces;
+using xPlannerAPI.Security.Extensions;
+using xPlannerCommon.App_Data;
 using xPlannerCommon.Models;
 
 namespace xPlannerAPI.Services
@@ -17,9 +20,24 @@ namespace xPlannerAPI.Services
             this.db = new audaxwareEntities();
         }
 
-        public List<department_inventory_po_Result> GetWithInventoryPO(int domain_id, int project_id, int phase_id)
+        public List<department_inventory_po_Result> GetWithFinancials(int domain_id, int project_id, int phase_id)
         {
             return this.db.department_inventory_po(domain_id, project_id, phase_id).ToList();
+        }
+
+        public IEnumerable<project_department> GetDepartmentAsTable(int domainId, ClaimsIdentity identity)
+        {
+            try
+            {
+                var domainProjects = db.project_department.Include("project_phase.project")
+                    .Where(pd => pd.domain_id== domainId && pd.project_id > 1).ToList();
+                return domainProjects.Where(p => identity.CheckProjectAccess(p.domain_id, p.project_id));
+            }
+            catch (Exception ex)
+            {
+                Helper.RecordLog("TreeViewRepository", "GetDepartments", ex);
+                throw new ApplicationException(ex.Message);
+            }
         }
 
         public bool Delete(int domain_id, int? project_id, int? phase_id, int? department_id)

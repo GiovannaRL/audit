@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using xPlannerCommon.Models;
 using xPlannerAPI.Models;
+using System.Security.Claims;
+using System.Net.Http;
 
 namespace xPlannerAPI.Interfaces
 {
     interface IRoomRepository : IDisposable
     {
         List<project_room> GetMIS(int domain_id, int project_id, int? phase_id);
-        List<room_inventory_po_Result> GetWithInventoryPO(int domain_id, int project_id, int phase_id, int department_id);
+        List<room_inventory_po_Result> GetWithFinancials(int domain_id, int project_id, int phase_id, int department_id);
 
         void SplitRoom(IEnumerable<SplitRoomData> data, short domain_id, int project_id, int phase_id, int department_id, int room_id, bool is_linked_template, string added_by, string template_name = "");
         List<project_room> AddMultiRoom(IEnumerable<SplitRoomData> data, short domain_id, int project_id, int phase_id, int department_id, bool is_linked_template, string added_by, int? template_id);
@@ -17,5 +19,8 @@ namespace xPlannerAPI.Interfaces
         project_room GetRoomByNames(int domain_id, int project_id, string phase, string department, string room_number, string room_name);
         void UploadRoomPictures(project_room room, List<FileData> pictures);
         project_room InsertRoomByNames(int domain_id, int project_id, string phase, string department, string room_number, string room_name, string user);
+        IEnumerable<project_room> GetRoomsAsTable(ClaimsIdentity identity, int domainId, int? projectId, int? phaseId = null,
+            int? departmentId = null, int? roomId = null);
+        bool CopyRoom(int DomainId, int fromProjectId, bool move, bool copyOptions, string addedBy, List<CopyRoom> data);
     }
 }

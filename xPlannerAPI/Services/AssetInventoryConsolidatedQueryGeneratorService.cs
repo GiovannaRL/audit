@@ -17,10 +17,10 @@ namespace xPlannerAPI.Services
         //all the columns with specialTreatment used on AddSpecialColumns needs to be added here 
         static readonly string[] _columnsToIgnore = { "inventory_ids", "inventory_id", "consolidated_view", "option_ids", "unit_budget", "phase_id", "department_id", "room_id", "phases_qty", "quantity", "departments_qty", "rooms_qty", "total_assets_options" };
         static readonly PropertyInfo[] _inventoryColumns = typeof(asset_inventory).GetProperties();
-        static readonly string[] _columnsToMin = { "cost_center_id", "jsn_description", "jsn_comments", "jsn_nomenclature", "project_description", "phase_description", "department_description", "room_number", "room_name", "final_room_number", "final_room_name", "room_count", "date_modified", "photo_domain_id", "discontinued", "clearance_top", "clearance_bottom", "clearance_right", "clearance_left", "clearance_front", "clearance_back", "weight", "loaded_weight", "ship_weight" };
+        static readonly string[] _columnsToMin = { "cost_center_id", "jsn_description", "jsn_comments", "jsn_nomenclature", "project_description", "phase_description", "department_description", "room_number", "room_name", "final_room_number", "final_room_name", "room_count", "date_modified", "photo_domain_id", "discontinued", "clearance_top", "clearance_bottom", "clearance_right", "clearance_left", "clearance_front", "clearance_back", "weight", "loaded_weight", "ship_weight", "asset_comment", "eq_unit_desc"};
         static readonly string[] _columnsToMax = { "delivered_date", "received_date", "date_added", "date_modified" };
         static readonly string[] _columnsToMinAsBit = { "detailed_budget", "has_shop_drawing", "none_option" };
-        static readonly string[] _columnsToRemoveDuplicate = { "po_number", "resp", "type_resp", "cad_id", "manufacturer_description", "cut_sheet", "serial_number", "serial_name", "photo", "cost_center", "current_location", "height", "width", "depth", "weight", "jsn_utility1", "jsn_utility2", "jsn_utility3", "jsn_utility4", "jsn_utility5", "jsn_utility6", "placement", "tag", "option_codes", "option_descriptions", "cfm", "btus", "electrical", "volts", "hertz", "watts", "data_desc", "vendor", "comment", "medgas" };//"misc_seismic", "misc_ase", "misc_ada", 
+        static readonly string[] _columnsToRemoveDuplicate = { "po_number", "resp", "type_resp", "cad_id", "manufacturer_description", "cut_sheet", "serial_number", "serial_name", "photo", "cost_center", "current_location", "height", "width", "depth", "weight", "jsn_utility1", "jsn_utility2", "jsn_utility3", "jsn_utility4", "jsn_utility5", "jsn_utility6", "placement", "tag", "option_codes", "option_descriptions", "cfm", "btus", "electrical", "volts", "hertz", "watts", "data_desc", "vendor", "comment", "medgas", "room_code", "blueprint", "staff", "functional_area" };
         static readonly string[] _stringColumnsToSum = { "options_price" };
         static readonly string[] _columnsToAgregateWithSemicolon = { "source_location", "target_location", "asset_description", "unit_budget_total", "total_unit_budget", "unit_budget_adjusted", "unit_escalation", "unit_escalation_calc", "unit_freight", "unit_freight_net", "unit_freight_markup", "unit_install", "unit_install_net", "unit_install_markup", "unit_markup", "unit_markup_calc", "unit_tax", "unit_tax_calc" };
         static readonly string[] _columnsRequiredInGroupBy = { "asset_id", "asset_domain_id", "asset_code", "domain_id", "jsn_code" };
@@ -31,7 +31,7 @@ namespace xPlannerAPI.Services
 
 
         //HttpResponseMessage
-        public string CreateQuery(int domainId, int projectId, int? phaseId, int? departmentId, int? roomId, string[] groupBy, bool? FilterPoQty = false, bool? showOnlyApprovedAssets = false)
+        public string CreateQuery(int domainId, int projectId, int? phaseId, int? departmentId, int? roomId, string[] groupBy, bool? filterPoQty = false, bool? showOnlyApprovedAssets = false)
         {
             int projectLevel = ProjectLevelEnum.Project;
             
@@ -60,7 +60,7 @@ namespace xPlannerAPI.Services
             StringBuilder sb = new StringBuilder("SELECT ");
             sb = AddSelect(sb, groupBy, projectLevel);
             sb.Append(" FROM asset_inventory a ");
-            sb = AddWhere(sb, domainId, projectId, phaseId, departmentId, roomId, FilterPoQty ?? false, showOnlyApprovedAssets ?? false);
+            sb = AddWhere(sb, domainId, projectId, phaseId, departmentId, roomId, filterPoQty, showOnlyApprovedAssets);
             sb = AddGroupBy(sb, projectLevel, groupBy);
 
             return sb.ToString(); 
@@ -104,7 +104,7 @@ namespace xPlannerAPI.Services
             return groupBy.Where(groupColumn => !_inventoryColumns.Any(inventoryColumn => inventoryColumn.Name == groupColumn.Trim())).Count() <= 0;
         }
 
-        private StringBuilder AddWhere(StringBuilder sb, int domainId, int projectId, int? phaseId, int? departmentId, int? roomId, bool FilterPoQty, bool showOnlyApprovedAssets)
+        private StringBuilder AddWhere(StringBuilder sb, int domainId, int projectId, int? phaseId, int? departmentId, int? roomId, bool? filterPoQty, bool? showOnlyApprovedAssets)
         {
             sb.Append(" WHERE project_id = " + projectId.ToString() + " AND domain_id = " + domainId.ToString());
             if ((phaseId ?? 0) > 0)
@@ -113,9 +113,9 @@ namespace xPlannerAPI.Services
                 sb.Append(" AND department_id = " + departmentId.ToString());
             if ((roomId ?? 0) > 0)
                 sb.Append(" AND room_id = " + roomId.ToString());
-            if (FilterPoQty)
+            if (filterPoQty??false)
                 sb.Append(" AND po_qty = 0");
-            if (showOnlyApprovedAssets)
+            if (showOnlyApprovedAssets??false)
                 sb.Append(" AND current_location = 'Approved'");
 
             return sb;

@@ -1393,68 +1393,6 @@ warning 6002: The table/view 'audaxware.dbo.ancillary_v' does not have a primary
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'audaxware.dbo.asset_by_room' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="asset_by_room">
-          <Key>
-            <PropertyRef Name="project_domain_id" />
-            <PropertyRef Name="project_id" />
-            <PropertyRef Name="project_description" />
-            <PropertyRef Name="dept_description" />
-            <PropertyRef Name="drawing_room_name" />
-            <PropertyRef Name="resp" />
-            <PropertyRef Name="phase_id" />
-            <PropertyRef Name="department_id" />
-            <PropertyRef Name="room_id" />
-            <PropertyRef Name="asset_id" />
-            <PropertyRef Name="hwd_cm" />
-            <PropertyRef Name="water_option" />
-            <PropertyRef Name="plumbing_option" />
-            <PropertyRef Name="data_option" />
-            <PropertyRef Name="electrical_option" />
-            <PropertyRef Name="mobile_option" />
-            <PropertyRef Name="blocking_option" />
-            <PropertyRef Name="medgas_option" />
-            <PropertyRef Name="supports_option" />
-            <PropertyRef Name="asset_domain_id" />
-          </Key>
-          <Property Name="project_domain_id" Type="smallint" Nullable="false" />
-          <Property Name="project_id" Type="int" Nullable="false" />
-          <Property Name="project_description" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="phase_description" Type="varchar" MaxLength="50" />
-          <Property Name="dept_description" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="drawing_room_name" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="drawing_room_number" Type="varchar" MaxLength="32" />
-          <Property Name="resp" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="budget_qty" Type="int" />
-          <Property Name="dnp_qty" Type="int" />
-          <Property Name="lease_qty" Type="int" />
-          <Property Name="po_qty" Type="int" />
-          <Property Name="comment" Type="varchar" MaxLength="1000" />
-          <Property Name="phase_id" Type="int" Nullable="false" />
-          <Property Name="department_id" Type="int" Nullable="false" />
-          <Property Name="room_id" Type="int" Nullable="false" />
-          <Property Name="asset_desc" Type="varchar" MaxLength="333" />
-          <Property Name="asset_id" Type="int" Nullable="false" />
-          <Property Name="asset_code" Type="varchar" MaxLength="25" />
-          <Property Name="serial_number" Type="varchar" MaxLength="202" />
-          <Property Name="asset_comment" Type="varchar" MaxLength="1000" />
-          <Property Name="weight" Type="varchar" MaxLength="25" />
-          <Property Name="weight_kg" Type="varchar" MaxLength="25" />
-          <Property Name="hwd" Type="varchar" MaxLength="108" />
-          <Property Name="hwd_cm" Type="varchar" MaxLength="267" Nullable="false" />
-          <Property Name="water_option" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="plumbing_option" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="data_option" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="electrical_option" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="mobile_option" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="blocking_option" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="medgas_option" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="supports_option" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="eq_unit_desc" Type="varchar" MaxLength="40" />
-          <Property Name="cost_center_id" Type="int" />
-          <Property Name="asset_domain_id" Type="smallint" Nullable="false" />
-          <Property Name="cad_id" Type="varchar" MaxLength="25" />
-          <Property Name="asset_cad_desc" Type="varchar" MaxLength="328" />
-        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'audaxware.dbo.asset_inventory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="asset_inventory">
@@ -1506,6 +1444,7 @@ warning 6002: The table/view 'audaxware.dbo.asset_inventory' does not have a pri
           <Property Name="asset_id" Type="int" Nullable="false" />
           <Property Name="asset_domain_id" Type="smallint" Nullable="false" />
           <Property Name="asset_code" Type="varchar" MaxLength="25" />
+          <Property Name="asset_comment" Type="varchar" MaxLength="1000" />
           <Property Name="cad_id" Type="varchar" MaxLength="25" />
           <Property Name="asset_description" Type="varchar" MaxLength="300" />
           <Property Name="manufacturer_description" Type="varchar" MaxLength="100" />
@@ -1730,6 +1669,7 @@ warning 6002: The table/view 'audaxware.dbo.asset_inventory' does not have a pri
           <Property Name="received_date" Type="date" />
           <Property Name="date_modified" Type="date" />
           <Property Name="date_added" Type="date" />
+          <Property Name="eq_unit_desc" Type="varchar" MaxLength="40" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'audaxware.dbo.asset_summarized' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2725,7 +2665,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__domain_ma__domai__184C96B4">
+        <Association Name="FK__domain_ma__domai__1A34DF26">
           <End Role="domain" Type="Self.domain" Multiplicity="1" />
           <End Role="domain_manufacturer" Type="Self.domain_manufacturer" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2737,7 +2677,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__domain_manufactu__1940BAED">
+        <Association Name="FK__domain_manufactu__1B29035F">
           <End Role="manufacturer" Type="Self.manufacturer" Multiplicity="1" />
           <End Role="domain_manufacturer" Type="Self.domain_manufacturer" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2751,7 +2691,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__manufactu__domai__23BE4960">
+        <Association Name="FK__manufactu__domai__25A691D2">
           <End Role="domain" Type="Self.domain" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -2765,7 +2705,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__project__domain___297722B6">
+        <Association Name="FK__project__domain___2B5F6B28">
           <End Role="domain" Type="Self.domain" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -2779,7 +2719,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__project_r__cost___36D11DD4">
+        <Association Name="FK__project_r__cost___38B96646">
           <End Role="cost_center" Type="Self.cost_center" Multiplicity="0..1" />
           <End Role="project_report" Type="Self.project_report" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2791,7 +2731,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__project_r__gener__35DCF99B">
+        <Association Name="FK__project_r__gener__37C5420D">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="project_report" Type="Self.project_report" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2803,7 +2743,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__project_r__repor__34E8D562">
+        <Association Name="FK__project_r__repor__36D11DD4">
           <End Role="report_type" Type="Self.report_type" Multiplicity="1" />
           <End Role="project_report" Type="Self.project_report" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2815,7 +2755,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__project_report__37C5420D">
+        <Association Name="FK__project_report__39AD8A7F">
           <End Role="project" Type="Self.project" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -2831,7 +2771,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__project_report__38B96646">
+        <Association Name="FK__project_report__3AA1AEB8">
           <End Role="project_room" Type="Self.project_room" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -2853,7 +2793,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__project_room__39AD8A7F">
+        <Association Name="FK__project_room__3B95D2F1">
           <End Role="project" Type="Self.project" Multiplicity="0..1" />
           <End Role="project_room" Type="Self.project_room" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2867,7 +2807,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__project_room__3AA1AEB8">
+        <Association Name="FK__project_room__3C89F72A">
           <End Role="department_type" Type="Self.department_type" Multiplicity="0..1" />
           <End Role="project_room" Type="Self.project_room" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2881,7 +2821,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__report_lo__repor__47FBA9D6">
+        <Association Name="FK__report_lo__repor__49E3F248">
           <End Role="project_report" Type="Self.project_report" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -2895,7 +2835,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User_grid__domai__4CC05EF3">
+        <Association Name="FK__User_grid__domai__4EA8A765">
           <End Role="domain" Type="Self.domain" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -2909,7 +2849,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__user_proj__userI__4F9CCB9E">
+        <Association Name="FK__user_proj__userI__51851410">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -2923,7 +2863,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__user_project_min__5090EFD7">
+        <Association Name="FK__user_project_min__52793849">
           <End Role="project" Type="Self.project" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -2939,7 +2879,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__vendor__domain_i__51851410">
+        <Association Name="FK__vendor__domain_i__536D5C82">
           <End Role="domain" Type="Self.domain" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -4139,11 +4079,6 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Parameter Name="asset_domain_id" Type="smallint" Mode="In" />
           <Parameter Name="asset_id" Type="int" Mode="In" />
         </Function>
-        <Function Name="get_inventory_doc_link" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="domain_id" Type="smallint" Mode="In" />
-          <Parameter Name="project_id" Type="int" Mode="In" />
-          <Parameter Name="document_id" Type="int" Mode="In" />
-        </Function>
         <Function Name="get_linked_inventories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="inventories_id" Type="varchar" Mode="In" />
         </Function>
@@ -4458,48 +4393,6 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
     [ancillary_v].[quote_discount] AS [quote_discount]
     FROM [dbo].[ancillary_v] AS [ancillary_v]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="asset_by_room" EntityType="Self.asset_by_room" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [asset_by_room].[project_domain_id] AS [project_domain_id], 
-    [asset_by_room].[project_id] AS [project_id], 
-    [asset_by_room].[project_description] AS [project_description], 
-    [asset_by_room].[phase_description] AS [phase_description], 
-    [asset_by_room].[dept_description] AS [dept_description], 
-    [asset_by_room].[drawing_room_name] AS [drawing_room_name], 
-    [asset_by_room].[drawing_room_number] AS [drawing_room_number], 
-    [asset_by_room].[resp] AS [resp], 
-    [asset_by_room].[budget_qty] AS [budget_qty], 
-    [asset_by_room].[dnp_qty] AS [dnp_qty], 
-    [asset_by_room].[lease_qty] AS [lease_qty], 
-    [asset_by_room].[po_qty] AS [po_qty], 
-    [asset_by_room].[comment] AS [comment], 
-    [asset_by_room].[phase_id] AS [phase_id], 
-    [asset_by_room].[department_id] AS [department_id], 
-    [asset_by_room].[room_id] AS [room_id], 
-    [asset_by_room].[asset_desc] AS [asset_desc], 
-    [asset_by_room].[asset_id] AS [asset_id], 
-    [asset_by_room].[asset_code] AS [asset_code], 
-    [asset_by_room].[serial_number] AS [serial_number], 
-    [asset_by_room].[asset_comment] AS [asset_comment], 
-    [asset_by_room].[weight] AS [weight], 
-    [asset_by_room].[weight_kg] AS [weight_kg], 
-    [asset_by_room].[hwd] AS [hwd], 
-    [asset_by_room].[hwd_cm] AS [hwd_cm], 
-    [asset_by_room].[water_option] AS [water_option], 
-    [asset_by_room].[plumbing_option] AS [plumbing_option], 
-    [asset_by_room].[data_option] AS [data_option], 
-    [asset_by_room].[electrical_option] AS [electrical_option], 
-    [asset_by_room].[mobile_option] AS [mobile_option], 
-    [asset_by_room].[blocking_option] AS [blocking_option], 
-    [asset_by_room].[medgas_option] AS [medgas_option], 
-    [asset_by_room].[supports_option] AS [supports_option], 
-    [asset_by_room].[eq_unit_desc] AS [eq_unit_desc], 
-    [asset_by_room].[cost_center_id] AS [cost_center_id], 
-    [asset_by_room].[asset_domain_id] AS [asset_domain_id], 
-    [asset_by_room].[cad_id] AS [cad_id], 
-    [asset_by_room].[asset_cad_desc] AS [asset_cad_desc]
-    FROM [dbo].[asset_by_room] AS [asset_by_room]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="asset_inventory" EntityType="Self.asset_inventory" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [asset_inventory].[inventory_id] AS [inventory_id], 
@@ -4522,6 +4415,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
     [asset_inventory].[asset_id] AS [asset_id], 
     [asset_inventory].[asset_domain_id] AS [asset_domain_id], 
     [asset_inventory].[asset_code] AS [asset_code], 
+    [asset_inventory].[asset_comment] AS [asset_comment], 
     [asset_inventory].[cad_id] AS [cad_id], 
     [asset_inventory].[asset_description] AS [asset_description], 
     [asset_inventory].[manufacturer_description] AS [manufacturer_description], 
@@ -4745,7 +4639,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
     [asset_inventory].[delivered_date] AS [delivered_date], 
     [asset_inventory].[received_date] AS [received_date], 
     [asset_inventory].[date_modified] AS [date_modified], 
-    [asset_inventory].[date_added] AS [date_added]
+    [asset_inventory].[date_added] AS [date_added], 
+    [asset_inventory].[eq_unit_desc] AS [eq_unit_desc]
     FROM [dbo].[asset_inventory] AS [asset_inventory]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="asset_summarized" EntityType="Self.asset_summarized" store:Type="Views" store:Schema="dbo">
@@ -5258,67 +5153,67 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             <End Role="project" EntitySet="project" />
             <End Role="final_disposition" EntitySet="final_disposition" />
           </AssociationSet>
-          <AssociationSet Name="FK__domain_ma__domai__184C96B4" Association="Self.FK__domain_ma__domai__184C96B4">
+          <AssociationSet Name="FK__domain_ma__domai__1A34DF26" Association="Self.FK__domain_ma__domai__1A34DF26">
             <End Role="domain" EntitySet="domain" />
             <End Role="domain_manufacturer" EntitySet="domain_manufacturer" />
           </AssociationSet>
-          <AssociationSet Name="FK__domain_manufactu__1940BAED" Association="Self.FK__domain_manufactu__1940BAED">
+          <AssociationSet Name="FK__domain_manufactu__1B29035F" Association="Self.FK__domain_manufactu__1B29035F">
             <End Role="manufacturer" EntitySet="manufacturer" />
             <End Role="domain_manufacturer" EntitySet="domain_manufacturer" />
           </AssociationSet>
-          <AssociationSet Name="FK__manufactu__domai__23BE4960" Association="Self.FK__manufactu__domai__23BE4960">
+          <AssociationSet Name="FK__manufactu__domai__25A691D2" Association="Self.FK__manufactu__domai__25A691D2">
             <End Role="domain" EntitySet="domain" />
             <End Role="manufacturer" EntitySet="manufacturer" />
           </AssociationSet>
-          <AssociationSet Name="FK__project__domain___297722B6" Association="Self.FK__project__domain___297722B6">
+          <AssociationSet Name="FK__project__domain___2B5F6B28" Association="Self.FK__project__domain___2B5F6B28">
             <End Role="domain" EntitySet="domain" />
             <End Role="project" EntitySet="project" />
           </AssociationSet>
-          <AssociationSet Name="FK__project_r__cost___36D11DD4" Association="Self.FK__project_r__cost___36D11DD4">
+          <AssociationSet Name="FK__project_r__cost___38B96646" Association="Self.FK__project_r__cost___38B96646">
             <End Role="cost_center" EntitySet="cost_center" />
             <End Role="project_report" EntitySet="project_report" />
           </AssociationSet>
-          <AssociationSet Name="FK__project_r__gener__35DCF99B" Association="Self.FK__project_r__gener__35DCF99B">
+          <AssociationSet Name="FK__project_r__gener__37C5420D" Association="Self.FK__project_r__gener__37C5420D">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="project_report" EntitySet="project_report" />
           </AssociationSet>
-          <AssociationSet Name="FK__project_r__repor__34E8D562" Association="Self.FK__project_r__repor__34E8D562">
+          <AssociationSet Name="FK__project_r__repor__36D11DD4" Association="Self.FK__project_r__repor__36D11DD4">
             <End Role="report_type" EntitySet="report_type" />
             <End Role="project_report" EntitySet="project_report" />
           </AssociationSet>
-          <AssociationSet Name="FK__project_report__37C5420D" Association="Self.FK__project_report__37C5420D">
+          <AssociationSet Name="FK__project_report__39AD8A7F" Association="Self.FK__project_report__39AD8A7F">
             <End Role="project" EntitySet="project" />
             <End Role="project_report" EntitySet="project_report" />
           </AssociationSet>
-          <AssociationSet Name="FK__project_report__38B96646" Association="Self.FK__project_report__38B96646">
+          <AssociationSet Name="FK__project_report__3AA1AEB8" Association="Self.FK__project_report__3AA1AEB8">
             <End Role="project_room" EntitySet="project_room" />
             <End Role="project_report" EntitySet="project_report" />
           </AssociationSet>
-          <AssociationSet Name="FK__project_room__39AD8A7F" Association="Self.FK__project_room__39AD8A7F">
+          <AssociationSet Name="FK__project_room__3B95D2F1" Association="Self.FK__project_room__3B95D2F1">
             <End Role="project" EntitySet="project" />
             <End Role="project_room" EntitySet="project_room" />
           </AssociationSet>
-          <AssociationSet Name="FK__project_room__3AA1AEB8" Association="Self.FK__project_room__3AA1AEB8">
+          <AssociationSet Name="FK__project_room__3C89F72A" Association="Self.FK__project_room__3C89F72A">
             <End Role="department_type" EntitySet="department_type" />
             <End Role="project_room" EntitySet="project_room" />
           </AssociationSet>
-          <AssociationSet Name="FK__report_lo__repor__47FBA9D6" Association="Self.FK__report_lo__repor__47FBA9D6">
+          <AssociationSet Name="FK__report_lo__repor__49E3F248" Association="Self.FK__report_lo__repor__49E3F248">
             <End Role="project_report" EntitySet="project_report" />
             <End Role="report_location" EntitySet="report_location" />
           </AssociationSet>
-          <AssociationSet Name="FK__User_grid__domai__4CC05EF3" Association="Self.FK__User_grid__domai__4CC05EF3">
+          <AssociationSet Name="FK__User_grid__domai__4EA8A765" Association="Self.FK__User_grid__domai__4EA8A765">
             <End Role="domain" EntitySet="domain" />
             <End Role="User_gridView" EntitySet="User_gridView" />
           </AssociationSet>
-          <AssociationSet Name="FK__user_proj__userI__4F9CCB9E" Association="Self.FK__user_proj__userI__4F9CCB9E">
+          <AssociationSet Name="FK__user_proj__userI__51851410" Association="Self.FK__user_proj__userI__51851410">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="user_project_mine" EntitySet="user_project_mine" />
           </AssociationSet>
-          <AssociationSet Name="FK__user_project_min__5090EFD7" Association="Self.FK__user_project_min__5090EFD7">
+          <AssociationSet Name="FK__user_project_min__52793849" Association="Self.FK__user_project_min__52793849">
             <End Role="project" EntitySet="project" />
             <End Role="user_project_mine" EntitySet="user_project_mine" />
           </AssociationSet>
-          <AssociationSet Name="FK__vendor__domain_i__51851410" Association="Self.FK__vendor__domain_i__51851410">
+          <AssociationSet Name="FK__vendor__domain_i__536D5C82" Association="Self.FK__vendor__domain_i__536D5C82">
             <End Role="domain" EntitySet="domain" />
             <End Role="vendor" EntitySet="vendor" />
           </AssociationSet>
@@ -6217,68 +6112,6 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Name="install_budget" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="quote_discount" Type="Decimal" Precision="38" Scale="2" />
         </EntityType>
-        <EntityType Name="asset_by_room">
-          <Key>
-            <PropertyRef Name="project_domain_id" />
-            <PropertyRef Name="project_id" />
-            <PropertyRef Name="project_description" />
-            <PropertyRef Name="dept_description" />
-            <PropertyRef Name="drawing_room_name" />
-            <PropertyRef Name="resp" />
-            <PropertyRef Name="phase_id" />
-            <PropertyRef Name="department_id" />
-            <PropertyRef Name="room_id" />
-            <PropertyRef Name="asset_id" />
-            <PropertyRef Name="hwd_cm" />
-            <PropertyRef Name="water_option" />
-            <PropertyRef Name="plumbing_option" />
-            <PropertyRef Name="data_option" />
-            <PropertyRef Name="electrical_option" />
-            <PropertyRef Name="mobile_option" />
-            <PropertyRef Name="blocking_option" />
-            <PropertyRef Name="medgas_option" />
-            <PropertyRef Name="supports_option" />
-            <PropertyRef Name="asset_domain_id" />
-          </Key>
-          <Property Name="project_domain_id" Type="Int16" Nullable="false" />
-          <Property Name="project_id" Type="Int32" Nullable="false" />
-          <Property Name="project_description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="phase_description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="dept_description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="drawing_room_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="drawing_room_number" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="resp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="budget_qty" Type="Int32" />
-          <Property Name="dnp_qty" Type="Int32" />
-          <Property Name="lease_qty" Type="Int32" />
-          <Property Name="po_qty" Type="Int32" />
-          <Property Name="comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="phase_id" Type="Int32" Nullable="false" />
-          <Property Name="department_id" Type="Int32" Nullable="false" />
-          <Property Name="room_id" Type="Int32" Nullable="false" />
-          <Property Name="asset_desc" Type="String" MaxLength="333" FixedLength="false" Unicode="false" />
-          <Property Name="asset_id" Type="Int32" Nullable="false" />
-          <Property Name="asset_code" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="serial_number" Type="String" MaxLength="202" FixedLength="false" Unicode="false" />
-          <Property Name="asset_comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="weight" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="weight_kg" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="hwd" Type="String" MaxLength="108" FixedLength="false" Unicode="false" />
-          <Property Name="hwd_cm" Type="String" MaxLength="267" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="water_option" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="plumbing_option" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="data_option" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="electrical_option" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="mobile_option" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="blocking_option" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="medgas_option" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="supports_option" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="eq_unit_desc" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="cost_center_id" Type="Int32" />
-          <Property Name="asset_domain_id" Type="Int16" Nullable="false" />
-          <Property Name="cad_id" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="asset_cad_desc" Type="String" MaxLength="328" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="AudaxWarePowerBI">
           <Key>
             <PropertyRef Name="Project" />
@@ -6741,7 +6574,6 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <EntitySet Name="users_track" EntityType="Self.users_track" />
           <EntitySet Name="vendors" EntityType="Self.vendor" />
           <EntitySet Name="ancillary_v" EntityType="Self.ancillary_v" />
-          <EntitySet Name="asset_by_room" EntityType="Self.asset_by_room" />
           <EntitySet Name="AudaxWarePowerBIs" EntityType="Self.AudaxWarePowerBI" />
           <EntitySet Name="full_project_name" EntityType="Self.full_project_name" />
           <EntitySet Name="inventory_po_qty_v" EntityType="Self.inventory_po_qty_v" />
@@ -7569,11 +7401,6 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             <End Role="purchase_order" EntitySet="purchase_order" />
             <End Role="inventory_purchase_order" EntitySet="inventory_purchase_order" />
           </AssociationSet>
-          <FunctionImport Name="get_inventory_doc_link" ReturnType="Collection(AudaxWare.get_inventory_doc_link_Result)">
-            <Parameter Name="domain_id" Mode="In" Type="Int16" />
-            <Parameter Name="project_id" Mode="In" Type="Int32" />
-            <Parameter Name="document_id" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="get_available_assets_to_PO" ReturnType="Collection(AudaxWare.get_available_assets_to_PO_Result)">
             <Parameter Name="domain_id" Mode="In" Type="Int32" />
             <Parameter Name="project_id" Mode="In" Type="Int32" />
@@ -10174,218 +10001,6 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="get_inventory_doc_link_Result">
-          <Property Type="Int32" Name="inventory_id" Nullable="false" />
-          <Property Type="Int32" Name="consolidated_view" Nullable="false" />
-          <Property Type="String" Name="phase_description" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="department_description" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="room_number" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="room_name" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="final_room_number" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="final_room_name" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="room_count" Nullable="false" />
-          <Property Type="String" Name="resp" Nullable="false" MaxLength="4" />
-          <Property Type="String" Name="type_resp" Nullable="false" MaxLength="8" />
-          <Property Type="Int32" Name="project_id" Nullable="false" />
-          <Property Type="Int32" Name="phase_id" Nullable="false" />
-          <Property Type="Int32" Name="department_id" Nullable="false" />
-          <Property Type="Int32" Name="room_id" Nullable="false" />
-          <Property Type="Int32" Name="asset_id" Nullable="false" />
-          <Property Type="Int16" Name="asset_domain_id" Nullable="false" />
-          <Property Type="String" Name="asset_code" Nullable="true" MaxLength="25" />
-          <Property Type="String" Name="cad_id" Nullable="true" MaxLength="25" />
-          <Property Type="String" Name="asset_description" Nullable="true" MaxLength="300" />
-          <Property Type="String" Name="manufacturer_description" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="budget_qty" Nullable="true" />
-          <Property Type="Int32" Name="dnp_qty" Nullable="true" />
-          <Property Type="Int32" Name="lease_qty" Nullable="true" />
-          <Property Type="String" Name="quote_number" Nullable="true" MaxLength="8000" />
-          <Property Type="String" Name="vendor" Nullable="true" MaxLength="8000" />
-          <Property Type="String" Name="po_requested_number" Nullable="true" MaxLength="8000" />
-          <Property Type="Int32" Name="po_qty" Nullable="true" />
-          <Property Type="Decimal" Name="asset_total_budget" Nullable="true" Precision="21" Scale="2" />
-          <Property Type="String" Name="options_price" Nullable="true" MaxLength="15" />
-          <Property Type="Decimal" Name="total_budget_amt" Nullable="true" Precision="33" Scale="2" />
-          <Property Type="Decimal" Name="total_po_amt" Nullable="true" Precision="38" Scale="15" />
-          <Property Type="Decimal" Name="buyout_delta" Nullable="true" Precision="38" Scale="15" />
-          <Property Type="String" Name="cut_sheet" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="cad_block" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="serial_number" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="serial_name" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="revit" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="photo" Nullable="true" MaxLength="100" />
-          <Property Type="Int16" Name="photo_domain_id" Nullable="false" />
-          <Property Type="String" Name="tag_photo" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="discontinued" Nullable="false" MaxLength="1" />
-          <Property Type="Int32" Name="net_new" Nullable="true" />
-          <Property Type="String" Name="cost_center" Nullable="true" MaxLength="20" />
-          <Property Type="Int32" Name="cost_center_id" Nullable="true" />
-          <Property Type="String" Name="po_status" Nullable="true" />
-          <Property Type="String" Name="current_location" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="tag" Nullable="true" MaxLength="5000" />
-          <Property Type="Decimal" Name="unit_budget" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="DateTime" Name="estimated_delivery_date" Nullable="true" />
-          <Property Type="String" Name="comment" Nullable="true" MaxLength="1000" />
-          <Property Type="Int16" Name="domain_id" Nullable="false" />
-          <Property Type="Boolean" Name="none_option" Nullable="true" />
-          <Property Type="String" Name="medgas" Nullable="true" MaxLength="150" />
-          <Property Type="Int32" Name="medgas_option" Nullable="true" />
-          <Property Type="Boolean" Name="medgas_oxygen" Nullable="true" />
-          <Property Type="Boolean" Name="medgas_air" Nullable="true" />
-          <Property Type="Boolean" Name="medgas_n2o" Nullable="true" />
-          <Property Type="Boolean" Name="medgas_co2" Nullable="true" />
-          <Property Type="Boolean" Name="medgas_wag" Nullable="true" />
-          <Property Type="Boolean" Name="medgas_other" Nullable="true" />
-          <Property Type="Boolean" Name="medgas_nitrogen" Nullable="true" />
-          <Property Type="Boolean" Name="medgas_vacuum" Nullable="true" />
-          <Property Type="Boolean" Name="medgas_steam" Nullable="true" />
-          <Property Type="Boolean" Name="medgas_natgas" Nullable="true" />
-          <Property Type="Boolean" Name="gas_liquid_co2" Nullable="true" />
-          <Property Type="Boolean" Name="gas_liquid_nitrogen" Nullable="true" />
-          <Property Type="Boolean" Name="gas_instrument_air" Nullable="true" />
-          <Property Type="Boolean" Name="gas_liquid_propane_gas" Nullable="true" />
-          <Property Type="Boolean" Name="gas_methane" Nullable="true" />
-          <Property Type="Boolean" Name="gas_butane" Nullable="true" />
-          <Property Type="Boolean" Name="gas_propane" Nullable="true" />
-          <Property Type="Boolean" Name="gas_hydrogen" Nullable="true" />
-          <Property Type="Boolean" Name="gas_acetylene" Nullable="true" />
-          <Property Type="Boolean" Name="medgas_high_pressure" Nullable="true" />
-          <Property Type="Boolean" Name="misc_shielding_magnetic" Nullable="true" />
-          <Property Type="Boolean" Name="misc_antimicrobial" Nullable="true" />
-          <Property Type="Boolean" Name="misc_ecolabel" Nullable="true" />
-          <Property Type="String" Name="misc_ecolabel_desc" Nullable="true" MaxLength="150" />
-          <Property Type="Boolean" Name="misc_shielding_lead_line" Nullable="true" />
-          <Property Type="String" Name="plumbing" Nullable="true" MaxLength="300" />
-          <Property Type="Int32" Name="plumbing_option" Nullable="true" />
-          <Property Type="Boolean" Name="plu_hot_water" Nullable="true" />
-          <Property Type="Boolean" Name="plu_cold_water" Nullable="true" />
-          <Property Type="Boolean" Name="plu_drain" Nullable="true" />
-          <Property Type="Boolean" Name="plu_return" Nullable="true" />
-          <Property Type="Boolean" Name="plu_treated_water" Nullable="true" />
-          <Property Type="Boolean" Name="plu_chilled_water" Nullable="true" />
-          <Property Type="Boolean" Name="plu_relief" Nullable="true" />
-          <Property Type="String" Name="water" Nullable="true" MaxLength="150" />
-          <Property Type="Int32" Name="water_option" Nullable="true" />
-          <Property Type="String" Name="cfm" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="btus" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="electrical" Nullable="true" MaxLength="150" />
-          <Property Type="Int32" Name="electrical_option" Nullable="true" />
-          <Property Type="String" Name="volts" Nullable="true" MaxLength="20" />
-          <Property Type="Int32" Name="phases" Nullable="true" />
-          <Property Type="String" Name="hertz" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="amps" Nullable="true" MaxLength="20" />
-          <Property Type="Decimal" Name="volt_amps" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="String" Name="watts" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="connection_type" Nullable="true" MaxLength="20" />
-          <Property Type="Boolean" Name="connection_type_ow" Nullable="true" />
-          <Property Type="String" Name="plug_type" Nullable="true" MaxLength="20" />
-          <Property Type="Boolean" Name="plug_type_ow" Nullable="true" />
-          <Property Type="String" Name="blocking" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="blocking_option" Nullable="true" />
-          <Property Type="String" Name="supports" Nullable="true" MaxLength="150" />
-          <Property Type="Int32" Name="supports_option" Nullable="true" />
-          <Property Type="Boolean" Name="misc_seismic" Nullable="true" />
-          <Property Type="Boolean" Name="misc_ase" Nullable="true" />
-          <Property Type="Boolean" Name="misc_ada" Nullable="true" />
-          <Property Type="String" Name="mobile" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="mobile_option" Nullable="true" />
-          <Property Type="String" Name="height" Nullable="true" MaxLength="25" />
-          <Property Type="Boolean" Name="height_ow" Nullable="true" />
-          <Property Type="String" Name="width" Nullable="true" MaxLength="25" />
-          <Property Type="Boolean" Name="width_ow" Nullable="true" />
-          <Property Type="String" Name="depth" Nullable="true" MaxLength="25" />
-          <Property Type="Boolean" Name="depth_ow" Nullable="true" />
-          <Property Type="String" Name="mounting_height" Nullable="true" MaxLength="25" />
-          <Property Type="Boolean" Name="mounting_height_ow" Nullable="true" />
-          <Property Type="Decimal" Name="clearance_top" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="clearance_bottom" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="clearance_right" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="clearance_left" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="clearance_front" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="clearance_back" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="String" Name="weight" Nullable="true" MaxLength="25" />
-          <Property Type="Decimal" Name="loaded_weight" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="ship_weight" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="String" Name="option_ids" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="lead_time" Nullable="true" />
-          <Property Type="String" Name="data_desc" Nullable="true" MaxLength="150" />
-          <Property Type="Int32" Name="data_option" Nullable="true" />
-          <Property Type="String" Name="option_codes" Nullable="true" />
-          <Property Type="String" Name="option_descriptions" Nullable="true" />
-          <Property Type="Int32" Name="total_assets_options" Nullable="true" />
-          <Property Type="Int32" Name="linked_template" Nullable="false" />
-          <Property Type="String" Name="asset_profile" Nullable="true" MaxLength="5003" />
-          <Property Type="String" Name="profile_text" Nullable="true" MaxLength="3000" />
-          <Property Type="String" Name="profile_budget" Nullable="true" MaxLength="2000" />
-          <Property Type="Boolean" Name="detailed_budget" Nullable="false" />
-          <Property Type="Decimal" Name="total_unit_budget" Nullable="true" Precision="11" Scale="2" />
-          <Property Type="Int32" Name="linked_document" Nullable="true" />
-          <Property Type="String" Name="pdoc_blob_filename" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="pdoc_filename" Nullable="false" MaxLength="211" />
-          <Property Type="Boolean" Name="has_shop_drawing" Nullable="true" />
-          <Property Type="String" Name="profile_tooltip" Nullable="true" />
-          <Property Type="String" Name="po_number" Nullable="true" />
-          <Property Type="Int32" Name="class" Nullable="true" />
-          <Property Type="Boolean" Name="class_ow" Nullable="true" />
-          <Property Type="String" Name="clin" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="jsn_code" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="jsn_description" Nullable="true" />
-          <Property Type="String" Name="jsn_comments" Nullable="true" MaxLength="1000" />
-          <Property Type="String" Name="jsn_nomenclature" Nullable="true" MaxLength="300" />
-          <Property Type="String" Name="jsn_utility1" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="jsn_utility2" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="jsn_utility3" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="jsn_utility4" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="jsn_utility5" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="jsn_utility6" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="blueprint" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="room_area" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="String" Name="room_code" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="staff" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="functional_area" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="source_location" Nullable="true" MaxLength="784" />
-          <Property Type="String" Name="target_location" Nullable="true" MaxLength="784" />
-          <Property Type="String" Name="source_room" Nullable="true" MaxLength="325" />
-          <Property Type="String" Name="target_room" Nullable="true" MaxLength="325" />
-          <Property Type="Decimal" Name="unit_markup" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="unit_escalation" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="unit_freight_net" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="unit_freight_markup" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="unit_install_net" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="unit_install_markup" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="unit_tax" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Int32" Name="departments_qty" Nullable="false" />
-          <Property Type="Int32" Name="phases_qty" Nullable="false" />
-          <Property Type="Int32" Name="quantity" Nullable="false" />
-          <Property Type="Int32" Name="rooms_qty" Nullable="false" />
-          <Property Type="Decimal" Name="unit_markup_calc" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="unit_escalation_calc" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="unit_budget_adjusted" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="unit_tax_calc" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="unit_install" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="unit_freight" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="unit_budget_total" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="total_install_net" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="total_budget_adjusted" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="total_tax" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="total_install" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="total_freight_net" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="total_freight" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="total_budget" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="String" Name="ECN" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="placement" Nullable="true" MaxLength="20" />
-          <Property Type="Boolean" Name="placement_ow" Nullable="true" />
-          <Property Type="Boolean" Name="biomed_check_required" Nullable="true" />
-          <Property Type="Boolean" Name="asset_description_ow" Nullable="true" />
-          <Property Type="String" Name="temporary_location" Nullable="true" MaxLength="200" />
-          <Property Type="Boolean" Name="jsn_ow" Nullable="true" />
-          <Property Type="Boolean" Name="manufacturer_description_ow" Nullable="true" />
-          <Property Type="Boolean" Name="serial_number_ow" Nullable="true" />
-          <Property Type="Boolean" Name="serial_name_ow" Nullable="true" />
-          <Property Type="String" Name="final_disposition" Nullable="true" MaxLength="200" />
-          <Property Type="DateTime" Name="delivered_date" Nullable="true" />
-          <Property Type="DateTime" Name="received_date" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="get_available_assets_to_PO_Result">
           <Property Type="String" Name="inventory_ids" Nullable="true" MaxLength="4000" />
           <Property Type="Int16" Name="domain_id" Nullable="false" />
@@ -11858,6 +11473,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Name="received_date" Type="DateTime" Precision="0" />
           <Property Name="date_modified" Type="DateTime" Precision="0" />
           <Property Name="date_added" Type="DateTime" Precision="0" />
+          <Property Name="eq_unit_desc" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="asset_comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -12463,50 +12080,6 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
                 <ScalarProperty Name="warranty_projected" ColumnName="warranty_projected" />
                 <ScalarProperty Name="install_charges" ColumnName="install_charges" />
                 <ScalarProperty Name="install_projected" ColumnName="install_projected" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="asset_by_room">
-            <EntityTypeMapping TypeName="AudaxWare.asset_by_room">
-              <MappingFragment StoreEntitySet="asset_by_room">
-                <ScalarProperty Name="project_domain_id" ColumnName="project_domain_id" />
-                <ScalarProperty Name="project_id" ColumnName="project_id" />
-                <ScalarProperty Name="project_description" ColumnName="project_description" />
-                <ScalarProperty Name="phase_description" ColumnName="phase_description" />
-                <ScalarProperty Name="dept_description" ColumnName="dept_description" />
-                <ScalarProperty Name="drawing_room_name" ColumnName="drawing_room_name" />
-                <ScalarProperty Name="drawing_room_number" ColumnName="drawing_room_number" />
-                <ScalarProperty Name="resp" ColumnName="resp" />
-                <ScalarProperty Name="budget_qty" ColumnName="budget_qty" />
-                <ScalarProperty Name="dnp_qty" ColumnName="dnp_qty" />
-                <ScalarProperty Name="lease_qty" ColumnName="lease_qty" />
-                <ScalarProperty Name="po_qty" ColumnName="po_qty" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
-                <ScalarProperty Name="phase_id" ColumnName="phase_id" />
-                <ScalarProperty Name="department_id" ColumnName="department_id" />
-                <ScalarProperty Name="room_id" ColumnName="room_id" />
-                <ScalarProperty Name="asset_desc" ColumnName="asset_desc" />
-                <ScalarProperty Name="asset_id" ColumnName="asset_id" />
-                <ScalarProperty Name="asset_code" ColumnName="asset_code" />
-                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
-                <ScalarProperty Name="asset_comment" ColumnName="asset_comment" />
-                <ScalarProperty Name="weight" ColumnName="weight" />
-                <ScalarProperty Name="weight_kg" ColumnName="weight_kg" />
-                <ScalarProperty Name="hwd" ColumnName="hwd" />
-                <ScalarProperty Name="hwd_cm" ColumnName="hwd_cm" />
-                <ScalarProperty Name="water_option" ColumnName="water_option" />
-                <ScalarProperty Name="plumbing_option" ColumnName="plumbing_option" />
-                <ScalarProperty Name="data_option" ColumnName="data_option" />
-                <ScalarProperty Name="electrical_option" ColumnName="electrical_option" />
-                <ScalarProperty Name="mobile_option" ColumnName="mobile_option" />
-                <ScalarProperty Name="blocking_option" ColumnName="blocking_option" />
-                <ScalarProperty Name="medgas_option" ColumnName="medgas_option" />
-                <ScalarProperty Name="supports_option" ColumnName="supports_option" />
-                <ScalarProperty Name="eq_unit_desc" ColumnName="eq_unit_desc" />
-                <ScalarProperty Name="cost_center_id" ColumnName="cost_center_id" />
-                <ScalarProperty Name="asset_domain_id" ColumnName="asset_domain_id" />
-                <ScalarProperty Name="cad_id" ColumnName="cad_id" />
-                <ScalarProperty Name="asset_cad_desc" ColumnName="asset_cad_desc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -14084,222 +13657,6 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="get_inventory_doc_link" FunctionName="AudaxWare.Store.get_inventory_doc_link">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AudaxWare.get_inventory_doc_link_Result">
-                <ScalarProperty Name="inventory_id" ColumnName="inventory_id" />
-                <ScalarProperty Name="consolidated_view" ColumnName="consolidated_view" />
-                <ScalarProperty Name="phase_description" ColumnName="phase_description" />
-                <ScalarProperty Name="department_description" ColumnName="department_description" />
-                <ScalarProperty Name="room_number" ColumnName="room_number" />
-                <ScalarProperty Name="room_name" ColumnName="room_name" />
-                <ScalarProperty Name="final_room_number" ColumnName="final_room_number" />
-                <ScalarProperty Name="final_room_name" ColumnName="final_room_name" />
-                <ScalarProperty Name="room_count" ColumnName="room_count" />
-                <ScalarProperty Name="resp" ColumnName="resp" />
-                <ScalarProperty Name="type_resp" ColumnName="type_resp" />
-                <ScalarProperty Name="project_id" ColumnName="project_id" />
-                <ScalarProperty Name="phase_id" ColumnName="phase_id" />
-                <ScalarProperty Name="department_id" ColumnName="department_id" />
-                <ScalarProperty Name="room_id" ColumnName="room_id" />
-                <ScalarProperty Name="asset_id" ColumnName="asset_id" />
-                <ScalarProperty Name="asset_domain_id" ColumnName="asset_domain_id" />
-                <ScalarProperty Name="asset_code" ColumnName="asset_code" />
-                <ScalarProperty Name="cad_id" ColumnName="cad_id" />
-                <ScalarProperty Name="asset_description" ColumnName="asset_description" />
-                <ScalarProperty Name="manufacturer_description" ColumnName="manufacturer_description" />
-                <ScalarProperty Name="budget_qty" ColumnName="budget_qty" />
-                <ScalarProperty Name="dnp_qty" ColumnName="dnp_qty" />
-                <ScalarProperty Name="lease_qty" ColumnName="lease_qty" />
-                <ScalarProperty Name="quote_number" ColumnName="quote_number" />
-                <ScalarProperty Name="vendor" ColumnName="vendor" />
-                <ScalarProperty Name="po_requested_number" ColumnName="po_requested_number" />
-                <ScalarProperty Name="po_qty" ColumnName="po_qty" />
-                <ScalarProperty Name="asset_total_budget" ColumnName="asset_total_budget" />
-                <ScalarProperty Name="options_price" ColumnName="options_price" />
-                <ScalarProperty Name="total_budget_amt" ColumnName="total_budget_amt" />
-                <ScalarProperty Name="total_po_amt" ColumnName="total_po_amt" />
-                <ScalarProperty Name="buyout_delta" ColumnName="buyout_delta" />
-                <ScalarProperty Name="cut_sheet" ColumnName="cut_sheet" />
-                <ScalarProperty Name="cad_block" ColumnName="cad_block" />
-                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
-                <ScalarProperty Name="serial_name" ColumnName="serial_name" />
-                <ScalarProperty Name="revit" ColumnName="revit" />
-                <ScalarProperty Name="photo" ColumnName="photo" />
-                <ScalarProperty Name="photo_domain_id" ColumnName="photo_domain_id" />
-                <ScalarProperty Name="tag_photo" ColumnName="tag_photo" />
-                <ScalarProperty Name="discontinued" ColumnName="discontinued" />
-                <ScalarProperty Name="net_new" ColumnName="net_new" />
-                <ScalarProperty Name="cost_center" ColumnName="cost_center" />
-                <ScalarProperty Name="cost_center_id" ColumnName="cost_center_id" />
-                <ScalarProperty Name="po_status" ColumnName="po_status" />
-                <ScalarProperty Name="current_location" ColumnName="current_location" />
-                <ScalarProperty Name="tag" ColumnName="tag" />
-                <ScalarProperty Name="unit_budget" ColumnName="unit_budget" />
-                <ScalarProperty Name="estimated_delivery_date" ColumnName="estimated_delivery_date" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
-                <ScalarProperty Name="domain_id" ColumnName="domain_id" />
-                <ScalarProperty Name="none_option" ColumnName="none_option" />
-                <ScalarProperty Name="medgas" ColumnName="medgas" />
-                <ScalarProperty Name="medgas_option" ColumnName="medgas_option" />
-                <ScalarProperty Name="medgas_oxygen" ColumnName="medgas_oxygen" />
-                <ScalarProperty Name="medgas_air" ColumnName="medgas_air" />
-                <ScalarProperty Name="medgas_n2o" ColumnName="medgas_n2o" />
-                <ScalarProperty Name="medgas_co2" ColumnName="medgas_co2" />
-                <ScalarProperty Name="medgas_wag" ColumnName="medgas_wag" />
-                <ScalarProperty Name="medgas_other" ColumnName="medgas_other" />
-                <ScalarProperty Name="medgas_nitrogen" ColumnName="medgas_nitrogen" />
-                <ScalarProperty Name="medgas_vacuum" ColumnName="medgas_vacuum" />
-                <ScalarProperty Name="medgas_steam" ColumnName="medgas_steam" />
-                <ScalarProperty Name="medgas_natgas" ColumnName="medgas_natgas" />
-                <ScalarProperty Name="gas_liquid_co2" ColumnName="gas_liquid_co2" />
-                <ScalarProperty Name="gas_liquid_nitrogen" ColumnName="gas_liquid_nitrogen" />
-                <ScalarProperty Name="gas_instrument_air" ColumnName="gas_instrument_air" />
-                <ScalarProperty Name="gas_liquid_propane_gas" ColumnName="gas_liquid_propane_gas" />
-                <ScalarProperty Name="gas_methane" ColumnName="gas_methane" />
-                <ScalarProperty Name="gas_butane" ColumnName="gas_butane" />
-                <ScalarProperty Name="gas_propane" ColumnName="gas_propane" />
-                <ScalarProperty Name="gas_hydrogen" ColumnName="gas_hydrogen" />
-                <ScalarProperty Name="gas_acetylene" ColumnName="gas_acetylene" />
-                <ScalarProperty Name="medgas_high_pressure" ColumnName="medgas_high_pressure" />
-                <ScalarProperty Name="misc_shielding_magnetic" ColumnName="misc_shielding_magnetic" />
-                <ScalarProperty Name="misc_antimicrobial" ColumnName="misc_antimicrobial" />
-                <ScalarProperty Name="misc_ecolabel" ColumnName="misc_ecolabel" />
-                <ScalarProperty Name="misc_ecolabel_desc" ColumnName="misc_ecolabel_desc" />
-                <ScalarProperty Name="misc_shielding_lead_line" ColumnName="misc_shielding_lead_line" />
-                <ScalarProperty Name="plumbing" ColumnName="plumbing" />
-                <ScalarProperty Name="plumbing_option" ColumnName="plumbing_option" />
-                <ScalarProperty Name="plu_hot_water" ColumnName="plu_hot_water" />
-                <ScalarProperty Name="plu_cold_water" ColumnName="plu_cold_water" />
-                <ScalarProperty Name="plu_drain" ColumnName="plu_drain" />
-                <ScalarProperty Name="plu_return" ColumnName="plu_return" />
-                <ScalarProperty Name="plu_treated_water" ColumnName="plu_treated_water" />
-                <ScalarProperty Name="plu_chilled_water" ColumnName="plu_chilled_water" />
-                <ScalarProperty Name="plu_relief" ColumnName="plu_relief" />
-                <ScalarProperty Name="water" ColumnName="water" />
-                <ScalarProperty Name="water_option" ColumnName="water_option" />
-                <ScalarProperty Name="cfm" ColumnName="cfm" />
-                <ScalarProperty Name="btus" ColumnName="btus" />
-                <ScalarProperty Name="electrical" ColumnName="electrical" />
-                <ScalarProperty Name="electrical_option" ColumnName="electrical_option" />
-                <ScalarProperty Name="volts" ColumnName="volts" />
-                <ScalarProperty Name="phases" ColumnName="phases" />
-                <ScalarProperty Name="hertz" ColumnName="hertz" />
-                <ScalarProperty Name="amps" ColumnName="amps" />
-                <ScalarProperty Name="volt_amps" ColumnName="volt_amps" />
-                <ScalarProperty Name="watts" ColumnName="watts" />
-                <ScalarProperty Name="connection_type" ColumnName="connection_type" />
-                <ScalarProperty Name="connection_type_ow" ColumnName="connection_type_ow" />
-                <ScalarProperty Name="plug_type" ColumnName="plug_type" />
-                <ScalarProperty Name="plug_type_ow" ColumnName="plug_type_ow" />
-                <ScalarProperty Name="blocking" ColumnName="blocking" />
-                <ScalarProperty Name="blocking_option" ColumnName="blocking_option" />
-                <ScalarProperty Name="supports" ColumnName="supports" />
-                <ScalarProperty Name="supports_option" ColumnName="supports_option" />
-                <ScalarProperty Name="misc_seismic" ColumnName="misc_seismic" />
-                <ScalarProperty Name="misc_ase" ColumnName="misc_ase" />
-                <ScalarProperty Name="misc_ada" ColumnName="misc_ada" />
-                <ScalarProperty Name="mobile" ColumnName="mobile" />
-                <ScalarProperty Name="mobile_option" ColumnName="mobile_option" />
-                <ScalarProperty Name="height" ColumnName="height" />
-                <ScalarProperty Name="height_ow" ColumnName="height_ow" />
-                <ScalarProperty Name="width" ColumnName="width" />
-                <ScalarProperty Name="width_ow" ColumnName="width_ow" />
-                <ScalarProperty Name="depth" ColumnName="depth" />
-                <ScalarProperty Name="depth_ow" ColumnName="depth_ow" />
-                <ScalarProperty Name="mounting_height" ColumnName="mounting_height" />
-                <ScalarProperty Name="mounting_height_ow" ColumnName="mounting_height_ow" />
-                <ScalarProperty Name="clearance_top" ColumnName="clearance_top" />
-                <ScalarProperty Name="clearance_bottom" ColumnName="clearance_bottom" />
-                <ScalarProperty Name="clearance_right" ColumnName="clearance_right" />
-                <ScalarProperty Name="clearance_left" ColumnName="clearance_left" />
-                <ScalarProperty Name="clearance_front" ColumnName="clearance_front" />
-                <ScalarProperty Name="clearance_back" ColumnName="clearance_back" />
-                <ScalarProperty Name="weight" ColumnName="weight" />
-                <ScalarProperty Name="loaded_weight" ColumnName="loaded_weight" />
-                <ScalarProperty Name="ship_weight" ColumnName="ship_weight" />
-                <ScalarProperty Name="option_ids" ColumnName="option_ids" />
-                <ScalarProperty Name="lead_time" ColumnName="lead_time" />
-                <ScalarProperty Name="data_desc" ColumnName="data_desc" />
-                <ScalarProperty Name="data_option" ColumnName="data_option" />
-                <ScalarProperty Name="option_codes" ColumnName="option_codes" />
-                <ScalarProperty Name="option_descriptions" ColumnName="option_descriptions" />
-                <ScalarProperty Name="total_assets_options" ColumnName="total_assets_options" />
-                <ScalarProperty Name="linked_template" ColumnName="linked_template" />
-                <ScalarProperty Name="asset_profile" ColumnName="asset_profile" />
-                <ScalarProperty Name="profile_text" ColumnName="profile_text" />
-                <ScalarProperty Name="profile_budget" ColumnName="profile_budget" />
-                <ScalarProperty Name="detailed_budget" ColumnName="detailed_budget" />
-                <ScalarProperty Name="total_unit_budget" ColumnName="total_unit_budget" />
-                <ScalarProperty Name="linked_document" ColumnName="linked_document" />
-                <ScalarProperty Name="pdoc_blob_filename" ColumnName="pdoc_blob_filename" />
-                <ScalarProperty Name="pdoc_filename" ColumnName="pdoc_filename" />
-                <ScalarProperty Name="has_shop_drawing" ColumnName="has_shop_drawing" />
-                <ScalarProperty Name="profile_tooltip" ColumnName="profile_tooltip" />
-                <ScalarProperty Name="po_number" ColumnName="po_number" />
-                <ScalarProperty Name="class" ColumnName="class" />
-                <ScalarProperty Name="class_ow" ColumnName="class_ow" />
-                <ScalarProperty Name="clin" ColumnName="clin" />
-                <ScalarProperty Name="jsn_code" ColumnName="jsn_code" />
-                <ScalarProperty Name="jsn_description" ColumnName="jsn_description" />
-                <ScalarProperty Name="jsn_comments" ColumnName="jsn_comments" />
-                <ScalarProperty Name="jsn_nomenclature" ColumnName="jsn_nomenclature" />
-                <ScalarProperty Name="jsn_utility1" ColumnName="jsn_utility1" />
-                <ScalarProperty Name="jsn_utility2" ColumnName="jsn_utility2" />
-                <ScalarProperty Name="jsn_utility3" ColumnName="jsn_utility3" />
-                <ScalarProperty Name="jsn_utility4" ColumnName="jsn_utility4" />
-                <ScalarProperty Name="jsn_utility5" ColumnName="jsn_utility5" />
-                <ScalarProperty Name="jsn_utility6" ColumnName="jsn_utility6" />
-                <ScalarProperty Name="blueprint" ColumnName="blueprint" />
-                <ScalarProperty Name="room_area" ColumnName="room_area" />
-                <ScalarProperty Name="room_code" ColumnName="room_code" />
-                <ScalarProperty Name="staff" ColumnName="staff" />
-                <ScalarProperty Name="functional_area" ColumnName="functional_area" />
-                <ScalarProperty Name="source_location" ColumnName="source_location" />
-                <ScalarProperty Name="target_location" ColumnName="target_location" />
-                <ScalarProperty Name="source_room" ColumnName="source_room" />
-                <ScalarProperty Name="target_room" ColumnName="target_room" />
-                <ScalarProperty Name="unit_markup" ColumnName="unit_markup" />
-                <ScalarProperty Name="unit_escalation" ColumnName="unit_escalation" />
-                <ScalarProperty Name="unit_freight_net" ColumnName="unit_freight_net" />
-                <ScalarProperty Name="unit_freight_markup" ColumnName="unit_freight_markup" />
-                <ScalarProperty Name="unit_install_net" ColumnName="unit_install_net" />
-                <ScalarProperty Name="unit_install_markup" ColumnName="unit_install_markup" />
-                <ScalarProperty Name="unit_tax" ColumnName="unit_tax" />
-                <ScalarProperty Name="departments_qty" ColumnName="departments_qty" />
-                <ScalarProperty Name="phases_qty" ColumnName="phases_qty" />
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
-                <ScalarProperty Name="rooms_qty" ColumnName="rooms_qty" />
-                <ScalarProperty Name="unit_markup_calc" ColumnName="unit_markup_calc" />
-                <ScalarProperty Name="unit_escalation_calc" ColumnName="unit_escalation_calc" />
-                <ScalarProperty Name="unit_budget_adjusted" ColumnName="unit_budget_adjusted" />
-                <ScalarProperty Name="unit_tax_calc" ColumnName="unit_tax_calc" />
-                <ScalarProperty Name="unit_install" ColumnName="unit_install" />
-                <ScalarProperty Name="unit_freight" ColumnName="unit_freight" />
-                <ScalarProperty Name="unit_budget_total" ColumnName="unit_budget_total" />
-                <ScalarProperty Name="total_install_net" ColumnName="total_install_net" />
-                <ScalarProperty Name="total_budget_adjusted" ColumnName="total_budget_adjusted" />
-                <ScalarProperty Name="total_tax" ColumnName="total_tax" />
-                <ScalarProperty Name="total_install" ColumnName="total_install" />
-                <ScalarProperty Name="total_freight_net" ColumnName="total_freight_net" />
-                <ScalarProperty Name="total_freight" ColumnName="total_freight" />
-                <ScalarProperty Name="total_budget" ColumnName="total_budget" />
-                <ScalarProperty Name="ECN" ColumnName="ECN" />
-                <ScalarProperty Name="placement" ColumnName="placement" />
-                <ScalarProperty Name="placement_ow" ColumnName="placement_ow" />
-                <ScalarProperty Name="biomed_check_required" ColumnName="biomed_check_required" />
-                <ScalarProperty Name="asset_description_ow" ColumnName="asset_description_ow" />
-                <ScalarProperty Name="temporary_location" ColumnName="temporary_location" />
-                <ScalarProperty Name="jsn_ow" ColumnName="jsn_ow" />
-                <ScalarProperty Name="manufacturer_description_ow" ColumnName="manufacturer_description_ow" />
-                <ScalarProperty Name="serial_number_ow" ColumnName="serial_number_ow" />
-                <ScalarProperty Name="serial_name_ow" ColumnName="serial_name_ow" />
-                <ScalarProperty Name="final_disposition" ColumnName="final_disposition" />
-                <ScalarProperty Name="delivered_date" ColumnName="delivered_date" />
-                <ScalarProperty Name="received_date" ColumnName="received_date" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="get_available_assets_to_PO" FunctionName="AudaxWare.Store.get_available_assets_to_PO">
             <ResultMapping>
               <ComplexTypeMapping TypeName="AudaxWare.get_available_assets_to_PO_Result">
@@ -15144,6 +14501,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <EntitySetMapping Name="asset_inventory">
             <EntityTypeMapping TypeName="AudaxWare.asset_inventory">
               <MappingFragment StoreEntitySet="asset_inventory">
+                <ScalarProperty Name="asset_comment" ColumnName="asset_comment" />
+                <ScalarProperty Name="eq_unit_desc" ColumnName="eq_unit_desc" />
                 <ScalarProperty Name="date_added" ColumnName="date_added" />
                 <ScalarProperty Name="date_modified" ColumnName="date_modified" />
                 <ScalarProperty Name="received_date" ColumnName="received_date" />

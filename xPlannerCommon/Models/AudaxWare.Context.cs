@@ -71,7 +71,6 @@ namespace xPlannerCommon.Models
         public virtual DbSet<users_track> users_track { get; set; }
         public virtual DbSet<vendor> vendors { get; set; }
         public virtual DbSet<ancillary_v> ancillary_v { get; set; }
-        public virtual DbSet<asset_by_room> asset_by_room { get; set; }
         public virtual DbSet<AudaxWarePowerBI> AudaxWarePowerBIs { get; set; }
         public virtual DbSet<full_project_name> full_project_name { get; set; }
         public virtual DbSet<inventory_po_qty_v> inventory_po_qty_v { get; set; }
@@ -1945,23 +1944,6 @@ namespace xPlannerCommon.Models
                 new ObjectParameter("po_id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_PO_assigned_assets_Result>("Get_PO_assigned_assets", domain_idParameter, project_idParameter, po_idParameter);
-        }
-    
-        public virtual ObjectResult<get_inventory_doc_link_Result> get_inventory_doc_link(Nullable<short> domain_id, Nullable<int> project_id, Nullable<int> document_id)
-        {
-            var domain_idParameter = domain_id.HasValue ?
-                new ObjectParameter("domain_id", domain_id) :
-                new ObjectParameter("domain_id", typeof(short));
-    
-            var project_idParameter = project_id.HasValue ?
-                new ObjectParameter("project_id", project_id) :
-                new ObjectParameter("project_id", typeof(int));
-    
-            var document_idParameter = document_id.HasValue ?
-                new ObjectParameter("document_id", document_id) :
-                new ObjectParameter("document_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_inventory_doc_link_Result>("get_inventory_doc_link", domain_idParameter, project_idParameter, document_idParameter);
         }
     
         public virtual ObjectResult<get_available_assets_to_PO_Result> get_available_assets_to_PO(Nullable<int> domain_id, Nullable<int> project_id, Nullable<int> phase_id, Nullable<int> department_id, Nullable<int> room_id, Nullable<bool> allow_unapproved)

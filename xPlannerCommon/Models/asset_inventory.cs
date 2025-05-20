@@ -258,5 +258,7 @@ namespace xPlannerCommon.Models
         public Nullable<System.DateTime> received_date { get; set; }
         public Nullable<System.DateTime> date_modified { get; set; }
         public Nullable<System.DateTime> date_added { get; set; }
+        public string eq_unit_desc { get; set; }
+        public string asset_comment { get; set; }
     }
 }

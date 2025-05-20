@@ -7,6 +7,10 @@ using xPlannerAPI.Models;
 using System.Data.Entity;
 using xPlannerCommon.Services;
 using System.Diagnostics;
+using System.Security.Claims;
+using xPlannerAPI.Security.Extensions;
+using xPlannerAPI.App_Data;
+using System.Data.Entity.Core.Objects;
 
 namespace xPlannerAPI.Services
 {
@@ -27,7 +31,7 @@ namespace xPlannerAPI.Services
                     .Equals("MIS")).OrderBy(pr => pr.drawing_room_number).ToList();
         }
 
-        public List<room_inventory_po_Result> GetWithInventoryPO(int domain_id, int project_id, int phase_id, int department_id)
+        public List<room_inventory_po_Result> GetWithFinancials(int domain_id, int project_id, int phase_id, int department_id)
         {
             return _db.room_inventory_po(domain_id, project_id, phase_id, department_id).ToList();
         }
@@ -91,7 +95,6 @@ namespace xPlannerAPI.Services
                 }
                 rooms.Add(room);
             }
-
             return rooms;
 
         }
@@ -256,6 +259,124 @@ namespace xPlannerAPI.Services
                             throw e;
                         }
                     }
+                }
+            }
+        }
+
+        public IEnumerable<project_room> GetRoomsAsTable(ClaimsIdentity identity, int domainId, int? projectId, int? phaseId = null, int? departmentId = null, int? roomId = null)
+        {
+            try
+            {
+                var domainProjects = _db.project_room.Include("project_department.project_phase.project")
+                    .Where(pr => pr.domain_id == domainId && (projectId == null || pr.project_id == projectId) &&
+                                 (phaseId == null || pr.phase_id == phaseId) && (departmentId == null || pr.department_id == departmentId)
+                                 && (roomId == null || pr.room_id == roomId)).ToList();
+
+                return domainProjects.Where(p => identity.CheckProjectAccess(p.domain_id, p.project_id))
+                    .OrderBy(pr => pr.project_department.project_phase.description).ThenBy(pr => pr.project_department.description).ThenBy(pr => pr.drawing_room_name).ThenBy(pr => pr.drawing_room_number).ToList();
+            }
+            catch (Exception ex)
+            {
+                Helper.RecordLog("TreeViewRepository", "GetRoomsAsTable", ex);
+                throw new ApplicationException(ex.Message);
+            }
+        }
+
+        public bool CopyRoom(int domainId, int toProjectId, bool move, bool copyOptions, string addedBy, List<CopyRoom> rooms)
+        {
+            using (var dbTransaction = _db.Database.BeginTransaction())
+            {
+                try
+                {
+                    foreach (var room in rooms)
+                    {
+                        // CHECK OR CREATE PHASE
+                        if (room.phase_id == -1)
+                        {
+                            var existingPhase = _db.project_phase
+                                .FirstOrDefault(x => x.domain_id == domainId
+                                                     && x.project_id == toProjectId
+                                                     && x.description.ToLower() == room.phase_description.ToLower());
+
+                            if (existingPhase == null)
+                            {
+                                var newPhase = new project_phase
+                                {
+                                    domain_id = (short)domainId,
+                                    project_id = toProjectId,
+                                    description = room.phase_description,
+                                    start_date = DateTime.Today,
+                                    end_date = DateTime.Today,
+                                    added_by = addedBy
+                                };
+
+                                _db.project_phase.Add(newPhase);
+                                _db.SaveChanges();
+                                existingPhase = newPhase;
+                            }
+
+                            room.phase_id = existingPhase.phase_id;
+                        }
+
+                        if (room.department_id == -1)
+                        {
+                            var existingDepartment = _db.project_department
+                                .FirstOrDefault(x => x.domain_id == domainId
+                                                     && x.project_id == toProjectId
+                                                     && x.phase_id == room.phase_id
+                                                     && x.description.ToLower() == room.department_description.ToLower());
+
+                            if (existingDepartment == null)
+                            {
+                                var departmentType = _db.department_type.Where(x => x.domain_id == 1).FirstOrDefault();
+
+                                var newDepartment = new project_department
+                                {
+                                    domain_id = (short)domainId,
+                                    project_id = toProjectId,
+                                    phase_id = room.phase_id,
+                                    description = room.department_description,
+                                    department_type_id = existingDepartment?.department_type_id ?? departmentType.department_type_id, 
+                                    department_type_domain_id = existingDepartment?.department_type_domain_id ?? departmentType.domain_id
+                                };
+
+                                _db.project_department.Add(newDepartment);
+                                _db.SaveChanges();
+                                existingDepartment = newDepartment;
+                            }
+
+                            room.department_id = existingDepartment.department_id;
+
+                            room.department_id = existingDepartment.department_id;
+                        }
+
+                        
+                        ObjectParameter return_var = new ObjectParameter("return_var", "");
+                        _db.copy_rooms(
+                            (short)domainId, toProjectId, room.phase_id, room.department_id,
+                            (short)domainId, room.source_project_id, room.source_phase_id,
+                            room.source_department_id, room.source_room_id, addedBy, copyOptions,
+                            room.room_name, room.room_number, null, true, false, !move, return_var);
+
+                        if (!move)
+                        {
+                            var actualRoom = _db.project_room.Find(
+                                room.source_project_id, room.source_department_id,
+                                room.source_room_id, room.source_phase_id, domainId);
+
+                            _db.project_room.Remove(actualRoom);
+                            _db.SaveChanges();
+                        }
+                    }
+
+                    dbTransaction.Commit();
+                    return true; 
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError($"Error to copy/move room. Exception: {e.Message}");
+                    dbTransaction.Rollback();
+                    return false; 
                 }
             }
         }

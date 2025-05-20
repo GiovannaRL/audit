@@ -209,6 +209,13 @@ namespace xPlannerAPI.Services
                 var manufacturersMetadata = metadata.GetItem<EntityType>("AudaxWare.manufacturer", DataSpace.CSpace);
                 _stringLimits.Add("Manufacturer", (int)manufacturersMetadata.Properties["manufacturer_description"].TypeUsage.Facets["MaxLength"].Value);
 
+                var categoriesMetadata = metadata.GetItem<EntityType>("AudaxWare.assets_category", DataSpace.CSpace);
+                _stringLimits.Add("Category", (int)categoriesMetadata.Properties["description"].TypeUsage.Facets["MaxLength"].Value);
+
+                var subcategoriesMetadata = metadata.GetItem<EntityType>("AudaxWare.assets_subcategory", DataSpace.CSpace);
+                _stringLimits.Add("SubCategory", (int)subcategoriesMetadata.Properties["description"].TypeUsage.Facets["MaxLength"].Value);
+
+
                 var costCenterMetadata = metadata.GetItem<EntityType>("AudaxWare.cost_center", DataSpace.CSpace);
                 _stringLimits.Add("CostCenter", (int)costCenterMetadata.Properties["code"].TypeUsage.Facets["MaxLength"].Value);
                 _stringLimits.Add("CostCenterDescription", (int)costCenterMetadata.Properties["description"].TypeUsage.Facets["MaxLength"].Value);
@@ -217,6 +224,8 @@ namespace xPlannerAPI.Services
                 _stringLimits.Add("ModelName", (int)assetsMetadata.Properties["serial_name"].TypeUsage.Facets["MaxLength"].Value);
                 _stringLimits.Add("ModelNumber", (int)assetsMetadata.Properties["serial_number"].TypeUsage.Facets["MaxLength"].Value);
                 _stringLimits.Add("JSNSuffix", (int)assetsMetadata.Properties["jsn_suffix"].TypeUsage.Facets["MaxLength"].Value);
+                _stringLimits.Add("Description", (int)assetsMetadata.Properties["asset_description"].TypeUsage.Facets["MaxLength"].Value);
+
 
                 var inventoryMetadata = metadata.GetItem<EntityType>("AudaxWare.project_room_inventory", DataSpace.CSpace);
                 _stringLimits.Add("Clin", (int)inventoryMetadata.Properties["clin"].TypeUsage.Facets["MaxLength"].Value);
@@ -1084,11 +1093,22 @@ namespace xPlannerAPI.Services
             var categoryDescription = "";
             var subcategoryDescription = "";
             var assetSuffix = "";
+
             SplitDescription(item.Description, out categoryDescription, out subcategoryDescription, out assetSuffix);
             
             if (string.IsNullOrEmpty(categoryDescription) || string.IsNullOrEmpty(subcategoryDescription))
             {
                 item.SetError(string.Format(StringMessages.ImportDescriptionInvalid, item.Description));
+                return false;
+            }
+            if (categoryDescription.Length > _stringLimits["Category"])
+            {
+                item.SetError(string.Format(StringMessages.ImportDescriptionCategoryInvalid, item.Description, _stringLimits["Category"]));
+                return false;
+            }
+            if (subcategoryDescription.Length > _stringLimits["SubCategory"])
+            {
+                item.SetError(string.Format(StringMessages.ImportDescriptionSubcategoryInvalid, item.Description, _stringLimits["SubCategory"]));
                 return false;
             }
             return true;

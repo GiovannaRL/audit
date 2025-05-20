@@ -124,7 +124,6 @@
     <Build Include="dbo\Tables\bundle_asset.sql" />
     <Build Include="dbo\Tables\bundle_inventory.sql" />
     <Build Include="dbo\Tables\lu_state.sql" />
-    <Build Include="dbo\Views\asset_by_room.sql" />
     <Build Include="dbo\Views\manufacturer_contact_all.sql" />
     <Build Include="dbo\Views\vendor_contact_all.sql" />
     <Build Include="dbo\Views\inventory_po_qty_v.sql" />
@@ -181,7 +180,6 @@
     <Build Include="dbo\Stored Procedures\get_possible_associations.sql" />
     <Build Include="dbo\Stored Procedures\get_doc_associations_names.sql" />
     <Build Include="dbo\Stored Procedures\get_shop_drawing_report_info.sql" />
-    <Build Include="dbo\Stored Procedures\get_inventory_doc_link.sql" />
     <Build Include="dbo\Stored Procedures\upd_detailed_budget_profile.sql" />
     <Build Include="dbo\Stored Procedures\duplicate_asset_new_code.sql" />
     <Build Include="dbo\Stored Procedures\get_project_profiles.sql" />
