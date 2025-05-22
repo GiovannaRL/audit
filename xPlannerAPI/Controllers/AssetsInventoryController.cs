@@ -40,9 +40,10 @@ namespace xPlannerAPI.Controllers
         }
 
         [ActionName("AllInventoriesAvailableForPO")]
-        public IEnumerable<asset_inventory> GetAllInventoriesAvailableForPO(int id1, int? id2 = null, int? id3 = null, int? id4 = null, int? id5 = null, bool? showOnlyApprovedAssets = true)
+        public IEnumerable<asset_inventory> GetAllInventoriesAvailableForPO(int id1, int? id2 = null, int? id3 = null, int? id4 = null, int? id5 = null, bool? id6 = true)
         {
-            return GetInventories(id1, id2, id3, id4, id5).Where(x => x.po_qty == 0 && (showOnlyApprovedAssets == false || showOnlyApprovedAssets == true && x.current_location == "Approved"));
+            //id6 = showOnlyApprovedAssets 
+            return GetInventories(id1, id2, id3, id4, id5).Where(x => x.po_qty == 0 && (id6 == false || id6 == true && x.current_location == "Approved"));
         }
 
 

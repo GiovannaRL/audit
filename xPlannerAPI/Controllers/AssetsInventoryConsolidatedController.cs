@@ -28,14 +28,15 @@ namespace xPlannerAPI.Controllers
         }
 
         [ActionName("All")]
-        public IEnumerable<asset_inventory> GetAll([FromUri] string groupBy, int id1, int id2, int? id3, int? id4 = null, int? id5 = null, bool? filterPoQty = false, bool? showOnlyApprovedAssets = false)
+        public IEnumerable<asset_inventory> GetAll([FromUri] string groupBy, int id1, int id2, int? id3, int? id4 = null, int? id5 = null, bool? id6 = false, bool? id7 = false)
         {
+            //id6 = filterPoQty, id7 = showOnlyApprovedAssets
             using (IAssetInventoryConsolidatedRepository repository = new AssetInventoryConsolidatedRepository())
             {
                 string[] groupByArray = string.IsNullOrWhiteSpace(groupBy)
                                         ? Array.Empty<string>()
                                         : groupBy.Split(',');
-                return repository.GetAll(id1, id2, id3, id4, id5, groupByArray, filterPoQty, showOnlyApprovedAssets);
+                return repository.GetAll(id1, id2, id3, id4, id5, groupByArray, id6, id7);
             }
         }
     }
