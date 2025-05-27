@@ -719,7 +719,8 @@
             }
 
             if (!local.multiple && $scope.data.po_qty > 0 && ($scope.data.budget_qty - $scope.data.dnp_qty) != $scope.data.po_qty) {
-                toastr.error('This asset has already been added to a PO and you cannot change the planned quantity. To edit the planned quantity you must remove the asset from the PO');
+                const poNumber = $scope.data.po_number > 0 ? '(#' + $scope.data.po_number + ')' : '';
+                toastr.error('This asset has already been added to a PO' + poNumber + ' and you cannot change the planned quantity. To edit the planned quantity you must remove the asset from the PO');
                 return false;
             }
 
