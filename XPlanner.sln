@@ -1,14 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.10.35027.167
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.35731.53
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xPlannerAPI.Tests", "xPlannerAPI.Tests\xPlannerAPI.Tests.csproj", "{85E0A813-B61C-4B1D-B973-F21EFF63DF6A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E08CF501-1B88-4B9E-91EE-7F2B67B00AE3} = {E08CF501-1B88-4B9E-91EE-7F2B67B00AE3}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigrateOldDatabase", "MigrateOldDatabase\MigrateOldDatabase.csproj", "{941EC76B-D5D0-4DBF-BB06-5015558F9778}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E08CF501-1B88-4B9E-91EE-7F2B67B00AE3} = {E08CF501-1B88-4B9E-91EE-7F2B67B00AE3}
 	EndProjectSection
@@ -45,10 +40,6 @@ Global
 		{85E0A813-B61C-4B1D-B973-F21EFF63DF6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85E0A813-B61C-4B1D-B973-F21EFF63DF6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85E0A813-B61C-4B1D-B973-F21EFF63DF6A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{941EC76B-D5D0-4DBF-BB06-5015558F9778}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{941EC76B-D5D0-4DBF-BB06-5015558F9778}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{941EC76B-D5D0-4DBF-BB06-5015558F9778}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{941EC76B-D5D0-4DBF-BB06-5015558F9778}.Release|Any CPU.Build.0 = Release|Any CPU
 		{37D6E232-BBFD-4CFC-9054-BBB0EBEB8584}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{37D6E232-BBFD-4CFC-9054-BBB0EBEB8584}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37D6E232-BBFD-4CFC-9054-BBB0EBEB8584}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -101,50 +92,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4FB667AF-7DE2-42E6-BC81-E973A76A850A}
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 14
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://audaxware.visualstudio.com/
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = xPlannerAPI.Tests\\xPlannerAPI.Tests.csproj
-		SccProjectName1 = xPlannerAPI.Tests
-		SccLocalPath1 = xPlannerAPI.Tests
-		SccProjectUniqueName2 = MigrateOldDatabase\\MigrateOldDatabase.csproj
-		SccProjectName2 = MigrateOldDatabase
-		SccLocalPath2 = MigrateOldDatabase
-		SccProjectUniqueName3 = reportsWebJob\\reportsWebJob.csproj
-		SccProjectName3 = reportsWebJob
-		SccLocalPath3 = reportsWebJob
-		SccProjectUniqueName4 = cutSheetWebJob\\CutSheetWebJob.csproj
-		SccProjectName4 = cutSheetWebJob
-		SccLocalPath4 = cutSheetWebJob
-		SccProjectUniqueName5 = xPlannerCommon\\xPlannerCommon.csproj
-		SccProjectName5 = xPlannerCommon
-		SccLocalPath5 = xPlannerCommon
-		SccProjectUniqueName6 = POWebJob\\POWebJob.csproj
-		SccProjectName6 = POWebJob
-		SccLocalPath6 = POWebJob
-		SccProjectUniqueName7 = AudaxwareDB\\AudaxwareDB.sqlproj
-		SccProjectName7 = AudaxwareDB
-		SccLocalPath7 = AudaxwareDB
-		SccProjectUniqueName8 = OfflineXPlanner\\OfflineXPlanner.csproj
-		SccProjectName8 = OfflineXPlanner
-		SccLocalPath8 = OfflineXPlanner
-		SccProjectUniqueName9 = PDF\\PDFHelper\\PDFHelper.csproj
-		SccProjectName9 = PDF/PDFHelper
-		SccLocalPath9 = PDF\\PDFHelper
-		SccProjectUniqueName10 = PDF\\PDFHelper_Tests\\PDFHelper_Tests.csproj
-		SccProjectName10 = PDF/PDFHelper_Tests
-		SccLocalPath10 = PDF\\PDFHelper_Tests
-		SccProjectUniqueName11 = OfflineXPlannerSetup\\OfflineXPlannerSetup.vdproj
-		SccProjectName11 = OfflineXPlannerSetup
-		SccLocalPath11 = OfflineXPlannerSetup
-		SccProjectUniqueName12 = xPlannerAPI\\xPlannerAPI.csproj
-		SccProjectName12 = xPlannerAPI
-		SccLocalPath12 = xPlannerAPI
-		SccProjectUniqueName13 = XPlannerUI\\XPlannerUI.csproj
-		SccProjectName13 = XPlannerUI
-		SccLocalPath13 = XPlannerUI
 	EndGlobalSection
 EndGlobal
