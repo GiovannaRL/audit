@@ -15,7 +15,7 @@ using System.Web;
 namespace xPlannerAPI.Tests.Controllers
 {
     [TestClass]
-    public class RoomsControllerTest
+    public partial class RoomsControllerTest
     {
         private RoomsController controller;
 

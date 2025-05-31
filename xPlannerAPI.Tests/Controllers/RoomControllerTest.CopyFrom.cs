@@ -17,8 +17,7 @@ using System.Threading;
 
 namespace xPlannerAPI.Tests.Controllers
 {
-    [TestClass]
-    public class CopyFromControllerTest
+    public partial class RoomsControllerTest
     {
         private RoomsController _controller;
         private int _projectIdAudaxWare;
@@ -28,27 +27,21 @@ namespace xPlannerAPI.Tests.Controllers
         private audaxwareEntities _db;
         private List<string> _fieldsToCheck = new List<string>();
 
-
+        
         private void ContextEvent(object sender, ContextEventArgs args)
         {
             args.DomainId = _currentDomain;
             args.ShowAudaxwareInfo = true;
         }
 
-        public CopyFromControllerTest()
-        {
-            var config = new HttpConfiguration();
-            var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost/ws/api/");
-            _controller = new RoomsController
-            {
-                Request = request
-            };
-            _controller.Request.Properties[System.Web.Http.Hosting.HttpPropertyKeys.HttpConfigurationKey] = config;
-        }
-
         [TestInitialize]
         public void TestInitialize()
         {
+            _controller = new RoomsController();
+            _controller.Request = new HttpRequestMessage();
+            _controller.Configuration = new HttpConfiguration();
+
+
             xPlannerCommon.SessionConnectionInterceptor.ContextEvent += ContextEvent;
             _db = new audaxwareEntities();
             _currentProject = CreateDefaultProject();
