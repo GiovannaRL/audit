@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -47,26 +48,41 @@ namespace xPlannerCommon.Services
 
         public static void ConvertToPDF(string htmlPagePath, string saveIntoPath)
         {
-
-            using (var p = new System.Diagnostics.Process())
+            var rootPath = Domain.GetRoot();
+            var fileName = "wkhtmltopdf.exe";
+            var exePath = Path.Combine(rootPath, fileName);
+            if (!File.Exists(exePath))
             {
-                var startInfo = new System.Diagnostics.ProcessStartInfo
-                {
-                    //FileName = "wkhtmltopdf.exe",
-                    FileName = Path.Combine(Domain.GetRoot(), "wkhtmltopdf.exe"),
-                    Arguments = "--page-width 215.9 --page-height 279.4 --footer-center \"Copyright® " + DateTime.Now.Year + " AudaxWare LLC\" --footer-right \"Page [page] of [toPage]\" --footer-font-size 6 " + htmlPagePath + " " + saveIntoPath,
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    RedirectStandardInput = true
-                };
-                p.StartInfo = startInfo;
-                p.Start();
-                p.WaitForExit();
-                var exitCode = p.ExitCode;
-                p.Close();
+                exePath = Path.Combine(rootPath, "bin", fileName);
+            }
 
-                File.Delete(htmlPagePath);
+            try
+            {
+                using (var p = new System.Diagnostics.Process())
+                {
+                    var startInfo = new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = exePath,
+                        Arguments = "--page-width 215.9 --page-height 279.4 --footer-center \"Copyright® " + DateTime.Now.Year + " AudaxWare LLC\" --footer-right \"Page [page] of [toPage]\" --footer-font-size 6 " + htmlPagePath + " " + saveIntoPath,
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        RedirectStandardInput = true
+                    };
+                    p.StartInfo = startInfo;
+                    p.Start();
+                    p.WaitForExit();
+                    var exitCode = p.ExitCode;
+                    p.Close();
+
+                    File.Delete(htmlPagePath);
+                }
+            }
+            catch (Exception e)
+            {
+
+                Trace.TraceError($"Error to ConvertToPDF. exePath = {exePath}. FullError: {e}. InnerError: {e.InnerException}");
+                throw;
             }
         }
     }
