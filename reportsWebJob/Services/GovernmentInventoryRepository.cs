@@ -203,7 +203,7 @@ namespace reportsWebJob.Services
                                 //Get Thumbnail from image
                                 Image thumb = logo.GetThumbnailImage(100, 100, () => false, IntPtr.Zero);
                                 thumb.Save(Path.ChangeExtension(inventory.photo, "thumb"));
-                                var uniqueName = $"{row}_photo";
+                                var uniqueName = $"{row}_photo_{Guid.NewGuid()}";
                                 var picture = worksheet.Drawings.AddPicture(uniqueName, new FileInfo(inventory.photo));
                                 picture.SetSize(40, 40);
                                 picture.SetPosition(row - 1, 5, 19, 5);
