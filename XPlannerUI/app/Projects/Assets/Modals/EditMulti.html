@@ -261,9 +261,12 @@
                                 </div>
                             </div>
                         </md-input-container>
-                        <md-chips ng-model="data.tags"
-                                  placeholder="+tag"
-                                  secondary-placeholder="Add a tag and press Enter"></md-chips>
+                        <md-chips ng-model="data.tags">
+                            <input type="text"
+                                   placeholder= "+tag"
+                                   ng-blur="addTags($event)">
+                        </md-chips>
+
                     </form>
                 </md-tab>
                 <md-tab label="Options" md-on-select="optionsTab = true">

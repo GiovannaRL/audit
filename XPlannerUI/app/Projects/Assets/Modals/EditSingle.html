@@ -224,13 +224,13 @@
                                 </div>
                             </md-input-container>
                             <!--<md-input-container class="md-block" flex-gt-xs="20">
-                                <label>Unit Budget (Adjusted)</label>
-                                <input name="unit_budget_adjusted" ng-model="data.unit_budget_adjusted" aw-currency aw-currency-model ng-disabled="true">
-                            </md-input-container>
-                            <md-input-container class="md-block" flex-gt-xs="20">
-                                <label>Unit Budget</label>
-                                <input name="unit_budget_total" ng-model="data.unit_budget_total" aw-currency aw-currency-model ng-disabled="true">
-                            </md-input-container>-->
+            <label>Unit Budget (Adjusted)</label>
+            <input name="unit_budget_adjusted" ng-model="data.unit_budget_adjusted" aw-currency aw-currency-model ng-disabled="true">
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-xs="20">
+            <label>Unit Budget</label>
+            <input name="unit_budget_total" ng-model="data.unit_budget_total" aw-currency aw-currency-model ng-disabled="true">
+        </md-input-container>-->
                             <md-input-container class="md-block label-info-icon" flex-gt-xs="30" ng-if="data.detailed_budget">
                                 <label>
                                     Unit + Options Budget $
@@ -302,9 +302,14 @@
                                 </div>
                             </div>
                         </md-input-container>
-                        <md-chips ng-model="data.tags"
-                                  placeholder="+tag"
-                                  secondary-placeholder="Add a tag and press Enter"></md-chips>
+                        <md-chips ng-model="data.tags">
+                            <input type="text"
+                                   placeholder= "+tag"
+                                   ng-blur="addTags($event)">
+                        </md-chips>
+
+                       
+
                     </form>
                 </md-tab>
                 <md-tab label="Options" md-on-select="optionsTab = true">
@@ -592,7 +597,7 @@
                                 </md-input-container>
                             </section>
                         </aw-accordion>
-                        
+
                         <aw-accordion label="Budget Copilot" ng-click="showHideBudgetCopilot()">
                         </aw-accordion>
                         <div ng-model="showBudgetCoPilot" ng-show="showBudgetCopilot">
@@ -659,7 +664,7 @@
                                 <section layout="row" ng-cloak class="md-inline-form padding-bottom padding-top level-below-grid">
                                     <div kendo-grid="budgetOptionsGrid" options="budgetOptions" k-on-data-bound="budgetDataBound(budgetOptionsGrid)" style="height: 100%; width:100%"></div>
                                 </section>
-                            </div>               
+                            </div>
                         </div>
                         </aw-accordion>
                     </form>

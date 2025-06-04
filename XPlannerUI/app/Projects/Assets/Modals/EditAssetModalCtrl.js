@@ -6,6 +6,7 @@
         ProgressService, WebApiService, GridService, HttpService, $q, CostFieldListWithNone, PlacementList,
         UtilsService, FileService, OptionTypes, AssetOptionScope, DialogService, DocumentTypes, FormService, AssetClassList, KendoGridService) {
 
+                                                                
         $scope.costField = CostFieldListWithNone;
         $scope.selected_costField = 'default';
         $scope.image = downloadFile(local.assets[0].photo, local.assets[0].photo_domain_id);
@@ -42,6 +43,13 @@
         if (local.multiple && local.assets[0].consolidated_view == 0) {
             var showAttributesTab = false
 
+        };
+
+        $scope.addTags = function (evt) {
+            if (evt && evt.target && evt.target.value) {
+                $scope.data.tags.push(evt.target.value);
+                evt.target.value = ""
+            }
         };
 
         if (local.assets.some(function (a) { return hasDifferentQuantityOrBudget(local.assets[0], a); })) {
