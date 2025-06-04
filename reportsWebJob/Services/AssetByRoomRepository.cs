@@ -166,61 +166,76 @@ namespace reportsWebJob.Services
         {
             List<AssetByRoomItem> allInformation = new List<AssetByRoomItem>();
 
-            string useCadId = report.use_cad_id == true ? "COALESCE(cad_id, asset_code) AS asset_code," : "asset_code,";
+            string useCadId = report.use_cad_id == true
+                ? "COALESCE(ai.cad_id, ai.asset_code) AS asset_code,"
+                : "ai.asset_code,";
+
+            string catalogDescriptionJoin =
+                   report.ignore_description_difference == true
+                   ? "INNER JOIN assets a ON ai.asset_id = a.asset_id AND ai.asset_domain_id = a.domain_id"
+                   : "";
+            string selectAssetDescription =
+                   report.ignore_description_difference == true
+                   ? "a.asset_description,"
+                   : "ai.asset_description,";
 
             string query = $@"
                 CREATE TABLE #TempRoomIds (Id INT);
-                INSERT INTO #TempRoomIds (Id) SELECT value FROM STRING_SPLIT(@roomIds, ',');
+                INSERT INTO #TempRoomIds (Id)
+                    SELECT CAST(value AS INT) FROM STRING_SPLIT(@roomIds, ',');
 
-                SELECT DISTINCT 
-                    asset_domain_id,
-                    asset_id,
+                SELECT 
+                    ai.asset_domain_id,
+                    ai.asset_id,
                     {useCadId}
-                    asset_description,
-                    manufacturer_description,
-                    COALESCE(serial_name,'') AS serial_name,
-                    COALESCE(serial_number,'') AS serial_number,
-                    asset_comment AS comment,
-                    eq_unit_desc,
-                    height,
-                    width,
-                    depth,
-                    weight,
-                    electrical_option,
-                    data_option,
-                    water_option,
-                    plumbing_option,
-                    medgas_option,
-                    blocking_option,
-                    supports_option                    
-                FROM asset_inventory
+                    {selectAssetDescription}
+                    ai.manufacturer_description,
+                    COALESCE(ai.serial_name,'') AS serial_name,
+                    COALESCE(ai.serial_number,'') AS serial_number,
+                    ai.asset_comment AS comment,
+                    ai.eq_unit_desc,
+                    ai.height,
+                    ai.width,
+                    ai.depth,
+                    ai.weight,
+                    ai.electrical_option,
+                    ai.data_option,
+                    ai.water_option,
+                    ai.plumbing_option,
+                    ai.medgas_option,
+                    ai.blocking_option,
+                    ai.supports_option,
+                    ai.asset_code
+                FROM asset_inventory ai
+                {catalogDescriptionJoin}
                 WHERE
-                    domain_id = @domainId
-                    AND project_id = @projectId
-                    AND room_id IN (SELECT Id FROM #TempRoomIds)
+                    ai.domain_id = @domainId
+                    AND ai.project_id = @projectId
+                    AND ai.room_id IN (SELECT Id FROM #TempRoomIds)
                 GROUP BY
-                    asset_domain_id,
-                    asset_id,
-                    asset_description,
-                    manufacturer_description,
-                    serial_name,
-                    serial_number,
-                    asset_comment,
-                    eq_unit_desc,
-                    height,
-                    width,
-                    depth,
-                    weight,
-                    electrical_option,
-                    data_option,
-                    water_option,
-                    plumbing_option,
-                    medgas_option,
-                    blocking_option,
-                    supports_option,
-                    asset_code
-                ORDER BY
-                    asset_code;
+                    ai.asset_domain_id,
+                    ai.asset_id,
+                    {useCadId}
+                    {selectAssetDescription}
+                    ai.manufacturer_description,
+                    ai.serial_name,
+                    ai.serial_number,
+                    ai.asset_comment,
+                    ai.eq_unit_desc,
+                    ai.height,
+                    ai.width,
+                    ai.depth,
+                    ai.weight,
+                    ai.electrical_option,
+                    ai.data_option,
+                    ai.water_option,
+                    ai.plumbing_option,
+                    ai.medgas_option,
+                    ai.blocking_option,
+                    ai.supports_option,
+                    ai.asset_code
+                ORDER BY 
+                    ai.asset_code;
 
                 DROP TABLE #TempRoomIds;
             ";

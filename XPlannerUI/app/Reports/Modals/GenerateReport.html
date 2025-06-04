@@ -109,7 +109,7 @@
                                     <md-checkbox ng-model="report.remove_logo" aria-label="Logo" name="Logo" ng-if="report.report_type.name.toLowerCase() === 'equipment with costs' || report.report_type.name.toLowerCase() === 'room equipment list' || report.report_type.name.toLowerCase() === 'equipment dimensional and utilities'">
                                         Remove Audaxware Logo
                                     </md-checkbox>
-                                    <md-checkbox ng-model="report.ignore_description_difference" aria-label="description" name="description" ng-if="report.report_type.name.toLowerCase() === 'asset book'">
+                                    <md-checkbox ng-model="report.ignore_description_difference" aria-label="description" name="description" ng-if="report.report_type.name.toLowerCase() === 'asset book' || report.report_type.name.toLowerCase() === 'asset by room'">
                                         ignore Description Difference
                                     </md-checkbox>
                                     <md-checkbox ng-model="report.remove_ecn" aria-label="ecn" name="ecn" ng-if="report.report_type.name.toLowerCase() === 'door list'">
