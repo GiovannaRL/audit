@@ -11,7 +11,7 @@
 
         $scope.data = {
             status: 'A'
-        };
+        };    
 
         $scope.params = local.params;
         $scope.addedRooms = [];
@@ -25,6 +25,18 @@
         $scope.clearSearchTerm = function () {
             $scope.searchTerm = '';
         };
+
+
+        $scope.changeAction = function (action) {
+            if ($scope.data.source_project_id && $scope.data.source_project_id != local.params.project_id && action === 'Move') {
+                toastr.error('You can only move rooms within the same project. You must select the same project for source and target before switching to move.');
+                $scope.action = "Copy";
+                return;
+            }         
+            $scope.reloadSourceGrid();            
+        };
+
+        $scope.isProcessing = false;
 
         // Filter Project
         $scope.searchProjects = function (searchTerm) {
@@ -373,6 +385,11 @@
                 $scope.data.source_department_id = null;
             }
 
+            if ($scope.data.source_project_id != local.params.project_id && $scope.action === 'Move') {
+                toastr.info('You can only move rooms within the same project. You must select the same project for source and target before switching to move.');
+                $scope.action = 'Copy';                
+            }
+
             WebApiService.genericController.query(GetSourceParams(data + 's', "All"), function (items) {
                 switch (data) {
                     case 'project':
@@ -401,6 +418,23 @@
               
 
         $scope.getData('project');
+
+
+        // Set to default project.
+        $scope.$watch("projects", function (newValue) {
+            if (newValue && newValue.length > 0) {
+                newValue.forEach(function (item) {
+                    if (item.project_id == local.params.project_id) {
+                        $scope.data.source_project_id = item.project_id;                        
+                    }
+                });
+
+                if ($scope.data.source_project_id) {
+                    $scope.getData('phase');
+                }
+            }
+        });
+
         function GetParamsCopy() {
             var params = {}; 
             params.domain_id = AuthService.getLoggedDomain();
@@ -419,6 +453,12 @@
                 return;
             }
 
+            // To avoid double click
+            if ($scope.isProcessing) 
+                return;
+            
+            $scope.isProcessing = true;
+
             var copyRoomData = {
                 domain_id: AuthService.getLoggedDomain(),
                 project_id: local.params.project_id,
@@ -429,17 +469,15 @@
             WebApiService.copy_from.save(copyRoomData, $scope.addedRooms,  function (response) {
                 toastr.success($scope.action === 'Move' ? 'Room moved' : 'Room copied');
                 ProgressService.unblockScreen();
+                $scope.isProcessing = false;
                 $mdDialog.hide(response);
             }, function (error) {
                 ProgressService.unblockScreen();
                 toastr.error('Error to try copy items, please contact the technical support');
+                $scope.isProcessing = false;
                 $mdDialog.cancel();
             });
         };
-
-
-
-
 
         $scope.close = function () {
             $mdDialog.cancel();
