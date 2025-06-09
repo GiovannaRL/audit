@@ -738,7 +738,7 @@
                     var budgetQty = $scope.data.budget_qty != null ? $scope.data.budget_qty : val.budget_qty;
                     var dnpQty = $scope.data.dnp_qty != null ? $scope.data.dnp_qty : val.dnp_qty;
 
-                    return budgetQty - dnpQty >= val.po_qty;
+                    return budgetQty - dnpQty > val.po_qty;
                 });
                 if (!isQuantityValid) {
                     toastr.error('The quantity values provided are not valid. DNP Qty cannot be greater than planned qty - po qty');
@@ -746,11 +746,11 @@
                 }
 
                 if ($scope.data.budget_qty >= 0) {
-                    const isPOPlannedQtyInvalid = local.assets.every(function (val) {
+                    const isPOPlannedQtyInvalid = local.assets.some(function (val) {
                         var budgetQty = $scope.data.budget_qty != null ? $scope.data.budget_qty : val.budget_qty;
                         var dnpQty = $scope.data.dnp_qty != null ? $scope.data.dnp_qty : val.dnp_qty;
 
-                        return val.po_qty >= 0 && (budgetQty - dnpQty) != val.po_qty;
+                        return val.po_qty > 0 && (budgetQty - dnpQty) != val.po_qty;
                     });
                     if (isPOPlannedQtyInvalid) {
                         toastr.error('One of this assets has already been added to a PO and you cannot change the planned quantity. To edit the planned quantity you must remove the asset from the PO');
