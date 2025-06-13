@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[get_financials](@domain_id integer, @project_id INTEGER = null, @phase_id integer = null, @department_id integer = null, @room_id integer = null) 
+﻿CREATE PROCEDURE [dbo].[get_financials](@domain_id integer, @project_id INTEGER, @phase_id integer = null, @department_id integer = null, @room_id integer = null) 
 --RETURNS TABLE
 AS	
 BEGIN
@@ -81,7 +81,7 @@ BEGIN
 		inventory_po_qty_v b,
 		project c
 	WHERE a.project_id = b.project_id and a.domain_id = b.domain_id and a.project_id = c.project_id and a.domain_id = c.domain_id
-	and (@project_id is null or b.project_id = @project_id) and b.domain_id = @domain_id
+	and b.project_id = @project_id and b.domain_id = @domain_id
 	and (@phase_id is null or b.phase_id = @phase_id)
 	and (@department_id is null or b.department_id = @department_id)
 	and (@room_id is null or b.room_id = @room_id)
