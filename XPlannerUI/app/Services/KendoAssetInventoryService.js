@@ -276,15 +276,15 @@
 
             if (!isGlobalTemplate) {
                 columns.splice(15, 0, { field: "current_location", title: "Status", width: "120px", template: "#: current_location #", lockable: false },
-                    { field: "po_status", title: "PO Status", width: "120px", template: "#: po_status #", lockable: false, hidden: true });
+                    { field: "po_status", title: "PO Status", width: "120px", template: "#: po_status #", lockable: false });
                 
 
-                columns.splice(20, 0, { field: "po_status_none", title: "None PO", width: "120px", lockable: false },
-                    { field: "po_status_open", title: "PO Open", width: "120px", lockable: false },
-                    { field: "po_status_issued", title: "PO Issued", width: "130px", lockable: false },
-                    { field: "po_status_requested", title: "PO Requested", width: "150px", lockable: false },
-                    { field: "po_status_qrequested", title: "Quote Requested", width: "150px", lockable: false },
-                { field: "po_status_qreceived", title: "Quote Received", width: "150px", lockable: false },
+                columns.splice(20, 0, { field: "po_status_none", title: "PO Pending Qty", width: "120px", lockable: false },
+                    { field: "po_status_open", title: "PO Open Qty", width: "120px", lockable: false },
+                    { field: "po_status_issued", title: "PO Issued Qty", width: "130px", lockable: false },
+                    { field: "po_status_requested", title: "PO Req. Qty", width: "150px", lockable: false },
+                    { field: "po_status_qrequested", title: "PO Q. Req. Qty", width: "150px", lockable: false },
+                    { field: "po_status_qreceived", title: "PO Q. Rcv. Qty", width: "150px", lockable: false },
                  { field: "lease_qty", title: "Lease qty", width: "120px", template: "<center>#: lease_qty || 0 #</center>", lockable: false },
                  { field: "dnp_qty", title: "DNP qty", width: "120px", template: "<center>#: dnp_qty || 0 #</center>", lockable: false },
                  { field: "net_new", title: "Net New", width: "120px", template: "<center>#: net_new #</center>" },
@@ -360,9 +360,6 @@
                 columns.splice(columns.length - 1, 0, { field: "cost_center", title: "Cost Center", width: "140px" }),
                     columns.splice(columns.length - 1, 0, { field: "inventory_id", title: "Inventory ID", width: "130px", hidden: true, template: "#: inventory_id > 0 ? inventory_id : inventory_ids #" });
             }
-
-            // Remove Column PO Status
-            columns.splice(columns.findIndex(column => column.title === "PO Status"), 1);
 
             return columns;
         };
@@ -582,6 +579,13 @@
                             total_freight_net: { type: "number" },
                             total_freight: { type: "number" },
                             total_budget: { type: "number" },
+                            po_status: { type: "string" },
+                            po_status_none: { type: "number" },
+                            po_status_open: { type: "number" },
+                            po_status_issued: { type: "number" },
+                            po_status_requested: { type: "number" },
+                            po_status_qrequested: { type: "number" },
+                            po_status_qreceived: { type: "number" }
                         }
                     },
                     parse: function (data) {
@@ -774,7 +778,7 @@
                 "total_po_amt", "buyout_delta", "unit_markup_calc", "unit_escalation_calc", "unit_budget_adjusted", "unit_tax_calc", "unit_install", "unit_freight", "unit_budget_total",
                 "total_budget_adjusted", "total_tax", "total_install_net", "total_install", "total_freight_net", "total_freight", "total_budget", "po_number",
                 "option_codes", "option_descriptions", "room_count", "budget_qty", "inventory_id", "final_room_number", "final_room_name", "network_option", "network_type",
-                "ecn", "po_status_none", "po_status_open", "po_status_issued", "po_status_requested", "po_status_qrequested", "Quote Received"];
+                "ecn", "po_status_none", "po_status_open", "po_status_issued", "po_status_requested", "po_status_qrequested", "po_status_qreceived"];
 
             return fields;
         }

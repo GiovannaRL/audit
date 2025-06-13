@@ -28,15 +28,25 @@ namespace xPlannerAPI.Services
                 var queryGenarator = new AssetInventoryConsolidatedQueryGeneratorService();
                 string consolidatedQuery = queryGenarator.CreateQuery(domainId, projectId, phaseId, departmentId, roomId, groupBy, filterPoQty, showOnlyApprovedAssets);
                 List<asset_inventory> assets = this._db.Database.SqlQuery<asset_inventory>(consolidatedQuery).ToList();
-                var columns = new List<string>() { "source_location", "target_location", "asset_description", "unit_budget_total", "total_unit_budget", "unit_budget_adjusted", "unit_escalation", "unit_escalation_calc", "unit_freight", "unit_freight_net", "unit_freight_markup", "unit_install", "unit_install_net", "unit_install_markup", "unit_markup", "unit_markup_calc", "unit_tax", "unit_tax_calc" };
+                var fieldsToCheckForMultiple = new List<string>
+                {
+                    "source_location", "target_location", "asset_description",
+                    "unit_budget_total", "total_unit_budget", "unit_budget_adjusted",
+                    "unit_escalation", "unit_escalation_calc", "unit_freight",
+                    "unit_freight_net", "unit_freight_markup", "unit_install",
+                    "unit_install_net", "unit_install_markup", "unit_markup",
+                    "unit_markup_calc", "unit_tax", "unit_tax_calc", "po_status"
+                };
 
                 assets.ForEach(delegate (asset_inventory item)
                 {
                     //this was made here, because then try to use count distinct inside the consolidated query we lose performance
                     item.phase_description = item.phases_qty.Split(',').Distinct().Count() > 1 ? "Multiple" : item.phase_description;
                     item.department_description = item.departments_qty.Split(',').Distinct().Count() > 1 ? "Multiple" : item.department_description;
-                    item.room_name = item.room_number = item.rooms_qty.Split(',').Distinct().Count() > 1 ? "Multiple" : item.room_name;
-                    SetColumnsToMultiple(item, columns);
+                    item.room_name = item.rooms_qty.Split(',').Distinct().Count() > 1 ? "Multiple" : item.room_name;
+                    item.room_number = item.rooms_qty.Split(',').Distinct().Count() > 1 ? "Multiple" : item.room_number;
+                    
+                    SetColumnsToMultiple(item, fieldsToCheckForMultiple);
 
 
                     if (!item.none_option.GetValueOrDefault() && item.total_assets_options != 0 && item.option_descriptions == null)
@@ -58,9 +68,9 @@ namespace xPlannerAPI.Services
 
         }
 
-        private void SetColumnsToMultiple(object item,  List<string> propertyNames)
+        private void SetColumnsToMultiple(object item,  List<string> fieldsToCheckForMultiple)
         {
-            foreach (string propertyName in propertyNames)
+            foreach (string propertyName in fieldsToCheckForMultiple)
             {
                 PropertyInfo property = item.GetType().GetProperty(propertyName);
 
