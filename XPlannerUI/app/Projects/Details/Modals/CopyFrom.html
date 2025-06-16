@@ -4,7 +4,7 @@
     </md-toolbar>
 
     <md-dialog-content layout-gt-sm="row" class="md-inline-form" ng-cloak style="height:70vh">
-        <section flex-gt-sm="50" layout="column" layout-fill>
+        <section flex-gt-sm="45" layout="column" layout-fill>
             <span>
                 <h4 class="md-primary">From:</h4>
             </span>
@@ -57,7 +57,7 @@
         </section>
 
         <section flex-gt-sm="10" layout-align="center center" layout-fill>
-            <section layout="column" flex-gt-sm="60" style="padding-left: 30px">
+            <section layout="column" flex-gt-sm="100" layout-align="center center">
                 <md-button class="md-raised" aria-label="Add room" ng-click="addRoom()">
                     Add
                 </md-button>
@@ -67,12 +67,12 @@
             </section>
         </section>
 
-        <section flex-gt-sm="40" layout="column" style="margin-top:0px; margin-right:10px" layout-fill>
+        <section flex-gt-sm="45" layout="column" style="margin-top:0px; margin-right:10px" layout-fill>
             <span>
                 <h4 class="md-primary">To:</h4>
             </span>
             <section layout="row" id="autocomplete-group" style="margin-top:-25px">
-                <md-input-container class="md-block" flex-gt-sm="35">
+                <md-input-container class="md-block" flex-gt-sm="30">
                     <label>Phase</label>
                     <md-select name="phases" ng-model="targetData.phase_id" ng-change="getDepartment()">
                         <md-option ng-repeat="phase in targetPhases" value="{{phase.phase_id}}">
