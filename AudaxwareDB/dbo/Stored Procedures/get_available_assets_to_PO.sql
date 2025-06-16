@@ -26,7 +26,7 @@ BEGIN
 		f.asset_code, 
 		a.serial_number, a.serial_name, a.manufacturer_description, a.asset_description,
 		pr.room_quantity as room_count, 
-		SUM(a.budget_qty) - sum(COALESCE(A.DNP_QTY,0) * pr.room_quantity) - sum(COALESCE(po_info.po_qty, 0)) AS budget_qty, 
+		SUM(a.budget_qty) - sum(COALESCE(A.dnp_qty,0) * pr.room_quantity) - sum(COALESCE(po_info.po_qty, 0)) AS budget_qty, 
 			CASE
 				WHEN a.resp in('EXOI', 'EXCI', 'EXVI', 'EXEX') THEN 0
 				ELSE sum(coalesce(a.total_budget_amt,0) * pr.room_quantity)
@@ -64,7 +64,7 @@ BEGIN
 		f.asset_code, 
 		a.serial_number, a.serial_name, a.manufacturer_description, a.asset_description,
 		pr.room_quantity as room_count, 
-		SUM(a.budget_qty) - sum(COALESCE(A.DNP_QTY,0) * pr.room_quantity) - sum(COALESCE(po_info.po_qty, 0)) AS budget_qty, 
+		SUM(a.budget_qty) - sum(COALESCE(A.dnp_qty,0) * pr.room_quantity) - sum(COALESCE(po_info.po_qty, 0)) AS budget_qty, 
 			CASE
 				WHEN a.resp in('EXOI', 'EXCI', 'EXVI', 'EXEX') THEN 0
 				ELSE sum(coalesce(a.total_budget_amt,0) * pr.room_quantity)
@@ -101,7 +101,7 @@ BEGIN
 		f.asset_code, 
 		a.serial_number, a.serial_name, a.manufacturer_description, a.asset_description,
 		pr.room_quantity as room_count, 
-		SUM(a.budget_qty) - sum(COALESCE(A.DNP_QTY,0) * pr.room_quantity) - sum(COALESCE(po_info.po_qty, 0)) AS budget_qty, 
+		SUM(a.budget_qty) - sum(COALESCE(A.dnp_qty,0) * pr.room_quantity) - sum(COALESCE(po_info.po_qty, 0)) AS budget_qty, 
 			CASE
 				WHEN a.resp in('EXOI', 'EXCI', 'EXVI', 'EXEX') THEN 0
 				ELSE sum(coalesce(a.total_budget_amt,0) * pr.room_quantity)
@@ -138,7 +138,7 @@ BEGIN
 		f.asset_code, 
 		a.serial_number, a.serial_name, a.manufacturer_description, a.asset_description,
 		pr.room_quantity as room_count, 
-		SUM(a.budget_qty) - sum(COALESCE(A.DNP_QTY,0) * pr.room_quantity) - sum(COALESCE(po_info.po_qty, 0)) AS budget_qty, 
+		SUM(a.budget_qty) - sum(COALESCE(A.dnp_qty,0) * pr.room_quantity) - sum(COALESCE(po_info.po_qty, 0)) AS budget_qty, 
 			CASE
 				WHEN a.resp in('EXOI', 'EXCI', 'EXVI', 'EXEX') THEN 0
 				ELSE sum(coalesce(a.total_budget_amt,0) * pr.room_quantity)

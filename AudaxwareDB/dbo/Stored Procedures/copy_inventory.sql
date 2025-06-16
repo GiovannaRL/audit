@@ -91,7 +91,7 @@ BEGIN
 			SET @equivalent_cc_id = NULL;
 
 			IF @cost_center_id IS NOT NULL BEGIN
-				SELECT @equivalent_cc_id = id FROM cost_center WHERE domain_id = @domain_id AND project_id = @project_id and code = (SELECT CODE FROM cost_center where id = @cost_center_id AND project_id =  @copy_project_id);
+				SELECT @equivalent_cc_id = id FROM cost_center WHERE domain_id = @domain_id AND project_id = @project_id and code = (SELECT code FROM cost_center where id = @cost_center_id AND project_id =  @copy_project_id);
 			END
 
 			IF @equivalent_cc_id is null BEGIN

@@ -14,7 +14,7 @@
 		PR.drawing_room_number as 'Room Number',
 		PR.drawing_room_name AS 'Room Name',
 		A.resp as 'Responsability',
-		CASE WHEN A.RESP = 'EXOI' OR A.RESP = 'EXCI' OR A.RESP = 'EXVI' OR A.RESP = 'EXEX' THEN 'EXISTING' ELSE 'NEW' END AS 'Resp Type',
+		CASE WHEN A.resp = 'EXOI' OR A.resp = 'EXCI' OR A.resp = 'EXVI' OR A.resp = 'EXEX' THEN 'EXISTING' ELSE 'NEW' END AS 'Resp Type',
 		CAST(A.project_id AS VARCHAR(10)) as 'Project ID',
         CAST(A.phase_id AS VARCHAR(10)) as 'Phase ID',
         CAST(a.department_id AS VARCHAR(10)) as 'Department ID',
@@ -24,8 +24,8 @@
         a.asset_description as 'Asset Description',
         a.manufacturer_description as 'Manufacturer Description',
         (COALESCE(a.budget_qty,0) * pr.room_quantity) as 'Budget Qty',
-        (COALESCE(A.DNP_QTY,0) * pr.room_quantity) AS 'Do Not Purchase Qty',
-        (COALESCE(A.LEASE_QTY, 0) * pr.room_quantity) AS 'Lease Qty',
+        (COALESCE(A.dnp_qty,0) * pr.room_quantity) AS 'Do Not Purchase Qty',
+        (COALESCE(A.lease_qty, 0) * pr.room_quantity) AS 'Lease Qty',
         COALESCE(po_info.po_qty, 0) AS 'PO Qty',
 		convert(money, CASE
             WHEN a.resp in ('EXOI', 'EXCI', 'EXVI', 'EXEX') THEN 0
@@ -39,10 +39,10 @@
         END) AS 'Total Locked Cost Amount',
         c.serial_number as 'Model Number',
         c.serial_name as 'Model Name',
-        (CASE WHEN C.DISCONTINUED = 1 AND p.STATUS IN('A','P') THEN 'D' ELSE '' END) as Discontinued,
-        ((COALESCE(A.BUDGET_QTY,0) * pr.room_quantity)-(COALESCE(A.DNP_QTY,0) * pr.room_quantity)) AS 'Net New',
-		CC.CODE AS 'Cost Center',
-		po_info.STATUS as 'PO Status',
+        (CASE WHEN C.discontinued = 1 AND p.status IN('A','P') THEN 'D' ELSE '' END) as Discontinued,
+        ((COALESCE(A.budget_qty,0) * pr.room_quantity)-(COALESCE(A.dnp_qty,0) * pr.room_quantity)) AS 'Net New',
+		CC.code AS 'Cost Center',
+		po_info.status as 'PO Status',
 		A.current_location as 'Current Location',
 		a.tag as Tag,
 		convert(money,a.unit_budget) as 'Unit Budget',
@@ -65,12 +65,12 @@
 			STRING_AGG(po.po_number, ',') as po_number,
 			STRING_AGG(v.name, ',') as vendor_name,
 			STRING_AGG(
-				CASE WHEN po.STATUS IS NULL THEN 'None'
-					WHEN po.STATUS = 'Open' THEN PO.STATUS
-					WHEN po.STATUS = 'Quote Requested' THEN 'Qreq'
-					WHEN po.STATUS = 'Quote Received' THEN 'Qrec'
-					WHEN po.STATUS = 'PO Requested' THEN 'PO Req'
-					WHEN po.STATUS = 'PO Issued' THEN 'PO Issued'
+				CASE WHEN po.status IS NULL THEN 'None'
+					WHEN po.status = 'Open' THEN PO.status
+					WHEN po.status = 'Quote Requested' THEN 'Qreq'
+					WHEN po.status = 'Quote Received' THEN 'Qrec'
+					WHEN po.status = 'PO Requested' THEN 'PO Req'
+					WHEN po.status = 'PO Issued' THEN 'PO Issued'
 					END, ',') as Status,
 			sum(
 			-- We only compute PO amount if we have received a quote
@@ -97,12 +97,12 @@
 	 GROUP BY inventory_id) as po_info ON a.inventory_id = po_info.inventory_id
      JOIN assets c ON a.asset_id = c.asset_id AND a.asset_domain_id = c.domain_id
      JOIN assets_measurement em ON c.eq_measurement_id = em.eq_unit_measure_id
-	 INNER JOIN PROJECT p ON p.PROJECT_ID = A.PROJECT_ID and p.domain_id = a.domain_id
+	 INNER JOIN project p ON p.project_id = A.project_id and p.domain_id = a.domain_id
 	 INNER JOIN project_phase PP ON PP.project_id = A.project_id AND PP.domain_id = A.domain_id AND PP.phase_id = A.phase_id
 	 INNER JOIN project_department PD ON PD.project_id = A.project_id AND PD.domain_id = A.domain_id AND PD.phase_id = A.phase_id AND PD.department_id = A.department_id
 	 INNER JOIN project_room PR ON PR.project_id = A.project_id AND PR.domain_id = A.domain_id AND PR.phase_id = A.phase_id AND PR.department_id = A.department_id AND PR.room_id = A.room_id 
 	 inner join department_type dt on dt.department_type_id = pd.department_type_id and dt.domain_id = pd.department_type_domain_id 
-	 LEFT JOIN COST_CENTER CC ON CC.ID = A.cost_center_id
+	 LEFT JOIN cost_center CC ON CC.id = A.cost_center_id
 	 WHERE a.project_id <> 1 AND 
 	 (p.domain_id = CAST(SESSION_CONTEXT(N'domain_id') AS SMALLINT) OR
 	 (p.domain_id = CAST(SUBSTRING(CURRENT_USER, CHARINDEX('_', CURRENT_USER)+1, 20) as SMALLINT)))

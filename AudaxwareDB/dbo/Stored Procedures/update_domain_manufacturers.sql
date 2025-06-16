@@ -5,7 +5,7 @@
 AS
 BEGIN
 	-- Only enterprises of the type M (Manufacturer) can have manufacturers associated to them
-	IF EXISTS (SELECT * FROM domain WHERE domain_id = @domain_id AND TYPE = 'M')
+	IF EXISTS (SELECT * FROM domain WHERE domain_id = @domain_id AND type = 'M')
 		BEGIN
 			DECLARE @manufacturers TABLE (id INTEGER);
 
@@ -21,7 +21,7 @@ BEGIN
 			DELETE FROM domain_manufacturer WHERE domain_id = @domain_id AND manufacturer_domain_id = @manufacturers_domain_id
 				AND manufacturer_id NOT IN (SELECT id FROM @manufacturers);
 		END
-	ELSE IF EXISTS (SELECT * FROM domain WHERE domain_id = @domain_id AND TYPE = 'E')
+	ELSE IF EXISTS (SELECT * FROM domain WHERE domain_id = @domain_id AND type = 'E')
 		BEGIN
 			DELETE FROM domain_manufacturer WHERE domain_id = @domain_id;
 		END

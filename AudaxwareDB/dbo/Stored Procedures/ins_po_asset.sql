@@ -41,7 +41,7 @@ BEGIN
 
 					--GET DELIVERY DATE
 					SELECT @phase_id = phase_id from project_room_inventory where inventory_id = @id;
-					SELECT @delivery_date = ofci_delivery from project_phase WHERE project_Id = @project_id and domain_id = @domain_id and phase_id = @phase_id;
+					SELECT @delivery_date = ofci_delivery from project_phase WHERE project_id = @project_id and domain_id = @domain_id and phase_id = @phase_id;
 
 					--IF STATUS INVENTORY IS PLAN CHANGE TO APPROVED
 					UPDATE project_room_inventory SET current_location = 'Approved' WHERE inventory_id = @id AND current_location = 'Plan'

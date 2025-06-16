@@ -150,7 +150,7 @@
     CONSTRAINT [domain2_fk] FOREIGN KEY ([domain_id]) REFERENCES [dbo].[domain] ([domain_id]),
     CONSTRAINT [manufacturer_equipment_fk] FOREIGN KEY ([manufacturer_id], [manufacturer_domain_id]) REFERENCES [dbo].[manufacturer] ([manufacturer_id], [domain_id]),
     CONSTRAINT [UNQ_asset_code] UNIQUE NONCLUSTERED ([domain_id] ASC, [asset_code] ASC), 
-    CONSTRAINT [jsn_fk] FOREIGN KEY ([jsn_id], [jsn_domain_id]) REFERENCES [jsn]([id], [domain_id]),
+    CONSTRAINT [jsn_fk] FOREIGN KEY ([jsn_id], [jsn_domain_id]) REFERENCES [jsn]([Id], [domain_id]),
 	CONSTRAINT [approval_pending_domain_fk] FOREIGN KEY ([approval_pending_domain]) REFERENCES [domain]([domain_id])
 );
 

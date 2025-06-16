@@ -6,7 +6,7 @@ SELECT
 		a.inventory_id as inventory_id,
 		'' as inventory_ids,
 		0 as consolidated_view,
-		P.project_description,
+		p.project_description,
 		PP.description AS phase_description,
 		PD.description AS department_description,
 		PR.drawing_room_number as room_number,
@@ -28,8 +28,8 @@ SELECT
 		a.asset_description,
         a.manufacturer_description,
         (coalesce(a.budget_qty,0) * IIF(pr.room_quantity > 0, pr.room_quantity, 1)) as budget_qty,
-        (COALESCE(A.DNP_QTY,0) * IIF(pr.room_quantity > 0, pr.room_quantity, 1)) AS dnp_qty,
-        (COALESCE(A.LEASE_QTY, 0) * IIF(pr.room_quantity > 0, pr.room_quantity, 1)) AS lease_qty,
+        (COALESCE(A.dnp_qty,0) * IIF(pr.room_quantity > 0, pr.room_quantity, 1)) AS dnp_qty,
+        (COALESCE(A.lease_qty, 0) * IIF(pr.room_quantity > 0, pr.room_quantity, 1)) AS lease_qty,
 		po_info.quote_number,
 		po_info.vendor,
 		po_info.po_requested_number,		
@@ -61,16 +61,16 @@ SELECT
 		COALESCE(asset_photo_doc.blob_file_name, c.photo) AS photo,
 		CASE WHEN asset_photo_doc.blob_file_name is null THEN a.asset_domain_id ELSE a.domain_id END as photo_domain_id,
 		tag_photo_doc.blob_file_name as tag_photo,
-        (CASE WHEN C.DISCONTINUED = 1 AND p.STATUS IN('A','P') THEN 'D' ELSE '' END) discontinued,
+        (CASE WHEN C.discontinued = 1 AND p.status IN('A','P') THEN 'D' ELSE '' END) discontinued,
         net_new,
 		cc.code AS cost_center,
 		a.cost_center_id,
-		COALESCE(STUFF(( SELECT distinct '; ' + CASE WHEN PO2.STATUS IS NULL THEN 'None'
-        WHEN PO2.STATUS = 'Open' THEN PO2.STATUS
-        WHEN PO2.STATUS = 'Quote Requested' THEN 'Qreq'
-        WHEN PO2.STATUS = 'Quote Received' THEN 'Qrec'
-        WHEN PO2.STATUS = 'PO Requested' THEN 'PO Req'
-        WHEN PO2.STATUS = 'PO Issued' THEN 'PO Issued'
+		COALESCE(STUFF(( SELECT distinct '; ' + CASE WHEN PO2.status IS NULL THEN 'None'
+        WHEN PO2.status = 'Open' THEN PO2.status
+        WHEN PO2.status = 'Quote Requested' THEN 'Qreq'
+        WHEN PO2.status = 'Quote Received' THEN 'Qrec'
+        WHEN PO2.status = 'PO Requested' THEN 'PO Req'
+        WHEN PO2.status = 'PO Issued' THEN 'PO Issued'
         END FROM inventory_purchase_order as ipo
 		inner join purchase_order po2 on po2.po_id = ipo.po_id and  ipo.project_id = po2.project_id
 		WHERE ipo.inventory_id = a.inventory_id and ipo.po_qty > 0
@@ -165,7 +165,7 @@ SELECT
 		 --inner join purchase_order po2 on po2.po_id = ipo.po_id and  ipo.project_id = po2.project_id
 		 --WHERE ipo.inventory_id = a.inventory_id and ipo.po_qty > 0
 		 --FOR XML PATH('')),1 ,1, ''), '')  as po_number,
-		 (select coalesce(string_agg(x.po_number, '; '),'') from (SELECT distinct trim(PO2.PO_NUMBER) as po_number FROM inventory_purchase_order as ipo
+		 (select coalesce(string_agg(x.po_number, '; '),'') from (SELECT distinct trim(PO2.po_number) as po_number FROM inventory_purchase_order as ipo
 		 inner join purchase_order po2 on po2.po_id = ipo.po_id and  ipo.project_id = po2.project_id
 		 WHERE ipo.inventory_id = a.inventory_id and ipo.po_qty > 0) as x) as po_number,
 		 a.class, a.class_ow, a.clin,
@@ -219,7 +219,7 @@ SELECT
 		GROUP BY inventory_id) as po_info ON a.inventory_id = po_info.inventory_id
 		 JOIN assets c ON a.asset_id = c.asset_id AND a.asset_domain_id = c.domain_id
 		 --JOIN manufacturer e ON c.manufacturer_id = e.manufacturer_id AND e.domain_id = c.manufacturer_domain_id
-		 INNER JOIN PROJECT p ON p.PROJECT_ID = A.PROJECT_ID and p.domain_id = a.domain_id
+		 INNER JOIN project p ON p.project_id = A.project_id and p.domain_id = a.domain_id
 		 INNER JOIN project_phase PP ON PP.project_id = A.project_id AND PP.domain_id = A.domain_id AND PP.phase_id = A.phase_id
 		 INNER JOIN project_department PD ON PD.project_id = A.project_id AND PD.domain_id = A.domain_id AND PD.phase_id = A.phase_id AND PD.department_id = A.department_id
 		 INNER JOIN project_room PR ON PR.project_id = A.project_id AND PR.domain_id = A.domain_id AND PR.phase_id = A.phase_id AND PR.department_id = A.department_id AND PR.room_id = A.room_id 
@@ -227,7 +227,7 @@ SELECT
 		 LEFT JOIN cost_center cc ON cc.id = a.cost_center_id
 		 LEFT JOIN project_documents AS pdoc ON pdoc.id = a.linked_document
 		 LEFT JOIN document_types dt ON pdoc.type_id = dt.id
-		 LEFT JOIN jsn j on j.id = c.jsn_id
+		 LEFT JOIN jsn j on j.Id = c.jsn_id
 		 LEFT JOIN (
 			select pdoc.blob_file_name, da.inventory_id, pdoc.rotate from documents_associations da
 				inner join project_documents pdoc on pdoc.id = da.document_id and  pdoc.project_domain_id = da.project_domain_id

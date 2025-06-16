@@ -21,14 +21,14 @@
             WHEN a.resp in('EXOI', 'EXCI', 'EXVI', 'EXEX') THEN 0
             ELSE sum(coalesce(a.total_budget_amt,0) * pr.room_quantity)
         END AS total_budget_amt,
-    sum(COALESCE(A.DNP_QTY,0) * pr.room_quantity) AS dnp_qty,
+    sum(COALESCE(A.dnp_qty,0) * pr.room_quantity) AS dnp_qty,
         CASE
             WHEN cast(g.eq_unit_desc as varchar) = 'per sf' THEN
             CASE
                 WHEN sum(COALESCE(a.dnp_qty, 0)) = 0 THEN 0
                 ELSE 1
             END
-            ELSE sum(COALESCE(A.DNP_QTY,0) * pr.room_quantity)
+            ELSE sum(COALESCE(A.dnp_qty,0) * pr.room_quantity)
         END AS dnp_qty_sf,
     sum(COALESCE(po_info.po_qty, 0)) AS po_qty,
     sum(

@@ -34,14 +34,14 @@ BEGIN
 
     DECLARE @DOMAIN_ID INT, @SHOW_AUDAX_INFO BIT, @client_id int, @facility_id int, @client_domain_id int, @facility_domain_id int, @workspace_id varchar(100), @pb_workspace_collection varchar(50);
 
-	SELECT @DOMAIN_ID = DOMAIN_ID, @workspace_id = pb_workspace_id, @SHOW_AUDAX_INFO = SHOW_AUDAX_INFO, @pb_workspace_collection = pb_workspace_collection FROM INSERTED;
+	SELECT @DOMAIN_ID = domain_id, @workspace_id = pb_workspace_id, @SHOW_AUDAX_INFO = show_audax_info, @pb_workspace_collection = pb_workspace_collection FROM INSERTED;
 
 	set @client_id = 1;
 	set @facility_id = 1;
 	set @client_domain_id = 1;
 	set @facility_domain_id = 1;
 
-	IF(SELECT COUNT(*) FROM PROJECT WHERE project_id = 1 and DOMAIN_ID = @DOMAIN_ID ) = 0 BEGIN
+	IF(SELECT COUNT(*) FROM project WHERE project_id = 1 and domain_id = @DOMAIN_ID ) = 0 BEGIN
 		
 		SET IDENTITY_INSERT project ON
 
@@ -50,13 +50,13 @@ BEGIN
 
 		SET IDENTITY_INSERT project off
 
-		SET IDENTITY_INSERT PROJECT_PHASE ON
+		SET IDENTITY_INSERT project_phase ON
 
 
-		INSERT INTO PROJECT_PHASE(project_id, phase_id, description, start_date, end_date, date_added, added_by, domain_id)
+		INSERT INTO project_phase(project_id, phase_id, description, start_date, end_date, date_added, added_by, domain_id)
 		values(1, 1, 'Global', GETDATE(), Getdate() + 10000, getdate(), 'juliana.barros@audaxware.com', @DOMAIN_ID);
 
-		SET IDENTITY_INSERT PROJECT_PHASE off
+		SET IDENTITY_INSERT project_phase off
 
 		SET IDENTITY_INSERT project_department ON
 

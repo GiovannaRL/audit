@@ -93,7 +93,7 @@ AS BEGIN
 	--SET COST CENTER
 	IF @from_project_id <> @insert_to_project_id BEGIN
 		SELECT @current_cost_center_id = id FROM cost_center WHERE domain_id = @insert_to_domain_id AND project_id = @insert_to_project_id and is_default = 1;
-		SELECT @cost_center_id = id FROM cost_center WHERE domain_id = @insert_to_domain_id AND project_id = @insert_to_project_id and code = (SELECT CODE FROM cost_center where id = @from_cost_center_id and project_id = @from_project_id and domain_id = @from_domain_id);
+		SELECT @cost_center_id = id FROM cost_center WHERE domain_id = @insert_to_domain_id AND project_id = @insert_to_project_id and code = (SELECT code FROM cost_center where id = @from_cost_center_id and project_id = @from_project_id and domain_id = @from_domain_id);
 		IF @cost_center_id is null BEGIN
 			SET @cost_center_id = @current_cost_center_id;
 		END

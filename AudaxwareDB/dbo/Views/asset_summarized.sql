@@ -78,5 +78,5 @@
 	 INNER JOIN assets_subcategory asub ON a.subcategory_domain_id = asub.domain_id AND a.subcategory_id = asub.subcategory_id
 	 INNER JOIN assets_category ac ON asub.category_domain_id = ac.domain_id AND asub.category_id = ac.category_id
 	 LEFT JOIN assets AS aa ON a.alternate_asset is not null AND a.domain_id = aa.domain_id AND a.alternate_asset = aa.asset_id
-	 LEFT JOIN jsn as j on j.id = a.jsn_id AND j.domain_id = a.jsn_domain_id;
+	 LEFT JOIN jsn as j on j.Id = a.jsn_id AND j.domain_id = a.jsn_domain_id;
 
