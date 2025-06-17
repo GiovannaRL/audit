@@ -1,13 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using xPlannerAPI.Services;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Reflection;
 using xPlannerAPI.Models;
+using xPlannerAPI.Services;
 using xPlannerAPI.Tests;
 using xPlannerCommon;
 using xPlannerCommon.Models;
-using System;
-using System.Reflection;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace xPlannerAPI.Tests.Repositories
 {
@@ -29,11 +30,6 @@ namespace xPlannerAPI.Tests.Repositories
             args.ShowAudaxwareInfo = true;
         }
 
-        void ClearAssets()
-        {
-            ClearProject(true);
-        }
-
         void ClearProject()
         {
             ClearProject(false);
@@ -52,6 +48,7 @@ namespace xPlannerAPI.Tests.Repositories
                     _db.projects.Remove(p);
                 }
             }
+
             _db.assets.RemoveRange(_db.assets.Where(x => x.added_by == _importUser));
             _db.assets_category.RemoveRange(_db.assets_category.Where(x => x.added_by == _importUser));
             _db.assets_subcategory.RemoveRange(_db.assets_subcategory.Where(x => x.added_by == _importUser));
@@ -59,7 +56,12 @@ namespace xPlannerAPI.Tests.Repositories
             _db.project_department.RemoveRange(_db.project_department.Where(x => x.added_by == _importUser));
             _db.project_phase.RemoveRange(_db.project_phase.Where(x => x.added_by == _importUser));
             _db.manufacturers.RemoveRange(_db.manufacturers.Where(x => x.added_by == _importUser));
-            _db.SaveChanges();
+
+            if (testProjects.Count > 0)
+            {
+                _db.SaveChanges();
+            }
+
         }
 
         private void ClearInventory()
@@ -301,16 +303,6 @@ namespace xPlannerAPI.Tests.Repositories
 
             Assert.AreEqual(newProcResult.First().consolidated_view, 1);
             Assert.AreEqual(newProcResult.First().inventory_id, 0);
-
-        }
-
-
-        [TestMethod]
-        public void IncorrectGroupBy()
-        {
-            var repo = new AssetInventoryConsolidatedRepository();
-            //Assert.Throws<ArgumentException>(() => repo.GetAll(5, 746, null, null, null, ConsolidatedQueryResults.groupByIncorrect));
-
 
         }
 
