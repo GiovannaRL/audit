@@ -786,7 +786,7 @@ namespace OfflineXPlanner
             this.panelInventoryImages.Location = new System.Drawing.Point(23, 124);
             this.panelInventoryImages.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelInventoryImages.Name = "panelInventoryImages";
-            this.panelInventoryImages.Size = new System.Drawing.Size(545, 444);
+            this.panelInventoryImages.Size = new System.Drawing.Size(540, 650);
             this.panelInventoryImages.TabIndex = 7;
             // 
             // btnDelPictureInventory

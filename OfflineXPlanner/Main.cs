@@ -355,11 +355,11 @@ namespace OfflineXPlanner
             {
                 if (ctrl is VScrollBar vScrollBar)
                 {
-                    vScrollBar.Width = 100; 
+                    vScrollBar.Width = 300; 
                 }
                 else if (ctrl is HScrollBar hScrollBar)
                 {
-                    hScrollBar.Height = 200; 
+                    hScrollBar.Height = 400; 
                 }
             }
         }
