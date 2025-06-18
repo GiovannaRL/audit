@@ -13,6 +13,7 @@
         };
 
         $scope.rooms = [{}];
+        $scope.copy_options_colors = true;
 
         /* kendo ui grid configurations*/
         $scope.options = {
@@ -106,58 +107,80 @@
                 $scope.rooms.length = $scope.rooms.length - 1;
             }
 
-            var data = {
-                move: $scope.action === 'Move',
-                to: GridService.getSelecteds($scope.departmentsGrid),
-                from_domain_id: AuthService.getLoggedDomain(),
-                from_project_id: local.params.project_id,
-                from_phase_id: local.params.phase_id,
-                from_department_id: local.params.department_id,
-                from_room_id: local.params.room_id,
-                to_room_number_name: $scope.rooms,
-                copy_options_colors: $scope.copy_options_colors
-            };
+            var roomsToCopy = $scope.action === 'Copy' ? $scope.rooms.length : 1;
 
-            if (data.move && data.to_room_number_name.length == 0) {
-                var movedRoom = {
-                    item1: local.params.drawing_room_number,
-                    item2: local.params.drawing_room_name,
-                }
-                data.to_room_number_name.push(movedRoom);                
+            var departments = GridService.getSelecteds($scope.departmentsGrid);
+            var data = [];
+
+            for (var i = 0; i < roomsToCopy; i++) {
+                departments.forEach(item => {
+                    var currentLocation = {
+                        source_project_id: local.params.project_id,
+                        source_phase_id: local.params.phase_id,
+                        source_department_id: local.params.department_id,
+                        source_room_id: local.params.room_id,
+                        phase_id: item.phase_id,
+                        phase_description: item.phase_desc,
+                        department_id: item.department_id,
+                        department_description: item.department_desc,
+                        room_name: $scope.action === 'Copy' ? $scope.rooms[i].Item2 : local.params.drawing_room_name,
+                        room_number: $scope.action === 'Copy' ? $scope.rooms[i].Item1 : local.params.drawing_room_number,
+                        room_id: null
+                    };
+
+                    data.push(currentLocation);
+                });                
             }
 
-            return data;
+            return data;            
         }
 
         $scope.save = function () {
 
             $scope.copyMoveRoom.$setSubmitted();
 
-            if ($scope.action == 'Move' && GridService.getSelecteds($scope.departmentsGrid).length > 1) {
-                toastr.error("Please select just one destination to move room to.");
-                return;
+            if ($scope.action === 'Move') {
+                var selected = GridService.getSelecteds($scope.departmentsGrid);
+
+                if (selected.length !== 1) {
+                    toastr.error("Please select just one destination to move room to.");
+                    return;
+                }
+
+                if (selected[0].department_id === local.params.department_id) {
+                    toastr.error("Please select a different destination to move room to.");
+                    return;
+                }  
+
             }
 
-            
-
+            var copyRoomData = {
+                domain_id: AuthService.getLoggedDomain(),
+                project_id: local.params.project_id,
+                copy: $scope.action === 'Copy',
+                options: $scope.copy_options_colors
+            };            
 
             if ($scope.copyMoveRoom.$valid && GridService.anySelected($scope.departmentsGrid)) {
                 ProgressService.blockScreen();
 
-                WebApiService.genericController.save({
-                    controller: 'copyRoom', action: 'Item',
-                    domain_id: AuthService.getLoggedDomain(), project_id: local.params.project_id
-                }, GetData(), function (room) {
-                    if($scope.action === 'Move')
-                        toastr.success('Room moved');
-                    else
-                        toastr.success('Room copied');                    
+                var rooms = GetData();
 
+                WebApiService.copy_from.save(copyRoomData, rooms, function (response) {
+                    toastr.success($scope.action === 'Move' ? 'Room moved' : 'Room copied');
                     ProgressService.unblockScreen();
-                    $mdDialog.hide(room);
-                }, function (data) {
+
+                    // The destination to navigate to after the copy/move
+                    var destinationRoom = {
+                        project_id: local.params.project_id,
+                        phase_id: rooms.at(-1).phase_id,
+                        department_id: rooms.at(-1).department_id,
+                    }
+
+                    $mdDialog.hide(destinationRoom);
+                }, function (error) {
                     ProgressService.unblockScreen();
-                    toastr.error(data.data);
+                    toastr.error(`Error trying to ${$scope.action.toLowerCase()} items, please contact technical support`);
                     $mdDialog.cancel();
                 });
             } else if (!GridService.anySelected($scope.departmentsGrid)) {

@@ -368,10 +368,9 @@
                 clickOutsideToClose: true,
                 locals: { local: { params: $scope.data, tree: $scope.tree, copy: true, move: true  } }
             }).then(function (room) {
-                var stateParams = {project_id: room.project_id.toString(), phase_id: room.phase_id.toString(), department_id: room.department_id.toString(), room_id: room.room_id.toString()};
+                var stateParams = { project_id: room.project_id.toString(), phase_id: room.phase_id.toString(), department_id: room.department_id.toString() };
                 $scope.reloadTreeview();
-                $state.go('index.room', stateParams, { reload: true });
-                
+                $state.go('index.department', stateParams, { reload: true });
             });
         };
 
