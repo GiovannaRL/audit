@@ -14,6 +14,7 @@ namespace xPlannerAPI.Controllers
     [Authorize]
     public class AudaxWareController : ApiController
     {
+        public bool EnableTestMode { get; set; } = false;
         protected ClaimsIdentity AudaxWareIdentity
         {
             get
@@ -65,6 +66,10 @@ namespace xPlannerAPI.Controllers
 
         public bool SetDomain(int domainId)
         {
+            if (EnableTestMode)
+            {
+                return true;
+            }
             var authorization = System.Web.HttpContext.Current.Request.Headers["Authorization"];
             if (authorization == null)
             {
@@ -96,7 +101,10 @@ namespace xPlannerAPI.Controllers
         }
 
         protected bool isLoggedAsManufacturer() {
-
+            if (EnableTestMode)
+            {
+                return false;
+            }
             return Helper.GetDecryptedToken()?.loggedDomain?.type == EnterpriseTypeEnum.Manufacturer;
         }
 

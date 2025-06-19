@@ -2,109 +2,70 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using xPlannerAPI.Services;
 using xPlannerAPI.Models;
-using xPlannerAPI.Tests;
-using xPlannerCommon;
 using xPlannerCommon.Models;
 using System.Data.Entity;
 
 namespace xPlannerAPI.Tests.Repositories
 {
     [TestClass]
-    public class AssetInventoryImporterRespositoryTests
+    public class AssetInventoryImporterRespositoryTests: BaseTests
     {
         private int _projectIdAudaxWare;
         private int _projectIdMillCreek;
-        const string _projectDescription = "AssetInventoryImporterRespositoryTests-F0635B72-447F-4CE5-AB9F-BEF20105FDC2";
-        const string _importUser = "unittests@audaxware.com";
-        int _currentDomain = 1;
-        int _currentProject = -1;
-        audaxwareEntities _db;
 
-        void ContextEvent(object sender, ContextEventArgs args)
+        void ClearAllData(bool deleteProjects = false)
         {
-            args.DomainId = _currentDomain;
-            args.ShowAudaxwareInfo = true;
+            ClearProjects(deleteProjects);
+            var addedByUser = CreateProjectOptions.AddedByUser;
+            var assetsToRemove = CurrentDbContext.assets.Where(x => x.added_by == addedByUser);
+            var inventoryToRemove = CurrentDbContext.project_room_inventory.Where(x => assetsToRemove.Any(
+                y => y.asset_id == x.asset_id && x.asset_domain_id == y.domain_id));
+            CurrentDbContext.project_room_inventory.RemoveRange(inventoryToRemove);
+            CurrentDbContext.assets.RemoveRange(CurrentDbContext.assets.Where(x => x.added_by == addedByUser));
+            CurrentDbContext.assets_category.RemoveRange(CurrentDbContext.assets_category.Where(x => x.added_by == addedByUser));
+            CurrentDbContext.assets_subcategory.RemoveRange(CurrentDbContext.assets_subcategory.Where(x => x.added_by == addedByUser));
+            CurrentDbContext.manufacturers.RemoveRange(CurrentDbContext.manufacturers.Where(x => x.added_by == addedByUser));
+            CurrentDbContext.jsns.RemoveRange(CurrentDbContext.jsns.Where(x => x.added_by == addedByUser));
+            CurrentDbContext.SaveChanges();
+        }
+        short GetDomainFromImportType(Interfaces.ImportColumnsFormat format)
+        {
+            return format == Interfaces.ImportColumnsFormat.MillCreek ?
+                MillCreekDomainId : AudaxWareDomainId;
         }
 
-        void ClearAssets()
+        int GetProjectIdFromImportType(Interfaces.ImportColumnsFormat format)
         {
-            ClearProject(true);
+            return format == Interfaces.ImportColumnsFormat.MillCreek ?
+                _projectIdMillCreek : _projectIdAudaxWare;
         }
 
-        void ClearProject()
-        {
-            ClearProject(false);
-        }
-
-        void ClearProject(bool assetsOnly)
-        {
-            // If project already exists, then we delete it. Cannot use the controller to delete
-            // as the controller only marks the project status as deleted
-            var testProjects = _db.projects.Where(x => x.project_description == _projectDescription).ToList();
-            foreach (var p in testProjects)
-            {
-                _db.project_room_inventory.RemoveRange(_db.project_room_inventory.Where(x => x.project_id == p.project_id));
-                if (!assetsOnly)
-                {
-                    _db.projects.Remove(p);
-                }
-            }
-            _db.assets.RemoveRange(_db.assets.Where(x => x.added_by == _importUser));
-            _db.assets_category.RemoveRange(_db.assets_category.Where(x => x.added_by == _importUser));
-            _db.assets_subcategory.RemoveRange(_db.assets_subcategory.Where(x => x.added_by == _importUser));
-            _db.project_room.RemoveRange(_db.project_room.Where(x => x.added_by == _importUser));
-            _db.project_department.RemoveRange(_db.project_department.Where(x => x.added_by == _importUser));
-            _db.project_phase.RemoveRange(_db.project_phase.Where(x => x.added_by == _importUser));
-            _db.manufacturers.RemoveRange(_db.manufacturers.Where(x => x.added_by == _importUser));
-            _db.jsns.RemoveRange(_db.jsns.Where(x => x.added_by == _importUser));
-            _db.SaveChanges();
-        }
 
         [TestInitialize]
-        public void Initialize()
+        public override void Initialize()
         {
-            xPlannerCommon.SessionConnectionInterceptor.ContextEvent += ContextEvent;
-            _db = new audaxwareEntities();
-            _db.Database.CommandTimeout = 2000000;
-            ClearProject();
-            using (var tableRepo = new  TableRepository<project>())
-            {
-                var p = new project();
-                p.project_description = _projectDescription;
-                p.comment = "Project used for Unit tests only";
-                p.domain_id = 1;
-                p = tableRepo.Add(p);
-                _projectIdAudaxWare = p.project_id;
-                p = new project();
-                p.project_description = _projectDescription;
-                p.comment = "Project used for Unit tests only";
-                p.domain_id = 24;
-                p = tableRepo.Add(p);
-                _projectIdMillCreek = p.project_id;
-            }
+            base.Initialize();
+            ClearAllData(true);
+            CreateProjectOptions.DomainId = AudaxWareDomainId;
+            CreateProject();
+            _projectIdAudaxWare = LastCreatedProjectId;
+            CreateProjectOptions.DomainId = MillCreekDomainId;
+            CreateProject();
+            _projectIdMillCreek = LastCreatedProjectId;
         }
 
-
-        [TestCleanup]
-        public void Cleanup()
-        {
-            xPlannerCommon.SessionConnectionInterceptor.ContextEvent -= ContextEvent;
-            ClearProject();
-            _db.Dispose();
-        }
 
         List<ImportAnalysisResult> GetAnalysisResult(ImportAnalysisResultStatus expectedResult, string resourceFile, Interfaces.ImportColumnsFormat format)
         {
-            _currentDomain = format == Interfaces.ImportColumnsFormat.MillCreek ? 24 : 1;
-            _currentProject = format == Interfaces.ImportColumnsFormat.MillCreek ? _projectIdMillCreek : _projectIdAudaxWare;
+            var currentDomainId = GetDomainFromImportType(format);
+            var currentProjectId = GetProjectIdFromImportType(format);
             var file = EmbeddedResourceHelper.GetTempFilePathFromResource(resourceFile);
             using (var repo = new AssetsInventoryImporterRepository())
             {
-                var result = repo.Analyze(_currentDomain, _currentProject, file, format);
+                var result = repo.Analyze(currentDomainId, currentProjectId, file, format);
                 foreach (var item in result)
                 {
                     Assert.AreEqual(expectedResult, item.Status);
@@ -119,32 +80,32 @@ namespace xPlannerAPI.Tests.Repositories
             var analysisResult = GetAnalysisResult(ImportAnalysisResultStatus.Ok, resourceFile, format).FirstOrDefault();
             // Removes all items with errors
             analysisResult.Items = analysisResult.Items.Where(x => x.Status != ImportItemStatus.Error).ToList();
-            _currentDomain = format == Interfaces.ImportColumnsFormat.MillCreek ? 24 : 1;
+            var currentDomainId = GetDomainFromImportType(format);
+            ContextDomainId = currentDomainId;
+            var currentProjectId = GetProjectIdFromImportType(format);
             using (var repo = new AssetsInventoryImporterRepository())
             {
-                var result = repo.Import(analysisResult.Items.ToArray(), _currentDomain,
-                   _currentProject, _importUser, null);
-                Assert.AreEqual(ImportAnalysisResultStatus.Ok, result.Status);
+                var result = repo.Import(analysisResult.Items.ToArray(), currentDomainId,
+                   currentProjectId, CreateProjectOptions.AddedByUser, null);
+                Assert.AreEqual(result.Status, ImportAnalysisResultStatus.Ok);
             }
         }
 
         void Import(ImportItem item, short domainId, ImportAnalysisResultStatus expectedStatus = ImportAnalysisResultStatus.Ok, int? projectId = null)
         {
-            _currentDomain = domainId;
-            if (projectId != null)
-                _currentProject = (int)projectId;
-            else
-                _currentProject = _currentDomain == 1 ? _projectIdAudaxWare : _projectIdMillCreek;
-            ImportItem[] items = new ImportItem[] { item };
-            Import(items, domainId, expectedStatus, _currentProject);
+            var currentProjectId = projectId != null ? (int)projectId : (
+                domainId == AudaxWareDomainId ? _projectIdAudaxWare : _projectIdMillCreek);
+           ImportItem[] items = new ImportItem[] { item };
+            Import(items, domainId, expectedStatus, currentProjectId);
         }
 
         void Import(ImportItem[] items, short domainId, ImportAnalysisResultStatus expectedStatus = ImportAnalysisResultStatus.Ok, int? projectId = null)
         {
+            ContextDomainId = domainId;
             using (var repo = new AssetsInventoryImporterRepository())
             {
                 var result = repo.Import(items, domainId,
-                   projectId ?? (domainId == 1 ? _projectIdAudaxWare : _projectIdMillCreek), _importUser, null);
+                   projectId ?? (domainId == 1 ? _projectIdAudaxWare : _projectIdMillCreek), CreateProjectOptions.AddedByUser, null);
                 Assert.AreEqual(expectedStatus, result.Status);
             }
         }
@@ -158,8 +119,7 @@ namespace xPlannerAPI.Tests.Repositories
         public void AnalyzeNegativeInvalidPath()
         {
             var repo = new AssetsInventoryImporterRepository();
-            _currentDomain = 1;
-            var result = repo.Analyze(1, 1, "InvalidPath", Interfaces.ImportColumnsFormat.AudaxWare);
+            var result = repo.Analyze(AudaxWareDomainId, _projectIdAudaxWare, "InvalidPath", Interfaces.ImportColumnsFormat.AudaxWare);
             Assert.AreEqual(ImportAnalysisResultStatus.Invalid, result.FirstOrDefault().Status);
         }
 
@@ -213,7 +173,7 @@ namespace xPlannerAPI.Tests.Repositories
         [TestMethod]
         public void AnalyzeMillCreekVanceLab()
         {
-            ClearAssets();
+            ClearAllData();
             var result = GetAnalysisResult(ImportAnalysisResultStatus.Ok, "xPlannerAPI.Tests.Repositories.TestData.VanceLab.xlsx", Interfaces.ImportColumnsFormat.MillCreek);
             Assert.AreEqual(129, result.FirstOrDefault().TotalNewCatalog, "Error on the number of items imported");
         }
@@ -221,7 +181,7 @@ namespace xPlannerAPI.Tests.Repositories
         [TestMethod]
         public void AnalyzeMillCreekVanceLabTwoSheets()
         {
-             ClearAssets();
+            ClearAllData();
             var result = GetAnalysisResult(ImportAnalysisResultStatus.Ok, "xPlannerAPI.Tests.Repositories.TestData.VanceLabTwoSheets.xlsx", Interfaces.ImportColumnsFormat.MillCreek);
             int totalItems = 0;
             foreach (var item in result)
@@ -240,7 +200,7 @@ namespace xPlannerAPI.Tests.Repositories
         public void AnalyzeMillCreekMissingSubcategoryInDescription()
         {
             // TODO(JLT) - Modify this to have multiple lines with our different items and check the results
-            //ClearAssets();
+            //ClearAllData();
             //var result = GetAnalysisResult(ImportAnalysisResultStatus.Ok, "xPlannerAPI.Tests.Repositories.TestData.MissingSubcategoryInDescription.xlsx", Interfaces.ImportColumnsFormat.MillCreek);
             //Assert.AreEqual(0, result.TotalNewCatalog, "We should have only one item with invalid description");
             //Assert.AreEqual(1, result.TotalErrors, "Total number of errors should be 1");
@@ -274,65 +234,65 @@ namespace xPlannerAPI.Tests.Repositories
         [TestMethod]
         public void ImportSimpleExistingAsset()
         {
-            ClearAssets();
+            ClearAllData();
             Import("xPlannerAPI.Tests.Repositories.TestData.SimpleNew.xlsx", Interfaces.ImportColumnsFormat.AudaxWare);
-            var assets = _db.assets.Where(x => x.added_by == _importUser);
+            var assets = CurrentDbContext.assets.Where(x => x.added_by == CreateProjectOptions.AddedByUser);
             Assert.AreEqual(0, assets.Count(), "We should not have any assets for the test user in our database");
-            var roomInventory = _db.project_room_inventory.Include("asset").Where(x => x.project_id == _projectIdAudaxWare);
+            var roomInventory = CurrentDbContext.project_room_inventory.Include("asset").Where(x => x.project_id == _projectIdAudaxWare);
             Assert.AreEqual(1, roomInventory.Count(), "We should have one asset in the inventory");
             var inventory_item = roomInventory.First();
             Assert.AreEqual("AID00001", inventory_item.asset.asset_code);
             Assert.AreEqual(220, inventory_item.unit_budget);
             Assert.AreEqual(2, inventory_item.budget_qty);
             Assert.AreEqual(440, inventory_item.total_budget_amt);
-            ClearAssets();
+            ClearAllData();
         }
 
 
         public void ImportJSN()
         {
-            ClearAssets();
+            ClearAllData();
             Import("xPlannerAPI.Tests.Repositories.TestData.SimpleJSNAdd.xlsx", Interfaces.ImportColumnsFormat.MillCreek);
-            var assets = _db.assets.Include("jsn").Where(x => x.added_by == _importUser);
+            var assets = CurrentDbContext.assets.Include("jsn").Where(x => x.added_by == CreateProjectOptions.AddedByUser);
             Assert.AreEqual(1, assets.Count(), "We should have one asset");
             var asset = assets.First();
             Assert.AreEqual("A1012", asset.jsn.jsn_code, "JSN does not match");
-            var roomInventory = _db.project_room_inventory.Include("asset").Where(x => x.project_id == _projectIdMillCreek);
+            var roomInventory = CurrentDbContext.project_room_inventory.Include("asset").Where(x => x.project_id == _projectIdMillCreek);
             Assert.AreEqual(1, roomInventory.Count(), "We should not have added any assets");
             var inventory_item = roomInventory.First();
             Assert.IsTrue(inventory_item.asset.asset_code.StartsWith("PHN"));
             Assert.AreEqual(400, inventory_item.unit_budget);
             Assert.AreEqual(20, inventory_item.budget_qty);
             Assert.AreEqual(8000, inventory_item.total_budget_amt);
-            ClearAssets();
+            ClearAllData();
         }
 
         [TestMethod]
         public void ImportMillCreekVanceLab()
         {
-            ClearAssets();
+            ClearAllData();
             Import("xPlannerAPI.Tests.Repositories.TestData.VanceLab.xlsx", Interfaces.ImportColumnsFormat.MillCreek);
-            var assets = _db.assets.Include("jsn").Where(x => x.added_by == "unittests@audaxware.com");
+            var assets = CurrentDbContext.assets.Include("jsn").Where(x => x.added_by == CreateProjectOptions.AddedByUser);
             Assert.AreEqual(85, assets.Count(), "We should have one asset");
             var verifiedAssets = assets.Where(x => x.jsn.jsn_code == "A1012");
             Assert.AreEqual(1, verifiedAssets.Count());
             var asset = verifiedAssets.First();
             Assert.AreEqual("A1012", asset.jsn.jsn_code, "JSN does not match");
-            var roomInventory = _db.project_room_inventory.Include("asset").Where(x => x.project_id == _projectIdMillCreek && asset.asset_id == x.asset_id);
+            var roomInventory = CurrentDbContext.project_room_inventory.Include("asset").Where(x => x.project_id == _projectIdMillCreek && asset.asset_id == x.asset_id);
             Assert.AreEqual(1, roomInventory.Count(), "Number of assets mismatch");
             var inventory_item = roomInventory.First();
             Assert.IsTrue(inventory_item.asset.asset_code.StartsWith("PHN"));
             Assert.AreEqual(400, inventory_item.unit_budget);
             Assert.AreEqual(8, inventory_item.budget_qty);
             Assert.AreEqual(400*8, inventory_item.total_budget_amt);
-            ClearAssets();
+            ClearAllData();
         }
 
 
         [TestMethod]
         public void ImportMultipleMismatchJSNUtility()
         {
-            ClearAssets();
+            ClearAllData();
             var items = new ImportItem[] {
             new ImportItem
             {
@@ -370,17 +330,17 @@ namespace xPlannerAPI.Tests.Repositories
             }
             };
 
-            Import(items, 24);
-            var assets = _db.assets.Where(x => x.added_by == _importUser).ToList();
+            Import(items, MillCreekDomainId);
+            var assets = CurrentDbContext.assets.Where(x => x.added_by == CreateProjectOptions.AddedByUser).ToList();
             Assert.AreEqual(1, assets.Count(), "Invalid number of assets returned");
-            ClearAssets();
+            ClearAllData();
         }
 
 
         [TestMethod]
         public void ImportCreateAssetWithJSN()
         {
-            ClearAssets();
+            ClearAllData();
             var item = new ImportItem
             {
                 Status = ImportItemStatus.NewCatalog,
@@ -400,9 +360,9 @@ namespace xPlannerAPI.Tests.Repositories
                 U6 = "F"
             };
 
-            Import(item, 1);
+            Import(item, AudaxWareDomainId);
 
-            var roomInventory = _db.project_room_inventory.Include("asset").Include("asset.jsn").Where(x => x.project_id == _projectIdAudaxWare).ToList();
+            var roomInventory = CurrentDbContext.project_room_inventory.Include("asset").Include("asset.jsn").Where(x => x.project_id == _projectIdAudaxWare).ToList();
             Assert.AreEqual(1, roomInventory.Count(), "We should have one and only one asset added");
             var inventory_item = roomInventory.First();
             Assert.IsTrue(inventory_item.asset.asset_code.StartsWith("EQP"), inventory_item.asset.asset_code);
@@ -415,7 +375,7 @@ namespace xPlannerAPI.Tests.Repositories
             Assert.AreEqual("D", inventory_item.asset.jsn.utility4);
             Assert.AreEqual("E", inventory_item.asset.jsn.utility5);
             Assert.AreEqual("F", inventory_item.asset.jsn.utility6);
-            ClearAssets();
+            ClearAllData();
         }
 
         [TestMethod]
@@ -441,7 +401,7 @@ namespace xPlannerAPI.Tests.Repositories
                 UnitInstallNet = 8,
                 UnitTax = 9
             };
-            Import(item, 1, ImportAnalysisResultStatus.Invalid ,1111999111);
+            Import(item, AudaxWareDomainId, ImportAnalysisResultStatus.Invalid ,1111999111);
 
         }
 
@@ -450,7 +410,7 @@ namespace xPlannerAPI.Tests.Repositories
         {
             // If the asset has fund code PP and quantity greater than 1, we should import multiple entries for that asset
             // We do this because the PP fund code is for relocation
-            ClearAssets();
+            ClearAllData();
             var analysisResult = GetAnalysisResult(ImportAnalysisResultStatus.Ok, "xPlannerAPI.Tests.Repositories.TestData.SimpleExplodePPFundCode.xlsx", Interfaces.ImportColumnsFormat.MillCreek).FirstOrDefault();
             var items = analysisResult.Items;
             Assert.AreEqual(5, items.Count());
@@ -459,20 +419,20 @@ namespace xPlannerAPI.Tests.Repositories
                 Assert.AreEqual(1, item.PlannedQty, "Quantity is invalid");
                 Assert.AreEqual(400, item.UnitBudget, "Quantity is invalid");
             }
-            ClearAssets();
+            ClearAllData();
         }
 
         [TestMethod]
         public void ImportSecondTime()
         {
             // If we have an existing asset with the same JSN, the result should not be to create the asset again
-            ClearAssets();
+            ClearAllData();
             var analysisResult = GetAnalysisResult(ImportAnalysisResultStatus.Ok, "xPlannerAPI.Tests.Repositories.TestData.SimpleNewJSNAndAsset.xlsx", Interfaces.ImportColumnsFormat.MillCreek).FirstOrDefault();
             var items = analysisResult.Items;
             Assert.AreEqual(1, items.Count());
             Assert.AreEqual(ImportItemStatus.NewCatalog, items[0].Status);
             Import("xPlannerAPI.Tests.Repositories.TestData.SimpleNewJSNAndAsset.xlsx", Interfaces.ImportColumnsFormat.MillCreek);
-            var assets = _db.assets.Include("jsn").Where(x => x.added_by == _importUser);
+            var assets = CurrentDbContext.assets.Include("jsn").Where(x => x.added_by == CreateProjectOptions.AddedByUser);
             Assert.AreEqual(1, assets.Count(), "We should have one asset");
             var asset = assets.First();
             Assert.AreEqual("A8899", asset.jsn.jsn_code, "JSN does not match");
@@ -480,13 +440,13 @@ namespace xPlannerAPI.Tests.Repositories
             items = analysisResult.Items;
             Assert.AreEqual(1, items.Count());
             Assert.AreEqual(ImportItemStatus.New, items[0].Status);
-            ClearAssets();
+            ClearAllData();
         }
 
         [TestMethod]
         public void ImportUpdateAsset()
         {
-            ClearAssets();
+            ClearAllData();
             var item = new ImportItem
             {
                 Status = ImportItemStatus.New,
@@ -520,13 +480,13 @@ namespace xPlannerAPI.Tests.Repositories
                 TemporaryLocation = "Temporary",
             };
 
-            Import(item, 1);
-            var roomInventory = _db.project_room_inventory.Include("cost_center").Include("asset").Where(x => x.project_id == _projectIdAudaxWare).ToList();
+            Import(item, AudaxWareDomainId);
+            var roomInventory = CurrentDbContext.project_room_inventory.Include("cost_center").Include("asset").Where(x => x.project_id == _projectIdAudaxWare).ToList();
             Assert.AreEqual(1, roomInventory.Count(), "We should have one and only one asset added");
             var inventory_item = roomInventory.First();
-            var phase = _db.project_phase.Where(x => x.phase_id == inventory_item.phase_id && x.domain_id == 1).First();
-            var department = _db.project_department.Where(x => x.department_id == inventory_item.department_id && x.domain_id == 1).First();
-            var room = _db.project_room.Where(x => x.room_id == inventory_item.room_id && x.domain_id == 1).First();
+            var phase = CurrentDbContext.project_phase.Where(x => x.phase_id == inventory_item.phase_id && x.domain_id == 1).First();
+            var department = CurrentDbContext.project_department.Where(x => x.department_id == inventory_item.department_id && x.domain_id == 1).First();
+            var room = CurrentDbContext.project_room.Where(x => x.room_id == inventory_item.room_id && x.domain_id == 1).First();
             Assert.AreEqual(2, inventory_item.budget_qty);
             Assert.AreEqual(800, inventory_item.unit_budget);
             Assert.AreEqual("OFCI", inventory_item.resp.Trim());
@@ -583,16 +543,15 @@ namespace xPlannerAPI.Tests.Repositories
                 Depth = "31",
                 MountingHeight = "41"
             };
-            Import(item, 1);
+            Import(item, AudaxWareDomainId);
             // Disposes and creates a new context to avoid issues with caching
-            _db.Dispose();
-            _db = new audaxwareEntities();
-            roomInventory = _db.project_room_inventory.Include("cost_center").Include("asset").Where(x => x.project_id == _projectIdAudaxWare).ToList();
+            ResetDbContext();
+            roomInventory = CurrentDbContext.project_room_inventory.Include("cost_center").Include("asset").Where(x => x.project_id == _projectIdAudaxWare).ToList();
             Assert.AreEqual(1, roomInventory.Count(), "We should have one and only one asset added");
             inventory_item = roomInventory.First();
-            phase = _db.project_phase.Where(x => x.phase_id == inventory_item.phase_id && x.domain_id == 1).First();
-            department = _db.project_department.Where(x => x.department_id == inventory_item.department_id && x.domain_id == 1).First();
-            room = _db.project_room.Where(x => x.room_id == inventory_item.room_id && x.domain_id == 1).First();
+            phase = CurrentDbContext.project_phase.Where(x => x.phase_id == inventory_item.phase_id && x.domain_id == 1).First();
+            department = CurrentDbContext.project_department.Where(x => x.department_id == inventory_item.department_id && x.domain_id == 1).First();
+            room = CurrentDbContext.project_room.Where(x => x.room_id == inventory_item.room_id && x.domain_id == 1).First();
             Assert.AreEqual("CFCI", inventory_item.resp.Trim());
             Assert.AreEqual("Phase2", phase.description);
             Assert.AreEqual("Department2", department.description);
@@ -618,13 +577,13 @@ namespace xPlannerAPI.Tests.Repositories
             Assert.AreEqual("20", inventory_item.asset.width);
             Assert.AreEqual("30", inventory_item.asset.depth);
             Assert.AreEqual("40", inventory_item.asset.mounting_height);
-            ClearAssets();
+            ClearAllData();
         }
 
         [TestMethod]
         public void ImportDescriptionMismatch()
         {
-            ClearAssets();
+            ClearAllData();
             var item = new ImportItem
             {
                 Status = ImportItemStatus.NewCatalog,
@@ -648,7 +607,7 @@ namespace xPlannerAPI.Tests.Repositories
                 UnitInstallNet = 8,
                 UnitTax = 9
             };
-            Import(item, 1);
+            Import(item, AudaxWareDomainId);
             item.Status = ImportItemStatus.Error;
             item.JSNNomeclature = "AB";
             item.Id = null;
@@ -665,13 +624,13 @@ namespace xPlannerAPI.Tests.Repositories
                 }
                 Assert.AreEqual(ImportItemStatus.New, item.Status, "Item with different description should be valid");
             }
-            ClearAssets();
+            ClearAllData();
         }
 
         [TestMethod]
         public void ImportCategoryMismatch()
         {
-            ClearAssets();
+            ClearAllData();
             var item = new ImportItem
             {
                 Status = ImportItemStatus.NewCatalog,
@@ -695,13 +654,13 @@ namespace xPlannerAPI.Tests.Repositories
                 repo.ValidateItem(item);
                 Assert.AreEqual(ImportItemStatus.Error, item.Status, "Category length is too long");
             }
-            ClearAssets();
+            ClearAllData();
         }
 
         [TestMethod]
         public void ImportSubCategoryMismatch()
         {
-            ClearAssets();
+            ClearAllData();
             var item = new ImportItem
             {
                 Status = ImportItemStatus.NewCatalog,
@@ -725,26 +684,26 @@ namespace xPlannerAPI.Tests.Repositories
                 repo.ValidateItem(item);
                 Assert.AreEqual(ImportItemStatus.Error, item.Status, "SubCategory length is too long");
             }
-            ClearAssets();
+            ClearAllData();
         }
 
         [TestMethod]
         public void ImportSameAssetTwice()
         {
-            ClearAssets();
+            ClearAllData();
             var result = GetAnalysisResult(ImportAnalysisResultStatus.Ok, "xPlannerAPI.Tests.Repositories.TestData.SameAssetTwice.xlsx", Interfaces.ImportColumnsFormat.MillCreek).FirstOrDefault();
             Assert.AreEqual(2, result.TotalNewCatalog, "Error on the number of items imported");
             Import("xPlannerAPI.Tests.Repositories.TestData.SameAssetTwice.xlsx", Interfaces.ImportColumnsFormat.MillCreek);
             // We have a new asset, but it is the same in both lines, so only one should be added to the catalog
-            var importedAssets = _db.assets.Where(x => x.added_by == _importUser);
+            var importedAssets = CurrentDbContext.assets.Where(x => x.added_by == CreateProjectOptions.AddedByUser);
             Assert.AreEqual(1, importedAssets.Count(), "Number of assets returned mismatch");
-            ClearAssets();
+            ClearAllData();
         }
 
         [TestMethod]
         public void ImportMillCreekVanceLabTwice()
         {
-            ClearAssets();
+            ClearAllData();
             var result = GetAnalysisResult(ImportAnalysisResultStatus.Ok, "xPlannerAPI.Tests.Repositories.TestData.VanceLab.xlsx", Interfaces.ImportColumnsFormat.MillCreek).FirstOrDefault();
             Assert.AreEqual(129, result.TotalNewCatalog, "Error on the number of items imported");
             Import("xPlannerAPI.Tests.Repositories.TestData.VanceLab.xlsx", Interfaces.ImportColumnsFormat.MillCreek);
@@ -752,45 +711,51 @@ namespace xPlannerAPI.Tests.Repositories
             // Now they are all new, as the import has created the assets in the catalog
             Assert.AreEqual(129, result.TotalNew, "Error on the number of items imported");
             Assert.AreEqual(0, result.TotalNewCatalog, "Number of new items must be zero");
-            ClearAssets();
+            ClearAllData();
         }
 
         [TestMethod]
         public void ImportJSNSuffix()
         {
-            ClearAssets();
+            ClearAllData();
             Import("xPlannerAPI.Tests.Repositories.TestData.SimpleJSNSuffix.xlsx", Interfaces.ImportColumnsFormat.MillCreek);
-            var importedAssets = _db.assets.Where(x => x.added_by == _importUser);
+            var importedAssets = CurrentDbContext.assets.Where(x => x.added_by == CreateProjectOptions.AddedByUser);
             Assert.AreEqual(1, importedAssets.Count(), "Number of assets returned mismatch");
             var asset = importedAssets.First();
             Assert.AreEqual("1", asset.jsn_suffix, "JSN Suffix mismatch");
-            var newJSNs = _db.jsns.Where(x => x.added_by == _importUser);
+            var newJSNs = CurrentDbContext.jsns.Where(x => x.added_by ==
+                CreateProjectOptions.AddedByUser);
             Assert.AreEqual(0, newJSNs.Count(), "Number of assets returned mismatch");
-            ClearAssets();
+            ClearAllData();
         }
 
 
         [TestMethod]
         public void ImportJSNMismatch()
         {
-            ClearAssets();
+            ClearAllData();
             Import("xPlannerAPI.Tests.Repositories.TestData.SimpleJSNMismatch1.xlsx", Interfaces.ImportColumnsFormat.MillCreek);
-            var importedAssets = _db.assets.Where(x => x.added_by == _importUser);
+            var importedAssets = CurrentDbContext.assets.Where(x => x.added_by == CreateProjectOptions.AddedByUser);
             Assert.AreEqual(1, importedAssets.Count(), "Number of assets returned mismatch");
             var importedAsset = importedAssets.FirstOrDefault();
+            var jsnQuery = CurrentDbContext.jsns.Where(x => x.Id == importedAsset.jsn_id);
+            Assert.IsNotNull(jsnQuery);
+            Assert.AreEqual(1, jsnQuery.Count());
+            var jsn = jsnQuery.First();
+
             Assert.AreEqual(true, importedAsset.jsn_utility1_ow, "Invalid overwrite value for utility 1");
             Assert.AreEqual("A", importedAsset.jsn_utility1, "Invalid utility value for utility 1");
             Assert.AreEqual(true, importedAsset.jsn_utility2_ow, "Invalid overwrite value for utility 2");
             Assert.AreEqual("B", importedAsset.jsn_utility2, "Invalid utility value for utility 2");
             Assert.AreEqual(false, importedAsset.jsn_utility3_ow, "Invalid overwrite value for utility 3");
-            Assert.IsTrue(string.IsNullOrEmpty(importedAsset.jsn_utility3), "Invalid utility value for utility 3");
+            Assert.AreEqual(jsn.utility3, importedAsset.jsn_utility3, "Invalid utility value for utility 3");
             Assert.AreEqual(false, importedAsset.jsn_utility4_ow, "Invalid overwrite value for utility 4");
-            Assert.IsTrue(string.IsNullOrEmpty(importedAsset.jsn_utility4), "Invalid utility value for utility 4");
+            Assert.AreEqual(jsn.utility4, importedAsset.jsn_utility4, "Invalid utility value for utility 4");
             Assert.AreEqual(false, importedAsset.jsn_utility5_ow, "Invalid overwrite value for utility 5");
-            Assert.IsTrue(string.IsNullOrEmpty(importedAsset.jsn_utility5), "Invalid utility value for utility 5");
+            Assert.AreEqual(jsn.utility5, importedAsset.jsn_utility5, "Invalid utility value for utility 5");
             Assert.AreEqual(false, importedAsset.jsn_utility6_ow, "Invalid overwrite value for utility 6");
-            Assert.IsTrue(string.IsNullOrEmpty(importedAsset.jsn_utility6), "Invalid utility value for utility 6");
-            ClearAssets();
+            Assert.AreEqual(jsn.utility6, importedAsset.jsn_utility6, "Invalid utility value for utility 6");
+            ClearAllData();
         }
 
         /// <summary>
@@ -800,7 +765,7 @@ namespace xPlannerAPI.Tests.Repositories
         [TestMethod]
         public void ImportReplaceCatalogAsset()
         {
-            ClearAssets();
+            ClearAllData();
             var item = new ImportItem
             {
                 Status = ImportItemStatus.NewCatalog,
@@ -812,14 +777,14 @@ namespace xPlannerAPI.Tests.Repositories
                 RoomName = "Room1",
                 RoomNumber = "1234",
             };
-            Import(item, 24);
+            Import(item, MillCreekDomainId);
             item.Code = "AID00002";
-            Import(item, 24);
-            var roomInventory = _db.project_room_inventory.Include("asset").Include("asset.manufacturer").Where(x => x.project_id == _projectIdMillCreek);
+            Import(item, MillCreekDomainId);
+            var roomInventory = CurrentDbContext.project_room_inventory.Include("asset").Include("asset.manufacturer").Where(x => x.project_id == _projectIdMillCreek);
             Assert.AreEqual(1, roomInventory.Count(), "Only one asset was imported");
             var roomInventoryItem = roomInventory.FirstOrDefault();
             Assert.AreEqual("AID00002", roomInventoryItem.asset.asset_code, "Only one asset was imported");
-            ClearAssets();
+            ClearAllData();
         }
 
 
@@ -830,7 +795,7 @@ namespace xPlannerAPI.Tests.Repositories
         [TestMethod]
         public void ImportOverrides()
         {
-            ClearAssets();
+            ClearAllData();
             var item = new ImportItem
             {
                 Status = ImportItemStatus.NewCatalog,
@@ -855,49 +820,49 @@ namespace xPlannerAPI.Tests.Repositories
                 UnitInstallNet = 8,
                 UnitTax = 9
             };
-            Import(item, 24);
-            var roomInventory = _db.project_room_inventory.Include("asset").Include("asset.manufacturer").Where(x => x.project_id == _projectIdMillCreek);
+            Import(item, MillCreekDomainId);
+            var roomInventory = CurrentDbContext.project_room_inventory.Include("asset").Include("asset.manufacturer").Where(x => x.project_id == _projectIdMillCreek);
             Assert.AreEqual(1, roomInventory.Count(), "Only one asset was imported");
             var roomInventoryItem = roomInventory.FirstOrDefault();
             Assert.AreEqual(item.JSNNomeclature, roomInventoryItem.asset_description, "Description was not imported properly");
             Assert.AreEqual(item.ModelNumber, roomInventoryItem.asset.serial_number, "Model number was not imported properly");
             Assert.AreEqual(item.ModelName, roomInventoryItem.asset.serial_name, "Model number was not imported properly");
             Assert.AreEqual(item.Manufacturer, roomInventoryItem.asset.manufacturer.manufacturer_description, "Model number was not imported properly");
-            var assetInventory = _db.asset_inventory.Where(x => x.project_id == _projectIdMillCreek);
+            var assetInventory = CurrentDbContext.asset_inventory.Where(x => x.project_id == _projectIdMillCreek);
             Assert.AreEqual(1, assetInventory.Count(), "Only one asset was imported");
             var assetInventoryItem = assetInventory.FirstOrDefault();
             Assert.AreEqual(item.JSNNomeclature, assetInventoryItem.asset_description, "Description was not imported properly");
             //Assert.AreEqual(item.ModelNumber, assetInventoryItem.serial_number, "Model number was not imported properly");
             //Assert.AreEqual(item.ModelName, assetInventoryItem.serial_name, "Model number was not imported properly");
             //Assert.AreEqual(item.Manufacturer, assetInventoryItem.manufacturer_description, "Model number was not imported properly");
-            _db.project_room_inventory.Remove(roomInventoryItem);
-            _db.SaveChanges();
+            CurrentDbContext.project_room_inventory.Remove(roomInventoryItem);
+            CurrentDbContext.SaveChanges();
             // The description is set internally by the import call, so I reset it here
             item.Id = null;
             item.Description = null;
             item.JSNNomeclature = "2A; B";                // Override for the description
-            Import(item, 24);
-            roomInventory = _db.project_room_inventory.Include("asset").Include("asset.manufacturer").Where(x => x.project_id == _projectIdMillCreek);
+            Import(item, MillCreekDomainId);
+            roomInventory = CurrentDbContext.project_room_inventory.Include("asset").Include("asset.manufacturer").Where(x => x.project_id == _projectIdMillCreek);
             Assert.AreEqual(1, roomInventory.Count(), "Only one asset was imported");
             roomInventoryItem = roomInventory.FirstOrDefault();
             Assert.AreEqual("2A, B", roomInventoryItem.asset_description, "Description was not imported properly");
             Assert.AreEqual(item.ModelNumber, roomInventoryItem.asset.serial_number, "Model number was not imported properly");
             Assert.AreEqual(item.ModelName, roomInventoryItem.asset.serial_name, "Model number was not imported properly");
             Assert.AreEqual(item.Manufacturer, roomInventoryItem.asset.manufacturer.manufacturer_description, "Model number was not imported properly");
-            assetInventory = _db.asset_inventory.Where(x => x.project_id == _projectIdMillCreek).AsNoTracking();
+            assetInventory = CurrentDbContext.asset_inventory.Where(x => x.project_id == _projectIdMillCreek).AsNoTracking();
             Assert.AreEqual(1, assetInventory.Count(), "Only one asset was imported");
             assetInventoryItem = assetInventory.FirstOrDefault();
             Assert.AreEqual("2A, B", assetInventoryItem.asset_description, "Description was not imported properly");
             //Assert.AreEqual(item.ModelNumber, assetInventoryItem.serial_number, "Model number was not imported properly");
             //Assert.AreEqual(item.ModelName, assetInventoryItem.serial_name, "Model number was not imported properly");
             //Assert.AreEqual(item.Manufacturer, assetInventoryItem.manufacturer_description, "Model number was not imported properly");
-            ClearAssets();
+            ClearAllData();
         }
 
         [TestMethod]
         public void ImportDifferentJSN_Utility()
         {
-            ClearAssets();
+            ClearAllData();
             var item = new ImportItem
             {
                 Status = ImportItemStatus.NewCatalog,
@@ -923,23 +888,23 @@ namespace xPlannerAPI.Tests.Repositories
                 UnitTax = 9,
                 U1 = "A"
             };
-            Import(item, 24);
-            var roomInventory = _db.project_room_inventory.Include("asset").Include("asset.manufacturer").Where(x => x.project_id == _projectIdMillCreek);
+            Import(item, MillCreekDomainId);
+            var roomInventory = CurrentDbContext.project_room_inventory.Include("asset").Include("asset.manufacturer").Where(x => x.project_id == _projectIdMillCreek);
             Assert.AreEqual(1, roomInventory.Count(), "Only one asset was imported");
             var roomInventoryItem = roomInventory.FirstOrDefault();
             Assert.AreEqual(item.JSNNomeclature, roomInventoryItem.asset_description, "Description was not imported properly");
             Assert.AreEqual(item.ModelNumber, roomInventoryItem.asset.serial_number, "Model number was not imported properly");
             Assert.AreEqual(item.ModelName, roomInventoryItem.asset.serial_name, "Model number was not imported properly");
             Assert.AreEqual(item.Manufacturer, roomInventoryItem.asset.manufacturer.manufacturer_description, "Model number was not imported properly");
-            var assetInventory = _db.asset_inventory.Where(x => x.project_id == _projectIdMillCreek);
+            var assetInventory = CurrentDbContext.asset_inventory.Where(x => x.project_id == _projectIdMillCreek);
             Assert.AreEqual(1, assetInventory.Count(), "Only one asset was imported");
             var assetInventoryItem = assetInventory.FirstOrDefault();
             Assert.AreEqual(item.JSNNomeclature, assetInventoryItem.asset_description, "Description was not imported properly");
             //Assert.AreEqual(item.ModelNumber, assetInventoryItem.serial_number, "Model number was not imported properly");
             //Assert.AreEqual(item.ModelName, assetInventoryItem.serial_name, "Model number was not imported properly");
             //Assert.AreEqual(item.Manufacturer, assetInventoryItem.manufacturer_description, "Model number was not imported properly");
-            _db.project_room_inventory.Remove(roomInventoryItem);
-            _db.SaveChanges();
+            CurrentDbContext.project_room_inventory.Remove(roomInventoryItem);
+            CurrentDbContext.SaveChanges();
             // The description is set internally by the import call, so I reset it here
             item.Id = null;
             item.Description = null;
@@ -947,42 +912,42 @@ namespace xPlannerAPI.Tests.Repositories
             item.ModelNumber = "2JKL888";                 // Override for the model number
             item.ModelName = "2This is my model name";    // Override for the model name
             item.Manufacturer = "2Test manufacturer";
-            Import(item, 24);
-            roomInventory = _db.project_room_inventory.Include("asset").Include("asset.manufacturer").Where(x => x.project_id == _projectIdMillCreek);
+            Import(item, MillCreekDomainId);
+            roomInventory = CurrentDbContext.project_room_inventory.Include("asset").Include("asset.manufacturer").Where(x => x.project_id == _projectIdMillCreek);
             Assert.AreEqual(1, roomInventory.Count(), "Only one asset was imported");
             roomInventoryItem = roomInventory.FirstOrDefault();
             Assert.AreEqual("2A, B", roomInventoryItem.asset_description, "Description was not imported properly");
             Assert.AreEqual(item.ModelNumber, roomInventoryItem.asset.serial_number, "Model number was not imported properly");
             Assert.AreEqual(item.ModelName, roomInventoryItem.asset.serial_name, "Model number was not imported properly");
             Assert.AreEqual(item.Manufacturer, roomInventoryItem.asset.manufacturer.manufacturer_description, "Model number was not imported properly");
-            assetInventory = _db.asset_inventory.Where(x => x.project_id == _projectIdMillCreek);
+            assetInventory = CurrentDbContext.asset_inventory.Where(x => x.project_id == _projectIdMillCreek);
             Assert.AreEqual(1, assetInventory.Count(), "Only one asset was imported");
             assetInventoryItem = assetInventory.FirstOrDefault();
             Assert.AreEqual("2A, B", assetInventoryItem.asset_description, "Description was not imported properly");
             //Assert.AreEqual(item.ModelNumber, assetInventoryItem.serial_number, "Model number was not imported properly");
             //Assert.AreEqual(item.ModelName, assetInventoryItem.serial_name, "Model number was not imported properly");
             //Assert.AreEqual(item.Manufacturer, assetInventoryItem.manufacturer_description, "Model number was not imported properly");
-            ClearAssets();
+            ClearAllData();
         }
 
         [TestMethod]
         public void ImportAssetDuplicate()
         {
-            ClearAssets();
+            ClearAllData();
             Import("xPlannerAPI.Tests.Repositories.TestData.AssetDuplicate.xlsx", Interfaces.ImportColumnsFormat.MillCreek);
-            var importedAssets = _db.assets.Where(x => x.added_by == _importUser);
+            var importedAssets = CurrentDbContext.assets.Where(x => x.added_by == CreateProjectOptions.AddedByUser);
             // Assert.AreEqual(1, importedAssets.Count(), "Number of assets returned mismatch");
             var count = importedAssets.Count();
             Import("xPlannerAPI.Tests.Repositories.TestData.AssetDuplicate.xlsx", Interfaces.ImportColumnsFormat.MillCreek);
-            importedAssets = _db.assets.Where(x => x.added_by == _importUser);
+            importedAssets = CurrentDbContext.assets.Where(x => x.added_by == CreateProjectOptions.AddedByUser);
             Assert.AreEqual(count, importedAssets.Count(), "Number of assets returned mismatch");
-            ClearAssets();
+            ClearAllData();
         }
 
         [TestMethod]
         public void ImportSameAssetDifferentSettings()
         {
-            ClearAssets();
+            ClearAllData();
             var items = new ImportItem[2];
             items[0] = new ImportItem
             {
@@ -1038,10 +1003,11 @@ namespace xPlannerAPI.Tests.Repositories
                 MountingHeight = "18",
                 Class = "N/A"
             };
-            Import(items, 24);
-            var importedAssets = _db.assets.Where(x => x.added_by == _importUser).AsNoTracking().OrderBy(x => x.jsn_utility1);
+            Import(items, MillCreekDomainId);
+            var importedAssets = CurrentDbContext.assets.Where(x => x.added_by ==
+                CreateProjectOptions.AddedByUser).AsNoTracking().OrderBy(x => x.jsn_utility1);
             Assert.AreEqual(1, importedAssets.Count(), "Invalid number of assets created in the catalog");
-            var assetInventory = _db.asset_inventory.Where(x => x.project_id == _projectIdMillCreek).AsNoTracking();
+            var assetInventory = CurrentDbContext.asset_inventory.Where(x => x.project_id == _projectIdMillCreek).AsNoTracking();
             Assert.AreEqual(2, assetInventory.Count(), "Inventoy error, we must have two assets");
             var i = assetInventory.ToArray();
             Assert.AreEqual("A", i[0].jsn_utility1, "Utility 1 is invalid");
@@ -1071,10 +1037,10 @@ namespace xPlannerAPI.Tests.Repositories
             items[0].U1 = "C";
             items[1].U1 = "D";
             // Update values on existing assets
-            Import(items, 24);
-            importedAssets = _db.assets.Where(x => x.added_by == _importUser).AsNoTracking().OrderBy(x => x.jsn_utility1);
+            Import(items, MillCreekDomainId);
+            importedAssets = CurrentDbContext.assets.Where(x => x.added_by == CreateProjectOptions.AddedByUser).AsNoTracking().OrderBy(x => x.jsn_utility1);
             Assert.AreEqual(1, importedAssets.Count(), "Invalid number of assets created in the catalog");
-            assetInventory = _db.asset_inventory.Where(x => x.project_id == _projectIdMillCreek).AsNoTracking();
+            assetInventory = CurrentDbContext.asset_inventory.Where(x => x.project_id == _projectIdMillCreek).AsNoTracking();
             Assert.AreEqual(2, assetInventory.Count(), "Inventoy error, we must have two assets");
             i = assetInventory.ToArray();
             Assert.AreEqual("C", i[0].jsn_utility1, "Utility 1 is invalid");
@@ -1102,13 +1068,13 @@ namespace xPlannerAPI.Tests.Repositories
             Assert.AreEqual("18", i[1].mounting_height, "mounting height is invalid");
             Assert.AreEqual(0, i[1].@class, "class is invalid");
 
-            ClearAssets();
+            ClearAllData();
         }
 
         [TestMethod]
         public void ImportSetJSN()
         {
-            ClearAssets();
+            ClearAllData();
             var items = new ImportItem[1];
             items[0] = new ImportItem
             {
@@ -1124,8 +1090,8 @@ namespace xPlannerAPI.Tests.Repositories
                 RoomName = "Room1",
                 RoomNumber = "1234",
             };
-            Import(items, 24);
-            var assetInventory = _db.asset_inventory.Where(x => x.project_id == _projectIdMillCreek);
+            Import(items, MillCreekDomainId);
+            var assetInventory = CurrentDbContext.asset_inventory.Where(x => x.project_id == _projectIdMillCreek);
             Assert.AreEqual(1, assetInventory.Count(), "Inventory error, we must have two assets");
             var inventoryItem = assetInventory.FirstOrDefault();
             var phaseId = inventoryItem.phase_id;
@@ -1136,19 +1102,19 @@ namespace xPlannerAPI.Tests.Repositories
             items[0].Department = null;
             items[0].RoomName = null;
             items[0].RoomNumber = null;
-            Import(items, 24);
-            assetInventory = _db.asset_inventory.Where(x => x.project_id == _projectIdMillCreek);
+            Import(items, MillCreekDomainId);
+            assetInventory = CurrentDbContext.asset_inventory.Where(x => x.project_id == _projectIdMillCreek);
             Assert.AreEqual(1, assetInventory.Count(), "Inventory error, we must have two assets");
             inventoryItem = assetInventory.FirstOrDefault();
             Assert.AreEqual(phaseId, inventoryItem.phase_id);
             Assert.AreEqual(departmentId, inventoryItem.department_id);
             Assert.AreEqual(roomId, inventoryItem.room_id);
-            ClearAssets();
+            ClearAllData();
         }
         [TestMethod]
         public void ReimportWithOutManufacturer()
         {
-            ClearAssets();
+            ClearAllData();
             var items = new ImportItem[2];
             items[0] = new ImportItem
             {
@@ -1204,8 +1170,8 @@ namespace xPlannerAPI.Tests.Repositories
                 MountingHeight = "18",
                 Class = "N/A"
             };
-            Import(items, 24);
-            var assetInventory = _db.asset_inventory.Where(x => x.project_id == _projectIdMillCreek).ToArray();
+            Import(items, MillCreekDomainId);
+            var assetInventory = CurrentDbContext.asset_inventory.Where(x => x.project_id == _projectIdMillCreek).ToArray();
             Assert.AreEqual(2, assetInventory.Count(), "Inventory error, we must have two assets");
             for (int i = 0; i < items.Count(); i++)
             {
@@ -1215,15 +1181,15 @@ namespace xPlannerAPI.Tests.Repositories
                 items[i].ModelNumber = null;
             };
 
-            Import(items, 24);
-            assetInventory = _db.asset_inventory.Where(x => x.project_id == _projectIdMillCreek).ToArray();
+            Import(items, MillCreekDomainId);
+            assetInventory = CurrentDbContext.asset_inventory.Where(x => x.project_id == _projectIdMillCreek).ToArray();
             Assert.AreEqual("Test manufacturer 1", assetInventory[0].manufacturer_description, "Manufacturer was not kept.");
             Assert.AreEqual("This is my model name 1", assetInventory[0].serial_name, "Model name was not kept.");
             Assert.AreEqual("JKL888", assetInventory[0].serial_number, "Model number was not kept.");
             Assert.AreEqual("Test manufacturer 2", assetInventory[1].manufacturer_description, "Manufacturer was not kept.");
             Assert.AreEqual("This is my model name 2", assetInventory[1].serial_name, "Model name was not kept.");
             Assert.AreEqual("JKL889", assetInventory[1].serial_number, "Model number was not kept.");
-            ClearAssets();
+            ClearAllData();
 
 
         }

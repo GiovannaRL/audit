@@ -177,25 +177,16 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseTestProjectDefault.cs" />
     <Compile Include="BaseTests.cs" />
-    <Compile Include="Controllers\AssetCodeControllerTest.cs" />
     <Compile Include="Controllers\AssetRoomsControllerTest.cs" />
     <Compile Include="Controllers\AssetsControllerTest.cs" />
-    <Compile Include="Controllers\AssetTreeViewControllerTest.cs" />
-    <Compile Include="Controllers\CategoriesControllerTest.cs" />
-    <Compile Include="Controllers\ClientsControllerTest.cs" />
+    <Compile Include="Controllers\AssetsInventoryControllerTest.cs" />
     <Compile Include="Controllers\RoomControllerTest.CopyFrom.cs" />
-    <Compile Include="Controllers\DepartmentsControllerTest.cs" />
-    <Compile Include="Controllers\FacilitiesControllerTest.cs" />
-    <Compile Include="Controllers\OptionsControllerTest.cs" />
-    <Compile Include="Controllers\PhasesControllerTest.cs" />
-    <Compile Include="Controllers\ProjectsControllerTest.cs" />
-    <Compile Include="Controllers\ProjectValuesControllerTest.cs" />
-    <Compile Include="Controllers\PurchaseOrdersControllerTest.cs" />
-    <Compile Include="Controllers\ReplaceInventoryControllerTest.cs" />
     <Compile Include="Controllers\RoomsControllerTest.cs" />
-    <Compile Include="Controllers\TemplateRoomControllerTest.cs" />
+    <Compile Include="Controllers\AssetsInventoryConsolidatedControllerTest.cs" />
     <Compile Include="EmbeddedResourceHelper.cs" />
+    <Compile Include="Extensions\project_room_inventoryExtension.cs" />
     <Compile Include="Repositories\AssetInventoryImporterRespositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AssetInventoryConsolidatedQueryGeneratorServiceTest.cs" />

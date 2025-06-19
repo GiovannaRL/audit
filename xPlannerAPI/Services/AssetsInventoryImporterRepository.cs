@@ -609,7 +609,7 @@ namespace xPlannerAPI.Services
         {
             if (string.IsNullOrEmpty(input))
             {
-                return "n/a";
+                return "N/A";
             }
             return input.ToUpper();
         }
@@ -763,7 +763,10 @@ namespace xPlannerAPI.Services
         {
             var missingRequired = from required in _requiredColumns where IsPropertyNullOrEmpty(item, required) select
                                   _selectedColumnFormatReversed == null ? required : _selectedColumnFormatReversed[required];
-            if (missingRequired.Count() > 0)
+            // If we have the item id, we do not check for the required columns
+            // as the required values will be properly set for the existing item
+            // we are updating
+            if (missingRequired.Count() > 0 && item.Id == null)
             {
                 item.SetError(string.Format(StringMessages.ImportMissingItemRequiredColumns,
                         String.Join(",", missingRequired)));
@@ -975,27 +978,6 @@ namespace xPlannerAPI.Services
 
             return ret;
         }
-
-        private bool CheckAssetMatch(ImportItem item, asset asset)
-        {
-            if (item.JSN != asset.jsn.jsn_code)
-                return false;
-            if (!CheckUtility(item, 1, asset.jsn_utility1, item.U1))
-                return false;
-            if (!CheckUtility(item, 2, asset.jsn_utility2, item.U2))
-                return false;
-            if (!CheckUtility(item, 3, asset.jsn_utility3, item.U3))
-                return false;
-            if (!CheckUtility(item, 4, asset.jsn_utility4, item.U4))
-                return false;
-            if (!CheckUtility(item, 5, asset.jsn_utility5, item.U5))
-                return false;
-            if (!CheckUtility(item, 6, asset.jsn_utility6, item.U6))
-                return false;
-            return true;
-        }
-
-
 
         private bool ValidateItemCatalog(ImportItem item)
         {
