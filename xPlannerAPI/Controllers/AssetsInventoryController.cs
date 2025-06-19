@@ -329,14 +329,12 @@ namespace xPlannerAPI.Controllers
             }
         }
 
+        // id1 = domain_id
+        // id2 = project_id
+        // id3 = inventory_id
+        // id4 = picture_id
         [HttpDelete]
         [ActionName("Picture")]
-        /**
-         * id1 = domain_id
-         * id2 = project_id
-         * id3 = inventory_id
-         * id4 = picture_id
-         */
         public HttpResponseMessage DeletePicture(int id1, int id2, int id3, int id4)
         {
             try
@@ -347,12 +345,12 @@ namespace xPlannerAPI.Controllers
                     return new HttpResponseMessage(HttpStatusCode.OK);
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Trace.TraceError($"Error to delete asset's picture. Domain = {id1}, Project = {id2}, Inventory = {id3}, Picture = {id4}");
+                Trace.TraceError($"Error in AssetsInventoryController:DeletePicture. Domain = {id1}, Project = {id2}, Inventory = {id3}, Picture = {id4}. ErrorMessage: {e.Message}. InnerException: {e.InnerException}");
                 return new HttpResponseMessage(HttpStatusCode.NotFound);
             }
-        }  
+        }
 
         public AssetsInventoryController() : base(new[] { "inventory_id" },
             new[] { "domain_id", "project_id", "phase_id", "department_id", "room_id" })

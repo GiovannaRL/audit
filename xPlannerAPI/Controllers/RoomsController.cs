@@ -157,9 +157,7 @@ namespace xPlannerAPI.Controllers
 
         [HttpDelete]
         [ActionName("Picture")]
-        /**
-         * id6 = picture_id
-         */
+        //id6 = picture_id
         public HttpResponseMessage DeletePicture(int id1, int id2, int id3, int id4, int id5, int id6)
         {
             try

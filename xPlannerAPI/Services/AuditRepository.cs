@@ -8,17 +8,16 @@ using xPlannerAPI.Models;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Core.Objects;
 using System.Diagnostics;
-using System.Web.Http;
-using Microsoft.AspNet.Identity;
 
 
 namespace xPlannerAPI.Services
 {
-    public class AuditRepository : ApiController, IDisposable
+    public class AuditRepository : IDisposable
     {
         private readonly audaxwareEntities _db;
         private bool _disposed = false;
         private Dictionary<string, string> tableName = new Dictionary<string, string>();
+
 
         public AuditRepository()
         {
@@ -48,37 +47,12 @@ namespace xPlannerAPI.Services
             tableName.Add("purchase_order", "PO");
             tableName.Add("vendor", "VENDOR");
             tableName.Add("vendor_contact", "CONTACT(VENDOR)");
-
-
-
-        }
-
-        private string GetAssetCode(audit_log audit) {
-            if (audit.asset_id == null)
-                return "";
-
-            if (audit.operation == "DELETE")
-            {
-                var fields = JsonConvert.DeserializeObject<asset>(audit.original);
-                return fields.asset_code;
-            }
-            using (var _dbAE = new audaxwareEntities())
-                return _dbAE.assets.Where(x => x.asset_id == audit.asset_id && x.domain_id == audit.asset_domain_id).FirstOrDefault().asset_code;
-        }
-
-        private string GetUserName(string userId)
-        {
-            using (var _dbAE = new audaxwareEntities()) { 
-                var user = _dbAE.AspNetUsers.Where(x => x.Id == userId).FirstOrDefault();
-                return user.first_name.Trim() + " " + user.last_name.Trim();
-            }
         }
 
         public IEnumerable<get_all_audit_data_Result> AllAuditData(int domainId)
         {
             try
             {
-                //var dateToCompare = DateTime.Today.AddDays(-60);
                 var auditedData = _db.get_all_audit_data(domainId, null, null).ToList();
                 auditedData.Select(x => tableName.ContainsKey(x.table_name) ? tableName[x.table_name] : x.table_name);
 
@@ -185,6 +159,8 @@ namespace xPlannerAPI.Services
                 {
                     var jsonOld = JsonConvert.SerializeObject(oldValues);
                     var jsonNew = JsonConvert.SerializeObject(newValues);
+                    var userRepository = new AspNetUsersRepository();
+                    var userId = userRepository.GetLoggedUserId();
 
                     //SAVE DATA 
                     var auditLog = new audit_log();
@@ -192,7 +168,7 @@ namespace xPlannerAPI.Services
                     auditLog.project_id = (int?)oldData.GetType().GetProperty("project_id")?.GetValue(oldData, null);
                     auditLog.asset_id = (int?)oldData.GetType().GetProperty("asset_id")?.GetValue(oldData, null);
                     auditLog.asset_domain_id = table_name == "asset" ? (short?)oldData.GetType().GetProperty("domain_id")?.GetValue(oldData, null) : (short?)oldData.GetType().GetProperty("asset_domain_id")?.GetValue(oldData, null);
-                    auditLog.user_id = User.Identity.GetUserId();
+                    auditLog.user_id = userId;
                     auditLog.operation = operation;
                     auditLog.table_name = table_name;
                     auditLog.table_pk = JsonConvert.SerializeObject(tablePK);
@@ -217,14 +193,14 @@ namespace xPlannerAPI.Services
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!_disposed)
+            if (!this._disposed)
             {
                 if (disposing)
                 {
                     _db.Dispose();
                 }
             }
-            _disposed = true;
+            this._disposed = true;
         }
 
         public void Dispose()

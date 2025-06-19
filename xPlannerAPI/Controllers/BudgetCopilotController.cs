@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -22,8 +23,9 @@ namespace xPlannerAPI.Controllers
                     return Request.CreateResponse(repository.GetBudgetCopilot(id1, id2, id4, id3));
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
+                Trace.TraceError($"Error in BudgetCopilotController:GetAll. ErrorMessage: {e.Message}. InnerException: {e.InnerException}");
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -125,7 +126,8 @@ namespace xPlannerAPI.Controllers
                 }
             }
             catch (Exception e)
-            {                
+            {
+                Trace.TraceError($"Error in GridViewController:Delete. ErrorMessage: {e.Message}. InnerException: {e.InnerException}");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, "Error to try delete de view, please contact the technical support");
             }
         }

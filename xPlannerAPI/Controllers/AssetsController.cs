@@ -199,7 +199,9 @@ namespace xPlannerAPI.Controllers
                 catch (Exception e)
                 {
                     dbTransaction.Rollback();
+                    Trace.TraceError($"Error in AssetsController:Add. ErrorMessage: {e.Message}. InnerException: {e.InnerException}");
                     throw new HttpResponseException(HttpStatusCode.InternalServerError);
+
                 }
             }
         }

@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using xPlannerAPI.Interfaces;
 using xPlannerAPI.Models;
+using xPlannerCommon.App_Data;
 using xPlannerCommon.Models;
 using xPlannerCommon.Services;
-using System.Security.Cryptography;
-using System.Linq.Expressions;
-using xPlannerCommon.Models.Webjobs;
-using xPlannerCommon.Models.Enums;
-using System.Reflection;
-using System.Net.Http;
-using xPlannerCommon.App_Data;
 
 namespace xPlannerAPI.Services
 {
@@ -204,6 +202,7 @@ namespace xPlannerAPI.Services
                 catch (Exception e)
                 {
                     transaction.Rollback();
+                    Trace.TraceError($"Error on AssetRepository:UpdateAudaxWareAsset. ErrorMessage: {e.Message}. InnerException: {e.InnerException}");
                     return new get_related_assets_Result();
                 }
             }

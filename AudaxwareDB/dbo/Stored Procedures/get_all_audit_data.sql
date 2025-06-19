@@ -7,7 +7,7 @@ AS
 	p.project_description, c.asset_code 
 	FROM audit_log (NOLOCK) a
 	INNER JOIN AspNetUsers (NOLOCK) b on b.Id = a.user_id
-	LEFT JOIN project (NOLOCK) p on p.project_id = a.project_id AND b.domain_id = a.domain_id
+	LEFT JOIN project (NOLOCK) p on p.project_id = a.project_id AND p.domain_id = a.domain_id
 	LEFT JOIN assets (NOLOCK) c on c.asset_id = a.asset_id and c.domain_id = a.asset_domain_id
 	WHERE a.domain_id = @domainId AND 
 	(

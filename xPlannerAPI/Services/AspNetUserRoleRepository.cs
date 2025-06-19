@@ -1,9 +1,10 @@
 ﻿using System;
-using xPlannerCommon.Models;
-using System.Linq;
 using System.Data.Entity;
-using System.Net.Http;
+using System.Diagnostics;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
+using xPlannerCommon.Models;
 
 namespace xPlannerAPI.Services
 {
@@ -70,8 +71,9 @@ namespace xPlannerAPI.Services
 
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
+                Trace.TraceError($"Error on AspNetUserRepository:PutAcceptLicenseAgreement. ErrorMessage: {e.Message}. InnerException: {e.InnerException}");
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
 
