@@ -19,7 +19,7 @@ namespace xPlannerAPI.Services
 
         public List<get_asset_rooms_Result> Get(int domain_id, int projectId, int phaseId, int departmentId, int roomId, string assetIds)
         {
-            return _db.get_asset_rooms(projectId, assetIds, phaseId, departmentId, roomId).ToList();
+            return _db.get_asset_rooms(projectId, domain_id, assetIds, phaseId, departmentId, roomId).ToList();
         }
 
         protected virtual void Dispose(bool disposing)

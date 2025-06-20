@@ -349,7 +349,7 @@
     <Content Include="app\Projects\Addresses\Modals\AddEditAddressCtrl.js" />
     <Content Include="app\Projects\Assets\Modals\AddModal.html" />
     <Content Include="app\Projects\Assets\Modals\AIAddModalCtrl.js" />
-    <Content Include="app\Projects\Assets\Modals\checkRoomModal.html" />
+    <Content Include="app\Projects\Assets\Modals\CheckRoomModal.html" />
     <Content Include="app\Projects\Assets\Modals\CheckRoomModalCtrl.js" />
     <Content Include="app\Projects\Assets\Modals\EditAssetModalCtrl.js" />
     <Content Include="app\Projects\Assets\Modals\EditMulti.html" />

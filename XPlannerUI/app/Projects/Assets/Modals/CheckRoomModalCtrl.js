@@ -6,14 +6,9 @@
         $scope.gridHeight = 440;
 
         function mountAssetParam(assets) {
-
-            var ret = '';
-
-            assets.forEach(function (item) {
-                ret += item.asset_id + item.asset_domain_id.toString() + ',';
-            });
-
-            return ret.slice(0, -1);
+            return assets
+                .map(item => `${item.asset_id},${item.asset_domain_id}`)
+                .join(';');
         }
 
         /* kendo ui grid configurations*/
@@ -44,10 +39,9 @@
                 { field: 'dept_desc', title: 'Department', width: '200px' },
                 { field: 'phase_desc', title: 'Phase', width: '200px' },
                 { field: 'budget_qty', title: 'Planned Qty', width: '120px', template: '<center>#: budget_qty#</center>' },
-                { field: 'lease_qty', title: 'Lease Qty', width: '120px', template: '<center>#: lease_qty#</center>' },
                 { field: 'dnp_qty', title: 'DNP Qty', width: '120px', template: '<center>#: dnp_qty || 0 #</center>' },
                 { field: 'resp', title: 'Resp', width: '100px' },
-                { field: 'current_location', title: 'EQ Status', width: '120px' },
+                { field: 'current_location', title: 'Status', width: '120px' },
                 { field: 'po_status', title: 'PO Status', width: '130px' },
                 { field: 'total_budget_amt', title: 'Budget', width: '130px', template: '<aw-currency value="#: total_budget_amt # "></aw-currency>' }
         ];

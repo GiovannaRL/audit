@@ -1670,29 +1670,33 @@ namespace xPlannerCommon.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("copy_po_inventory", domainIdParameter, projectIdParameter, newDomainIdParameter, newProjectIdParameter, addedByParameter);
         }
     
-        public virtual ObjectResult<get_asset_rooms_Result> get_asset_rooms(Nullable<int> pROJECT_ID, string aSSET_IDS, Nullable<int> pHASE_ID, Nullable<int> dEPARTMENT_ID, Nullable<int> rOOM_ID)
+        public virtual ObjectResult<get_asset_rooms_Result> get_asset_rooms(Nullable<int> projectId, Nullable<int> domainId, string assetIds, Nullable<int> phaseId, Nullable<int> departmentId, Nullable<int> roomId)
         {
-            var pROJECT_IDParameter = pROJECT_ID.HasValue ?
-                new ObjectParameter("PROJECT_ID", pROJECT_ID) :
-                new ObjectParameter("PROJECT_ID", typeof(int));
+            var projectIdParameter = projectId.HasValue ?
+                new ObjectParameter("ProjectId", projectId) :
+                new ObjectParameter("ProjectId", typeof(int));
     
-            var aSSET_IDSParameter = aSSET_IDS != null ?
-                new ObjectParameter("ASSET_IDS", aSSET_IDS) :
-                new ObjectParameter("ASSET_IDS", typeof(string));
+            var domainIdParameter = domainId.HasValue ?
+                new ObjectParameter("DomainId", domainId) :
+                new ObjectParameter("DomainId", typeof(int));
     
-            var pHASE_IDParameter = pHASE_ID.HasValue ?
-                new ObjectParameter("PHASE_ID", pHASE_ID) :
-                new ObjectParameter("PHASE_ID", typeof(int));
+            var assetIdsParameter = assetIds != null ?
+                new ObjectParameter("AssetIds", assetIds) :
+                new ObjectParameter("AssetIds", typeof(string));
     
-            var dEPARTMENT_IDParameter = dEPARTMENT_ID.HasValue ?
-                new ObjectParameter("DEPARTMENT_ID", dEPARTMENT_ID) :
-                new ObjectParameter("DEPARTMENT_ID", typeof(int));
+            var phaseIdParameter = phaseId.HasValue ?
+                new ObjectParameter("PhaseId", phaseId) :
+                new ObjectParameter("PhaseId", typeof(int));
     
-            var rOOM_IDParameter = rOOM_ID.HasValue ?
-                new ObjectParameter("ROOM_ID", rOOM_ID) :
-                new ObjectParameter("ROOM_ID", typeof(int));
+            var departmentIdParameter = departmentId.HasValue ?
+                new ObjectParameter("DepartmentId", departmentId) :
+                new ObjectParameter("DepartmentId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_asset_rooms_Result>("get_asset_rooms", pROJECT_IDParameter, aSSET_IDSParameter, pHASE_IDParameter, dEPARTMENT_IDParameter, rOOM_IDParameter);
+            var roomIdParameter = roomId.HasValue ?
+                new ObjectParameter("RoomId", roomId) :
+                new ObjectParameter("RoomId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_asset_rooms_Result>("get_asset_rooms", projectIdParameter, domainIdParameter, assetIdsParameter, phaseIdParameter, departmentIdParameter, roomIdParameter);
         }
     
         public virtual int update_inventories_cutsheet_filename(string inventories_id, string cut_sheet_filename)
