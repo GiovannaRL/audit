@@ -255,37 +255,36 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(689, 463);
+            this.label33.Location = new System.Drawing.Point(796, 463);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(160, 25);
+            this.label33.Size = new System.Drawing.Size(201, 25);
             this.label33.TabIndex = 54;
-            this.label33.Text = "Mounting Height:";
+            this.label33.Text = "Mounting Height (in) (AFF):";
             // 
             // txtMHeight
             // 
-            this.txtMHeight.Location = new System.Drawing.Point(692, 490);
+            this.txtMHeight.Location = new System.Drawing.Point(796, 490);
             this.txtMHeight.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtMHeight.MaxLength = 25;
             this.txtMHeight.Name = "txtMHeight";
-            this.txtMHeight.Size = new System.Drawing.Size(179, 30);
+            this.txtMHeight.Size = new System.Drawing.Size(300, 30);
             this.txtMHeight.TabIndex = 58;
             // 
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(248, 463);
+            this.label34.Location = new System.Drawing.Point(285, 463);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(69, 25);
+            this.label34.Size = new System.Drawing.Size(80, 25);
             this.label34.TabIndex = 52;
-            this.label34.Text = "Width:";
-            // 
+            this.label34.Text = "Width (in):";
             // txtWidth
             // 
-            this.txtWidth.Location = new System.Drawing.Point(251, 490);
+            this.txtWidth.Location = new System.Drawing.Point(285, 490);
             this.txtWidth.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtWidth.MaxLength = 25;
             this.txtWidth.Name = "txtWidth";
-            this.txtWidth.Size = new System.Drawing.Size(179, 30);
+            this.txtWidth.Size = new System.Drawing.Size(220, 30);
             this.txtWidth.TabIndex = 56;
             // 
             // label35
@@ -293,9 +292,9 @@
             this.label35.AutoSize = true;
             this.label35.Location = new System.Drawing.Point(36, 463);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(74, 25);
+            this.label35.Size = new System.Drawing.Size(86, 25);
             this.label35.TabIndex = 50;
-            this.label35.Text = "Height:";
+            this.label35.Text = "Height (in):";
             // 
             // txtHeight
             // 
@@ -303,7 +302,7 @@
             this.txtHeight.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtHeight.MaxLength = 25;
             this.txtHeight.Name = "txtHeight";
-            this.txtHeight.Size = new System.Drawing.Size(179, 30);
+            this.txtHeight.Size = new System.Drawing.Size(220, 30);
             this.txtHeight.TabIndex = 55;
             // 
             // label36
@@ -483,19 +482,19 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(464, 463);
+            this.label1.Location = new System.Drawing.Point(540, 463);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 25);
             this.label1.TabIndex = 76;
-            this.label1.Text = "Depth:";
+            this.label1.Text = "Depth (in):";
             // 
             // txtDepth
             // 
-            this.txtDepth.Location = new System.Drawing.Point(469, 490);
+            this.txtDepth.Location = new System.Drawing.Point(540, 490);
             this.txtDepth.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtDepth.MaxLength = 25;
             this.txtDepth.Name = "txtDepth";
-            this.txtDepth.Size = new System.Drawing.Size(179, 30);
+            this.txtDepth.Size = new System.Drawing.Size(220, 30);
             this.txtDepth.TabIndex = 57;
             // 
             // cboDescription
@@ -542,7 +541,7 @@
             // 
             this.btnSave.AutoEllipsis = true;
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(783, 724);
+            this.btnSave.Location = new System.Drawing.Point(783, 710);
             this.btnSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(176, 43);
@@ -554,7 +553,7 @@
             // btnClose
             // 
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.Location = new System.Drawing.Point(987, 724);
+            this.btnClose.Location = new System.Drawing.Point(987, 710);
             this.btnClose.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(176, 43);
@@ -571,7 +570,7 @@
             // 
             this.btnAdd.AutoEllipsis = true;
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Location = new System.Drawing.Point(573, 724);
+            this.btnAdd.Location = new System.Drawing.Point(573, 710);
             this.btnAdd.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(176, 43);
@@ -590,7 +589,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1196, 794);
+            this.ClientSize = new System.Drawing.Size(1196, 810);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnSave);
