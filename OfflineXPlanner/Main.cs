@@ -651,7 +651,11 @@ namespace OfflineXPlanner
 
         private void DuplicateInventory(int inventoryId)
         {
-            using (SelectDuplicateQtyForm selectQtyForm = new SelectDuplicateQtyForm(inventoryId))
+            int departmentId = cboDepartmentFilter.SelectedValue != null ? (int)cboDepartmentFilter.SelectedValue : -1;
+            int roomId = cboRoomFilter.SelectedValue != null ? (int)cboRoomFilter.SelectedValue : -1;
+
+            using (SelectDuplicateQtyForm selectQtyForm = new SelectDuplicateQtyForm(
+                _selectedProjectId ?? -1, departmentId, roomId, inventoryId))
             {
                 if (selectQtyForm.ShowDialog() == DialogResult.OK)
                 {
@@ -660,7 +664,7 @@ namespace OfflineXPlanner
 
                     if (newAssetId != null)
                         SelectAssetById((int)newAssetId);
-                    
+
                 }
             }
         }

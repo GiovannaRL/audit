@@ -18,16 +18,9 @@ namespace OfflineXPlanner.Database
         DataTable GetInventoryRooms(int project_id);
         int GetNextInventoryId(int project_id);
         List<Inventory> GetInventoriesAsList(int project_id);
-
-        //int DeleteInventorys(List<Inventory> Inventorys);
-
-        //int DeleteInventorys(List<int> ids);
-
-        //int DeleteInventory(Inventory Inventory);
-
         bool DeleteInventory(int inventoryId);
 
-        List<Inventory> DuplicateItem(int itemID, int qty);
+        List<Inventory> DuplicateItem(int itemID, int qty, int department_id, int room_id);
 
         List<Inventory> GetRoomInventories(int project_id, int department_id, int room_id);
         Inventory GetInventoryItem(int project_id, int id);

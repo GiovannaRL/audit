@@ -4,6 +4,7 @@ using OfflineXPlanner.Domain;
 using OfflineXPlanner.Utils;
 using System.Collections.Generic;
 using System;
+using OfflineXPlanner.Database.Impl;
 
 namespace OfflineXPlanner.Database
 {
@@ -106,9 +107,6 @@ namespace OfflineXPlanner.Database
 
             cmd.CommandText = "UPDATE inventories SET Code = ?, Manufacturer = ?, Description = ?, ModelNumber = ?, ModelName = ?, JSN = ?, JSNNomenclature = ?, ";
             cmd.CommandText += " U1 = ?, U2 = ?, U3 = ?, U4 = ?, U5 = ?, U6 = ?, ECN = ?, Height = ?, Depth = ?, Width = ?, MountingHeight = ?, InstallMethod = ?, Comments = ?, CADID = ?, RoomName = ?, RoomNumber = ?, DateAdded = ? WHERE Id = ?";
-            //cmd.CommandText += "PlannedQty = , Class = , Clin = , UnitBudget = , Phase = , Department, RoomNumber, RoomName, ";
-            //cmd.CommandText += "Resp, U1, U2, U3, U4, U5, U6, UnitMarkup, UnitEscalation, UnitTax, UnitInstallNet, ";
-            //cmd.CommandText += "UnitInstallMarkup, UnitFreightNet, UnitFreightMarkup, UnitOfMeasure, project_id, department_id, room_id) ";
 
             cmd.Parameters.AddRange(new OleDbParameter[] {
                 new OleDbParameter("Code", inv.Code ?? ""),
@@ -424,45 +422,10 @@ namespace OfflineXPlanner.Database
                 }
             }
         }
-
-        //public int DeleteInventorys(List<int> ids)
-        //{
-        //    if (ids == null)
-        //    {
-        //        return 0;
-        //    }
-
-        //    var conn = new OleDbConnection(connectionString);
-        //    var cmd = conn.CreateCommand();
-        //    conn.Open();
-
-        //    cmd.CommandText = $"DELETE FROM Inventorys WHERE ID IN ({String.Join(", ", ids)})";
-        //    int rowsAffected = cmd.ExecuteNonQuery();
-
-        //    cmd.Dispose();
-        //    conn.Close();
-        //    conn.Dispose();
-        //    return rowsAffected;
-        //}
-
-        //public int DeleteInventory(Inventory Inventory)
-        //{
-        //    if (Inventory == null)
-        //    {
-        //        return 0;
-        //    }
-
-        //    return this.DeleteInventory(Inventory.id);
-        //}
-
-        //public int DeleteInventory(int id)
-        //{
-        //    return this.DeleteInventorys(new List<int>() { id });
-        //}
-
-        public List<Inventory> DuplicateItem(int itemID, int qty)
+        
+        public List<Inventory> DuplicateItem(int itemID, int qty, int department_id, int room_id)
         {
-            List<Inventory> result = new List<Inventory>();
+            List<Inventory> result = new List<Inventory>();       
 
             if (qty < 1) {
                 return result;
@@ -479,16 +442,29 @@ namespace OfflineXPlanner.Database
             if (inventories.Read())
             {
                 Inventory newItem = new Inventory(inventories);
+                IDepartmentDAO departmentDAO = new DepartmentDAO();
+                IRoomDAO roomDAO = new RoomDAO();
+
+                var newDepartment = departmentDAO.GetDeparment(newItem.project_id, department_id);
+                var newRoom = roomDAO.Get(newItem.project_id, department_id, room_id);
+
                 newItem.Id = null;
+                newItem.department_id = department_id;
+                newItem.Department = newDepartment.description;
+                newItem.room_id = room_id;
+                newItem.RoomName = newRoom.Name;
+                newItem.RoomNumber = newRoom.Number;
                 newItem.inventory_id = 0;
                 newItem.PlannedQty = 1;
                 newItem.ECN = "";
+                newItem.PhotoFile = null;
+                newItem.TagPhotoFile = null;
                 newItem.DateAdded = DateTime.Now;
 
 
                 for (int i = 0; i < qty; ++i)
-                {
-                    var itemResult = InsertInventory(newItem.project_id, newItem.department_id, newItem.room_id, newItem);
+                {                    
+                    var itemResult = InsertInventory(newItem.project_id, department_id, room_id, newItem);
                     result.Add(newItem);
                     if (!itemResult)
                     {
