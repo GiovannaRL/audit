@@ -53,6 +53,7 @@ namespace reportsWebJob.Services
             FileInfo report = new FileInfo(excelPath);
             FileInfo template = new FileInfo(Path.Combine(reportsDirectory, "excel_templates", "assetByRoomTemplate.xlsx"));
 
+            ExcelPackage.LicenseContext = LicenseContext.Commercial;
             using (ExcelPackage xlPackage = new ExcelPackage(report, template))
             {
                 ExcelWorksheet worksheet = xlPackage.Workbook.Worksheets["Asset By Room"];
@@ -167,8 +168,8 @@ namespace reportsWebJob.Services
             List<AssetByRoomItem> allInformation = new List<AssetByRoomItem>();
 
             string useCadId = report.use_cad_id == true
-                ? "COALESCE(ai.cad_id, ai.asset_code) AS asset_code,"
-                : "ai.asset_code,";
+                ? "COALESCE(NULLIF(TRIM(ai.cad_id), ''), ai.asset_code)"
+                : "ai.asset_code";
 
             string catalogDescriptionJoin =
                    report.ignore_description_difference == true
@@ -187,7 +188,7 @@ namespace reportsWebJob.Services
                 SELECT 
                     ai.asset_domain_id,
                     ai.asset_id,
-                    {useCadId}
+                    {useCadId} as asset_code,
                     {selectAssetDescription}
                     ai.manufacturer_description,
                     COALESCE(ai.serial_name,'') AS serial_name,
@@ -204,8 +205,7 @@ namespace reportsWebJob.Services
                     ai.plumbing_option,
                     ai.medgas_option,
                     ai.blocking_option,
-                    ai.supports_option,
-                    ai.asset_code
+                    ai.supports_option
                 FROM asset_inventory ai
                 {catalogDescriptionJoin}
                 WHERE
@@ -215,7 +215,7 @@ namespace reportsWebJob.Services
                 GROUP BY
                     ai.asset_domain_id,
                     ai.asset_id,
-                    {useCadId}
+                    {useCadId},
                     {selectAssetDescription}
                     ai.manufacturer_description,
                     ai.serial_name,
@@ -232,10 +232,9 @@ namespace reportsWebJob.Services
                     ai.plumbing_option,
                     ai.medgas_option,
                     ai.blocking_option,
-                    ai.supports_option,
-                    ai.asset_code
+                    ai.supports_option
                 ORDER BY 
-                    ai.asset_code;
+                     ai.asset_code;
 
                 DROP TABLE #TempRoomIds;
             ";
