@@ -23,6 +23,7 @@ namespace OfflineXPlanner
         public int? _selectedProjectId;
         List<PictureBox> _selectedRoomPictures = new List<PictureBox>();
         List<PictureBox> _selectedInventoryPictures = new List<PictureBox>();
+        DataTable _currentInventory = new DataTable();
         private int? _clickedRoomRow;
         private int? _clickedInventoryRow;
         bool _updatingSearchRoom = false;
@@ -289,8 +290,9 @@ namespace OfflineXPlanner
             
             IProjectDAO projectDAO = new ProjectDAO();
             IInventoryDAO inventories = new InventoryDAO();
+            _currentInventory = inventories.GetInventories(projectId);
 
-            gridInventory.DataSource = inventories.GetInventories(projectId);
+            gridInventory.DataSource = _currentInventory;
             HideInventoryColumns();
             SetGridConfiguration();
 
@@ -1116,7 +1118,7 @@ namespace OfflineXPlanner
                 departmentId = (int)cboDepartmentFilter.SelectedValue;
             if (cboRoomFilter.SelectedValue != null)
                 roomId = (int)cboRoomFilter.SelectedValue;
-            var editInventoryForm = new EditInventory((int)_selectedProjectId, departmentId, roomId);
+            var editInventoryForm = new EditInventory((int)_selectedProjectId, departmentId, roomId, _currentInventory);
             GetSorting();
             editInventoryForm.ShowDialog();
             var newAssetId = editInventoryForm._newAssetId;
@@ -1178,7 +1180,7 @@ namespace OfflineXPlanner
 
             if (e1 == null || e1.RowIndex >= 0)
             {
-                var editInventoryForm = new EditInventory((int)_selectedProjectId, selected[0]);
+                var editInventoryForm = new EditInventory((int)_selectedProjectId, selected[0], _currentInventory);
                 GetSorting();
                 if (editInventoryForm.ShowDialog() != DialogResult.Cancel)
                 {

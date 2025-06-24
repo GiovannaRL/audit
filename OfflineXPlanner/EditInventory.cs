@@ -6,6 +6,7 @@ using xPlannerCommon.Models;
 using OfflineXPlanner.Business;
 using OfflineXPlanner.Utils;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace OfflineXPlanner
 {
@@ -16,6 +17,7 @@ namespace OfflineXPlanner
         int _roomId;
         int _inventoryId = 0;
         int _id = 0;
+        DataTable _currentInventory =  new DataTable();
         bool _isEdit = false;
         public int? _newAssetId = null;
         DataView _jsnData;
@@ -25,7 +27,18 @@ namespace OfflineXPlanner
         string _lastSearch;
         bool _loading = true;
 
-        public EditInventory(int projectId, int departmentId, int roomId)
+        private string SelectedJSN
+        {
+            get
+            {
+                return cboJSN.Text.Split('-')[0].Trim();
+            }
+        }
+
+
+
+
+        public EditInventory(int projectId, int departmentId, int roomId, DataTable currentInventory)
         {
             var currentCursor = Cursor.Current;
             Cursor.Current = Cursors.WaitCursor;
@@ -41,11 +54,12 @@ namespace OfflineXPlanner
             cboManufacturer.SelectedValue = 673;
             _departmentId = departmentId;
             _roomId = roomId;
+            _currentInventory = currentInventory;
             this.CenterToParent();
             Cursor.Current = currentCursor;
             SetShortcuts();
         }
-        public EditInventory(int projectId, DataGridViewRow inventory)
+        public EditInventory(int projectId, DataGridViewRow inventory, DataTable currentInventory)
         {
             var currentCursor = Cursor.Current;
             Cursor.Current = Cursors.WaitCursor;
@@ -54,6 +68,7 @@ namespace OfflineXPlanner
             btnSave.Text = "&Save";
             btnAdd.Visible = false;
             _isEdit = true;
+            _currentInventory = currentInventory;
 
             cboDepartment.SelectedValue = inventory.Cells["department_id"].Value.ToString();
             cboRoom.SelectedValue = inventory.Cells["room_id"].Value.ToString();
@@ -335,6 +350,31 @@ namespace OfflineXPlanner
                 return;
             }
             FillJSNFields(true);
+            FillManufacturerAndModelFields();
+        }
+
+        private void FillManufacturerAndModelFields()
+        {
+            if (_currentInventory == null || _currentInventory.Rows.Count == 0)
+                return;
+
+            var row = _currentInventory.Select($"JSN = '{SelectedJSN}'").FirstOrDefault();
+
+            if (row != null)
+            {
+                string manufacturer = row["Manufacturer"].ToString();
+                string modelName = row["ModelName"].ToString();
+
+                var matchingManufacturer = cboManufacturer.Items.Cast<DataRowView>()
+                    .FirstOrDefault(r => r["description"].ToString() == manufacturer);
+
+                if (matchingManufacturer != null)
+                    cboManufacturer.SelectedValue = matchingManufacturer["manufacturer_id"];
+                else
+                    cboManufacturer.Text = manufacturer;
+
+                txtModel.Text = modelName;
+            }      
         }
 
         private void FillJSNFields(bool isJSNField)
@@ -365,7 +405,7 @@ namespace OfflineXPlanner
                     if (cboDescription.Text != "")
                     {
                         var splited = cboDescription.Text.Split('-');
-                        var jsnCode = splited[splited.Length-1].Trim();
+                        var jsnCode = splited[splited.Length - 1].Trim();
                         var jsn = CatalogBusiness.LoadJSN(jsnCode);
                         FillUtilities(jsn);
                         cboJSN.SelectedIndexChanged -= cboJSN_SelectedIndexChanged;
@@ -439,10 +479,9 @@ namespace OfflineXPlanner
                 MessageBox.Show("Asset added!", "Add Asset", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
-            string jsnCode = cboJSN.Text.Split('-')[0].Trim();
             string manufacturer = cboManufacturer.Text.Trim();
 
-            if (!CheckIfJsnExists(jsnCode))            
+            if (!CheckIfJsnExists(SelectedJSN))            
                 _cachedJsnData = null;            
 
             if (!CheckIfManufacuterExists(manufacturer))            
