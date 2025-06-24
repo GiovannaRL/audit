@@ -61,7 +61,7 @@ namespace OfflineXPlanner.Domain
         public string MountingHeight { get; set; }
         public string Placement { get; set; }
         public string Comment { get; set; }
-        public string CADID { get; set; }
+        public string SerialNumber { get; set; }
 
         public int inventory_id { get; set; }
 
@@ -125,7 +125,7 @@ namespace OfflineXPlanner.Domain
             MountingHeight = inventoryRow["MountingHeight"].ToString();
             Placement = inventoryRow["InstallMethod"].ToString();
             Comment = inventoryRow["Comments"].ToString();
-            CADID = inventoryRow["CADID"].ToString();
+            SerialNumber = inventoryRow["SerialNumber"].ToString();
             PhotoFile = inventoryRow["PhotoFile"].ToString();
             TagPhotoFile = inventoryRow["TagPhotoFile"].ToString();
             DateAdded = inventoryRow["DateAdded"] != DBNull.Value ? Convert.ToDateTime(inventoryRow["DateAdded"]) : DateTime.Now;
@@ -137,7 +137,7 @@ namespace OfflineXPlanner.Domain
             UnitOfMeasure = "EA";
             inventory_id = Convert.ToInt32(assetInventory.inventory_id);
             Code = assetInventory.asset_code;
-            CADID = assetInventory.cad_id;
+            SerialNumber = assetInventory.serial_number; 
             Manufacturer = assetInventory.manufacturer_description;
             Description = assetInventory.asset_description;
             ModelNumber = assetInventory.serial_number;
@@ -189,7 +189,7 @@ namespace OfflineXPlanner.Domain
             toStringData.Append($"StatusComment: {this.StatusComment ?? "null"},");
             toStringData.Append($"Id: {this.inventory_id},");
             toStringData.Append($"Code: {this.Code ?? "null"},");
-            toStringData.Append($"CADID: {this.CADID ?? "null"},");
+            toStringData.Append($"SerialNumber: {this.SerialNumber ?? "null"},");
             toStringData.Append($"Manufacturer: {this.Manufacturer ?? "null"},");
             toStringData.Append($"Description: {this.Description ?? "null"},");
             toStringData.Append($"ModelNumber: {this.ModelNumber ?? "null"},");

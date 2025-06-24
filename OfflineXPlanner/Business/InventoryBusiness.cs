@@ -177,8 +177,9 @@ namespace OfflineXPlanner.Business
                         worksheet.Cells[row, 27].Value = item.MountingHeight;
                         worksheet.Cells[row, 28].Value = item.Depth;
                         worksheet.Cells[row, 29].Value = item.Placement;
+                        worksheet.Cells[row, 31].Value = item.SerialNumber;
                         worksheet.Cells[row, 30].Value = item.Comment;
-                        worksheet.Cells[row, 31].Value = item.CADID;
+                        
                         row++;
                     }
 

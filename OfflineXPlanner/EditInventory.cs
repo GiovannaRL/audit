@@ -79,12 +79,11 @@ namespace OfflineXPlanner
             txtECN.Text = inventory.Cells["ECN"].Value.ToString();
             cboPlacement.SelectedValue = inventory.Cells["InstallMethod"].Value;
             txtComments.Text = inventory.Cells["Comments"].Value.ToString();
-            txtCadID.Text = inventory.Cells["CADID"].Value.ToString();
+            txtSerialNumber.Text = inventory.Cells["SerialNumber"].Value.ToString();
             txtHeight.Text = inventory.Cells["Height"].Value.ToString();
             txtWidth.Text = inventory.Cells["Width"].Value.ToString();
             txtMHeight.Text = inventory.Cells["MountingHeight"].Value.ToString();
             txtDepth.Text = inventory.Cells["Depth"].Value.ToString();
-            txtCadID.Text = inventory.Cells["CADID"].Value.ToString();
             _inventoryId = (int)inventory.Cells["inventory_id"].Value;
             _id = (int)inventory.Cells["Id"].Value;
             _loading = false;
@@ -284,7 +283,6 @@ namespace OfflineXPlanner
             inventory.jsn_utility5 = Convert.ToString(cboU5.SelectedValue);
             inventory.jsn_utility6 = Convert.ToString(cboU6.SelectedValue);
             inventory.comment = txtComments.Text;
-            inventory.cad_id = txtCadID.Text;
             inventory.manufacturer_description = cboManufacturer.Text;
             inventory.serial_name = txtModel.Text;
             inventory.department_id = (int)cboDepartment.SelectedValue;
@@ -300,10 +298,11 @@ namespace OfflineXPlanner
             inventory.room_number = room.Substring(separator + 4);
             inventory.inventory_id = _id;
             inventory.ECN = txtECN.Text;
-            inventory.cad_id = txtCadID.Text;
             inventory.placement = cboPlacement.SelectedValue?.ToString();
             inventory.mounting_height = txtMHeight.Text;
-            
+            inventory.serial_number = txtSerialNumber.Text; 
+
+
             Inventory inv = new Inventory(inventory);
             inv.DateAdded = DateTime.Now; 
             if (_id == 0)
@@ -517,7 +516,7 @@ namespace OfflineXPlanner
             txtDepth.Text = null;
             txtECN.Text = null;
             txtComments.Text = null;
-            txtCadID.Text = null;
+            txtSerialNumber.Text = null;
             txtMHeight.Text = null;
             txtModel.Text = null;
             txtWidth.Text = null;

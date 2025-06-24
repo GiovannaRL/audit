@@ -19,7 +19,7 @@ namespace OfflineXPlanner.Database
             cmd.CommandText = "INSERT INTO inventories(inventory_id, Code, Manufacturer, Description, ModelNumber, ModelName, JSN, JSNNomenclature, ";
             cmd.CommandText += "PlannedQty, Class, Clin, UnitBudget, Phase, Department, RoomNumber, RoomName, ";
             cmd.CommandText += "Resp, U1, U2, U3, U4, U5, U6, UnitMarkup, UnitEscalation, UnitTax, UnitInstallNet, ";
-            cmd.CommandText += "UnitInstallMarkup, UnitFreightNet, UnitFreightMarkup, UnitOfMeasure, project_id, department_id, room_id, ECN, Height, Depth, Width, MountingHeight, InstallMethod, Comments, CADID, DateAdded) ";
+            cmd.CommandText += "UnitInstallMarkup, UnitFreightNet, UnitFreightMarkup, UnitOfMeasure, project_id, department_id, room_id, ECN, Height, Depth, Width, MountingHeight, InstallMethod, Comments, DateAdded, SerialNumber) ";
             cmd.CommandText += "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             cmd.Parameters.AddRange(new OleDbParameter[] {
@@ -64,8 +64,8 @@ namespace OfflineXPlanner.Database
                 new OleDbParameter("MountingHeight", inv.MountingHeight ?? ""),
                 new OleDbParameter("InstallMethod", inv.Placement ?? ""),
                 new OleDbParameter("Comments", inv.Comment ?? ""),
-                new OleDbParameter("CADID", inv.CADID ?? ""),
-                new OleDbParameter("DateAdded", OleDbType.Date) { Value = inv.DateAdded }
+                new OleDbParameter("DateAdded", OleDbType.Date) { Value = inv.DateAdded },
+                new OleDbParameter("SerialNumber", inv.SerialNumber ?? "")
             });
 
             int rowsAffected = cmd.ExecuteNonQuery();
@@ -106,7 +106,7 @@ namespace OfflineXPlanner.Database
             conn.Open();
 
             cmd.CommandText = "UPDATE inventories SET Code = ?, Manufacturer = ?, Description = ?, ModelNumber = ?, ModelName = ?, JSN = ?, JSNNomenclature = ?, ";
-            cmd.CommandText += " U1 = ?, U2 = ?, U3 = ?, U4 = ?, U5 = ?, U6 = ?, ECN = ?, Height = ?, Depth = ?, Width = ?, MountingHeight = ?, InstallMethod = ?, Comments = ?, CADID = ?, RoomName = ?, RoomNumber = ?, DateAdded = ? WHERE Id = ?";
+            cmd.CommandText += " U1 = ?, U2 = ?, U3 = ?, U4 = ?, U5 = ?, U6 = ?, ECN = ?, Height = ?, Depth = ?, Width = ?, MountingHeight = ?, InstallMethod = ?, Comments = ?, SerialNumber = ?, RoomName = ?, RoomNumber = ?, DateAdded = ? WHERE Id = ?";
 
             cmd.Parameters.AddRange(new OleDbParameter[] {
                 new OleDbParameter("Code", inv.Code ?? ""),
@@ -129,7 +129,7 @@ namespace OfflineXPlanner.Database
                 new OleDbParameter("MountingHeight", inv.MountingHeight ?? ""),
                 new OleDbParameter("InstallMethod", inv.Placement ?? ""),
                 new OleDbParameter("Comments", inv.Comment ?? ""),
-                new OleDbParameter("CADID", inv.CADID ?? ""),
+                new OleDbParameter("SerialNumber", inv.SerialNumber ?? ""),
                 new OleDbParameter("RoomName", inv.RoomName ?? ""),
                 new OleDbParameter("RoomNumber", inv.RoomNumber ?? ""),
                 new OleDbParameter("DateAdded", OleDbType.Date) { Value = inv.DateAdded },
@@ -257,7 +257,7 @@ namespace OfflineXPlanner.Database
             var cmd = conn.CreateCommand();
             conn.Open();
 
-            cmd.CommandText = "SELECT Phase, Department, RoomNumber, RoomName, JSN, Description, Manufacturer, CADID, ModelNumber, ModelName, U1, U2, U3, U4, U5, U6, Resp, Id, inventory_id, Code, JSNNomenclature, PlannedQty, Class, Clin, UnitBudget, UnitMarkup, UnitEscalation, UnitTax, UnitInstallNet, UnitInstallMarkup, UnitOfMeasure, UnitFreightMarkup, project_id, department_id, room_id, ECN, Height, Width, Depth, MountingHeight, InstallMethod, Comments, PhotoFile, TagPhotoFile, DateAdded FROM inventories WHERE project_id = ?";
+            cmd.CommandText = "SELECT Phase, Department, RoomNumber, RoomName, JSN, Description, Manufacturer, SerialNumber, ModelNumber, ModelName, U1, U2, U3, U4, U5, U6, Resp, Id, inventory_id, Code, JSNNomenclature, PlannedQty, Class, Clin, UnitBudget, UnitMarkup, UnitEscalation, UnitTax, UnitInstallNet, UnitInstallMarkup, UnitOfMeasure, UnitFreightMarkup, project_id, department_id, room_id, ECN, Height, Width, Depth, MountingHeight, InstallMethod, Comments, PhotoFile, TagPhotoFile, DateAdded FROM inventories WHERE project_id = ?";
             cmd.Parameters.Add(new OleDbParameter("ProjectID", project_id));
 
             var inventories = cmd.ExecuteReader();

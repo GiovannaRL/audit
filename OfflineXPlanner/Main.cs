@@ -214,7 +214,6 @@ namespace OfflineXPlanner
             gridInventory.Columns["UnitInstallMarkup"].Visible = false;
             gridInventory.Columns["UnitOfMeasure"].Visible = false;
             gridInventory.Columns["UnitFreightMarkup"].Visible = false;
-            gridInventory.Columns["CadID"].Visible = false;
         }
 
         private void LoadData()
