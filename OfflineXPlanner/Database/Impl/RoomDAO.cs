@@ -1,9 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.OleDb;
-using System.Data;
-using OfflineXPlanner.Domain;
+﻿using OfflineXPlanner.Domain;
 using OfflineXPlanner.Utils;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.OleDb;
+using System.Diagnostics;
+using System.Linq;
 
 namespace OfflineXPlanner.Database.Impl
 {
@@ -117,7 +119,8 @@ namespace OfflineXPlanner.Database.Impl
                     DepartmentId = Convert.ToInt32(result["department_id"]),
                     Id = Convert.ToInt32(result["room_id"]),
                     Number = result["room_number"] == DBNull.Value ? null : result["room_number"].ToString(),
-                    Name = result["room_name"].ToString()
+                    Name = result["room_name"].ToString(),
+                    PhotoFile = result["PhotoFile"] == DBNull.Value ? null : result["PhotoFile"].ToString()
                 };
             }
 
@@ -161,14 +164,14 @@ namespace OfflineXPlanner.Database.Impl
             var cmd = conn.CreateCommand();
             conn.Open();
 
-            cmd.CommandText = "UPDATE room SET room_number = ?, room_name = ? WHERE project_id = ? and department_id = ? and room_id = ?";
+            cmd.CommandText = "UPDATE room SET room_number = ?, room_name = ?, PhotoFile = ? WHERE project_id = ? AND department_id = ? AND room_id = ?";
             cmd.Parameters.AddRange(new OleDbParameter[] {
-                new OleDbParameter("Number", room.Number),
-                new OleDbParameter("Name", room.Name),
+                new OleDbParameter("Number", room.Number ?? ""),
+                new OleDbParameter("Name", room.Name ?? ""),
+                new OleDbParameter("PhotoFile", room.PhotoFile ?? ""),
                 new OleDbParameter("ProjectID", room.ProjectId),
                 new OleDbParameter("DepartmentID", room.DepartmentId),
                 new OleDbParameter("RoomID", room.Id)
-                
             });
 
             int rowsAffected = cmd.ExecuteNonQuery();
@@ -286,6 +289,7 @@ namespace OfflineXPlanner.Database.Impl
             room.Number = newRoomInfo.Number;
             room.DepartmentId = newRoomInfo.DepartmentId;
             Room insertedRoom = Insert(room);
+
             if (insertedRoom != null)
             {
                 IInventoryDAO inventoryDAO = new InventoryDAO();
@@ -312,6 +316,100 @@ namespace OfflineXPlanner.Database.Impl
 
             return null;
         }
+
+        public bool MoveRoom(int project_id, int old_department_id, int room_id, Room roomInfo)
+        {
+            IDepartmentDAO departmentDAO = new DepartmentDAO();
+            var newDepartment = departmentDAO.GetDeparment(project_id, roomInfo.DepartmentId);
+            var actualRoom = Get(project_id, old_department_id, room_id);
+
+            if (newDepartment == null || actualRoom == null)
+                return false;
+
+            string oldPath = $"department_{old_department_id}";
+            string newPath = $"department_{roomInfo.DepartmentId}";
+
+            if (!string.IsNullOrEmpty(actualRoom.PhotoFile))
+                roomInfo.PhotoFile = actualRoom.PhotoFile.Replace(oldPath, newPath);
+
+            using (var conn = DatabaseUtil.CreateConnection())
+            {
+                conn.Open();
+
+                using (var transaction = conn.BeginTransaction())
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.Transaction = transaction;
+
+                    try
+                    {
+                        cmd.CommandText = @"
+                            UPDATE room 
+                            SET
+                                room_number = ?,
+                                room_name = ?,
+                                department_id = ?,
+                                PhotoFile = ?
+                            WHERE
+                                project_id = ? AND
+                                department_id = ? AND
+                                room_id = ?";
+
+                        cmd.Parameters.AddRange(new OleDbParameter[]
+                        {
+                            new OleDbParameter("room_number", roomInfo.Number ?? ""),
+                            new OleDbParameter("room_name", roomInfo.Name ?? ""),
+                            new OleDbParameter("department_id", newDepartment.department_id),
+                            new OleDbParameter("PhotoFile", roomInfo.PhotoFile ?? ""),
+                            new OleDbParameter("project_id", project_id),
+                            new OleDbParameter("old_department_id", old_department_id),
+                            new OleDbParameter("room_id", room_id)
+                        });
+
+                        int updatedRoom = cmd.ExecuteNonQuery();
+                        if (updatedRoom == 0)
+                        {
+                            transaction.Rollback();
+                            return false;
+                        }
+
+                        cmd.CommandText = $@"
+                            UPDATE inventories
+                            SET
+                                RoomNumber = ?,
+                                RoomName = ?,
+                                PhotoFile = IIF(PhotoFile IS NULL, '', REPLACE(PhotoFile, '{oldPath}', '{newPath}')),
+                                TagPhotoFile = IIF(TagPhotoFile IS NULL, '', REPLACE(TagPhotoFile, '{oldPath}', '{newPath}')),
+                                department_id = ?,
+                                Department = ?
+                            WHERE
+                                room_id = ?";
+
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddRange(new OleDbParameter[]
+                        {
+                            new OleDbParameter("RoomNumber", roomInfo.Number ?? ""),
+                            new OleDbParameter("RoomName", roomInfo.Name ?? ""),
+                            new OleDbParameter("department_id", newDepartment.department_id),
+                            new OleDbParameter("Department", newDepartment.description ?? ""),
+                            new OleDbParameter("room_id", actualRoom.Id)
+                        });
+
+                        cmd.ExecuteNonQuery();
+
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        return false;
+                    }
+                }
+            }
+        }
+
+
         public bool SetPhoto(int project_id, int department_id, int room_id, string photoFile)
         {
             var conn = DatabaseUtil.CreateConnection();

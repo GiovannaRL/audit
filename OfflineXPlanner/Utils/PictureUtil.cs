@@ -1,8 +1,10 @@
-﻿using System;
+﻿using OfflineXPlanner.Domain;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 
 namespace OfflineXPlanner.Utils
 {
@@ -51,6 +53,33 @@ namespace OfflineXPlanner.Utils
             var completePath = splitedPath[0] + "deletedItems\\department" + splitedPath[1];
 
             return completePath;
+        }
+
+        public static bool MoveRoomDirectory(int project_id, int old_department_id, int room_id, int new_department_id)
+        {
+            string oldRoomPath = GetRoomPictureDirectory(project_id, old_department_id, room_id);
+            string newDepartmentPath = Path.Combine(_maskImagesPathRoot, $"project_{project_id}", $"department_{new_department_id}");
+            string newRoomPath = Path.Combine(newDepartmentPath, $"room_{room_id}");
+
+            try
+            {
+                if (!Directory.Exists(oldRoomPath))
+                    return false;
+
+                if (!Directory.Exists(newDepartmentPath))
+                    Directory.CreateDirectory(newDepartmentPath);
+
+                if (Directory.Exists(newRoomPath))
+                    Directory.Delete(newRoomPath, true); 
+
+                Directory.Move(oldRoomPath, newRoomPath);
+
+                return Directory.Exists(newRoomPath) && !Directory.Exists(oldRoomPath);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         public static string GetInventoryPictureDirectory(string roomDirectoryPath, int itemId)

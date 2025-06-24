@@ -49,6 +49,7 @@ namespace OfflineXPlanner
             this.btnDeleteImage = new System.Windows.Forms.Button();
             this.btnAddImage = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnDuplicateRoom = new System.Windows.Forms.Button();
             this.btnEditRoom = new System.Windows.Forms.Button();
             this.btnDelRoom = new System.Windows.Forms.Button();
             this.btnAddRoom = new System.Windows.Forms.Button();
@@ -92,7 +93,7 @@ namespace OfflineXPlanner
             this.btnAddPictureInventory = new System.Windows.Forms.Button();
             this.audaxware_offlineDataSet = new OfflineXPlanner.audaxware_offlineDataSet();
             this.audaxwareofflineDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.btnDuplicateRoom = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.DeptRoomsTab.SuspendLayout();
@@ -114,9 +115,10 @@ namespace OfflineXPlanner
             // project_name
             // 
             this.project_name.AutoSize = true;
-            this.project_name.Location = new System.Drawing.Point(91, 38);
+            this.project_name.Location = new System.Drawing.Point(68, 31);
+            this.project_name.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.project_name.Name = "project_name";
-            this.project_name.Size = new System.Drawing.Size(0, 16);
+            this.project_name.Size = new System.Drawing.Size(0, 13);
             this.project_name.TabIndex = 3;
             // 
             // menuStrip1
@@ -127,8 +129,8 @@ namespace OfflineXPlanner
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1868, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1401, 24);
             this.menuStrip1.TabIndex = 27;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -140,7 +142,7 @@ namespace OfflineXPlanner
             this.uploadToAudaxwareToolStripMenuItem,
             this.loadManufacturesJSNCatalogFromAudaxwareToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // openToolStripMenuItem
@@ -149,14 +151,14 @@ namespace OfflineXPlanner
             this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(442, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(356, 22);
             this.openToolStripMenuItem.Text = "&Open...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openProject_Click);
             // 
             // importFromAudaxwareToolStripMenuItem
             // 
             this.importFromAudaxwareToolStripMenuItem.Name = "importFromAudaxwareToolStripMenuItem";
-            this.importFromAudaxwareToolStripMenuItem.Size = new System.Drawing.Size(442, 26);
+            this.importFromAudaxwareToolStripMenuItem.Size = new System.Drawing.Size(356, 22);
             this.importFromAudaxwareToolStripMenuItem.Text = "Load project from Audaxware...";
             this.importFromAudaxwareToolStripMenuItem.Click += new System.EventHandler(this.importFromAudaxwareToolStripMenuItem_Click);
             // 
@@ -164,14 +166,14 @@ namespace OfflineXPlanner
             // 
             this.uploadToAudaxwareToolStripMenuItem.Enabled = false;
             this.uploadToAudaxwareToolStripMenuItem.Name = "uploadToAudaxwareToolStripMenuItem";
-            this.uploadToAudaxwareToolStripMenuItem.Size = new System.Drawing.Size(442, 26);
+            this.uploadToAudaxwareToolStripMenuItem.Size = new System.Drawing.Size(356, 22);
             this.uploadToAudaxwareToolStripMenuItem.Text = "Upload project to Audaxware...";
             this.uploadToAudaxwareToolStripMenuItem.Click += new System.EventHandler(this.uploadToAudaxwareToolStripMenuItem_Click);
             // 
             // loadManufacturesJSNCatalogFromAudaxwareToolStripMenuItem
             // 
             this.loadManufacturesJSNCatalogFromAudaxwareToolStripMenuItem.Name = "loadManufacturesJSNCatalogFromAudaxwareToolStripMenuItem";
-            this.loadManufacturesJSNCatalogFromAudaxwareToolStripMenuItem.Size = new System.Drawing.Size(442, 26);
+            this.loadManufacturesJSNCatalogFromAudaxwareToolStripMenuItem.Size = new System.Drawing.Size(356, 22);
             this.loadManufacturesJSNCatalogFromAudaxwareToolStripMenuItem.Text = "Load Manufacturers / JSN Catalog from AudaxWare...";
             this.loadManufacturesJSNCatalogFromAudaxwareToolStripMenuItem.Click += new System.EventHandler(this.loadManufacturesJSNCatalogFromAudaxwareToolStripMenuItem_Click);
             // 
@@ -189,11 +191,11 @@ namespace OfflineXPlanner
             this.tabControl.Controls.Add(this.DeptRoomsTab);
             this.tabControl.Controls.Add(this.ContentsTab);
             this.tabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl.Location = new System.Drawing.Point(9, 38);
-            this.tabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabControl.Location = new System.Drawing.Point(7, 31);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(3068, 906);
+            this.tabControl.Size = new System.Drawing.Size(2301, 736);
             this.tabControl.TabIndex = 28;
             this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
             // 
@@ -202,11 +204,11 @@ namespace OfflineXPlanner
             this.DeptRoomsTab.Controls.Add(this.groupBox5);
             this.DeptRoomsTab.Controls.Add(this.groupBox4);
             this.DeptRoomsTab.Controls.Add(this.groupBox2);
-            this.DeptRoomsTab.Location = new System.Drawing.Point(4, 34);
-            this.DeptRoomsTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.DeptRoomsTab.Location = new System.Drawing.Point(4, 29);
+            this.DeptRoomsTab.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.DeptRoomsTab.Name = "DeptRoomsTab";
-            this.DeptRoomsTab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.DeptRoomsTab.Size = new System.Drawing.Size(3060, 868);
+            this.DeptRoomsTab.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.DeptRoomsTab.Size = new System.Drawing.Size(2293, 703);
             this.DeptRoomsTab.TabIndex = 0;
             this.DeptRoomsTab.Text = "Dept & Rooms";
             this.DeptRoomsTab.UseVisualStyleBackColor = true;
@@ -221,21 +223,21 @@ namespace OfflineXPlanner
             this.groupBox5.Controls.Add(this.panelImages);
             this.groupBox5.Controls.Add(this.btnDeleteImage);
             this.groupBox5.Controls.Add(this.btnAddImage);
-            this.groupBox5.Location = new System.Drawing.Point(1157, 14);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox5.Location = new System.Drawing.Point(868, 11);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox5.Size = new System.Drawing.Size(612, 588);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox5.Size = new System.Drawing.Size(459, 478);
             this.groupBox5.TabIndex = 3;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Room Images";
             // 
             // btnSetAsPhoto
             // 
-            this.btnSetAsPhoto.Location = new System.Drawing.Point(332, 28);
+            this.btnSetAsPhoto.Location = new System.Drawing.Point(249, 23);
             this.btnSetAsPhoto.Margin = new System.Windows.Forms.Padding(1);
             this.btnSetAsPhoto.Name = "btnSetAsPhoto";
-            this.btnSetAsPhoto.Size = new System.Drawing.Size(108, 90);
+            this.btnSetAsPhoto.Size = new System.Drawing.Size(81, 73);
             this.btnSetAsPhoto.TabIndex = 10;
             this.btnSetAsPhoto.Text = "Set as Photo";
             this.btnSetAsPhoto.UseVisualStyleBackColor = true;
@@ -243,10 +245,10 @@ namespace OfflineXPlanner
             // 
             // btnBrowsePicture
             // 
-            this.btnBrowsePicture.Location = new System.Drawing.Point(8, 28);
-            this.btnBrowsePicture.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnBrowsePicture.Location = new System.Drawing.Point(6, 23);
+            this.btnBrowsePicture.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnBrowsePicture.Name = "btnBrowsePicture";
-            this.btnBrowsePicture.Size = new System.Drawing.Size(108, 90);
+            this.btnBrowsePicture.Size = new System.Drawing.Size(81, 73);
             this.btnBrowsePicture.TabIndex = 5;
             this.btnBrowsePicture.Text = "Browse";
             this.btnBrowsePicture.UseVisualStyleBackColor = true;
@@ -258,18 +260,18 @@ namespace OfflineXPlanner
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelImages.AutoScroll = true;
-            this.panelImages.Location = new System.Drawing.Point(8, 124);
-            this.panelImages.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panelImages.Location = new System.Drawing.Point(6, 101);
+            this.panelImages.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.panelImages.Name = "panelImages";
-            this.panelImages.Size = new System.Drawing.Size(599, 459);
+            this.panelImages.Size = new System.Drawing.Size(449, 373);
             this.panelImages.TabIndex = 4;
             // 
             // btnDeleteImage
             // 
-            this.btnDeleteImage.Location = new System.Drawing.Point(224, 28);
-            this.btnDeleteImage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnDeleteImage.Location = new System.Drawing.Point(168, 23);
+            this.btnDeleteImage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnDeleteImage.Name = "btnDeleteImage";
-            this.btnDeleteImage.Size = new System.Drawing.Size(108, 90);
+            this.btnDeleteImage.Size = new System.Drawing.Size(81, 73);
             this.btnDeleteImage.TabIndex = 2;
             this.btnDeleteImage.Text = "Delete";
             this.btnDeleteImage.UseVisualStyleBackColor = true;
@@ -277,10 +279,10 @@ namespace OfflineXPlanner
             // 
             // btnAddImage
             // 
-            this.btnAddImage.Location = new System.Drawing.Point(116, 28);
-            this.btnAddImage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnAddImage.Location = new System.Drawing.Point(87, 23);
+            this.btnAddImage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAddImage.Name = "btnAddImage";
-            this.btnAddImage.Size = new System.Drawing.Size(108, 90);
+            this.btnAddImage.Size = new System.Drawing.Size(81, 73);
             this.btnAddImage.TabIndex = 1;
             this.btnAddImage.Text = "Take Picture";
             this.btnAddImage.UseVisualStyleBackColor = true;
@@ -290,27 +292,40 @@ namespace OfflineXPlanner
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox4.Controls.Add(this.button1);
             this.groupBox4.Controls.Add(this.btnDuplicateRoom);
             this.groupBox4.Controls.Add(this.btnEditRoom);
             this.groupBox4.Controls.Add(this.btnDelRoom);
             this.groupBox4.Controls.Add(this.btnAddRoom);
             this.groupBox4.Controls.Add(this.gridRooms);
-            this.groupBox4.Location = new System.Drawing.Point(495, 14);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox4.Location = new System.Drawing.Point(371, 11);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox4.Size = new System.Drawing.Size(660, 588);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Size = new System.Drawing.Size(495, 478);
             this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Room";
             // 
+            // btnDuplicateRoom
+            // 
+            this.btnDuplicateRoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDuplicateRoom.Location = new System.Drawing.Point(272, 23);
+            this.btnDuplicateRoom.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDuplicateRoom.Name = "btnDuplicateRoom";
+            this.btnDuplicateRoom.Size = new System.Drawing.Size(68, 73);
+            this.btnDuplicateRoom.TabIndex = 4;
+            this.btnDuplicateRoom.Text = "Clone";
+            this.btnDuplicateRoom.UseVisualStyleBackColor = true;
+            this.btnDuplicateRoom.Click += new System.EventHandler(this.btnDuplicateRoom_Click);
+            // 
             // btnEditRoom
             // 
             this.btnEditRoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEditRoom.Location = new System.Drawing.Point(555, 28);
-            this.btnEditRoom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnEditRoom.Location = new System.Drawing.Point(416, 23);
+            this.btnEditRoom.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnEditRoom.Name = "btnEditRoom";
-            this.btnEditRoom.Size = new System.Drawing.Size(91, 90);
+            this.btnEditRoom.Size = new System.Drawing.Size(68, 73);
             this.btnEditRoom.TabIndex = 3;
             this.btnEditRoom.Text = "Edit";
             this.btnEditRoom.UseVisualStyleBackColor = true;
@@ -319,10 +334,10 @@ namespace OfflineXPlanner
             // btnDelRoom
             // 
             this.btnDelRoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelRoom.Location = new System.Drawing.Point(459, 28);
-            this.btnDelRoom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnDelRoom.Location = new System.Drawing.Point(344, 23);
+            this.btnDelRoom.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnDelRoom.Name = "btnDelRoom";
-            this.btnDelRoom.Size = new System.Drawing.Size(91, 90);
+            this.btnDelRoom.Size = new System.Drawing.Size(68, 73);
             this.btnDelRoom.TabIndex = 2;
             this.btnDelRoom.Text = "Delete";
             this.btnDelRoom.UseVisualStyleBackColor = true;
@@ -331,10 +346,10 @@ namespace OfflineXPlanner
             // btnAddRoom
             // 
             this.btnAddRoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddRoom.Location = new System.Drawing.Point(266, 28);
-            this.btnAddRoom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnAddRoom.Location = new System.Drawing.Point(128, 23);
+            this.btnAddRoom.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAddRoom.Name = "btnAddRoom";
-            this.btnAddRoom.Size = new System.Drawing.Size(91, 90);
+            this.btnAddRoom.Size = new System.Drawing.Size(68, 73);
             this.btnAddRoom.TabIndex = 1;
             this.btnAddRoom.Text = "Add";
             this.btnAddRoom.UseVisualStyleBackColor = true;
@@ -354,14 +369,14 @@ namespace OfflineXPlanner
             this.room_name});
             this.gridRooms.ContextMenuStrip = this.roomItemCtxMenu;
             this.gridRooms.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.gridRooms.Location = new System.Drawing.Point(16, 124);
-            this.gridRooms.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gridRooms.Location = new System.Drawing.Point(12, 101);
+            this.gridRooms.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.gridRooms.MultiSelect = false;
             this.gridRooms.Name = "gridRooms";
             this.gridRooms.RowHeadersWidth = 51;
             this.gridRooms.RowTemplate.Height = 20;
             this.gridRooms.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridRooms.Size = new System.Drawing.Size(629, 459);
+            this.gridRooms.Size = new System.Drawing.Size(472, 373);
             this.gridRooms.TabIndex = 0;
             this.gridRooms.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.btnEditRoom_Click);
             this.gridRooms.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridRooms_CellMouseDownClick);
@@ -399,12 +414,12 @@ namespace OfflineXPlanner
             this.roomItemCtxMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.duplicateRoomToolStripMenuItem});
             this.roomItemCtxMenu.Name = "roomItemCtxMenu";
-            this.roomItemCtxMenu.Size = new System.Drawing.Size(117, 28);
+            this.roomItemCtxMenu.Size = new System.Drawing.Size(106, 26);
             // 
             // duplicateRoomToolStripMenuItem
             // 
             this.duplicateRoomToolStripMenuItem.Name = "duplicateRoomToolStripMenuItem";
-            this.duplicateRoomToolStripMenuItem.Size = new System.Drawing.Size(116, 24);
+            this.duplicateRoomToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.duplicateRoomToolStripMenuItem.Text = "Clone";
             this.duplicateRoomToolStripMenuItem.Click += new System.EventHandler(this.duplicateRoomToolStripMenuItem_Click);
             // 
@@ -416,11 +431,11 @@ namespace OfflineXPlanner
             this.groupBox2.Controls.Add(this.btnDelDepartment);
             this.groupBox2.Controls.Add(this.btnAddDepartment);
             this.groupBox2.Controls.Add(this.gridDepartments);
-            this.groupBox2.Location = new System.Drawing.Point(11, 14);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Location = new System.Drawing.Point(8, 11);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(472, 588);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Size = new System.Drawing.Size(354, 478);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Department";
@@ -428,10 +443,10 @@ namespace OfflineXPlanner
             // btnEditDepartment
             // 
             this.btnEditDepartment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEditDepartment.Location = new System.Drawing.Point(363, 30);
-            this.btnEditDepartment.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnEditDepartment.Location = new System.Drawing.Point(272, 24);
+            this.btnEditDepartment.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnEditDepartment.Name = "btnEditDepartment";
-            this.btnEditDepartment.Size = new System.Drawing.Size(91, 90);
+            this.btnEditDepartment.Size = new System.Drawing.Size(68, 73);
             this.btnEditDepartment.TabIndex = 3;
             this.btnEditDepartment.Text = "Edit";
             this.btnEditDepartment.UseVisualStyleBackColor = true;
@@ -440,10 +455,10 @@ namespace OfflineXPlanner
             // btnDelDepartment
             // 
             this.btnDelDepartment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelDepartment.Location = new System.Drawing.Point(267, 30);
-            this.btnDelDepartment.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnDelDepartment.Location = new System.Drawing.Point(200, 24);
+            this.btnDelDepartment.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnDelDepartment.Name = "btnDelDepartment";
-            this.btnDelDepartment.Size = new System.Drawing.Size(91, 90);
+            this.btnDelDepartment.Size = new System.Drawing.Size(68, 73);
             this.btnDelDepartment.TabIndex = 2;
             this.btnDelDepartment.Text = "Delete";
             this.btnDelDepartment.UseVisualStyleBackColor = true;
@@ -452,10 +467,10 @@ namespace OfflineXPlanner
             // btnAddDepartment
             // 
             this.btnAddDepartment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddDepartment.Location = new System.Drawing.Point(171, 30);
-            this.btnAddDepartment.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnAddDepartment.Location = new System.Drawing.Point(128, 24);
+            this.btnAddDepartment.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAddDepartment.Name = "btnAddDepartment";
-            this.btnAddDepartment.Size = new System.Drawing.Size(91, 90);
+            this.btnAddDepartment.Size = new System.Drawing.Size(68, 73);
             this.btnAddDepartment.TabIndex = 1;
             this.btnAddDepartment.Text = "Add";
             this.btnAddDepartment.UseVisualStyleBackColor = true;
@@ -473,14 +488,14 @@ namespace OfflineXPlanner
             this.Type,
             this.Description});
             this.gridDepartments.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.gridDepartments.Location = new System.Drawing.Point(11, 124);
-            this.gridDepartments.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gridDepartments.Location = new System.Drawing.Point(8, 101);
+            this.gridDepartments.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.gridDepartments.MultiSelect = false;
             this.gridDepartments.Name = "gridDepartments";
             this.gridDepartments.RowHeadersWidth = 51;
             this.gridDepartments.RowTemplate.Height = 20;
             this.gridDepartments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridDepartments.Size = new System.Drawing.Size(444, 459);
+            this.gridDepartments.Size = new System.Drawing.Size(333, 373);
             this.gridDepartments.TabIndex = 0;
             this.gridDepartments.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.btnEditDepartment_Click);
             this.gridDepartments.SelectionChanged += new System.EventHandler(this.dptsGridView_SelectionChanged);
@@ -506,11 +521,11 @@ namespace OfflineXPlanner
             // 
             this.ContentsTab.Controls.Add(this.assetInventoryGrpBox);
             this.ContentsTab.Controls.Add(this.groupBox1);
-            this.ContentsTab.Location = new System.Drawing.Point(4, 34);
-            this.ContentsTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ContentsTab.Location = new System.Drawing.Point(4, 29);
+            this.ContentsTab.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ContentsTab.Name = "ContentsTab";
-            this.ContentsTab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.ContentsTab.Size = new System.Drawing.Size(3060, 868);
+            this.ContentsTab.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ContentsTab.Size = new System.Drawing.Size(2293, 703);
             this.ContentsTab.TabIndex = 1;
             this.ContentsTab.Text = "Assets";
             this.ContentsTab.UseVisualStyleBackColor = true;
@@ -534,21 +549,21 @@ namespace OfflineXPlanner
             this.assetInventoryGrpBox.Controls.Add(this.label7);
             this.assetInventoryGrpBox.Controls.Add(this.cboRoomFilter);
             this.assetInventoryGrpBox.Controls.Add(this.label6);
-            this.assetInventoryGrpBox.Location = new System.Drawing.Point(15, 17);
-            this.assetInventoryGrpBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.assetInventoryGrpBox.Location = new System.Drawing.Point(11, 14);
+            this.assetInventoryGrpBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.assetInventoryGrpBox.Name = "assetInventoryGrpBox";
-            this.assetInventoryGrpBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.assetInventoryGrpBox.Size = new System.Drawing.Size(1220, 585);
+            this.assetInventoryGrpBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.assetInventoryGrpBox.Size = new System.Drawing.Size(915, 475);
             this.assetInventoryGrpBox.TabIndex = 40;
             this.assetInventoryGrpBox.TabStop = false;
             // 
             // btnDuplicateAsset
             // 
             this.btnDuplicateAsset.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.btnDuplicateAsset.Location = new System.Drawing.Point(944, 30);
-            this.btnDuplicateAsset.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnDuplicateAsset.Location = new System.Drawing.Point(708, 24);
+            this.btnDuplicateAsset.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnDuplicateAsset.Name = "btnDuplicateAsset";
-            this.btnDuplicateAsset.Size = new System.Drawing.Size(85, 90);
+            this.btnDuplicateAsset.Size = new System.Drawing.Size(64, 73);
             this.btnDuplicateAsset.TabIndex = 43;
             this.btnDuplicateAsset.Text = "Cl&one";
             this.btnDuplicateAsset.UseVisualStyleBackColor = true;
@@ -563,10 +578,10 @@ namespace OfflineXPlanner
             "-- No Photo --",
             "-- No Tag --",
             "-- No Photo/Tag --"});
-            this.cboInventoryPhotoState.Location = new System.Drawing.Point(620, 63);
-            this.cboInventoryPhotoState.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cboInventoryPhotoState.Location = new System.Drawing.Point(465, 51);
+            this.cboInventoryPhotoState.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cboInventoryPhotoState.Name = "cboInventoryPhotoState";
-            this.cboInventoryPhotoState.Size = new System.Drawing.Size(145, 33);
+            this.cboInventoryPhotoState.Size = new System.Drawing.Size(110, 28);
             this.cboInventoryPhotoState.TabIndex = 31;
             this.cboInventoryPhotoState.Text = "- Photo State -";
             this.cboInventoryPhotoState.SelectedIndexChanged += new System.EventHandler(this.cboInventoryPhotoState_SelectedIndexChanged);
@@ -574,28 +589,30 @@ namespace OfflineXPlanner
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(617, 38);
+            this.label2.Location = new System.Drawing.Point(463, 31);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(114, 25);
+            this.label2.Size = new System.Drawing.Size(94, 20);
             this.label2.TabIndex = 42;
             this.label2.Text = "Photo State";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 33);
+            this.label1.Location = new System.Drawing.Point(3, 27);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 25);
+            this.label1.Size = new System.Drawing.Size(60, 20);
             this.label1.TabIndex = 28;
             this.label1.Text = "Search";
             // 
             // btnClearFilter
             // 
             this.btnClearFilter.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.btnClearFilter.Location = new System.Drawing.Point(770, 30);
-            this.btnClearFilter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnClearFilter.Location = new System.Drawing.Point(578, 24);
+            this.btnClearFilter.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnClearFilter.Name = "btnClearFilter";
-            this.btnClearFilter.Size = new System.Drawing.Size(85, 90);
+            this.btnClearFilter.Size = new System.Drawing.Size(64, 73);
             this.btnClearFilter.TabIndex = 32;
             this.btnClearFilter.Text = "&Clear Filter";
             this.btnClearFilter.UseVisualStyleBackColor = true;
@@ -611,15 +628,15 @@ namespace OfflineXPlanner
             this.gridInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridInventory.ContextMenuStrip = this.inventoryItemCtxmenu;
             this.gridInventory.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.gridInventory.Location = new System.Drawing.Point(6, 124);
-            this.gridInventory.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.gridInventory.Location = new System.Drawing.Point(4, 101);
+            this.gridInventory.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.gridInventory.MultiSelect = false;
             this.gridInventory.Name = "gridInventory";
             this.gridInventory.ReadOnly = true;
             this.gridInventory.RowHeadersWidth = 51;
             this.gridInventory.RowTemplate.Height = 24;
             this.gridInventory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridInventory.Size = new System.Drawing.Size(1199, 436);
+            this.gridInventory.Size = new System.Drawing.Size(899, 354);
             this.gridInventory.TabIndex = 35;
             this.gridInventory.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.btnSaveAsset_Click);
             this.gridInventory.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridInventory_CellMouseDownClick);
@@ -631,22 +648,22 @@ namespace OfflineXPlanner
             this.inventoryItemCtxmenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.duplicateInventoryToolStripMenuItem});
             this.inventoryItemCtxmenu.Name = "inventoryItemCtxmenu";
-            this.inventoryItemCtxmenu.Size = new System.Drawing.Size(117, 28);
+            this.inventoryItemCtxmenu.Size = new System.Drawing.Size(106, 26);
             // 
             // duplicateInventoryToolStripMenuItem
             // 
             this.duplicateInventoryToolStripMenuItem.Name = "duplicateInventoryToolStripMenuItem";
-            this.duplicateInventoryToolStripMenuItem.Size = new System.Drawing.Size(116, 24);
+            this.duplicateInventoryToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.duplicateInventoryToolStripMenuItem.Text = "Clone";
             this.duplicateInventoryToolStripMenuItem.Click += new System.EventHandler(this.duplicateInventoryToolStripMenuItem_Click);
             // 
             // btnSaveAsset
             // 
             this.btnSaveAsset.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.btnSaveAsset.Location = new System.Drawing.Point(1032, 30);
-            this.btnSaveAsset.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnSaveAsset.Location = new System.Drawing.Point(774, 24);
+            this.btnSaveAsset.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnSaveAsset.Name = "btnSaveAsset";
-            this.btnSaveAsset.Size = new System.Drawing.Size(85, 90);
+            this.btnSaveAsset.Size = new System.Drawing.Size(64, 73);
             this.btnSaveAsset.TabIndex = 34;
             this.btnSaveAsset.Text = "&Edit";
             this.btnSaveAsset.UseVisualStyleBackColor = true;
@@ -655,20 +672,20 @@ namespace OfflineXPlanner
             // txtSearch
             // 
             this.txtSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearch.Location = new System.Drawing.Point(9, 62);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtSearch.Location = new System.Drawing.Point(7, 50);
+            this.txtSearch.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(228, 30);
+            this.txtSearch.Size = new System.Drawing.Size(172, 26);
             this.txtSearch.TabIndex = 28;
             this.txtSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchInventoryGrid);
             // 
             // btnDeleteAsset
             // 
             this.btnDeleteAsset.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.btnDeleteAsset.Location = new System.Drawing.Point(1120, 30);
-            this.btnDeleteAsset.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnDeleteAsset.Location = new System.Drawing.Point(840, 24);
+            this.btnDeleteAsset.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnDeleteAsset.Name = "btnDeleteAsset";
-            this.btnDeleteAsset.Size = new System.Drawing.Size(87, 90);
+            this.btnDeleteAsset.Size = new System.Drawing.Size(65, 73);
             this.btnDeleteAsset.TabIndex = 35;
             this.btnDeleteAsset.Text = "&Delete";
             this.btnDeleteAsset.UseVisualStyleBackColor = true;
@@ -678,10 +695,10 @@ namespace OfflineXPlanner
             // 
             this.cboDepartmentFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboDepartmentFilter.FormattingEnabled = true;
-            this.cboDepartmentFilter.Location = new System.Drawing.Point(241, 62);
-            this.cboDepartmentFilter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cboDepartmentFilter.Location = new System.Drawing.Point(181, 50);
+            this.cboDepartmentFilter.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cboDepartmentFilter.Name = "cboDepartmentFilter";
-            this.cboDepartmentFilter.Size = new System.Drawing.Size(199, 33);
+            this.cboDepartmentFilter.Size = new System.Drawing.Size(150, 28);
             this.cboDepartmentFilter.TabIndex = 29;
             this.cboDepartmentFilter.Text = "- Select a Department -";
             this.cboDepartmentFilter.SelectedIndexChanged += new System.EventHandler(this.cbDepartment_SelectedIndexChanged);
@@ -689,10 +706,10 @@ namespace OfflineXPlanner
             // btnAddAsset
             // 
             this.btnAddAsset.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.btnAddAsset.Location = new System.Drawing.Point(858, 30);
-            this.btnAddAsset.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnAddAsset.Location = new System.Drawing.Point(644, 24);
+            this.btnAddAsset.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAddAsset.Name = "btnAddAsset";
-            this.btnAddAsset.Size = new System.Drawing.Size(85, 90);
+            this.btnAddAsset.Size = new System.Drawing.Size(64, 73);
             this.btnAddAsset.TabIndex = 33;
             this.btnAddAsset.Text = "&Add";
             this.btnAddAsset.UseVisualStyleBackColor = true;
@@ -701,9 +718,10 @@ namespace OfflineXPlanner
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(237, 37);
+            this.label7.Location = new System.Drawing.Point(178, 30);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(189, 25);
+            this.label7.Size = new System.Drawing.Size(156, 20);
             this.label7.TabIndex = 33;
             this.label7.Text = "Select a Department";
             // 
@@ -711,10 +729,10 @@ namespace OfflineXPlanner
             // 
             this.cboRoomFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboRoomFilter.FormattingEnabled = true;
-            this.cboRoomFilter.Location = new System.Drawing.Point(447, 62);
-            this.cboRoomFilter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cboRoomFilter.Location = new System.Drawing.Point(335, 50);
+            this.cboRoomFilter.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cboRoomFilter.Name = "cboRoomFilter";
-            this.cboRoomFilter.Size = new System.Drawing.Size(165, 33);
+            this.cboRoomFilter.Size = new System.Drawing.Size(125, 28);
             this.cboRoomFilter.TabIndex = 30;
             this.cboRoomFilter.Text = "- Select a room -";
             this.cboRoomFilter.SelectedIndexChanged += new System.EventHandler(this.cbRoom_SelectedIndexChanged);
@@ -722,9 +740,10 @@ namespace OfflineXPlanner
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(444, 37);
+            this.label6.Location = new System.Drawing.Point(333, 30);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(139, 25);
+            this.label6.Size = new System.Drawing.Size(114, 20);
             this.label6.TabIndex = 32;
             this.label6.Text = "Select a Room";
             // 
@@ -738,21 +757,21 @@ namespace OfflineXPlanner
             this.groupBox1.Controls.Add(this.panelInventoryImages);
             this.groupBox1.Controls.Add(this.btnDelPictureInventory);
             this.groupBox1.Controls.Add(this.btnAddPictureInventory);
-            this.groupBox1.Location = new System.Drawing.Point(1255, 17);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Location = new System.Drawing.Point(941, 14);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(584, 585);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(438, 475);
             this.groupBox1.TabIndex = 39;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Asset Images";
             // 
             // btnSetAsTagInventory
             // 
-            this.btnSetAsTagInventory.Location = new System.Drawing.Point(455, 30);
+            this.btnSetAsTagInventory.Location = new System.Drawing.Point(341, 24);
             this.btnSetAsTagInventory.Margin = new System.Windows.Forms.Padding(1);
             this.btnSetAsTagInventory.Name = "btnSetAsTagInventory";
-            this.btnSetAsTagInventory.Size = new System.Drawing.Size(105, 90);
+            this.btnSetAsTagInventory.Size = new System.Drawing.Size(79, 73);
             this.btnSetAsTagInventory.TabIndex = 10;
             this.btnSetAsTagInventory.Text = "Set as Tag";
             this.btnSetAsTagInventory.UseVisualStyleBackColor = true;
@@ -760,10 +779,10 @@ namespace OfflineXPlanner
             // 
             // btnSetAsPhotoInventory
             // 
-            this.btnSetAsPhotoInventory.Location = new System.Drawing.Point(347, 30);
+            this.btnSetAsPhotoInventory.Location = new System.Drawing.Point(260, 24);
             this.btnSetAsPhotoInventory.Margin = new System.Windows.Forms.Padding(1);
             this.btnSetAsPhotoInventory.Name = "btnSetAsPhotoInventory";
-            this.btnSetAsPhotoInventory.Size = new System.Drawing.Size(105, 90);
+            this.btnSetAsPhotoInventory.Size = new System.Drawing.Size(79, 73);
             this.btnSetAsPhotoInventory.TabIndex = 9;
             this.btnSetAsPhotoInventory.Text = "Set as Photo";
             this.btnSetAsPhotoInventory.UseVisualStyleBackColor = true;
@@ -771,10 +790,10 @@ namespace OfflineXPlanner
             // 
             // btnBrowseInventory
             // 
-            this.btnBrowseInventory.Location = new System.Drawing.Point(23, 30);
-            this.btnBrowseInventory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnBrowseInventory.Location = new System.Drawing.Point(17, 24);
+            this.btnBrowseInventory.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnBrowseInventory.Name = "btnBrowseInventory";
-            this.btnBrowseInventory.Size = new System.Drawing.Size(105, 90);
+            this.btnBrowseInventory.Size = new System.Drawing.Size(79, 73);
             this.btnBrowseInventory.TabIndex = 8;
             this.btnBrowseInventory.Text = "&Browse";
             this.btnBrowseInventory.UseVisualStyleBackColor = true;
@@ -783,18 +802,18 @@ namespace OfflineXPlanner
             // panelInventoryImages
             // 
             this.panelInventoryImages.AutoScroll = true;
-            this.panelInventoryImages.Location = new System.Drawing.Point(23, 124);
-            this.panelInventoryImages.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panelInventoryImages.Location = new System.Drawing.Point(17, 101);
+            this.panelInventoryImages.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelInventoryImages.Name = "panelInventoryImages";
-            this.panelInventoryImages.Size = new System.Drawing.Size(540, 650);
+            this.panelInventoryImages.Size = new System.Drawing.Size(409, 361);
             this.panelInventoryImages.TabIndex = 7;
             // 
             // btnDelPictureInventory
             // 
-            this.btnDelPictureInventory.Location = new System.Drawing.Point(239, 30);
+            this.btnDelPictureInventory.Location = new System.Drawing.Point(179, 24);
             this.btnDelPictureInventory.Margin = new System.Windows.Forms.Padding(1);
             this.btnDelPictureInventory.Name = "btnDelPictureInventory";
-            this.btnDelPictureInventory.Size = new System.Drawing.Size(105, 90);
+            this.btnDelPictureInventory.Size = new System.Drawing.Size(79, 73);
             this.btnDelPictureInventory.TabIndex = 6;
             this.btnDelPictureInventory.Text = "Delete";
             this.btnDelPictureInventory.UseVisualStyleBackColor = true;
@@ -802,10 +821,10 @@ namespace OfflineXPlanner
             // 
             // btnAddPictureInventory
             // 
-            this.btnAddPictureInventory.Location = new System.Drawing.Point(131, 30);
+            this.btnAddPictureInventory.Location = new System.Drawing.Point(98, 24);
             this.btnAddPictureInventory.Margin = new System.Windows.Forms.Padding(1);
             this.btnAddPictureInventory.Name = "btnAddPictureInventory";
-            this.btnAddPictureInventory.Size = new System.Drawing.Size(105, 90);
+            this.btnAddPictureInventory.Size = new System.Drawing.Size(79, 73);
             this.btnAddPictureInventory.TabIndex = 5;
             this.btnAddPictureInventory.Text = "&Take Picture";
             this.btnAddPictureInventory.UseVisualStyleBackColor = true;
@@ -821,30 +840,30 @@ namespace OfflineXPlanner
             this.audaxwareofflineDataSetBindingSource.DataSource = this.audaxware_offlineDataSet;
             this.audaxwareofflineDataSetBindingSource.Position = 0;
             // 
-            // btnDuplicateRoom
+            // button1
             // 
-            this.btnDuplicateRoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDuplicateRoom.Location = new System.Drawing.Point(362, 28);
-            this.btnDuplicateRoom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnDuplicateRoom.Name = "btnDuplicateRoom";
-            this.btnDuplicateRoom.Size = new System.Drawing.Size(91, 90);
-            this.btnDuplicateRoom.TabIndex = 4;
-            this.btnDuplicateRoom.Text = "Clone";
-            this.btnDuplicateRoom.UseVisualStyleBackColor = true;
-            this.btnDuplicateRoom.Click += new System.EventHandler(this.btnDuplicateRoom_Click);
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(200, 23);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(68, 73);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Move";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnMoveRoom_Click);
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1868, 689);
+            this.ClientSize = new System.Drawing.Size(1401, 560);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.project_name);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AudaxWare Offline Editor";
@@ -936,5 +955,6 @@ namespace OfflineXPlanner
         private DataGridViewTextBoxColumn room_name;
         private Button btnDuplicateAsset;
         private Button btnDuplicateRoom;
+        private Button button1;
     }
 }

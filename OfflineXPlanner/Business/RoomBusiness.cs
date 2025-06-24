@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using OfflineXPlanner.Database;
+﻿using OfflineXPlanner.Database;
 using OfflineXPlanner.Database.Impl;
 using OfflineXPlanner.Domain;
+using OfflineXPlanner.Facade;
 using OfflineXPlanner.Utils;
 using System;
-using System.IO;
-using xPlannerCommon.Models;
+using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
-using OfflineXPlanner.Facade;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
 using System.Windows.Forms;
+using xPlannerCommon.Models;
 
 namespace OfflineXPlanner.Business
 {
@@ -19,6 +21,21 @@ namespace OfflineXPlanner.Business
         {
             IRoomDAO roomDAO = new RoomDAO();
             return roomDAO.DuplicateItem(project_id, department_id, room_id, newRoomInfo);
+        }
+
+        public static bool MoveRoom(int project_id, int old_department_id, int room_id, int new_department_id, Room room)
+        {
+            if (old_department_id == new_department_id)
+                return false;
+
+            IRoomDAO roomDAO = new RoomDAO();
+            room.DepartmentId = new_department_id;
+            var success = roomDAO.MoveRoom(project_id, old_department_id, room_id, room);
+
+            if (success)
+                PictureUtil.MoveRoomDirectory(project_id, old_department_id, room_id, new_department_id);
+            
+            return success;
         }
 
         public static DataTable Get(int projectId, int departmentId)

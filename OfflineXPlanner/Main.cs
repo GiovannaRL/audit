@@ -721,6 +721,37 @@ namespace OfflineXPlanner
             Cursor.Current = Cursors.Default;
         }
 
+        void MoveRoom(DataGridViewRow row)
+        {
+            int roomId = (int)row.Cells["room_id"].Value;
+            string roomName = row.Cells["room_name"].Value.ToString();
+            string roomNumber = row.Cells["room_number"].Value.ToString();
+            Cursor.Current = Cursors.WaitCursor;
+
+            var form = new AddEditRoom((int)_selectedProjectId, (int)SelectedDepartmentId, roomId, roomNumber, roomName, true);
+
+            DialogResult result = form.ShowDialog();
+
+            if (result == DialogResult.Abort)
+            {
+                MessageBox.Show("Error trying to move the room", "Move Room", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (result == DialogResult.OK)
+            {
+                int? movedRoomId = form._newRoomId;
+
+                LoadRoomsGridData();
+                LoadInventory(_selectedProjectId.GetValueOrDefault());
+
+                if (movedRoomId > 0)
+                    SelectRoomById((int)movedRoomId);
+            }
+
+            Cursor.Current = Cursors.Default;
+        }
+
+
+
         private void btnDuplicateRoom_Click(object sender, EventArgs e)
         {
             DataGridViewCellEventArgs e1 = null;
@@ -735,6 +766,18 @@ namespace OfflineXPlanner
                 DuplicateRoom(gridRooms.SelectedRows[0]);
             }
 
+        }
+        private void btnMoveRoom_Click(object sender, EventArgs e)
+        {
+            DataGridViewCellEventArgs e1 = null;
+            try
+            {
+                e1 = (DataGridViewCellEventArgs) e;
+            }
+            catch (Exception) { }
+            if (e1 == null || e1.RowIndex >= 0)
+                MoveRoom(gridRooms.SelectedRows[0]);
+            
         }
 
         private void duplicateRoomToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1566,9 +1609,5 @@ namespace OfflineXPlanner
                 }
             }
         }
-
-
-
-
     }
 }

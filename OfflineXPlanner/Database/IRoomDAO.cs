@@ -19,6 +19,7 @@ namespace OfflineXPlanner.Database
         bool Update(Room room);
         bool DeleteRoom(int projectId, int departmentId, int roomId);
         Room DuplicateItem(int project_id, int department_id, int room_id, Room newRoomInfo);
+        bool MoveRoom(int project_id, int department_id, int room_id, Room roomInfo);
         bool SetPhoto(int project_id, int department_id, int room_id, string photoFile);
     }
 }
