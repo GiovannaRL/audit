@@ -1341,8 +1341,8 @@ namespace OfflineXPlanner
 
                     throw;
                 }
-
-                LoadInventory((int)_selectedProjectId);
+               
+                LoadInventory((int)_selectedProjectId, false);
             }
         }
 
