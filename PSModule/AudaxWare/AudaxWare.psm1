@@ -1,14 +1,23 @@
-. ./ResourceGroup/Get-UserResourceGroupName.ps1
-. ./Storage/Get-UserStorageName.ps1
-. ./AudaxWareVariables.ps1
-. ./Install-AudaxWareTools.ps1
-. ./Storage/Get-StorageName.ps1
-. ./Storage/Get-StorageContainerNames.ps1
-. ./Storage/Get-StorageContainerStats.ps1
-. ./Storage/Get-StorageEnterpriseStats.ps1
-. ./Get-AudaxWareEnterprises.ps1
-. ./Get-PublicIP.ps1
-. ./New-DevResources.ps1
+$folders = Get-ChildItem -Path $PSScriptRoot -Directory
+
+foreach ($folder in $folders) {
+    #$fullPath = Join-Path $moduleRoot $folder
+
+    if (Test-Path $folder) {
+        Get-ChildItem -Path $folder -Filter '*.ps1' -Recurse -File | ForEach-Object {
+            Write-Verbose "Loading script: $($_.FullName)"
+            . $_.FullName
+        }
+    }
+    else {
+        Write-Warning "Folder not found: $fullPath"
+    }
+}
+
+Export-ModuleMember -Function New-GitBranch
+Export-ModuleMember -Function New-GitCommit
+Export-ModuleMember -Function New-GitReleaseBranch
+Export-ModuleMember -Function Get-GitDev
 Export-ModuleMember -Function Install-AudaxWareTools
 Export-ModuleMember -Function Start-StorageEmulator
 Export-ModuleMember -Function Get-StorageName

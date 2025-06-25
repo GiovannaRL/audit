@@ -112,3 +112,9 @@ _TeamCity*
 # DocProject is a documentation generator add-in
 DocProject/buildhelp/
 
+# Debug file for powershell
+**Debug.ps1
+
+# For some reason this temporary files keeps showing when editing the
+# excel templates
+**~$*.xlsx
