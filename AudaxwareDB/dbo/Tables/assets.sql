@@ -142,6 +142,8 @@
     [dvi] BIT NULL DEFAULT ((0)),
     [hdmi] BIT NULL DEFAULT ((0)),
     [wireless] BIT NULL DEFAULT ((0)),
+    [model_number] VARCHAR (100)   NULL,
+    [model_name] VARCHAR (150)   NULL,
 
     CONSTRAINT [equipment_domain_pk] PRIMARY KEY CLUSTERED ([asset_id] ASC, [domain_id] ASC),
     CONSTRAINT [category_attribute_check] CHECK ([category_attribute]='F' OR [category_attribute]='MJ' OR [category_attribute]='MN'),
@@ -222,6 +224,14 @@ BEGIN
 		@subcategory varchar(100),
 		@asset_description varchar(400);
 
+    --TRIS IS TEMPORARY AND WILL BE REMOVED IN THE FUTURE WHEN WE REMOVE THE SERIAL_NUMBER AND SERIAL_NAME COLUMNS FROM THE ASSETS TABLE
+    UPDATE a
+    SET 
+        model_number = i.serial_number,
+        model_name = i.serial_name
+    FROM dbo.assets a
+    INNER JOIN inserted i ON a.asset_id = i.asset_id AND a.domain_id = i.domain_id;
+
 	SELECT @asset_id = asset_id, @asset_domain_id = domain_id, @asset_suffix = asset_suffix, @subcategory_id = subcategory_id, @subcategory_domain_id = subcategory_domain_id FROM inserted;
 
 	SELECT @subcategory = description, @category_id = category_id, @category_domain_id = category_domain_id  from assets_subcategory where subcategory_id = @subcategory_id and domain_id = @subcategory_domain_id;
@@ -247,6 +257,16 @@ GO
 CREATE TRIGGER update_asset_data
 ON assets AFTER UPDATE
 AS
+
+    --TRIS IS TEMPORARY AND WILL BE REMOVED IN THE FUTURE WHEN WE REMOVE THE SERIAL_NUMBER AND SERIAL_NAME COLUMNS FROM THE ASSETS TABLE
+    UPDATE a
+    SET 
+        model_number = i.serial_number,
+        model_name = i.serial_name
+    FROM dbo.assets a
+    INNER JOIN inserted i ON a.asset_id = i.asset_id AND a.domain_id = i.domain_id;
+
+
 	DECLARE @domain_id SMALLINT, @asset_id INTEGER, @jsn_id INTEGER, @jsn_domain_id SMALLINT,
         @jsn_utility1_ow BIT, @jsn_utility1 VARCHAR(10), @jsn_utility2_ow BIT, @jsn_utility2 VARCHAR(10), @jsn_utility3_ow BIT, @jsn_utility3 VARCHAR(10),
         @jsn_utility4_ow BIT, @jsn_utility4 VARCHAR(10), @jsn_utility5_ow BIT, @jsn_utility5 VARCHAR(10), @jsn_utility6_ow BIT, @jsn_utility6 VARCHAR(10),

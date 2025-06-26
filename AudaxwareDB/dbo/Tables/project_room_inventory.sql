@@ -132,7 +132,11 @@
 	[volts_ow] BIT DEFAULT (0),
 	[amps] VARCHAR (20) NULL,
 	[amps_ow] BIT DEFAULT (0),
-	[date_modified] DATE NULL
+	[date_modified] DATE NULL,
+	[model_number] VARCHAR (100)   NULL,
+	[model_number_ow] BIT DEFAULT(0),
+	[model_name] VARCHAR (150)   NULL,
+	[model_name_ow] BIT DEFAULT(0)
 
 
     CONSTRAINT [inventory_pk] PRIMARY KEY CLUSTERED ([inventory_id] ASC),
@@ -202,6 +206,16 @@ GO
 CREATE TRIGGER update_computed_fields
 ON project_room_inventory AFTER INSERT, UPDATE
 AS
+
+	--TRIS IS TEMPORARY AND WILL BE REMOVED IN THE FUTURE WHEN WE REMOVE THE SERIAL_NUMBER AND SERIAL_NAME COLUMNS FROM THIS TABLE
+    UPDATE pri
+    SET 
+        model_number = i.serial_number,
+        model_name = i.serial_name,
+		model_number_ow = i.serial_number_ow,
+		model_name_ow = i.serial_name_ow
+    FROM dbo.project_room_inventory pri
+    INNER JOIN inserted i ON pri.inventory_id = i.inventory_id AND pri.domain_id = i.domain_id;
 
 	DECLARE @is_insert BIT, @none_option BIT, @inventory_id INTEGER, @inventory_source_id INTEGER, @inventory_target_id INTEGER, @asset_profile VARCHAR(3000), @old_asset_profile VARCHAR(3000),
 		@asset_domain_id SMALLINT, @asset_id INTEGER, @detailed_budget BIT, @old_detailed_budget BIT,
