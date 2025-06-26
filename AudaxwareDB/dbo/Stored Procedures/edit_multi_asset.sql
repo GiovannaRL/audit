@@ -19,7 +19,7 @@
 	@unit_install_net NUMERIC(10, 2),
 	@unit_install_markup NUMERIC(10, 2),
 	@unit_tax NUMERIC(10, 2),
-	@ECN VARCHAR(20), 
+	@ECN VARCHAR(50), 
 	@placement VARCHAR(20),
 	@placement_ow BIT,
 	@temporary_location VARCHAR(200), 

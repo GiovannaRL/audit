@@ -6,7 +6,7 @@ AS
 BEGIN
 	DECLARE @to_id INTEGER
 	DECLARE @inventory_id INTEGER, @inventory_target_id INTEGER, @asset_domain_id SMALLINT, @asset_id INTEGER, @budget_qty INTEGER,
-		@asset_description_ow BIT, @asset_description VARCHAR(300), @clin VARCHAR(50), @ECN  VARCHAR (20), @placement_ow BIT, @placement VARCHAR(20), @biomed_check_required BIT, 
+		@asset_description_ow BIT, @asset_description VARCHAR(300), @clin VARCHAR(50), @ECN  VARCHAR (50), @placement_ow BIT, @placement VARCHAR(20), @biomed_check_required BIT, 
 		@height_ow BIT, @height VARCHAR(25), @width_ow BIT, @width VARCHAR(25), @depth_ow BIT, @depth VARCHAR(25),
 		@mounting_height_ow BIT, @mounting_height VARCHAR(25), @class_ow BIT, @class INT,
 		@jsn_code VARCHAR(10), 	@jsn_utility1 VARCHAR(10), @jsn_utility2 VARCHAR(10), @jsn_utility3 VARCHAR(10), @jsn_utility4 VARCHAR(10), 

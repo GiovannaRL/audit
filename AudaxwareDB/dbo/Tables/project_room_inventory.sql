@@ -67,7 +67,7 @@
 	[net_new] INT null, -- This column is calculated in the updated_calculated_fields_and_profile trigger
 	[asset_description_ow] BIT DEFAULT(0),
     [asset_description]      VARCHAR (300)	NULL,
-    [ECN]  VARCHAR (20)       NULL,
+    [ECN]  VARCHAR (50)       NULL,
     [placement_ow] BIT NULL DEFAULT (0), 
     [placement] VARCHAR(20) NULL, 
     [biomed_check_required] BIT NULL DEFAULT (0), 

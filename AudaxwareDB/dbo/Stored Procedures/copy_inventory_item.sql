@@ -21,7 +21,7 @@ AS BEGIN
 	@inventory_source_id INT, @unit_markup decimal(10,2),@unit_escalation decimal(10,2),@unit_tax decimal(10,2), @unit_install_net decimal(10,2),
 	@unit_install_markup decimal(10,2),@unit_freight_net decimal(10,2),@unit_freight_markup decimal(10,2), @options_unit_price numeric(10,2), 
 	@asset_profile varchar(3000), @asset_profile_budget varchar(2000), @asset_description_ow BIT, @asset_description VARCHAR(300), 
-	@ECN  VARCHAR (20), @placement VARCHAR (20), @placement_ow bit, @biomed_check_required BIT, @temporary_location VARCHAR(200),
+	@ECN  VARCHAR (50), @placement VARCHAR (20), @placement_ow bit, @biomed_check_required BIT, @temporary_location VARCHAR(200),
 	@height_ow BIT, @height VARCHAR(25), @width_ow BIT, @width VARCHAR(25), @depth_ow BIT, @depth VARCHAR(25), @mounting_height_ow BIT, 
 	@mounting_height VARCHAR(25), @class_ow BIT, @class INT, @jsn_code VARCHAR(10), @date_added date = GETDATE(), @linked_document int,
 	@jsn_utility1 VARCHAR(10), @jsn_utility2 VARCHAR(10), @jsn_utility3 VARCHAR(10), @jsn_utility4 VARCHAR(10), 

@@ -1078,7 +1078,7 @@
           <Property Name="net_new" Type="int" />
           <Property Name="asset_description_ow" Type="bit" />
           <Property Name="asset_description" Type="varchar" MaxLength="300" />
-          <Property Name="ECN" Type="varchar" MaxLength="20" />
+          <Property Name="ECN" Type="varchar" MaxLength="50" />
           <Property Name="placement_ow" Type="bit" />
           <Property Name="placement" Type="varchar" MaxLength="20" />
           <Property Name="biomed_check_required" Type="bit" />
@@ -1392,8 +1392,6 @@ warning 6002: The table/view 'audaxware.dbo.ancillary_v' does not have a primary
           <Property Name="quote_discount" Type="numeric" Precision="38" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'audaxware.dbo.asset_by_room' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <!--Errors Found During Generation:
 warning 6002: The table/view 'audaxware.dbo.asset_inventory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="asset_inventory">
           <Key>
@@ -1654,7 +1652,7 @@ warning 6002: The table/view 'audaxware.dbo.asset_inventory' does not have a pri
           <Property Name="total_freight_net" Type="decimal" Precision="10" Scale="2" />
           <Property Name="total_freight" Type="decimal" Precision="10" Scale="2" />
           <Property Name="total_budget" Type="decimal" Precision="10" Scale="2" />
-          <Property Name="ECN" Type="varchar" MaxLength="20" />
+          <Property Name="ECN" Type="varchar" MaxLength="50" />
           <Property Name="placement" Type="varchar" MaxLength="20" />
           <Property Name="placement_ow" Type="bit" />
           <Property Name="biomed_check_required" Type="int" />
@@ -10510,7 +10508,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Name="net_new" Type="Int32" />
           <Property Name="asset_description_ow" Type="Boolean" />
           <Property Name="asset_description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="ECN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ECN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="placement_ow" Type="Boolean" />
           <Property Name="placement" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="biomed_check_required" Type="Boolean" />
@@ -11458,7 +11456,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Name="total_freight_net" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="total_freight" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="total_budget" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="ECN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ECN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="placement" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="placement_ow" Type="Boolean" />
           <Property Name="biomed_check_required" Type="Int32" />
