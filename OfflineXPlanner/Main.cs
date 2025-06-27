@@ -430,7 +430,7 @@ namespace OfflineXPlanner
             foreach (var item in images)
             {
                 PictureBox pb = new PictureBox();
-                pb.Size = new System.Drawing.Size(150, 170);
+                pb.Size = new System.Drawing.Size(130, 170);
                 pb.SizeMode = PictureBoxSizeMode.Zoom;
                 pb.Location = new Point(x, y);
                 pb.Click += new EventHandler(OpenImage_click);
@@ -444,10 +444,10 @@ namespace OfflineXPlanner
                 pb.Controls.Add(chk);
 
                 // Rotate Right Button
-                pb.Controls.Add(GetRotateButton(item, RotatePictureDirection.Right, new Point(130, 0)));
+                pb.Controls.Add(GetRotateButton(item, RotatePictureDirection.Right, new Point(110, 0)));
 
                 // Rotate Left Button
-                pb.Controls.Add(GetRotateButton(item, RotatePictureDirection.Left, new Point(110, 0)));
+                pb.Controls.Add(GetRotateButton(item, RotatePictureDirection.Left, new Point(90, 0)));
 
                 if (itemsPerLine < 2)
                 {
@@ -456,7 +456,7 @@ namespace OfflineXPlanner
                 }
                 else
                 {
-                    y += 180 + spaceBetweenImages;
+                    y += 160 + spaceBetweenImages;
                     x = 0;
                     itemsPerLine = 1;
                 }
