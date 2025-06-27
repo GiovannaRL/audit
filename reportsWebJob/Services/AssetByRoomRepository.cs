@@ -188,7 +188,7 @@ namespace reportsWebJob.Services
                 SELECT 
                     ai.asset_domain_id,
                     ai.asset_id,
-                    {useCadId} as asset_code,
+                    {useCadId} AS asset_code,
                     {selectAssetDescription}
                     ai.manufacturer_description,
                     COALESCE(ai.serial_name,'') AS serial_name,
@@ -234,7 +234,7 @@ namespace reportsWebJob.Services
                     ai.blocking_option,
                     ai.supports_option
                 ORDER BY 
-                     ai.asset_code;
+                     asset_code;
 
                 DROP TABLE #TempRoomIds;
             ";
