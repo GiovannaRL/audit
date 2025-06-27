@@ -71,7 +71,7 @@ BEGIN
 		medgas_option int,
 		supports_option int,
 		revit varchar(100),
-		placement varchar(10),
+		placement varchar(20),
 		clearance_left numeric(10,2),
 		clearance_right numeric(10,2),
 		clearance_front numeric(10,2),
