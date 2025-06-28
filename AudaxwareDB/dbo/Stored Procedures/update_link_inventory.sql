@@ -46,6 +46,10 @@ BEGIN
 			serial_number_ow = @serial_number_ow	,
 			serial_name = @serial_name	,
 			serial_name_ow = @serial_name_ow	,
+			model_number = @serial_number	, --TODO: THIS NEEDS TO BE CHANGED TO THE CORRECT COLUMN NAME
+			model_number_ow = @serial_number_ow	,--TODO: THIS NEEDS TO BE CHANGED TO THE CORRECT COLUMN NAME
+			model_name = @serial_name	,--TODO: THIS NEEDS TO BE CHANGED TO THE CORRECT COLUMN NAME
+			model_name_ow = @serial_name_ow	,--TODO: THIS NEEDS TO BE CHANGED TO THE CORRECT COLUMN NAME
 			lan = @lan,
 			lan_ow = @lan_ow,
 			network_type = @network_type,
