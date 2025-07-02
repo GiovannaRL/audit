@@ -84,6 +84,7 @@ namespace OfflineXPlanner
             cboDepartment.DataSource = projectDAO.GetDepartments(_projectId);
 
             cboDepartment.SelectedValue = _departmentId;
+            cboDepartment.SelectedIndex = -1;
 
             LoadRooms(_departmentId);
 
@@ -100,16 +101,6 @@ namespace OfflineXPlanner
                 _projectId,
                 departmentId > 0 ? departmentId : (int?)null
             );
-
-            if (cboRoom.Items.Count > roomIndex)
-            {
-                cboRoom.SelectedIndex = roomIndex;
-            }
-
-            if (_roomId > 0)
-            {
-                cboRoom.SelectedValue = _roomId;
-            }
         }
 
         private void cboDepartment_SelectedIndexChanged(object sender, EventArgs e)

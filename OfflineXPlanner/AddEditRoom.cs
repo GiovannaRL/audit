@@ -79,9 +79,9 @@ namespace OfflineXPlanner
 
             cboDepartment.DataSource = departments;
 
-            if (isMove && departments.Rows.Count > 0)
+            if (isMove || isDuplicate)
             {
-                cboDepartment.SelectedIndex = 0;  
+                cboDepartment.SelectedIndex = -1;  
             }
             else
             {
@@ -100,7 +100,7 @@ namespace OfflineXPlanner
 
             if (cboDepartment.SelectedIndex < 0)
             {
-                errorProvider1.SetError(txtRoomName, "Please select a department");
+                errorProvider1.SetError(cboDepartment, "Please select a department");
                 return;
             }
 
@@ -117,13 +117,18 @@ namespace OfflineXPlanner
             if (_isDuplicate)
             {
                 room.Id = 0;
-                this.DialogResult = DialogResult.Abort;
                 var insertedRoom = RoomBusiness.DuplicateRoom(_projectId, _departmentId, _roomId, room);
                 if (insertedRoom != null)
                 {
                     _newRoomId = insertedRoom.Id;
                     this.DialogResult = DialogResult.OK;
                 }
+                else
+                {
+                    MessageBox.Show("Error duplicating room");
+                    this.DialogResult = DialogResult.Abort;
+                }
+
                 this.Close();
                 return;
             }
@@ -131,7 +136,7 @@ namespace OfflineXPlanner
             if (_isMove)
             {
                 room.Id = _roomId;
-                ok = RoomBusiness.MoveRoom(_projectId, _departmentId, _roomId, (int)cboDepartment.SelectedValue, room); 
+                ok = RoomBusiness.MoveRoom(_projectId, _departmentId, _roomId, (int)cboDepartment.SelectedValue, room);
             }
             else
             {
@@ -149,10 +154,13 @@ namespace OfflineXPlanner
             if (ok)
             {
                 _newRoomId = room.Id;
+                this.DialogResult = DialogResult.OK;
                 this.Close();
                 return;
             }
+
             MessageBox.Show("Error to add room");
+            this.DialogResult = DialogResult.Abort;
         }
 
         private void txtDescription_Changed(object sender, EventArgs e)
