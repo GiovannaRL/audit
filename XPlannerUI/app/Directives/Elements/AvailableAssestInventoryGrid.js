@@ -225,8 +225,8 @@
                                     discontinued: { editable: false },
                                     asset_code: { editable: false },
                                     cut_sheet: { editable: false },
-                                    serial_number: { editable: false },
-                                    serial_name: { editable: false },
+                                    model_number: { editable: false },
+                                    model_name: { editable: false },
                                     manufacturer_description: { editable: false },
                                     asset_description: { editable: false },
                                     min_cost: { editable: false },
@@ -298,8 +298,8 @@
                                 return KendoGridService.GetDownloadFileWithDomainTemplate(dataItem.asset_id, dataItem.domain_id, 'fullcutsheet', dataItem.cut_sheet ? 'images/page_attach.png' : 'images/page.png')
                             }, filterable: false
                         },
-                        { field: "serial_number", title: "Model No.", width: 120 },
-                        { field: "serial_name", title: "Model Name", width: 140 },
+                        { field: "model_number", title: "Model No.", width: 120 },
+                        { field: "model_name", title: "Model Name", width: 140 },
                         { field: "manufacturer_description", title: "Manufacturer", width: 150 },
                         { field: "discontinued", title: "Disc", width: 80, filterable: false, columnMenu: false },
                         {

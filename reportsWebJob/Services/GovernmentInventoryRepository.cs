@@ -181,7 +181,7 @@ namespace reportsWebJob.Services
                         worksheet.Cells[row, 5].Value = inventory.asset_description;
                         worksheet.Cells[row, 6].Value = inventory.budget_qty;
                         worksheet.Cells[row, 7].Value = inventory.manufacturer_description;
-                        worksheet.Cells[row, 8].Value = inventory.serial_name;
+                        worksheet.Cells[row, 8].Value = inventory.model_name;
                         worksheet.Cells[row, 9].Value = inventory.height;
                         worksheet.Cells[row, 10].Value = inventory.width;
                         worksheet.Cells[row, 11].Value = inventory.depth;
@@ -232,7 +232,7 @@ namespace reportsWebJob.Services
             List<GovernmentInventoryItem> items = new List<GovernmentInventoryItem>();
 
             StringBuilder select = new StringBuilder("select CASE WHEN COALESCE(asset_photo_doc.blob_file_name, '') = '' THEN pri.asset_domain_id ELSE pri.domain_id END as photo_domain_id, CASE WHEN COALESCE(asset_photo_doc.blob_file_name, '') = '' THEN a.photo ELSE asset_photo_doc.blob_file_name END as photo, ");
-            select.Append("pd.description as department, pr.drawing_room_name, pr.drawing_room_number, pri.jsn_code, pri.asset_description, COALESCE(pri.budget_qty, 0) as budget_qty, pri.manufacturer_description, pri.serial_name, pri.height, ");
+            select.Append("pd.description as department, pr.drawing_room_name, pr.drawing_room_number, pri.jsn_code, pri.asset_description, COALESCE(pri.budget_qty, 0) as budget_qty, pri.manufacturer_description, pri.model_name, pri.height, ");
             select.Append("pri.width, pri.depth, pri.mounting_height, pri.ECN, pri.comment,  ");
             select.Append("COALESCE(pri.jsn_utility1, 'N/A') AS jsn_utility1, COALESCE(pri.jsn_utility2, 'N/A') AS jsn_utility2, COALESCE(pri.jsn_utility3, 'N/A') AS jsn_utility3, COALESCE(pri.jsn_utility4, 'N/A') AS jsn_utility4, COALESCE(pri.jsn_utility5, 'N/A') AS jsn_utility5, COALESCE(pri.jsn_utility6, 'N/A') AS jsn_utility6  ");
             select.Append("FROM project_room_inventory pri ");

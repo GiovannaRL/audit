@@ -32,10 +32,10 @@
 	@jsn_ow BIT,
 	@manufacturer_description VARCHAR (100),
 	@manufacturer_description_ow BIT,
-	@serial_number VARCHAR (100),
-	@serial_number_ow BIT,
-	@serial_name  VARCHAR (150),
-	@serial_name_ow BIT,
+	@model_number VARCHAR (100),
+	@model_number_ow BIT,
+	@model_name  VARCHAR (150),
+	@model_name_ow BIT,
 	@jsn_code varchar(10),
 	@jsn_u1 varchar(10),
 	@jsn_u2 varchar(10),
@@ -85,10 +85,10 @@ BEGIN
 		dnp_qty = coalesce(@dnp_qty, dnp_qty),
 		manufacturer_description = coalesce(@manufacturer_description, manufacturer_description),
 		manufacturer_description_ow = coalesce(@manufacturer_description_ow	, manufacturer_description_ow),
-		serial_number = coalesce(@serial_number, serial_number),
-		serial_number_ow = coalesce(@serial_number_ow, serial_number_ow),
-		serial_name = coalesce(@serial_name, serial_name),
-		serial_name_ow = coalesce(@serial_name_ow, serial_name_ow),
+		model_number = coalesce(@model_number, model_number),
+		model_number_ow = coalesce(@model_number_ow, model_number_ow),
+		model_name = coalesce(@model_name, model_name),
+		model_name_ow = coalesce(@model_name_ow, model_name_ow),
 		jsn_ow = coalesce(@jsn_ow, jsn_ow),
 		class = coalesce(@class, class),
 		class_ow = coalesce(@class_ow, class_ow),
@@ -101,8 +101,8 @@ BEGIN
 			OR (COALESCE(@class, class) = 1 AND class <> @class)
 			OR (COALESCE(@jsn_ow, jsn_ow) = 1 AND jsn_code <> @jsn_code)
 			OR (COALESCE(@manufacturer_description_ow, manufacturer_description_ow) = 1 AND manufacturer_description <> @manufacturer_description)
-			OR (COALESCE(@serial_number_ow, serial_number_ow) = 1 AND serial_number <> @serial_number)
-			OR (COALESCE(@serial_name_ow, serial_name_ow) = 1 AND serial_name <> @serial_name)
+			OR (COALESCE(@model_number_ow, model_number_ow) = 1 AND model_number <> @model_number)
+			OR (COALESCE(@model_name_ow, model_name_ow) = 1 AND model_name <> @model_name)
 			THEN null ELSE cut_sheet_filename END
 	WHERE inventory_id in (SELECT CAST(value AS INTEGER) AS inventory_id FROM STRING_SPLIT(@inventories_id, ';'));
 

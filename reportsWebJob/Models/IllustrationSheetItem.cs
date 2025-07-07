@@ -35,8 +35,8 @@ namespace reportsWebJob.Models
         public string locked_date { get; set; }
         public string prefix_description { get; set; }
         public string photo { get; set; }
-        public string serial_number { get; set; }
-        public string serial_name { get; set; }
+        public string model_number { get; set; }
+        public string model_name { get; set; }
         public Nullable<decimal> unit_budget_total { get; set; }
         public string blob_file_name { get; set; }
         public List<project_room> rooms { get; set; }

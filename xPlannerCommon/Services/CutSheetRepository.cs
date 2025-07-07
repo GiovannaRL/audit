@@ -292,7 +292,7 @@ namespace xPlannerCommon.Services
             afterShopDrawingReference.Append("</td>");
             afterShopDrawingReference.Append("</tr>");
             afterShopDrawingReference.Append("<tr height='22px'>");
-            afterShopDrawingReference.Append("<td>Manufacturer: " + item.manufacturer_description + " &nbsp;Model: " + item.serial_number + " &nbsp;|&nbsp; " + item.serial_name + "</td>");
+            afterShopDrawingReference.Append("<td>Manufacturer: " + item.manufacturer_description + " &nbsp;Model: " + item.model_number + " &nbsp;|&nbsp; " + item.model_name + "</td>");
             afterShopDrawingReference.Append("</tr>");
             afterShopDrawingReference.Append("<tr height='22px'>");
             afterShopDrawingReference.Append("<td>&nbsp;</td>");

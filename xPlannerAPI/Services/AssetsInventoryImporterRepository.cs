@@ -221,8 +221,8 @@ namespace xPlannerAPI.Services
                 _stringLimits.Add("CostCenterDescription", (int)costCenterMetadata.Properties["description"].TypeUsage.Facets["MaxLength"].Value);
 
                 var assetsMetadata = metadata.GetItem<EntityType>("AudaxWare.asset", DataSpace.CSpace);
-                _stringLimits.Add("ModelName", (int)assetsMetadata.Properties["serial_name"].TypeUsage.Facets["MaxLength"].Value);
-                _stringLimits.Add("ModelNumber", (int)assetsMetadata.Properties["serial_number"].TypeUsage.Facets["MaxLength"].Value);
+                _stringLimits.Add("ModelName", (int)assetsMetadata.Properties["model_name"].TypeUsage.Facets["MaxLength"].Value);
+                _stringLimits.Add("ModelNumber", (int)assetsMetadata.Properties["model_number"].TypeUsage.Facets["MaxLength"].Value);
                 _stringLimits.Add("JSNSuffix", (int)assetsMetadata.Properties["jsn_suffix"].TypeUsage.Facets["MaxLength"].Value);
                 _stringLimits.Add("Description", (int)assetsMetadata.Properties["asset_description"].TypeUsage.Facets["MaxLength"].Value);
 
@@ -989,12 +989,12 @@ namespace xPlannerAPI.Services
 
             if (string.IsNullOrEmpty(item.ModelName) && item.Id != null)
             {
-                item.ModelName = _projectInventory[(int)item.Id].serial_name;
+                item.ModelName = _projectInventory[(int)item.Id].model_name;
             }
 
             if (string.IsNullOrEmpty(item.ModelNumber) & item.Id != null)
             {
-                item.ModelNumber = _projectInventory[(int)item.Id].serial_number;
+                item.ModelNumber = _projectInventory[(int)item.Id].model_number;
             }
             string key = item.CatalogKey;
 
@@ -1581,8 +1581,8 @@ namespace xPlannerAPI.Services
                 asset.added_by = _user;
                 asset.date_added = DateTime.Now;
                 asset.updated_at = DateTime.Now;
-                asset.serial_name = item.ModelName;
-                asset.serial_number = item.ModelNumber;
+                asset.model_name = item.ModelName;
+                asset.model_number = item.ModelNumber;
                 asset.jsn_suffix = item.JSNSuffix;
                 //update asset attributes if jsn exists
                 if (jsn != null)
@@ -1800,8 +1800,8 @@ namespace xPlannerAPI.Services
 
             UpdateOWFields(inventory, item.Description, "asset_description");
             UpdateOWFields(inventory, item.Manufacturer, "manufacturer_description");
-            UpdateOWFields(inventory, item.ModelName, "serial_name");
-            UpdateOWFields(inventory, item.ModelNumber, "serial_number");
+            UpdateOWFields(inventory, item.ModelName, "model_name");
+            UpdateOWFields(inventory, item.ModelNumber, "model_number");
             if (item.PlannedQty < 0 && inventory.budget_qty != null)
             {
                 item.PlannedQty = (int)inventory.budget_qty;

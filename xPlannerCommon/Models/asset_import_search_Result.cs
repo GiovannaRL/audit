@@ -19,8 +19,8 @@ namespace xPlannerCommon.Models
         public string default_resp { get; set; }
         public int manufacturer_id { get; set; }
         public short manufacturer_domain_id { get; set; }
-        public string serial_number { get; set; }
-        public string serial_name { get; set; }
+        public string model_number { get; set; }
+        public string model_name { get; set; }
         public string asset_description { get; set; }
         public Nullable<int> jsn_id { get; set; }
     }

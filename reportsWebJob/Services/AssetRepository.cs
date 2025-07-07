@@ -55,8 +55,8 @@ namespace reportsWebJob.Services
                             item.asset_suffix = worksheet.Cells[numRows, 5].Value != null ? worksheet.Cells[numRows, 5].Value.ToString() : null;
                             item.comment = worksheet.Cells[numRows, 10].Value != null ? worksheet.Cells[numRows, 10].Value.ToString() : null;
                             item.updated_at = DateTime.Now;
-                            item.serial_name = worksheet.Cells[numRows, 4].Value != null ? worksheet.Cells[numRows, 4].Value.ToString() : null;
-                            item.serial_number = worksheet.Cells[numRows, 3].Value != null ? worksheet.Cells[numRows, 3].Value.ToString() : null;
+                            item.model_name = worksheet.Cells[numRows, 4].Value != null ? worksheet.Cells[numRows, 4].Value.ToString() : null;
+                            item.model_number = worksheet.Cells[numRows, 3].Value != null ? worksheet.Cells[numRows, 3].Value.ToString() : null;
 
                             if (worksheet.Cells[numRows, 6].Value != null)
                             {

@@ -825,15 +825,15 @@ namespace xPlannerAPI.Tests.Repositories
             Assert.AreEqual(1, roomInventory.Count(), "Only one asset was imported");
             var roomInventoryItem = roomInventory.FirstOrDefault();
             Assert.AreEqual(item.JSNNomeclature, roomInventoryItem.asset_description, "Description was not imported properly");
-            Assert.AreEqual(item.ModelNumber, roomInventoryItem.asset.serial_number, "Model number was not imported properly");
-            Assert.AreEqual(item.ModelName, roomInventoryItem.asset.serial_name, "Model number was not imported properly");
+            Assert.AreEqual(item.ModelNumber, roomInventoryItem.asset.model_number, "Model number was not imported properly");
+            Assert.AreEqual(item.ModelName, roomInventoryItem.asset.model_name, "Model number was not imported properly");
             Assert.AreEqual(item.Manufacturer, roomInventoryItem.asset.manufacturer.manufacturer_description, "Model number was not imported properly");
             var assetInventory = CurrentDbContext.asset_inventory.Where(x => x.project_id == _projectIdMillCreek);
             Assert.AreEqual(1, assetInventory.Count(), "Only one asset was imported");
             var assetInventoryItem = assetInventory.FirstOrDefault();
             Assert.AreEqual(item.JSNNomeclature, assetInventoryItem.asset_description, "Description was not imported properly");
-            //Assert.AreEqual(item.ModelNumber, assetInventoryItem.serial_number, "Model number was not imported properly");
-            //Assert.AreEqual(item.ModelName, assetInventoryItem.serial_name, "Model number was not imported properly");
+            //Assert.AreEqual(item.ModelNumber, assetInventoryItem.model_number, "Model number was not imported properly");
+            //Assert.AreEqual(item.ModelName, assetInventoryItem.model_name, "Model number was not imported properly");
             //Assert.AreEqual(item.Manufacturer, assetInventoryItem.manufacturer_description, "Model number was not imported properly");
             CurrentDbContext.project_room_inventory.Remove(roomInventoryItem);
             CurrentDbContext.SaveChanges();
@@ -846,15 +846,15 @@ namespace xPlannerAPI.Tests.Repositories
             Assert.AreEqual(1, roomInventory.Count(), "Only one asset was imported");
             roomInventoryItem = roomInventory.FirstOrDefault();
             Assert.AreEqual("2A, B", roomInventoryItem.asset_description, "Description was not imported properly");
-            Assert.AreEqual(item.ModelNumber, roomInventoryItem.asset.serial_number, "Model number was not imported properly");
-            Assert.AreEqual(item.ModelName, roomInventoryItem.asset.serial_name, "Model number was not imported properly");
+            Assert.AreEqual(item.ModelNumber, roomInventoryItem.asset.model_number, "Model number was not imported properly");
+            Assert.AreEqual(item.ModelName, roomInventoryItem.asset.model_name, "Model number was not imported properly");
             Assert.AreEqual(item.Manufacturer, roomInventoryItem.asset.manufacturer.manufacturer_description, "Model number was not imported properly");
             assetInventory = CurrentDbContext.asset_inventory.Where(x => x.project_id == _projectIdMillCreek).AsNoTracking();
             Assert.AreEqual(1, assetInventory.Count(), "Only one asset was imported");
             assetInventoryItem = assetInventory.FirstOrDefault();
             Assert.AreEqual("2A, B", assetInventoryItem.asset_description, "Description was not imported properly");
-            //Assert.AreEqual(item.ModelNumber, assetInventoryItem.serial_number, "Model number was not imported properly");
-            //Assert.AreEqual(item.ModelName, assetInventoryItem.serial_name, "Model number was not imported properly");
+            //Assert.AreEqual(item.ModelNumber, assetInventoryItem.model_number, "Model number was not imported properly");
+            //Assert.AreEqual(item.ModelName, assetInventoryItem.model_name, "Model number was not imported properly");
             //Assert.AreEqual(item.Manufacturer, assetInventoryItem.manufacturer_description, "Model number was not imported properly");
             ClearAllData();
         }
@@ -893,15 +893,15 @@ namespace xPlannerAPI.Tests.Repositories
             Assert.AreEqual(1, roomInventory.Count(), "Only one asset was imported");
             var roomInventoryItem = roomInventory.FirstOrDefault();
             Assert.AreEqual(item.JSNNomeclature, roomInventoryItem.asset_description, "Description was not imported properly");
-            Assert.AreEqual(item.ModelNumber, roomInventoryItem.asset.serial_number, "Model number was not imported properly");
-            Assert.AreEqual(item.ModelName, roomInventoryItem.asset.serial_name, "Model number was not imported properly");
+            Assert.AreEqual(item.ModelNumber, roomInventoryItem.asset.model_number, "Model number was not imported properly");
+            Assert.AreEqual(item.ModelName, roomInventoryItem.asset.model_name, "Model number was not imported properly");
             Assert.AreEqual(item.Manufacturer, roomInventoryItem.asset.manufacturer.manufacturer_description, "Model number was not imported properly");
             var assetInventory = CurrentDbContext.asset_inventory.Where(x => x.project_id == _projectIdMillCreek);
             Assert.AreEqual(1, assetInventory.Count(), "Only one asset was imported");
             var assetInventoryItem = assetInventory.FirstOrDefault();
             Assert.AreEqual(item.JSNNomeclature, assetInventoryItem.asset_description, "Description was not imported properly");
-            //Assert.AreEqual(item.ModelNumber, assetInventoryItem.serial_number, "Model number was not imported properly");
-            //Assert.AreEqual(item.ModelName, assetInventoryItem.serial_name, "Model number was not imported properly");
+            //Assert.AreEqual(item.ModelNumber, assetInventoryItem.model_number, "Model number was not imported properly");
+            //Assert.AreEqual(item.ModelName, assetInventoryItem.model_name, "Model number was not imported properly");
             //Assert.AreEqual(item.Manufacturer, assetInventoryItem.manufacturer_description, "Model number was not imported properly");
             CurrentDbContext.project_room_inventory.Remove(roomInventoryItem);
             CurrentDbContext.SaveChanges();
@@ -917,15 +917,15 @@ namespace xPlannerAPI.Tests.Repositories
             Assert.AreEqual(1, roomInventory.Count(), "Only one asset was imported");
             roomInventoryItem = roomInventory.FirstOrDefault();
             Assert.AreEqual("2A, B", roomInventoryItem.asset_description, "Description was not imported properly");
-            Assert.AreEqual(item.ModelNumber, roomInventoryItem.asset.serial_number, "Model number was not imported properly");
-            Assert.AreEqual(item.ModelName, roomInventoryItem.asset.serial_name, "Model number was not imported properly");
+            Assert.AreEqual(item.ModelNumber, roomInventoryItem.asset.model_number, "Model number was not imported properly");
+            Assert.AreEqual(item.ModelName, roomInventoryItem.asset.model_name, "Model number was not imported properly");
             Assert.AreEqual(item.Manufacturer, roomInventoryItem.asset.manufacturer.manufacturer_description, "Model number was not imported properly");
             assetInventory = CurrentDbContext.asset_inventory.Where(x => x.project_id == _projectIdMillCreek);
             Assert.AreEqual(1, assetInventory.Count(), "Only one asset was imported");
             assetInventoryItem = assetInventory.FirstOrDefault();
             Assert.AreEqual("2A, B", assetInventoryItem.asset_description, "Description was not imported properly");
-            //Assert.AreEqual(item.ModelNumber, assetInventoryItem.serial_number, "Model number was not imported properly");
-            //Assert.AreEqual(item.ModelName, assetInventoryItem.serial_name, "Model number was not imported properly");
+            //Assert.AreEqual(item.ModelNumber, assetInventoryItem.model_number, "Model number was not imported properly");
+            //Assert.AreEqual(item.ModelName, assetInventoryItem.model_name, "Model number was not imported properly");
             //Assert.AreEqual(item.Manufacturer, assetInventoryItem.manufacturer_description, "Model number was not imported properly");
             ClearAllData();
         }
@@ -1184,11 +1184,11 @@ namespace xPlannerAPI.Tests.Repositories
             Import(items, MillCreekDomainId);
             assetInventory = CurrentDbContext.asset_inventory.Where(x => x.project_id == _projectIdMillCreek).ToArray();
             Assert.AreEqual("Test manufacturer 1", assetInventory[0].manufacturer_description, "Manufacturer was not kept.");
-            Assert.AreEqual("This is my model name 1", assetInventory[0].serial_name, "Model name was not kept.");
-            Assert.AreEqual("JKL888", assetInventory[0].serial_number, "Model number was not kept.");
+            Assert.AreEqual("This is my model name 1", assetInventory[0].model_name, "Model name was not kept.");
+            Assert.AreEqual("JKL888", assetInventory[0].model_number, "Model number was not kept.");
             Assert.AreEqual("Test manufacturer 2", assetInventory[1].manufacturer_description, "Manufacturer was not kept.");
-            Assert.AreEqual("This is my model name 2", assetInventory[1].serial_name, "Model name was not kept.");
-            Assert.AreEqual("JKL889", assetInventory[1].serial_number, "Model number was not kept.");
+            Assert.AreEqual("This is my model name 2", assetInventory[1].model_name, "Model name was not kept.");
+            Assert.AreEqual("JKL889", assetInventory[1].model_number, "Model number was not kept.");
             ClearAllData();
 
 

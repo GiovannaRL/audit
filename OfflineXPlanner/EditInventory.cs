@@ -299,7 +299,7 @@ namespace OfflineXPlanner
             inventory.jsn_utility6 = Convert.ToString(cboU6.SelectedValue);
             inventory.comment = txtComments.Text;
             inventory.manufacturer_description = cboManufacturer.Text;
-            inventory.serial_name = txtModel.Text;
+            inventory.model_name = txtModel.Text;
             inventory.department_id = (int)cboDepartment.SelectedValue;
             inventory.room_id = (int)cboRoom.SelectedValue;
             inventory.project_id = _projectId;

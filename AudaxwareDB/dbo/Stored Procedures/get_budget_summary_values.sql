@@ -24,7 +24,7 @@ FROM
 	WHERE pri.domain_id = @domainId
 	AND date_modified >= DATEADD(DAY, 1, EOMONTH(GETDATE(), -1 * @period)) 
 	AND ((@projectId > 0 AND project_id = @projectId) OR @projectId = 0) 
-	AND (@assetCode is null OR (CONCAT(asset_code, jsn_code, a.asset_description, manufacturer_description, pri.serial_name, pri.serial_number) LIKE '%' + @assetCode + '%')) 
+	AND (@assetCode is null OR (CONCAT(asset_code, jsn_code, a.asset_description, manufacturer_description, pri.model_name, pri.model_number) LIKE '%' + @assetCode + '%')) 
 ) as minMaxValues
 INNER JOIN
 ( 
@@ -37,6 +37,6 @@ INNER JOIN
 	WHERE pri.domain_id = @domainId
 	AND date_modified >= DATEADD(DAY, 1, EOMONTH(GETDATE(), -1 * @period)) 
 	AND ((@projectId > 0 AND project_id = @projectId) OR @projectId = 0) 
-	AND (@assetCode is null OR (CONCAT(asset_code, jsn_code, a.asset_description, manufacturer_description, pri.serial_name, pri.serial_number) LIKE '%' + @assetCode + '%')) 
+	AND (@assetCode is null OR (CONCAT(asset_code, jsn_code, a.asset_description, manufacturer_description, pri.model_name, pri.model_number) LIKE '%' + @assetCode + '%')) 
 ) as lastValues
 on minMaxValues.inventory = lastValues.inventory

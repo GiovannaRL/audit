@@ -109,12 +109,12 @@ namespace reportsWebJob.Services
             List<EquipmentWithCostsItem> items = new List<EquipmentWithCostsItem>();
 
             StringBuilder select = new StringBuilder("SELECT resp, asset_code, asset_description, manufacturer_description, ");
-            select.Append("serial_name AS model_name, serial_number AS model_number, SUM(budget_qty) AS budget_qty, ");
+            select.Append("model_name AS model_name, model_number AS model_number, SUM(budget_qty) AS budget_qty, ");
             select.Append("COALESCE(unit_budget, 0) AS unit_budget, SUM(total_budget) AS total_budget ");
             select.Append("FROM asset_inventory a ");
             select.Append("WHERE ");
             select.Append(GetWhereClause(report, "a", "a").Replace("WHERE", ""));
-            select.Append("GROUP BY resp, asset_code, asset_description, manufacturer_description, serial_name, serial_number, unit_budget ");
+            select.Append("GROUP BY resp, asset_code, asset_description, manufacturer_description, model_name, model_number, unit_budget ");
             select.Append("ORDER BY asset_code, asset_description, unit_budget ");
 
             return _db.Database.SqlQuery<EquipmentWithCostsItem>(select.ToString()).ToList();

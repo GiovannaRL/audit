@@ -17,8 +17,8 @@ AS
 		--AND manufacturer_description <> 'TBD' 
 		ORDER BY domain_id DESC
     -- We are getting some insertions with duplicates and then re-importing is not working. I am creating this temporary fix for that
-	SELECT TOP 1 a.jsn_id as jsn_id, a.asset_id, a.domain_id, a.asset_code, a.default_resp, a.manufacturer_id, a.manufacturer_domain_id, a.serial_number,
-		a.serial_name, a.asset_description FROM assets a
+	SELECT TOP 1 a.jsn_id as jsn_id, a.asset_id, a.domain_id, a.asset_code, a.default_resp, a.manufacturer_id, a.manufacturer_domain_id, a.model_number,
+		a.model_name, a.asset_description FROM assets a
 	WHERE (a.domain_id = @domain_id or (a.domain_id = 1 and @show_audaxware_info = 1 ))
 	AND
 	(
@@ -29,8 +29,8 @@ AS
 			AND
 			(
 				(a.manufacturer_domain_id = @manufacturer_domain_id AND a.manufacturer_id = @manufacturer_id AND
-					((ISNULL(a.serial_number, '') <> '' AND a.serial_number = @model_number)
-						 AND (ISNULL(a.serial_name, '') <> '' AND a.serial_name = @model_name)))
+					((ISNULL(a.model_number, '') <> '' AND a.model_number = @model_number)
+						 AND (ISNULL(a.model_name, '') <> '' AND a.model_name = @model_name)))
 				OR
 				(
 					a.imported_by_project_id = @project_id

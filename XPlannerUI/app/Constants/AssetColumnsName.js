@@ -1,8 +1,8 @@
 ﻿xPlanner.constant('AssetColumnsName', {
     asset_code: 'Code',
     photo: 'Photo',
-    serial_number: 'Model No.',
-    serial_name: 'Model Name',
+    model_number: 'Model No.',
+    model_name: 'Model Name',
     asset_description: 'Description',
     manufacturer_description: 'Manufacturer',
     asset_category: 'Category',

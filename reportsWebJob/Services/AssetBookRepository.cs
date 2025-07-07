@@ -205,8 +205,8 @@ namespace reportsWebJob.Services
                 "   pri.manufacturer_description, " +
                     (item.ignore_description_difference == true? "  a.asset_description, " : "   pri.asset_description, ") +
                 "   a.asset_code, " +
-                "   pri.serial_number, " +
-                "   pri.serial_name, " +
+                "   pri.model_number, " +
+                "   pri.model_name, " +
                 "   COALESCE(asset_photo_doc.blob_file_name, a.photo) AS photo, " +
                 "   CASE WHEN asset_photo_doc.blob_file_name is null THEN pri.asset_domain_id ELSE pri.domain_id END as photo_domain_id, " +
                 "   asset_photo_doc.rotate AS photo_rotate, " +
@@ -222,7 +222,7 @@ namespace reportsWebJob.Services
                 "   CASE WHEN " +
                     (item.ignore_description_difference == true ? "" : "       pri.asset_description_ow = 1 OR ") +
                 "       pri.placement_ow = 1 OR pri.class_ow = 1 OR pri.jsn_ow = 1 OR " +
-                "       pri.manufacturer_description_ow = 1 OR pri.serial_number_ow = 1 OR pri.serial_name_ow = 1 OR " +
+                "       pri.manufacturer_description_ow = 1 OR pri.model_number_ow = 1 OR pri.model_name_ow = 1 OR " +
                 "       pri.class <> a.class OR asset_photo_doc.blob_file_name IS NOT NULL OR pri.resp <> a.default_resp " +
                 "   THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT) END AS has_overwritten_properties,  " +
 
@@ -250,7 +250,7 @@ namespace reportsWebJob.Services
                 "   a.domain_id, a.asset_id, " +
                     (item.ignore_description_difference == true ? "  a.asset_description, " : "  pri.asset_description, ") +
                 "   pri.manufacturer_description, a.asset_code, " +
-                "   pri.serial_number, pri.serial_name, " +
+                "   pri.model_number, pri.model_name, " +
                 "   COALESCE(asset_photo_doc.blob_file_name, a.photo), " +
                 "   CASE WHEN asset_photo_doc.blob_file_name is null THEN pri.asset_domain_id ELSE pri.domain_id END, " +
                 "   asset_photo_doc.rotate, " +
@@ -264,7 +264,7 @@ namespace reportsWebJob.Services
                 "   CASE WHEN " +
                     (item.ignore_description_difference == true ? "" : "       pri.asset_description_ow = 1 OR ") +
                 "       pri.placement_ow = 1 OR pri.class_ow = 1 OR pri.jsn_ow = 1 OR " +
-                "       pri.manufacturer_description_ow = 1 OR pri.serial_number_ow = 1 OR pri.serial_name_ow = 1 OR " +
+                "       pri.manufacturer_description_ow = 1 OR pri.model_number_ow = 1 OR pri.model_name_ow = 1 OR " +
                 "       pri.class <> a.class OR asset_photo_doc.blob_file_name IS NOT NULL OR pri.resp <> a.default_resp " +
                 "   THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT) END ," +
                 "   CASE WHEN" +

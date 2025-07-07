@@ -21,8 +21,8 @@ namespace xPlannerAPI.Controllers
                 asset_id = a.asset.asset_id,
                 asset_code = a.asset.asset_code,
                 asset_description = a.asset.asset_description,
-                serial_name = a.asset.serial_name,
-                serial_number = a.asset.serial_name,
+                model_name = a.asset.model_name,
+                model_number = a.asset.model_name,
                 manufacturer = a.asset.manufacturer.manufacturer_description
             });
         }

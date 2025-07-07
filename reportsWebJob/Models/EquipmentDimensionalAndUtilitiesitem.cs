@@ -9,8 +9,8 @@ namespace reportsWebJob.Models
         public string resp { get; set; }
         public string manufacturer_description { get; set; }
         public string asset_description { get; set; }
-        public string serial_number { get; set; }
-        public string serial_name { get; set; }
+        public string model_number { get; set; }
+        public string model_name { get; set; }
         public string btus { get; set; }
         public string data_desc { get; set; }
         public Nullable<int> data_option { get; set; }

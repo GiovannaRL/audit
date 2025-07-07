@@ -73,8 +73,8 @@ namespace reportsWebJob.Services
                     worksheet.Cells[row, 3].Value = inventory.resp.TrimEnd();
                     worksheet.Cells[row, 4].Value = inventory.manufacturer_description;
                     worksheet.Cells[row, 5].Value = inventory.asset_description;
-                    worksheet.Cells[row, 6].Value = inventory.serial_number;
-                    worksheet.Cells[row, 7].Value = inventory.serial_name;
+                    worksheet.Cells[row, 6].Value = inventory.model_number;
+                    worksheet.Cells[row, 7].Value = inventory.model_name;
                     worksheet.Cells[row, 8].Value = inventory.btus;
                     worksheet.Cells[row, 9].Value = inventory.data_desc;
                     worksheet.Cells[row, 10].Value = GetFieldValue(inventory.data_option);
@@ -136,16 +136,16 @@ namespace reportsWebJob.Services
         {
             List<EquipmentDimensionalAndUtilitiesitem> items = new List<EquipmentDimensionalAndUtilitiesitem>();
 
-            StringBuilder select = new StringBuilder("SELECT asset_code, placement, resp, manufacturer_description, asset_description, serial_number, serial_name, btus, data_desc, data_option, ");
+            StringBuilder select = new StringBuilder("SELECT asset_code, placement, resp, manufacturer_description, asset_description, model_number, model_name, btus, data_desc, data_option, ");
             select.Append(" electrical_option, electrical, volts, phases, electrical_option, volts, phases, hertz, amps, volt_amps, watts, height, width, depth, weight, plu_hot_water, plu_drain, ");
             select.Append(" clearance_top, clearance_back, clearance_front, clearance_bottom, clearance_left, clearance_right, plumbing_option, plumbing, plu_cold_water ");
             select.Append(" FROM asset_inventory a ");
             select.Append(" WHERE ");
             select.Append(GetWhereClause(report, "a", "a").Replace("WHERE", ""));
-            select.Append(" GROUP BY  asset_code, placement, resp, manufacturer_description, asset_description, serial_number, serial_name, btus, data_desc, data_option, ");
+            select.Append(" GROUP BY  asset_code, placement, resp, manufacturer_description, asset_description, model_number, model_name, btus, data_desc, data_option, ");
             select.Append(" electrical_option, electrical, volts, phases, electrical_option, volts, phases, hertz, amps, volt_amps, watts, height, width, depth, weight, plu_hot_water, plu_drain, ");
             select.Append(" clearance_top, clearance_back, clearance_front, clearance_bottom, clearance_left, clearance_right, plumbing_option, plumbing, plu_cold_water ");
-            select.Append(" ORDER BY asset_description, serial_number, serial_name ");
+            select.Append(" ORDER BY asset_description, model_number, model_name ");
 
             return _db.Database.SqlQuery<EquipmentDimensionalAndUtilitiesitem>(select.ToString()).ToList();
 

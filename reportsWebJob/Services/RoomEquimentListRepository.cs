@@ -107,7 +107,7 @@ namespace reportsWebJob.Services
             List<RoomEquipmentListItem> items = new List<RoomEquipmentListItem>();
 
             StringBuilder select = new StringBuilder("SELECT room_id, room_name, room_number, department_description, d.contact_name, resp, cost_center,  ");
-            select.Append("asset_code, manufacturer_description, serial_name as model_name, serial_number as model_number, asset_description, budget_qty, f.name AS facility  ");
+            select.Append("asset_code, manufacturer_description, model_name as model_name, model_number as model_number, asset_description, budget_qty, f.name AS facility  ");
             select.Append("FROM asset_inventory a ");
             select.Append("JOIN project_department d ON a.department_id = d.department_id ");
             select.Append("JOIN project p ON a.project_id = p.project_id ");

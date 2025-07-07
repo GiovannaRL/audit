@@ -15,8 +15,8 @@ namespace reportsWebJob.Models
         public string asset_description { get; set; }
         public string tag { get; set; }
         public string manufacturer_description { get; set; }
-        public string serial_number { get; set; }
-        public string serial_name { get; set; }
+        public string model_number { get; set; }
+        public string model_name { get; set; }
         public int budget_qty { get; set; }
         public int lease_qty { get; set; }
         public int dnp_qty { get; set; }
@@ -50,8 +50,8 @@ namespace reportsWebJob.Models
         //        == other.asset_code && this.asset_description == other.asset_description && this.budget_qty ==
         //        other.budget_qty && this.lease_qty == other.lease_qty && this.dnp_qty == other.dnp_qty &&
         //        this.po_qty == other.po_qty && this.tag == other.tag && this.manufacturer_description ==
-        //        other.manufacturer_description && this.serial_number == other.serial_number && this.serial_name
-        //        == other.serial_name;
+        //        other.manufacturer_description && this.model_number == other.model_number && this.model_name
+        //        == other.model_name;
         //}
 
         //public override int GetHashCode()
@@ -74,8 +74,8 @@ namespace reportsWebJob.Models
         //    int hashPO = this.po_qty.GetHashCode();
         //    int hashTag = this.tag == null ? 0 : this.tag.GetHashCode();
         //    int hashManufacturer = this.manufacturer_description == null ? 0 : this.manufacturer_description.GetHashCode();
-        //    int hashSerialNumber = this.serial_number == null ? 0 : this.serial_number.GetHashCode();
-        //    int hashSerialName = this.serial_name == null ? 0 : this.serial_name.GetHashCode();
+        //    int hashSerialNumber = this.model_number == null ? 0 : this.model_number.GetHashCode();
+        //    int hashSerialName = this.model_name == null ? 0 : this.model_name.GetHashCode();
 
         //    return hashCadId ^ hashWater ^ hashPlumbing ^ hashData ^ hashElectrical ^ hashMobile ^ hashBlocking
         //        ^ hashMedgas ^ hashSupports ^ hashResp ^ hashAssetCode ^ hashAssetDesc ^ hashBudget ^ hashLease

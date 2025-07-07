@@ -37,7 +37,7 @@ namespace xPlannerCommon.Models
         public string width { get; set; }
         public string depth { get; set; }
         public string weight { get; set; }
-        public string serial_number { get; set; }
+        public string model_number { get; set; }
         public Nullable<decimal> min_cost { get; set; }
         public Nullable<decimal> max_cost { get; set; }
         public Nullable<decimal> avg_cost { get; set; }
@@ -108,7 +108,7 @@ namespace xPlannerCommon.Models
         public Nullable<bool> plu_treated_water { get; set; }
         public Nullable<bool> plu_relief { get; set; }
         public Nullable<bool> plu_chilled_water { get; set; }
-        public string serial_name { get; set; }
+        public string model_name { get; set; }
         public Nullable<int> useful_life { get; set; }
         public Nullable<decimal> loaded_weight { get; set; }
         public Nullable<decimal> ship_weight { get; set; }

@@ -72,7 +72,7 @@ CREATE VIEW [dbo].[inventory_w_relo_v] AS
 	a.asset_domain_id,
     a.cad_id,
 	a.tag, a.jsn_code, 
-	a.serial_number, a.serial_name
+	a.model_number, a.model_name
    FROM project_room_inventory a
 	 INNER JOIN project_room pr ON a.domain_id = pr.domain_id AND a.project_id = pr.project_id AND a.phase_id = pr.phase_id AND
 		a.department_id = pr.department_id AND a.room_id = pr.room_id
@@ -113,7 +113,7 @@ CREATE VIEW [dbo].[inventory_w_relo_v] AS
          CASE
             WHEN a.resp in ('EXOI', 'EXCI', 'EXVI', 'EXEX') THEN 0
             ELSE (COALESCE(a.total_budget_amt, 0) * pr.room_quantity)
-        END, a.cost_center_id, a.domain_id, a.asset_domain_id, a.unit_budget, a.cad_id, a.tag, a.jsn_code, a.serial_number, a.serial_name;
+        END, a.cost_center_id, a.domain_id, a.asset_domain_id, a.unit_budget, a.cad_id, a.tag, a.jsn_code, a.model_number, a.model_name;
 
 
 

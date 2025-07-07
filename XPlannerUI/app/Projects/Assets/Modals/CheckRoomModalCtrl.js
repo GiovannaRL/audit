@@ -33,8 +33,8 @@
         var columns = [
                 { field: 'asset_code', title: 'Code', width: '110px' },
                 { field: 'asset_description', title: 'Description', width: '200px', template: '#: asset_description +  (tag ? "(" + tag + ")" : "") #' },
-                { field: 'serial_number', title: 'Model No.', width: '120px' },
-                { field: 'serial_name', title: 'Model Name', width: '140px' },
+                { field: 'model_number', title: 'Model No.', width: '120px' },
+                { field: 'model_name', title: 'Model Name', width: '140px' },
                 { field: 'drawing_room_name', title: 'Room', width: '170px', template: '<a ng-click=\"close()\" ui-sref=\"index.room({project_id: #: project_id #, phase_id: #: phase_id #, department_id: #: department_id #, room_id: #: room_id #})\">#: drawing_room_name #</a>' },
                 { field: 'dept_desc', title: 'Department', width: '200px' },
                 { field: 'phase_desc', title: 'Phase', width: '200px' },

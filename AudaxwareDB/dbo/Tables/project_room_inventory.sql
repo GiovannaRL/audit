@@ -96,9 +96,9 @@
 	[jsn_ow] BIT DEFAULT(0),
     [manufacturer_description] VARCHAR (100) NULL,
 	[manufacturer_description_ow] BIT DEFAULT(0),
-    [serial_number]          VARCHAR (100)   NULL,
+    [serial_number] VARCHAR (100)   NULL,
 	[serial_number_ow] BIT DEFAULT(0),
-    [serial_name]            VARCHAR (150)   NULL,
+    [serial_name] VARCHAR (150)   NULL,
 	[serial_name_ow] BIT DEFAULT(0), 
 	[cut_sheet_filename] VARCHAR(100), -- O campo será nulo caso os dados _ow tenham sido editados e o cover_sheet não tenha sido gerado desde então, ou não há dados _ow
     [final_disposition] varchar (200) NULL,
@@ -135,9 +135,8 @@
 	[date_modified] DATE NULL,
 	[model_number] VARCHAR (100)   NULL,
 	[model_number_ow] BIT DEFAULT(0),
-	[model_name] VARCHAR (150)   NULL,
+    [model_name] VARCHAR (150)   NULL,
 	[model_name_ow] BIT DEFAULT(0)
-
 
     CONSTRAINT [inventory_pk] PRIMARY KEY CLUSTERED ([inventory_id] ASC),
     CONSTRAINT [asset_project_room_inventory_fk] FOREIGN KEY ([asset_id], [asset_domain_id]) REFERENCES [dbo].[assets] ([asset_id], [domain_id]),
@@ -222,9 +221,8 @@ AS
 		@jsn_utility1 VARCHAR(10), @jsn_utility2 VARCHAR(10), @jsn_utility3 VARCHAR(10), @jsn_utility4 VARCHAR(10), 
 		@jsn_utility5 VARCHAR(10), @jsn_utility6 VARCHAR(10), @jsn_utility7 VARCHAR(10), @jsn_ow BIT,
         @manufacturer_description VARCHAR (100), @manufacturer_description_ow BIT,
-		@serial_number VARCHAR (100), @serial_number_ow BIT, @serial_name  VARCHAR (150), @serial_name_ow BIT, 
-		@model_number VARCHAR (100), @model_number_ow BIT, @model_name  VARCHAR (150), @model_name_ow BIT, 
-		@manufacturer_id  INT,  @manufacturer_domain_id SMALLINT,
+		@model_number VARCHAR (100), @model_number_ow BIT, @model_name  VARCHAR (150),
+		@model_name_ow BIT, @manufacturer_id  INT,  @manufacturer_domain_id SMALLINT,
 		@plug_type VARCHAR (20), @plug_type_ow BIT, @connection_type VARCHAR (20), @connection_type_ow BIT, @lan INT, @lan_ow BIT,
 		@network_type VARCHAR(20), @network_type_ow BIT, @network_option INT, @network_option_ow BIT, @ports NUMERIC(10), @ports_ow BIT,
 		@bluetooth BIT, @bluetooth_ow BIT, @cat6 BIT, @cat6_ow BIT, @displayport BIT, @displayport_ow BIT, @dvi BIT, @dvi_ow BIT,
@@ -245,9 +243,8 @@ AS
 		coalesce(i.height_ow, 0), i.height, coalesce(i.width_ow, 0), i.width, coalesce(i.depth_ow, 0), i.depth, coalesce(i.mounting_height_ow, 0), i.mounting_height,
 		coalesce(i.class_ow, 0), i.class, i.jsn_code, i.jsn_utility1, i.jsn_utility2,
 		i.jsn_utility3, i.jsn_utility4, i.jsn_utility5, i.jsn_utility6, i.jsn_utility7, coalesce(i.jsn_ow, 0),
-		i.manufacturer_description, coalesce(i.manufacturer_description_ow, 0), 
-		i.serial_number, coalesce(i.serial_number_ow, 0), i.serial_name, coalesce(i.serial_name_ow, 0),
-		i.model_number, coalesce(i.model_number_ow, 0), i.model_name, coalesce(i.model_name_ow, 0),
+		i.manufacturer_description, coalesce(i.manufacturer_description_ow, 0), i.model_number,
+		coalesce(i.model_number_ow, 0), i.model_name, coalesce(i.model_name_ow, 0),
 		i.plug_type, coalesce(i.plug_type_ow, 0), i.connection_type, coalesce(i.connection_type_ow, 0), i.lan, coalesce(i.lan_ow, 0), i.network_type, coalesce(i.network_type_ow, 0),
 		i.network_option, coalesce(i.network_option_ow, 0), i.ports, coalesce(i.ports_ow, 0), i.bluetooth, coalesce(i.bluetooth_ow, 0), i.cat6, coalesce(i.cat6_ow, 0),
 		i.displayport, coalesce(i.displayport_ow, 0), i.dvi, coalesce(i.dvi_ow, 0), i.hdmi, coalesce(i.hdmi_ow, 0), i.wireless, coalesce(i.wireless_ow, 0),
@@ -266,10 +263,8 @@ AS
 		@height_ow, @height, @width_ow, @width, @depth_ow, @depth, @mounting_height_ow, @mounting_height,
 		@class_ow, @class, @jsn_code, @jsn_utility1, @jsn_utility2, 
 		@jsn_utility3, @jsn_utility4, @jsn_utility5, @jsn_utility6, @jsn_utility7, @jsn_ow,
-		@manufacturer_description, @manufacturer_description_ow, 
-		@serial_number, @serial_number_ow, @serial_name, @serial_name_ow, 
-		@model_number, @model_number_ow, @model_name, @model_name_ow, 
-		@plug_type, @plug_type_ow, @connection_type, @connection_type_ow, @lan, @lan_ow, @network_type, @network_type_ow,
+		@manufacturer_description, @manufacturer_description_ow, @model_number,
+		@model_number_ow, @model_name, @model_name_ow, @plug_type, @plug_type_ow, @connection_type, @connection_type_ow, @lan, @lan_ow, @network_type, @network_type_ow,
 		@network_option, @network_option_ow, @ports, @ports_ow, @bluetooth, @bluetooth_ow, @cat6, @cat6_ow, @displayport, @displayport_ow, @dvi, @dvi_ow, @hdmi, @hdmi_ow,
 		@wireless, @wireless_ow, @volts, @volts_ow, @amps, @amps_ow
 	WHILE @@FETCH_STATUS = 0
@@ -327,7 +322,7 @@ AS
 				(@placement_ow <> 1) OR (@height_ow <> 1) OR
 				(@width_ow <> 1) OR (@depth_ow <> 1) OR
 				(@mounting_height_ow <> 1) OR (@class_ow <> 1) OR
-				(@jsn_ow <> 1) OR (@serial_number_ow <> 1)  OR (@serial_name_ow <> 1) OR
+				(@jsn_ow <> 1) OR (@model_number_ow <> 1)  OR (@model_name_ow <> 1) OR
                 (@manufacturer_description_ow <> 1) OR
 				(@placement_ow <> 1) OR
 				(@class_ow <> 1) OR (@plug_type_ow <> 1) OR (@connection_type_ow <> 1) OR (@lan_ow <> 1) OR (@network_type_ow <> 1) OR (@network_option_ow <> 1)
@@ -348,8 +343,6 @@ AS
 					@jsn_utility5 = CASE WHEN @jsn_ow <> 1 THEN  [jsn_utility5]  ELSE @jsn_utility5 END,
 					@jsn_utility6 = CASE WHEN @jsn_ow <> 1 THEN  [jsn_utility6]  ELSE @jsn_utility6 END,
 					@jsn_utility7 = CASE WHEN @jsn_ow <> 1 THEN  [jsn_utility7]  ELSE @jsn_utility7 END,
-					@serial_name = CASE WHEN @serial_name_ow <> 1 THEN  [serial_name]  ELSE @serial_name END,
-					@serial_number = CASE WHEN @serial_number_ow <> 1 THEN  [serial_number]  ELSE @serial_number END,
 					@model_name = CASE WHEN @model_name_ow <> 1 THEN  [model_name]  ELSE @model_name END,
 					@model_number = CASE WHEN @model_number_ow <> 1 THEN  [model_number]  ELSE @model_number END,
 					@manufacturer_id  = [manufacturer_id],
@@ -394,10 +387,7 @@ AS
 			total_budget = @total_budget, net_new = @net_new, asset_description = @asset_description, placement = @placement, height = @height,
 			width = @width, depth = @depth, mounting_height = @mounting_height, class = @class, jsn_code = @jsn_code, jsn_utility1 = @jsn_utility1, jsn_utility2 = @jsn_utility2,
 			jsn_utility3 = @jsn_utility3, jsn_utility4 = @jsn_utility4, jsn_utility5 = @jsn_utility5, jsn_utility6 = @jsn_utility6, jsn_utility7 = @jsn_utility7,
-			manufacturer_description = @manufacturer_description, 
-			serial_number = @serial_number, serial_name = @serial_name, 
-			model_number = @serial_number, model_name = @serial_name, --TEMPORARY: THIS NEEDS TO BE CHANGED IN THE NEW VERSION 
-			plug_type = @plug_type, connection_type = @connection_type,
+			manufacturer_description = @manufacturer_description, model_number = @model_number, model_name = @model_name, plug_type = @plug_type, connection_type = @connection_type,
 			lan = @lan, network_type = @network_type, network_option = @network_option, network_option_ow = @network_option_ow, ports = @ports, ports_ow = @ports_ow,
 			bluetooth = @bluetooth, bluetooth_ow = @bluetooth_ow, cat6 = @cat6, cat6_ow = @cat6_ow, displayport = @displayport, displayport_ow = @displayport_ow, 
 			dvi = @dvi, dvi_ow = @dvi_ow, hdmi = @hdmi, hdmi_ow = @hdmi_ow, wireless = @wireless, wireless_ow = @wireless_ow,
@@ -416,10 +406,8 @@ AS
 			@height_ow, @height, @width_ow, @width, @depth_ow, @depth, @mounting_height_ow, @mounting_height,
 			@class_ow, @class, @jsn_code, @jsn_utility1, @jsn_utility2, 
 			@jsn_utility3, @jsn_utility4, @jsn_utility5, @jsn_utility6, @jsn_utility7, @jsn_ow,
-			@manufacturer_description, @manufacturer_description_ow, 
-			@serial_number, @serial_number_ow, @serial_name, @serial_name_ow, 
-			@model_number, @model_number_ow, @model_name, @model_name_ow, 
-			@plug_type, @plug_type_ow, @connection_type, @connection_type_ow, @lan, @lan_ow, @network_type, @network_type_ow,
+			@manufacturer_description, @manufacturer_description_ow, @model_number,
+			@model_number_ow, @model_name, @model_name_ow, @plug_type, @plug_type_ow, @connection_type, @connection_type_ow, @lan, @lan_ow, @network_type, @network_type_ow,
 			@network_option, @network_option_ow, @ports, @ports_ow, @bluetooth, @bluetooth_ow, @cat6, @cat6_ow, @displayport, @displayport_ow, @dvi, @dvi_ow, @hdmi, @hdmi_ow,
 			@wireless, @wireless_ow, @volts, @volts_ow, @amps, @amps_ow
 		 END

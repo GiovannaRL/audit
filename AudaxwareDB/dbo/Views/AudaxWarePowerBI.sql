@@ -37,8 +37,8 @@
             WHEN a.resp in ('EXOI', 'EXCI', 'EXVI', 'EXEX') THEN 0
             ELSE COALESCE(a.locked_unit_budget, 0) * (COALESCE(a.locked_budget_qty, 0) - COALESCE(a.locked_dnp_qty, 0))
         END) AS 'Total Locked Cost Amount',
-        c.serial_number as 'Model Number',
-        c.serial_name as 'Model Name',
+        c.model_number as 'Model Number',
+        c.model_name as 'Model Name',
         (CASE WHEN C.discontinued = 1 AND p.status IN('A','P') THEN 'D' ELSE '' END) as Discontinued,
         ((COALESCE(A.budget_qty,0) * pr.room_quantity)-(COALESCE(A.dnp_qty,0) * pr.room_quantity)) AS 'Net New',
 		CC.code AS 'Cost Center',

@@ -10,5 +10,5 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
---:r .\SplitInventoryRelatedToMultiplePO.sql
+:r .\UpdateModelColumnsData.sql
 

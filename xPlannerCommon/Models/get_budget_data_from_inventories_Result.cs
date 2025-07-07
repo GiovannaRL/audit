@@ -21,8 +21,8 @@ namespace xPlannerCommon.Models
         public string asset_description { get; set; }
         public string asset_code { get; set; }
         public string jsn_code { get; set; }
-        public string serial_number { get; set; }
-        public string serial_name { get; set; }
+        public string model_number { get; set; }
+        public string model_name { get; set; }
         public string manufacturer_description { get; set; }
         public Nullable<decimal> unit_budget { get; set; }
         public Nullable<decimal> unit_freight { get; set; }

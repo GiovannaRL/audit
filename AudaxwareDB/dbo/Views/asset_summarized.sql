@@ -6,7 +6,7 @@
 		a.discontinued,
 		a.cut_sheet, a.cad_block, a.revit, a.photo,
 		a.asset_code,
-		a.serial_name, a.serial_number,
+		a.model_name, a.model_number,
 		a.asset_description,
 		a.min_cost, a.max_cost, a.avg_cost, a.last_cost,
 		a.default_resp,

@@ -43,8 +43,8 @@ BEGIN
 	@jsn_utility5 VARCHAR(10), @jsn_utility6 VARCHAR(10), 
 	@jsn_utility7 VARCHAR(10), @copy_link uniqueidentifier, @jsn_ow BIT,
 	@manufacturer_description VARCHAR (100), @manufacturer_description_ow BIT,
-	@serial_number VARCHAR (100), @serial_number_ow BIT, @serial_name  VARCHAR (150),
-	@serial_name_ow BIT, @plug_type VARCHAR (20), @plug_type_ow BIT, @connection_type VARCHAR (20), @connection_type_ow BIT,
+	@model_number VARCHAR (100), @model_number_ow BIT, @model_name  VARCHAR (150),
+	@model_name_ow BIT, @plug_type VARCHAR (20), @plug_type_ow BIT, @connection_type VARCHAR (20), @connection_type_ow BIT,
 	@lan INT, @lan_ow BIT, @network_type VARCHAR(20), @network_type_ow BIT, @network_option INT, @network_option_ow BIT,
 	@ports NUMERIC(10), @ports_ow BIT, @bluetooth BIT, @bluetooth_ow BIT, @cat6 BIT, @cat6_ow BIT, @displayport BIT, @displayport_ow BIT,
 	@dvi BIT, @dvi_ow BIT, @hdmi BIT, @hdmi_ow BIT, @wireless BIT, @wireless_ow BIT, @volts VARCHAR(10), @volts_ow BIT, @amps VARCHAR(20), @amps_ow BIT;
@@ -61,7 +61,7 @@ BEGIN
 		jsn_utility1, jsn_utility2, jsn_utility3,
 		jsn_utility4, jsn_utility5,
 		jsn_utility6, jsn_utility7, copy_link, jsn_ow,
-		manufacturer_description, manufacturer_description_ow, serial_number, serial_number_ow, serial_name, serial_name_ow,
+		manufacturer_description, manufacturer_description_ow, model_number, model_number_ow, model_name, model_name_ow,
 		plug_type, plug_type_ow, connection_type, connection_type_ow, lan, lan_ow, network_type, network_type_ow, network_option, network_option_ow,
 		ports, ports_ow, bluetooth, bluetooth_ow, cat6, cat6_ow, displayport, displayport_ow, dvi, dvi_ow, hdmi, hdmi_ow, wireless, wireless_ow,
 		volts, volts_ow, amps, amps_ow
@@ -81,7 +81,7 @@ BEGIN
 		@jsn_utility1, @jsn_utility2, @jsn_utility3,
 		@jsn_utility4, @jsn_utility5,
 		@jsn_utility6, @jsn_utility7, @copy_link, @jsn_ow,
-		@manufacturer_description, @manufacturer_description_ow, @serial_number, @serial_number_ow, @serial_name, @serial_name_ow,
+		@manufacturer_description, @manufacturer_description_ow, @model_number, @model_number_ow, @model_name, @model_name_ow,
 		@plug_type, @plug_type_ow, @connection_type, @connection_type_ow, @lan, @lan_ow, @network_type, @network_type_ow, @network_option, @network_option_ow,
 		@ports, @ports_ow, @bluetooth, @bluetooth_ow, @cat6, @cat6_ow, @displayport, @displayport_ow, @dvi, @dvi_ow, @hdmi, @hdmi_ow, @wireless, @wireless_ow,
 		@volts, @volts_ow, @amps, @amps_ow
@@ -116,7 +116,7 @@ BEGIN
 				jsn_utility1, jsn_utility2, jsn_utility3,
 				jsn_utility4, jsn_utility5,
 				jsn_utility6, jsn_utility7, jsn_ow,
-				manufacturer_description, manufacturer_description_ow, serial_number, serial_number_ow, serial_name, serial_name_ow,
+				manufacturer_description, manufacturer_description_ow, model_number, model_number_ow, model_name, model_name_ow,
 				copy_link, plug_type, plug_type_ow, connection_type, connection_type_ow, lan, lan_ow, network_type, network_type_ow, network_option, network_option_ow, 
 				ports, ports_ow, bluetooth, bluetooth_ow, cat6, cat6_ow, displayport, displayport_ow, dvi, dvi_ow, hdmi, hdmi_ow, wireless, wireless_ow,
 				volts, volts_ow, amps, amps_ow
@@ -132,7 +132,7 @@ BEGIN
 				@jsn_utility1, @jsn_utility2, @jsn_utility3,
 				@jsn_utility4, @jsn_utility5,
 				@jsn_utility6, @jsn_utility7, @jsn_ow,
-				@manufacturer_description, @manufacturer_description_ow, @serial_number, @serial_number_ow, @serial_name, @serial_name_ow,
+				@manufacturer_description, @manufacturer_description_ow, @model_number, @model_number_ow, @model_name, @model_name_ow,
 				@copy_link, @plug_type, @plug_type_ow, @connection_type, @connection_type_ow, @lan, @lan_ow, @network_type, @network_type_ow, @network_option, @network_option_ow,
 				@ports, @ports_ow, @bluetooth, @bluetooth_ow, @cat6, @cat6_ow, @displayport, @displayport_ow, @dvi, @dvi_ow, @hdmi, @hdmi_ow, @wireless, @wireless_ow,
 				@volts, @volts_ow, @amps, @amps_ow
@@ -188,7 +188,7 @@ BEGIN
 		@jsn_utility1, @jsn_utility2, @jsn_utility3,
 		@jsn_utility4, @jsn_utility5,
 		@jsn_utility6, @jsn_utility7, @copy_link, @jsn_ow,
-		@manufacturer_description, @manufacturer_description_ow, @serial_number, @serial_number_ow, @serial_name, @serial_name_ow,
+		@manufacturer_description, @manufacturer_description_ow, @model_number, @model_number_ow, @model_name, @model_name_ow,
 		@plug_type, @plug_type_ow, @connection_type, @connection_type_ow, @lan, @lan_ow, @network_type, @network_type_ow, @network_option, @network_option_ow,
 		@ports, @ports_ow, @bluetooth, @bluetooth_ow, @cat6, @cat6_ow, @displayport, @displayport_ow, @dvi, @dvi_ow, @hdmi, @hdmi_ow, @wireless, @wireless_ow,
 		@volts, @volts_ow, @amps, @amps_ow;

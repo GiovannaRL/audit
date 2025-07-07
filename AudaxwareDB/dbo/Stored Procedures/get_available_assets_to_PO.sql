@@ -24,7 +24,7 @@ BEGIN
 		a.room_id,
 		a.asset_id, 
 		f.asset_code, 
-		a.serial_number, a.serial_name, a.manufacturer_description, a.asset_description,
+		a.model_number, a.model_name, a.manufacturer_description, a.asset_description,
 		pr.room_quantity as room_count, 
 		SUM(a.budget_qty) - sum(COALESCE(A.dnp_qty,0) * pr.room_quantity) - sum(COALESCE(po_info.po_qty, 0)) AS budget_qty, 
 			CASE
@@ -50,7 +50,7 @@ BEGIN
 				OR (@allow_unapproved = 0 and a.current_location = 'Approved'))
 			AND a.resp NOT IN('EXOI', 'EXCI', 'EXVI', 'EXEX')
 	  GROUP BY a.domain_id, pr.room_quantity,a.resp, a.project_id, a.phase_id, a.department_id, a.room_id, a.asset_id, 
-				a.asset_domain_id, f.asset_code, a.asset_description, a.serial_number, a.serial_name, a.manufacturer_description, a.jsn_code
+				a.asset_domain_id, f.asset_code, a.asset_description, a.model_number, a.model_name, a.manufacturer_description, a.jsn_code
 	END
 	ELSE IF @department_id IS NOT NULL BEGIN
 		SELECT 
@@ -62,7 +62,7 @@ BEGIN
 		0 as room_id,
 		a.asset_id, 
 		f.asset_code, 
-		a.serial_number, a.serial_name, a.manufacturer_description, a.asset_description,
+		a.model_number, a.model_name, a.manufacturer_description, a.asset_description,
 		pr.room_quantity as room_count, 
 		SUM(a.budget_qty) - sum(COALESCE(A.dnp_qty,0) * pr.room_quantity) - sum(COALESCE(po_info.po_qty, 0)) AS budget_qty, 
 			CASE
@@ -87,7 +87,7 @@ BEGIN
 				(@allow_unapproved = 1 AND  a.current_location in('Approved','Received','Delivered', 'Plan')) 
 				OR (@allow_unapproved = 0 and a.current_location in('Approved','Received','Delivered')))
 			AND a.resp NOT IN('EXOI', 'EXCI', 'EXVI', 'EXEX')
-	  GROUP BY a.domain_id, pr.room_quantity,a.resp, a.project_id, a.phase_id, a.department_id, a.asset_id, a.asset_domain_id, f.asset_code, a.asset_description, a.serial_number, a.serial_name, a.manufacturer_description, a.jsn_code
+	  GROUP BY a.domain_id, pr.room_quantity,a.resp, a.project_id, a.phase_id, a.department_id, a.asset_id, a.asset_domain_id, f.asset_code, a.asset_description, a.model_number, a.model_name, a.manufacturer_description, a.jsn_code
 	end
 	ELSE IF @phase_id IS NOT NULL BEGIN
 		SELECT 
@@ -99,7 +99,7 @@ BEGIN
 		0 as room_id,
 		a.asset_id, 
 		f.asset_code, 
-		a.serial_number, a.serial_name, a.manufacturer_description, a.asset_description,
+		a.model_number, a.model_name, a.manufacturer_description, a.asset_description,
 		pr.room_quantity as room_count, 
 		SUM(a.budget_qty) - sum(COALESCE(A.dnp_qty,0) * pr.room_quantity) - sum(COALESCE(po_info.po_qty, 0)) AS budget_qty, 
 			CASE
@@ -124,7 +124,7 @@ BEGIN
 				@allow_unapproved = 1  
 				OR (@allow_unapproved = 0 and a.current_location = 'Approved'))
 			AND a.resp NOT IN('EXOI', 'EXCI', 'EXVI', 'EXEX')
-	  GROUP BY a.domain_id, pr.room_quantity,a.resp, a.project_id, a.phase_id, a.asset_id, a.asset_domain_id, f.asset_code, a.asset_description, a.serial_number, a.serial_name, a.manufacturer_description, a.jsn_code
+	  GROUP BY a.domain_id, pr.room_quantity,a.resp, a.project_id, a.phase_id, a.asset_id, a.asset_domain_id, f.asset_code, a.asset_description, a.model_number, a.model_name, a.manufacturer_description, a.jsn_code
 	END
 	ELSE BEGIN
 		SELECT 
@@ -136,7 +136,7 @@ BEGIN
 		0 as room_id,
 		a.asset_id, 
 		f.asset_code, 
-		a.serial_number, a.serial_name, a.manufacturer_description, a.asset_description,
+		a.model_number, a.model_name, a.manufacturer_description, a.asset_description,
 		pr.room_quantity as room_count, 
 		SUM(a.budget_qty) - sum(COALESCE(A.dnp_qty,0) * pr.room_quantity) - sum(COALESCE(po_info.po_qty, 0)) AS budget_qty, 
 			CASE
@@ -162,7 +162,7 @@ BEGIN
 				@allow_unapproved = 1  
 				OR (@allow_unapproved = 0 and a.current_location = 'Approved'))
 			AND a.resp NOT IN('EXOI', 'EXCI', 'EXVI', 'EXEX')
-	  GROUP BY a.domain_id, pr.room_quantity,a.resp, a.project_id, a.asset_id, a.asset_domain_id, f.asset_code, a.asset_description, a.serial_number, a.serial_name, a.manufacturer_description, a.jsn_code
+	  GROUP BY a.domain_id, pr.room_quantity,a.resp, a.project_id, a.asset_id, a.asset_domain_id, f.asset_code, a.asset_description, a.model_number, a.model_name, a.manufacturer_description, a.jsn_code
 	END
 
 END

@@ -43,8 +43,8 @@ namespace xPlannerCommon.Models
         public Nullable<decimal> buyout_delta { get; set; }
         public string cut_sheet { get; set; }
         public string cad_block { get; set; }
-        public string serial_number { get; set; }
-        public string serial_name { get; set; }
+        public string model_number { get; set; }
+        public string model_name { get; set; }
         public string revit { get; set; }
         public string photo { get; set; }
         public string discontinued { get; set; }
@@ -205,8 +205,8 @@ namespace xPlannerCommon.Models
         public string target_room { get; set; }
         public Nullable<bool> jsn_ow { get; set; }
         public Nullable<bool> manufacturer_description_ow { get; set; }
-        public Nullable<bool> serial_number_ow { get; set; }
-        public Nullable<bool> serial_name_ow { get; set; }
+        public Nullable<bool> model_number_ow { get; set; }
+        public Nullable<bool> model_name_ow { get; set; }
         public short photo_domain_id { get; set; }
     }
 }

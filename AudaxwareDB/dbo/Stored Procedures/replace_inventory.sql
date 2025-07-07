@@ -44,7 +44,7 @@ BEGIN
 		-- Update the asset and resets the overwrite for description to pick it from the asset. We do not reset the other overwrites as we could lose data
 		-- The new values are gotten in the trigger on project_room_inventory
 		UPDATE project_room_inventory SET asset_id = @NEW_ASSET_ID, asset_domain_id = @NEW_ASSET_DOMAIN_ID, unit_budget = @budget_amt, 
-			resp = @RESP, option_ids = null, manufacturer_description_ow = null, serial_number_ow = null, serial_name_ow = null, cut_sheet_filename = null, asset_description_ow = 0
+			resp = @RESP, option_ids = null, manufacturer_description_ow = null, model_number_ow = null, model_name_ow = null, cut_sheet_filename = null, asset_description_ow = 0
 			WHERE inventory_id = @INVENTORY_ID and domain_id = @DOMAIN_ID AND project_id = @PROJECT_ID;
 
 		DELETE FROM inventory_options WHERE inventory_id = @INVENTORY_ID;

@@ -11,8 +11,8 @@ namespace xPlannerCommon.Models
         public Decimal total_po_amt { get; set; }
         public Decimal po_unit_amt { get; set; }
         public string manufacturer { get; set; }
-        public string serial_number { get; set; }
-        public string serial_name { get; set; }
+        public string model_number { get; set; }
+        public string model_name { get; set; }
         public string vendor_model { get; set; }
         public string UOM { get; set; }
     }

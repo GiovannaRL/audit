@@ -63,8 +63,8 @@ namespace reportsWebJob.Services
                 po_qty = data.Where(dt1 => ((!string.IsNullOrEmpty(dt1.jsn_code) && dt1.jsn_code.Equals(dt.jsn_code)) || (string.IsNullOrEmpty(dt1.jsn_code) && dt1.asset_code.Equals(dt.asset_code))) && dt1.resp.Equals(dt.resp) && dt1.tag == dt.tag).Sum(dt1 => dt1.po_qty),
                 tag = dt.tag,
                 manufacturer_description = dt.manufacturer_description,
-                serial_name = dt.serial_name,
-                serial_number = dt.serial_number,
+                model_name = dt.model_name,
+                model_number = dt.model_number,
                 water_option = dt.water_option,
                 plumbing_option = dt.plumbing_option,
                 data_option = dt.data_option,
@@ -110,17 +110,17 @@ namespace reportsWebJob.Services
                         }
                         asset_description.Append("\n");
                         asset_description.Append(dt.manufacturer_description);
-                        if (!string.IsNullOrEmpty(dt.serial_name) || !string.IsNullOrEmpty(dt.serial_number))
+                        if (!string.IsNullOrEmpty(dt.model_name) || !string.IsNullOrEmpty(dt.model_number))
                         {
                             asset_description.Append(" (");
-                            if (!string.IsNullOrEmpty(dt.serial_number))
+                            if (!string.IsNullOrEmpty(dt.model_number))
                             {
-                                asset_description.Append(dt.serial_number);
-                                if (!string.IsNullOrEmpty(dt.serial_name))
+                                asset_description.Append(dt.model_number);
+                                if (!string.IsNullOrEmpty(dt.model_name))
                                     asset_description.Append("/");
                             }
-                            if (!string.IsNullOrEmpty(dt.serial_name))
-                                asset_description.Append(dt.serial_name);
+                            if (!string.IsNullOrEmpty(dt.model_name))
+                                asset_description.Append(dt.model_name);
                             asset_description.Append(")");
                         }
 
@@ -197,17 +197,17 @@ namespace reportsWebJob.Services
                             }
                             asset_description.Append("\n");
                             asset_description.Append(it.manufacturer_description);
-                            if (!string.IsNullOrEmpty(it.serial_name) || !string.IsNullOrEmpty(it.serial_number))
+                            if (!string.IsNullOrEmpty(it.model_name) || !string.IsNullOrEmpty(it.model_number))
                             {
                                 asset_description.Append(" (");
-                                if (!string.IsNullOrEmpty(it.serial_number))
+                                if (!string.IsNullOrEmpty(it.model_number))
                                 {
-                                    asset_description.Append(it.serial_number);
-                                    if (!string.IsNullOrEmpty(it.serial_name))
+                                    asset_description.Append(it.model_number);
+                                    if (!string.IsNullOrEmpty(it.model_name))
                                         asset_description.Append("/");
                                 }
-                                if (!string.IsNullOrEmpty(it.serial_name))
-                                    asset_description.Append(it.serial_name);
+                                if (!string.IsNullOrEmpty(it.model_name))
+                                    asset_description.Append(it.model_name);
                                 asset_description.Append(")");
                             }
                             worksheet.Cells[row, 5].Value = asset_description.ToString();
@@ -272,13 +272,13 @@ namespace reportsWebJob.Services
             select.Append("COALESCE(iwr.cad_id, '') AS cad_id, coalesce(iwr.jsn_code, '') as jsn_code, a.water_option, a.plumbing_option, a.data_option, a.electrical_option, a.mobile_option, a.blocking_option, a.medgas_option, ");
             select.Append("a.supports_option, COALESCE(iwr.resp, '') AS resp, COALESCE(iwr.asset_code, '') AS asset_code, iwr.asset_description, ");
             select.Append("sum(iwr.budget_qty_sf) AS budget_qty, sum(iwr.lease_qty_sf) AS lease_qty, sum(iwr.dnp_qty_sf) AS dnp_qty, sum(iwr.po_qty_sf) AS po_qty, COALESCE(iwr.tag, '') AS tag, ");
-            select.Append("iwr.manufacturer_description, COALESCE(iwr.serial_number, '') AS serial_number, COALESCE(iwr.serial_name, '') AS serial_name ");
+            select.Append("iwr.manufacturer_description, COALESCE(iwr.model_number, '') AS model_number, COALESCE(iwr.model_name, '') AS model_name ");
             select.Append("FROM inventory_w_relo_v iwr INNER JOIN assets a ON a.asset_id = iwr.asset_id AND iwr.asset_domain_id = a.domain_id ");
             select.Append("WHERE iwr.type = 'NEW' AND ");
             select.Append(GetWhereClause(report, "iwr", "iwr").Replace("WHERE", ""));
             select.Append(" GROUP BY phase_id, department_id, room_id, phase_description, department_description, drawing_room_number, drawing_room_name, ");
             select.Append("iwr.cad_id, iwr.jsn_code, iwr.resp, iwr.asset_code, iwr.asset_description, a.water_option, a.plumbing_option, a.data_option, a.electrical_option, ");
-            select.Append("a.mobile_option, a.blocking_option, a.medgas_option, a.supports_option, iwr.tag, iwr.manufacturer_description, iwr.serial_number, iwr.serial_name ");
+            select.Append("a.mobile_option, a.blocking_option, a.medgas_option, a.supports_option, iwr.tag, iwr.manufacturer_description, iwr.model_number, iwr.model_name ");
             select.Append("ORDER BY iwr.jsn_code, iwr.asset_code, iwr.resp");
 
             return _db.Database.SqlQuery<RoomByRoomItem>(select.ToString()).ToList();

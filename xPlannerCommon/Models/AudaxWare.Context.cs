@@ -1979,7 +1979,7 @@ namespace xPlannerCommon.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_available_assets_to_PO_Result>("get_available_assets_to_PO", domain_idParameter, project_idParameter, phase_idParameter, department_idParameter, room_idParameter, allow_unapprovedParameter);
         }
     
-        public virtual ObjectResult<edit_multi_asset_Result> edit_multi_asset(string inventories_id, string resp, string current_location, Nullable<int> cost_center_id, Nullable<System.DateTime> estimated_delivery_date, string comment, string tag, string cad_id, Nullable<decimal> unit_budget, Nullable<bool> none_option, Nullable<bool> detailed_budget, Nullable<int> lead_time, string clin, Nullable<decimal> unit_markup, Nullable<decimal> unit_freight_net, Nullable<decimal> unit_freight_markup, Nullable<decimal> unit_escalation, Nullable<decimal> unit_install_net, Nullable<decimal> unit_install_markup, Nullable<decimal> unit_tax, string eCN, string placement, Nullable<bool> placement_ow, string temporary_location, Nullable<bool> biomed_check_required, string asset_description, Nullable<bool> asset_description_aw, Nullable<int> budget_qty, Nullable<int> lease_qty, Nullable<int> dnp_qty, Nullable<bool> jsn_ow, string manufacturer_description, Nullable<bool> manufacturer_description_ow, string serial_number, Nullable<bool> serial_number_ow, string serial_name, Nullable<bool> serial_name_ow, string jsn_code, string jsn_u1, string jsn_u2, string jsn_u3, string jsn_u4, string jsn_u5, string jsn_u6, string jsn_u7, Nullable<int> @class, Nullable<bool> class_ow, string final_disposition, Nullable<System.DateTime> delivered_date, Nullable<System.DateTime> received_date)
+        public virtual ObjectResult<edit_multi_asset_Result> edit_multi_asset(string inventories_id, string resp, string current_location, Nullable<int> cost_center_id, Nullable<System.DateTime> estimated_delivery_date, string comment, string tag, string cad_id, Nullable<decimal> unit_budget, Nullable<bool> none_option, Nullable<bool> detailed_budget, Nullable<int> lead_time, string clin, Nullable<decimal> unit_markup, Nullable<decimal> unit_freight_net, Nullable<decimal> unit_freight_markup, Nullable<decimal> unit_escalation, Nullable<decimal> unit_install_net, Nullable<decimal> unit_install_markup, Nullable<decimal> unit_tax, string eCN, string placement, Nullable<bool> placement_ow, string temporary_location, Nullable<bool> biomed_check_required, string asset_description, Nullable<bool> asset_description_aw, Nullable<int> budget_qty, Nullable<int> lease_qty, Nullable<int> dnp_qty, Nullable<bool> jsn_ow, string manufacturer_description, Nullable<bool> manufacturer_description_ow, string model_number, Nullable<bool> model_number_ow, string model_name, Nullable<bool> model_name_ow, string jsn_code, string jsn_u1, string jsn_u2, string jsn_u3, string jsn_u4, string jsn_u5, string jsn_u6, string jsn_u7, Nullable<int> @class, Nullable<bool> class_ow, string final_disposition, Nullable<System.DateTime> delivered_date, Nullable<System.DateTime> received_date)
         {
             var inventories_idParameter = inventories_id != null ?
                 new ObjectParameter("inventories_id", inventories_id) :
@@ -2113,21 +2113,21 @@ namespace xPlannerCommon.Models
                 new ObjectParameter("manufacturer_description_ow", manufacturer_description_ow) :
                 new ObjectParameter("manufacturer_description_ow", typeof(bool));
     
-            var serial_numberParameter = serial_number != null ?
-                new ObjectParameter("serial_number", serial_number) :
-                new ObjectParameter("serial_number", typeof(string));
+            var model_numberParameter = model_number != null ?
+                new ObjectParameter("model_number", model_number) :
+                new ObjectParameter("model_number", typeof(string));
     
-            var serial_number_owParameter = serial_number_ow.HasValue ?
-                new ObjectParameter("serial_number_ow", serial_number_ow) :
-                new ObjectParameter("serial_number_ow", typeof(bool));
+            var model_number_owParameter = model_number_ow.HasValue ?
+                new ObjectParameter("model_number_ow", model_number_ow) :
+                new ObjectParameter("model_number_ow", typeof(bool));
     
-            var serial_nameParameter = serial_name != null ?
-                new ObjectParameter("serial_name", serial_name) :
-                new ObjectParameter("serial_name", typeof(string));
+            var model_nameParameter = model_name != null ?
+                new ObjectParameter("model_name", model_name) :
+                new ObjectParameter("model_name", typeof(string));
     
-            var serial_name_owParameter = serial_name_ow.HasValue ?
-                new ObjectParameter("serial_name_ow", serial_name_ow) :
-                new ObjectParameter("serial_name_ow", typeof(bool));
+            var model_name_owParameter = model_name_ow.HasValue ?
+                new ObjectParameter("model_name_ow", model_name_ow) :
+                new ObjectParameter("model_name_ow", typeof(bool));
     
             var jsn_codeParameter = jsn_code != null ?
                 new ObjectParameter("jsn_code", jsn_code) :
@@ -2181,7 +2181,7 @@ namespace xPlannerCommon.Models
                 new ObjectParameter("received_date", received_date) :
                 new ObjectParameter("received_date", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<edit_multi_asset_Result>("edit_multi_asset", inventories_idParameter, respParameter, current_locationParameter, cost_center_idParameter, estimated_delivery_dateParameter, commentParameter, tagParameter, cad_idParameter, unit_budgetParameter, none_optionParameter, detailed_budgetParameter, lead_timeParameter, clinParameter, unit_markupParameter, unit_freight_netParameter, unit_freight_markupParameter, unit_escalationParameter, unit_install_netParameter, unit_install_markupParameter, unit_taxParameter, eCNParameter, placementParameter, placement_owParameter, temporary_locationParameter, biomed_check_requiredParameter, asset_descriptionParameter, asset_description_awParameter, budget_qtyParameter, lease_qtyParameter, dnp_qtyParameter, jsn_owParameter, manufacturer_descriptionParameter, manufacturer_description_owParameter, serial_numberParameter, serial_number_owParameter, serial_nameParameter, serial_name_owParameter, jsn_codeParameter, jsn_u1Parameter, jsn_u2Parameter, jsn_u3Parameter, jsn_u4Parameter, jsn_u5Parameter, jsn_u6Parameter, jsn_u7Parameter, classParameter, class_owParameter, final_dispositionParameter, delivered_dateParameter, received_dateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<edit_multi_asset_Result>("edit_multi_asset", inventories_idParameter, respParameter, current_locationParameter, cost_center_idParameter, estimated_delivery_dateParameter, commentParameter, tagParameter, cad_idParameter, unit_budgetParameter, none_optionParameter, detailed_budgetParameter, lead_timeParameter, clinParameter, unit_markupParameter, unit_freight_netParameter, unit_freight_markupParameter, unit_escalationParameter, unit_install_netParameter, unit_install_markupParameter, unit_taxParameter, eCNParameter, placementParameter, placement_owParameter, temporary_locationParameter, biomed_check_requiredParameter, asset_descriptionParameter, asset_description_awParameter, budget_qtyParameter, lease_qtyParameter, dnp_qtyParameter, jsn_owParameter, manufacturer_descriptionParameter, manufacturer_description_owParameter, model_numberParameter, model_number_owParameter, model_nameParameter, model_name_owParameter, jsn_codeParameter, jsn_u1Parameter, jsn_u2Parameter, jsn_u3Parameter, jsn_u4Parameter, jsn_u5Parameter, jsn_u6Parameter, jsn_u7Parameter, classParameter, class_owParameter, final_dispositionParameter, delivered_dateParameter, received_dateParameter);
         }
     
         public virtual int add_inventory_picture(Nullable<short> domain_id, Nullable<int> project_id, string filename, string blobFileNameWithExtension, string extension, Nullable<int> inventoryID, Nullable<int> document_type_id, string label, string addedBy)

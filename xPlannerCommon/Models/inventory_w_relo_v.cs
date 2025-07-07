@@ -48,7 +48,7 @@ namespace xPlannerCommon.Models
         public string cad_id { get; set; }
         public string tag { get; set; }
         public string jsn_code { get; set; }
-        public string serial_number { get; set; }
-        public string serial_name { get; set; }
+        public string model_number { get; set; }
+        public string model_name { get; set; }
     }
 }

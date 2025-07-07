@@ -173,8 +173,8 @@ namespace xPlannerAPI.Services
                     data.edited_data.asset_description, data.edited_data.asset_description_ow, data.edited_data.budget_qty,
                     data.edited_data.lease_qty, data.edited_data.dnp_qty,
                     data.edited_data.jsn_ow, data.edited_data.manufacturer_description, data.edited_data.manufacturer_description_ow,
-                    data.edited_data.serial_number, data.edited_data.serial_number_ow,
-                    data.edited_data.serial_name, data.edited_data.serial_name_ow, data.edited_data.jsn_code,
+                    data.edited_data.model_number, data.edited_data.model_number_ow,
+                    data.edited_data.model_name, data.edited_data.model_name_ow, data.edited_data.jsn_code,
                     data.edited_data.jsn_utility1, data.edited_data.jsn_utility2, data.edited_data.jsn_utility3,
                     data.edited_data.jsn_utility4, data.edited_data.jsn_utility5, data.edited_data.jsn_utility6,
                     data.edited_data.jsn_utility7, data.edited_data.@class, data.edited_data.class_ow, data.edited_data.final_disposition, data.edited_data.delivered_date, data.edited_data.received_date);
@@ -310,8 +310,8 @@ namespace xPlannerAPI.Services
             itemDB.jsn_ow = item.jsn_ow;
             itemDB.asset_description_ow = item.asset_description_ow;
             itemDB.manufacturer_description_ow = item.manufacturer_description_ow;
-            itemDB.serial_number_ow = item.serial_number_ow;
-            itemDB.serial_name_ow = item.serial_name_ow;
+            itemDB.model_number_ow = item.model_number_ow;
+            itemDB.model_name_ow = item.model_name_ow;
             itemDB.depth_ow = item.depth_ow;
             itemDB.height_ow = item.height_ow;
             itemDB.mounting_height_ow = item.mounting_height_ow;
@@ -391,8 +391,8 @@ namespace xPlannerAPI.Services
             }
 
             itemDB.manufacturer_description = item.manufacturer_description;
-            itemDB.serial_number = item.serial_number;
-            itemDB.serial_name = item.serial_name;
+            itemDB.model_number = item.model_number;
+            itemDB.model_name = item.model_name;
             itemDB.temporary_location = item.temporary_location;
             itemDB.final_disposition = item.final_disposition;
             itemDB.depth = item.depth;
@@ -431,8 +431,8 @@ namespace xPlannerAPI.Services
                 || itemDB.@class != item.@class
                 || (item.asset_description_ow.GetValueOrDefault() && !itemDB.asset_description.Equals(item.asset_description))
                 || (item.manufacturer_description_ow.GetValueOrDefault() && !itemDB.manufacturer_description.Equals(item.manufacturer_description))
-                || (item.serial_number_ow.GetValueOrDefault() && !(itemDB.serial_number ?? "").Equals(item.serial_number ?? ""))
-                || (item.serial_name_ow.GetValueOrDefault() && !(itemDB.serial_name ?? "").Equals(item.serial_name ?? ""))
+                || (item.model_number_ow.GetValueOrDefault() && !(itemDB.model_number ?? "").Equals(item.model_number ?? ""))
+                || (item.model_name_ow.GetValueOrDefault() && !(itemDB.model_name ?? "").Equals(item.model_name ?? ""))
                 || (item.jsn_ow.GetValueOrDefault() && jsnChanged(itemDB, item));
         }
 

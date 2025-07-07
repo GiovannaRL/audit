@@ -8,8 +8,8 @@
         public int manufacturer_id { get; set; }
         public string asset_description { get; set; }
         public string asset_code { get; set; }
-        public string serial_number { get; set; }
-        public string serial_name { get; set; }
+        public string model_number { get; set; }
+        public string model_name { get; set; }
         public string photo { get; set; }
         public string comment { get; set; }
         public string height { get; set; }
@@ -47,8 +47,8 @@
             manufacturer_id = asset.manufacturer_id;
             asset_description = asset.asset_description;
             asset_code = asset.asset_code;
-            serial_number = asset.serial_number;
-            serial_name = asset.serial_name;
+            model_number = asset.model_number;
+            model_name = asset.model_name;
             photo = asset.photo;
             comment = asset.comment;
             height = asset.height;

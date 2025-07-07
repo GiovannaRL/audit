@@ -30,7 +30,7 @@ BEGIN
 		jsn_utility1, jsn_utility2, jsn_utility3,
 		jsn_utility4, jsn_utility5,
 		jsn_utility6, jsn_utility7, jsn_ow,
-		manufacturer_description, manufacturer_description_ow, serial_number, serial_number_ow, serial_name, serial_name_ow,
+		manufacturer_description, manufacturer_description_ow, model_number, model_number_ow, model_name, model_name_ow,
 		plug_type, plug_type_ow, connection_type, connection_type_ow, lan, lan_ow, network_type, network_type_ow, network_option, network_option_ow
 		)
 	SELECT @domain_id, @new_project_id, @new_phase_id, @new_department_id, @new_room_id, asset_id, asset_domain_id,
@@ -42,7 +42,7 @@ BEGIN
 		jsn_utility1, jsn_utility2, jsn_utility3,
 		jsn_utility4, jsn_utility5,
 		jsn_utility6, jsn_utility7, jsn_ow,
-		manufacturer_description, manufacturer_description_ow, serial_number, serial_number_ow, serial_name, serial_name_ow,
+		manufacturer_description, manufacturer_description_ow, model_number, model_number_ow, model_name, model_name_ow,
 		plug_type, plug_type_ow, connection_type, connection_type_ow, lan, lan_ow, network_type, network_type_ow, network_option, network_option_ow
 	FROM project_room_inventory WHERE inventory_id = @curr_inventory_id AND domain_id = @domain_id AND project_id = @curr_project_id 
 		AND phase_id = @curr_phase_id AND department_id = @curr_department_id AND room_id = @curr_room_id;

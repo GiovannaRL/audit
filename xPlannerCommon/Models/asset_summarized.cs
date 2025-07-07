@@ -22,8 +22,8 @@ namespace xPlannerCommon.Models
         public string revit { get; set; }
         public string photo { get; set; }
         public string asset_code { get; set; }
-        public string serial_name { get; set; }
-        public string serial_number { get; set; }
+        public string model_name { get; set; }
+        public string model_number { get; set; }
         public string asset_description { get; set; }
         public Nullable<decimal> min_cost { get; set; }
         public Nullable<decimal> max_cost { get; set; }

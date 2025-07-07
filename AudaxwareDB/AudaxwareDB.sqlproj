@@ -252,6 +252,7 @@
     <Build Include="dbo\Stored Procedures\update_valid_po.sql" />
     <Build Include="dbo\Stored Procedures\maintenance_update_all_valid_po.sql" />
     <Build Include="dbo\Stored Procedures\split_inventory_purchase_order.sql" />
+    <None Include="PostPublishScripts\UpdateModelColumnsData.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LocalCamila.publish.xml" />

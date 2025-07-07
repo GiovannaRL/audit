@@ -10,7 +10,7 @@
         public string asset_description { get; set; }
         public int? budget_qty { get; set; }
         public string manufacturer_description { get; set; }
-        public string serial_name { get; set; }
+        public string model_name { get; set; }
         public string height { get; set; }
         public string width { get; set; }
         public string depth { get; set; }

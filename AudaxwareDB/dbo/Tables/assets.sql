@@ -191,7 +191,7 @@ CREATE NONCLUSTERED INDEX [DomainIdIndex] ON [dbo].[assets] ([domain_id])
 
 GO
 
-CREATE NONCLUSTERED INDEX [ModelNameIndex] ON [dbo].[assets] ([serial_number])
+CREATE NONCLUSTERED INDEX [ModelNumberIndex] ON [dbo].[assets] ([model_number])
 
 GO
 
@@ -287,7 +287,7 @@ AS
 				AND (
 				(coalesce(asset_description_ow, 0) <> 1) OR (coalesce(placement_ow, 0) <> 1) OR (coalesce(height_ow, 0) <> 1) OR (coalesce(width_ow, 0) <> 1) OR 
 				(coalesce(depth_ow, 0) <> 1) OR (coalesce(mounting_height_ow, 0) <> 1) OR (coalesce(class_ow, 0) <> 1) OR (coalesce(jsn_ow, 0) <> 1) OR
-				(coalesce(manufacturer_description_ow, 0) <> 1) OR (coalesce(serial_name_ow, 0) <> 1) OR (coalesce(serial_number_ow, 0) <> 1)
+				(coalesce(manufacturer_description_ow, 0) <> 1) OR (coalesce(model_name_ow, 0) <> 1) OR (coalesce(model_number_ow, 0) <> 1)
 				)
 
             -- UPDATES THE UTILITIES

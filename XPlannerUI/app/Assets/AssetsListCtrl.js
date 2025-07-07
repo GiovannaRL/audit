@@ -39,8 +39,8 @@
                         '</section>' : '';
                 }
             },
-            { field: "serial_number", title: "Model No.", width: 120 },
-            { field: "serial_name", title: "Model Name", width: 140 },
+            { field: "model_number", title: "Model No.", width: 120 },
+            { field: "model_name", title: "Model Name", width: 140 },
             { field: "asset_description", title: "Description", width: 250 },
             { field: "default_resp", title: "Resp", width: 150 },
             { field: "manufacturer_description", title: "Manufacturer", width: 150 },

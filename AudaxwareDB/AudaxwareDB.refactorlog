@@ -399,4 +399,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="deprecated" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="629cb4c5-5fde-4523-9be2-5b49576d955f" ChangeDateTime="06/23/2025 20:51:46">
+    <Property Name="ElementName" Value="[dbo].[assets].[model_number]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[assets]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="serial_number" />
+  </Operation>
 </Operations>

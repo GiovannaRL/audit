@@ -303,7 +303,7 @@ namespace xPlannerCommon.Services
                     {
                         
                         StringBuilder select = new StringBuilder();
-                        select.Append("SELECT a.asset_code, coalesce(pri.jsn_code, '') as jsn_code, pri.asset_description, pri.manufacturer_description AS manufacturer, coalesce(pri.serial_number, '') as serial_number, coalesce(pri.serial_name,'') as serial_name, ");
+                        select.Append("SELECT a.asset_code, coalesce(pri.jsn_code, '') as jsn_code, pri.asset_description, pri.manufacturer_description AS manufacturer, coalesce(pri.model_number, '') as model_number, coalesce(pri.model_name,'') as model_name, ");
                         select.Append("COALESCE(ipo.po_unit_amt, 0) AS po_unit_amt, upper(am.eq_unit_desc) AS UOM, ");
                         select.Append("SUM(CASE WHEN lower(am.eq_unit_desc) = 'per sf' THEN ");
                         select.Append("CASE WHEN COALESCE(ipo.po_qty, 0) = 0 THEN 0 ELSE 1 END ELSE COALESCE(ipo.po_qty, 0) END) AS po_qty, ");
@@ -315,7 +315,7 @@ namespace xPlannerCommon.Services
                         select.Append("INNER JOIN project_room_inventory AS pri ON ipo.inventory_id = pri.inventory_id ");
                         select.Append("INNER JOIN assets_measurement AS am ON am.eq_unit_measure_id = a.eq_measurement_id ");
                         select.Append("WHERE ipo.po_domain_id = " + domain_id + " AND ipo.project_id = " + project_id + " AND ipo.po_id = " + po_id);
-                        select.Append(" GROUP BY a.asset_id, a.domain_id, a.asset_code, coalesce(pri.jsn_code, ''), pri.asset_description, pri.manufacturer_description, coalesce(pri.serial_number, ''), coalesce(pri.serial_name,''), COALESCE(ipo.po_unit_amt, 0), am.eq_unit_desc ");
+                        select.Append(" GROUP BY a.asset_id, a.domain_id, a.asset_code, coalesce(pri.jsn_code, ''), pri.asset_description, pri.manufacturer_description, coalesce(pri.model_number, ''), coalesce(pri.model_name,''), COALESCE(ipo.po_unit_amt, 0), am.eq_unit_desc ");
                         select.Append("ORDER BY a.asset_code;");
 
                         List<POAssetItem> assets = this._db.Database.SqlQuery<POAssetItem>(select.ToString()).ToList();
@@ -350,9 +350,9 @@ namespace xPlannerCommon.Services
 
                         foreach (POAssetItem asset in assets)
                         {
-                            var model = asset.serial_number;
-                            if (asset.serial_name.Length > 0)
-                                model += "<br>" + asset.serial_name;
+                            var model = asset.model_number;
+                            if (asset.model_name.Length > 0)
+                                model += "<br>" + asset.model_name;
                             
                             stringWriter.Write("<tr>");
                             stringWriter.Write("<td align=center>" + asset.asset_code + "</td>");

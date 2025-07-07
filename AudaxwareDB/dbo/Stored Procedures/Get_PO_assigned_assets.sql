@@ -9,7 +9,7 @@ BEGIN
 		
 		ipo.po_domain_id, ipo.project_id, ipo.po_id, ipo.asset_domain_id, ipo.asset_id, SUM(COALESCE(ipo.po_qty, 0)) AS po_qty, pri.delivered_date, pri.received_date, pri.current_location, 
 		MIN(ipo.po_unit_amt) AS po_unit_amt , ipo.po_status, ipo.date_added, ipo.added_by, ROUND(SUM(COALESCE(ipo.po_qty, 0) * COALESCE(po_unit_amt,0)),2) AS total_po_amt, 
-		a.asset_code, pri.asset_description, pri.manufacturer_description, pri.serial_number, pri.serial_name, SUM(COALESCE(pri.budget_qty, 0)) AS budget_qty, pri.jsn_code,
+		a.asset_code, pri.asset_description, pri.manufacturer_description, pri.model_number, pri.model_name, SUM(COALESCE(pri.budget_qty, 0)) AS budget_qty, pri.jsn_code,
 		ROUND(SUM((COALESCE(pri.budget_qty, 0)-COALESCE(pri.dnp_qty,0)) * COALESCE(pri.unit_budget, 0)), 2) AS budget_amt,
 
 	STUFF(( SELECT distinct '; ' + ao.code FROM inventory_options as io
@@ -42,5 +42,5 @@ BEGIN
 		AND pri.asset_domain_id = a.domain_id AND pri.asset_id = a.asset_id and ipo.po_qty > 0
 	GROUP BY ipo.po_domain_id, ipo.project_id, ipo.po_id, ipo.asset_domain_id, ipo.asset_id, ipo.po_status, ipo.date_added, ipo.added_by, 
 		a.asset_code, a.domain_id, pri.delivered_date, pri.received_date, pri.current_location, pri.asset_description, pri.manufacturer_description, 
-		pri.serial_number, pri.serial_name, pri.jsn_code;	
+		pri.model_number, pri.model_name, pri.jsn_code;	
 END

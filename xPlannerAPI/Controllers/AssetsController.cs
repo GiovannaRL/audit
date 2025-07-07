@@ -130,8 +130,8 @@ namespace xPlannerAPI.Controllers
                     j.asset_id,
                     j.domain_id,
                     j.asset_code,
-                    j.serial_number,
-                    j.serial_name,
+                    j.model_number,
+                    j.model_name,
                     j.asset_description,
                 }));
             }

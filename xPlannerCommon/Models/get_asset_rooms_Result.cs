@@ -13,8 +13,8 @@ namespace xPlannerCommon.Models
     
     public partial class get_asset_rooms_Result
     {
-        public string serial_number { get; set; }
-        public string serial_name { get; set; }
+        public string model_number { get; set; }
+        public string model_name { get; set; }
         public string phase_desc { get; set; }
         public int project_id { get; set; }
         public int department_id { get; set; }

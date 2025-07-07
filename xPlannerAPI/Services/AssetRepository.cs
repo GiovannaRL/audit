@@ -338,8 +338,8 @@ namespace xPlannerAPI.Services
                 || originalAsset.@class != inventoryItem.@class
                 || (inventoryItem.asset_description_ow == true && !inventoryItem.asset_description.Equals(originalAsset.asset_description))
                 || inventoryItem.manufacturer_description_ow == true
-                || (inventoryItem.serial_number_ow == true && !inventoryItem.serial_number.Equals(originalAsset.serial_number))
-                || (inventoryItem.serial_name_ow == true && !inventoryItem.serial_name.Equals(originalAsset.serial_name))
+                || (inventoryItem.model_number_ow == true && !inventoryItem.model_number.Equals(originalAsset.model_number))
+                || (inventoryItem.model_name_ow == true && !inventoryItem.model_name.Equals(originalAsset.model_name))
                 || (inventoryItem.jsn_ow == true && (inventoryItem.jsn_code != null
                     || inventoryItem.jsn_utility1 != originalAsset.jsn_utility1
                     || inventoryItem.jsn_utility2 != originalAsset.jsn_utility2
@@ -410,8 +410,8 @@ namespace xPlannerAPI.Services
                 || itemDB.placement != modifiedItem.placement
                 || itemDB.@class != modifiedItem.@class
                 || itemDB.asset_description != modifiedItem.asset_description
-                || itemDB.serial_number != modifiedItem.serial_number
-                || itemDB.serial_name != modifiedItem.serial_name
+                || itemDB.model_number != modifiedItem.model_number
+                || itemDB.model_name != modifiedItem.model_name
                 || itemDB.jsn_domain_id != modifiedItem.jsn_domain_id
                 || itemDB.jsn_id != modifiedItem.jsn_id
                 || itemDB.jsn_suffix != modifiedItem.jsn_suffix

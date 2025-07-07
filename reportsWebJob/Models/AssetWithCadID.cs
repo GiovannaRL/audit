@@ -15,7 +15,7 @@ namespace reportsWebJob.Models
         public string width { get; set; }
         public string depth { get; set; }
         public string weight { get; set; }
-        public string serial_number { get; set; }
+        public string model_number { get; set; }
         public Nullable<decimal> min_cost { get; set; }
         public Nullable<decimal> max_cost { get; set; }
         public Nullable<decimal> avg_cost { get; set; }
@@ -86,7 +86,7 @@ namespace reportsWebJob.Models
         public Nullable<bool> plu_treated_water { get; set; }
         public Nullable<bool> plu_relief { get; set; }
         public Nullable<bool> plu_chilled_water { get; set; }
-        public string serial_name { get; set; }
+        public string model_name { get; set; }
         public Nullable<int> useful_life { get; set; }
         public Nullable<decimal> loaded_weight { get; set; }
         public Nullable<decimal> ship_weight { get; set; }
@@ -112,7 +112,7 @@ namespace reportsWebJob.Models
                 width = this.width,
                 depth = this.depth,
                 weight = this.weight,
-                serial_number = this.serial_number,
+                model_number = this.model_number,
                 min_cost = this.min_cost,
                 max_cost = this.max_cost,
                 avg_cost = this.avg_cost,
@@ -183,7 +183,7 @@ namespace reportsWebJob.Models
                 plu_treated_water = this.plu_treated_water,
                 plu_relief = this.plu_relief,
                 plu_chilled_water = this.plu_chilled_water,
-                serial_name = this.serial_name,
+                model_name = this.model_name,
                 useful_life = this.useful_life,
                 loaded_weight = this.loaded_weight,
                 ship_weight = this.ship_weight,

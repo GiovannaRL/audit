@@ -39,7 +39,7 @@ BEGIN
 		width varchar(25),
 		depth varchar(25),
 		weight varchar(25),
-		serial_number varchar(100),
+		model_number varchar(100),
 		min_cost numeric(10,2),
 		max_cost numeric(10,2),
 		avg_cost numeric(10,2),
@@ -118,7 +118,7 @@ BEGIN
 		dvi bit,
 		hdmi bit,
 		wireless bit,
-		serial_name varchar(150),
+		model_name varchar(150),
 		useful_life int,
 		loaded_weight numeric(10,2),
 		ship_weight numeric(10,2),
@@ -182,7 +182,7 @@ BEGIN
 
 	insert into #Asset
 	SELECT @new_domain_id, @new_code, manufacturer_id, manufacturer_domain_id, asset_description, subcategory_id, height, 
-		width, depth, weight, serial_number, min_cost, max_cost, avg_cost, last_cost, default_resp, 
+		width, depth, weight, model_number, min_cost, max_cost, avg_cost, last_cost, default_resp, 
 		CONCAT(@new_code, SUBSTRING(cut_sheet, CHARINDEX('.', cut_sheet), 10)), GETDATE(), @added_by, comment, 
 		CASE WHEN cad_block IS NOT NULL THEN CONCAT(@new_code, SUBSTRING(cad_block, CHARINDEX('.', cad_block), 10)) ELSE NULL END, 
 		water, plumbing, data, electrical, mobile, blocking, medgas, supports, discontinued, last_budget_update, 
@@ -194,7 +194,7 @@ BEGIN
 		misc_ecolabel_desc, mapping_code, medgas_oxygen, medgas_nitrogen, medgas_air, medgas_n2o, medgas_vacuum, medgas_wag, medgas_co2, 
 		medgas_other, medgas_steam, medgas_natgas, plu_hot_water, plu_drain, plu_cold_water, plu_return, plu_treated_water, plu_relief, 
 		plu_chilled_water, network_option, ports, bluetooth, cat6, displayport, dvi, hdmi, wireless,
-		serial_name, useful_life, loaded_weight, ship_weight, alternate_asset, GETDATE(), subcategory_domain_id, asset_suffix,
+		model_name, useful_life, loaded_weight, ship_weight, alternate_asset, GETDATE(), subcategory_domain_id, asset_suffix,
 		category_attribute, jsn_id, jsn_domain_id, class, gas_liquid_co2, gas_liquid_nitrogen, gas_instrument_air,
 		gas_liquid_propane_gas, gas_methane, gas_butane, gas_propane, gas_hydrogen, gas_acetylene, medgas_high_pressure, misc_shielding_lead_line,
 		misc_shielding_magnetic, jsn_suffix, jsn_utility1_ow, jsn_utility1, jsn_utility2_ow, jsn_utility2, jsn_utility3_ow, jsn_utility3,
@@ -224,7 +224,7 @@ BEGIN
 
 	
 	INSERT INTO assets(domain_id, asset_code, manufacturer_id, manufacturer_domain_id, asset_description, subcategory_id, height, 
-		width, depth, weight, serial_number, min_cost, max_cost, avg_cost, last_cost, default_resp, cut_sheet, date_added, added_by, comment, 
+		width, depth, weight, model_number, min_cost, max_cost, avg_cost, last_cost, default_resp, cut_sheet, date_added, added_by, comment, 
 		cad_block, water, plumbing, data, electrical, mobile, blocking, medgas, supports, discontinued, last_budget_update, photo, 
 		eq_measurement_id, water_option, plumbing_option, data_option, electrical_option, mobile_option, blocking_option, medgas_option, 
 		supports_option, revit, placement, clearance_left, clearance_right, clearance_front, clearance_back, clearance_top, clearance_bottom, 
@@ -232,7 +232,7 @@ BEGIN
 		misc_ecolabel_desc, mapping_code, medgas_oxygen, medgas_nitrogen, medgas_air, medgas_n2o, medgas_vacuum, medgas_wag, medgas_co2, 
 		medgas_other, medgas_steam, medgas_natgas, plu_hot_water, plu_drain, plu_cold_water, plu_return, plu_treated_water, plu_relief, 
 		plu_chilled_water, network_option, ports, bluetooth, cat6, displayport, dvi, hdmi, wireless,
-		serial_name, useful_life, loaded_weight, ship_weight, alternate_asset, updated_at, subcategory_domain_id, asset_suffix,
+		model_name, useful_life, loaded_weight, ship_weight, alternate_asset, updated_at, subcategory_domain_id, asset_suffix,
 		category_attribute, jsn_id, jsn_domain_id, class, gas_liquid_co2, gas_liquid_nitrogen, gas_instrument_air,
 		gas_liquid_propane_gas, gas_methane, gas_butane, gas_propane, gas_hydrogen, gas_acetylene, medgas_high_pressure, misc_shielding_lead_line,
 		misc_shielding_magnetic, jsn_suffix, jsn_utility1_ow, jsn_utility1, jsn_utility2_ow, jsn_utility2, jsn_utility3_ow, jsn_utility3,

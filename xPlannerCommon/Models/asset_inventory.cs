@@ -51,8 +51,8 @@ namespace xPlannerCommon.Models
         public Nullable<decimal> buyout_delta { get; set; }
         public string cut_sheet { get; set; }
         public string cad_block { get; set; }
-        public string serial_number { get; set; }
-        public string serial_name { get; set; }
+        public string model_number { get; set; }
+        public string model_name { get; set; }
         public string revit { get; set; }
         public Nullable<int> photo_rotate { get; set; }
         public string photo { get; set; }
@@ -251,8 +251,8 @@ namespace xPlannerCommon.Models
         public string temporary_location { get; set; }
         public Nullable<bool> jsn_ow { get; set; }
         public Nullable<bool> manufacturer_description_ow { get; set; }
-        public Nullable<bool> serial_number_ow { get; set; }
-        public Nullable<bool> serial_name_ow { get; set; }
+        public Nullable<bool> model_number_ow { get; set; }
+        public Nullable<bool> model_name_ow { get; set; }
         public string final_disposition { get; set; }
         public Nullable<System.DateTime> delivered_date { get; set; }
         public Nullable<System.DateTime> received_date { get; set; }
@@ -260,5 +260,6 @@ namespace xPlannerCommon.Models
         public Nullable<System.DateTime> date_added { get; set; }
         public string eq_unit_desc { get; set; }
         public string asset_comment { get; set; }
+        public string serial_number { get; set; }
     }
 }

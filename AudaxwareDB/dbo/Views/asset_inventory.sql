@@ -54,8 +54,9 @@ SELECT
 		(COALESCE(a.unit_budget, 0) * COALESCE(po_info.po_qty_with_quote, 0)) - COALESCE(po_info.total_po_amt, 0) as buyout_delta,
         c.cut_sheet,
         c.cad_block,
-        a.serial_number,
-        a.serial_name,
+        a.model_number,
+        a.model_name,
+		a.serial_number,
 		c.revit,
 		asset_photo_doc.rotate AS photo_rotate,
 		COALESCE(asset_photo_doc.blob_file_name, c.photo) AS photo,
@@ -185,7 +186,7 @@ SELECT
 		 cast(coalesce(a.unit_markup_calc, 0) as varchar(15)) as unit_markup_calc, cast(coalesce(a.unit_escalation_calc, 0) as varchar(15)) as unit_escalation_calc, cast(coalesce(a.unit_budget_adjusted, 0) as varchar(15)) as unit_budget_adjusted, 
 		 cast(coalesce(a.unit_tax_calc, 0) as varchar(15)) as unit_tax_calc, cast(coalesce(a.unit_install, 0) as varchar(15)) as unit_install, cast(coalesce(a.unit_freight, 0) as varchar(15)) as unit_freight, cast(unit_budget_total as varchar(15)) as unit_budget_total, 
 		 total_install_net, total_budget_adjusted, total_tax, total_install, total_freight_net, total_freight, total_budget, ECN, a.placement, a.placement_ow, coalesce(a.biomed_check_required, 0) as biomed_check_required,
-		 a.asset_description_ow, a.temporary_location, a.jsn_ow, a.manufacturer_description_ow, a.serial_number_ow, a.serial_name_ow, a.final_disposition,
+		 a.asset_description_ow, a.temporary_location, a.jsn_ow, a.manufacturer_description_ow, a.model_number_ow, a.model_name_ow, a.final_disposition,
 		 a.delivered_date, a.received_date, a.date_modified, a.date_added, am.eq_unit_desc
     FROM project_room_inventory a with (index(project_room_id_indx1))
 		LEFT JOIN (select inventory_id, string_agg(po.quote_number, ', ') as quote_number, string_agg(v.name, ', ') as vendor, string_agg(po.po_requested_number, ', ') as po_requested_number,

@@ -109,10 +109,10 @@ namespace xPlannerCommon.Models
         public Nullable<bool> jsn_ow { get; set; }
         public string manufacturer_description { get; set; }
         public Nullable<bool> manufacturer_description_ow { get; set; }
-        public string serial_number { get; set; }
-        public Nullable<bool> serial_number_ow { get; set; }
-        public string serial_name { get; set; }
-        public Nullable<bool> serial_name_ow { get; set; }
+        public string model_number { get; set; }
+        public Nullable<bool> model_number_ow { get; set; }
+        public string model_name { get; set; }
+        public Nullable<bool> model_name_ow { get; set; }
         public string cut_sheet_filename { get; set; }
         public string final_disposition { get; set; }
         public Nullable<System.DateTime> delivered_date { get; set; }

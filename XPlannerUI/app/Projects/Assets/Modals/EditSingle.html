@@ -57,22 +57,22 @@
                                     </md-icon>
                                     <md-input-container class="md-block" flex="20">
                                         <label>Model Name</label>
-                                        <input name="asset_serial_name" ng-model="data.serial_name" ng-disabled="!data.serial_name_ow">
+                                        <input name="asset_model_name" ng-model="data.model_name" ng-disabled="!data.model_name_ow">
                                     </md-input-container>
-                                    <md-icon class="material-icons" flex="5" ng-click="toggleLock('serial_name')">
-                                        {{getLockIcon('serial_name')}}
+                                    <md-icon class="material-icons" flex="5" ng-click="toggleLock('model_name')">
+                                        {{getLockIcon('model_name')}}
                                         <md-tooltip>
-                                            {{getLockTooltip('serial_name')}}
+                                            {{getLockTooltip('model_name')}}
                                         </md-tooltip>
                                     </md-icon>
                                     <md-input-container class="md-block" flex="20">
                                         <label>Model Number</label>
-                                        <input name="asset_serial_number" ng-model="data.serial_number" ng-disabled="!data.serial_number_ow">
+                                        <input name="asset_model_number" ng-model="data.model_number" ng-disabled="!data.model_number_ow">
                                     </md-input-container>
-                                    <md-icon class="material-icons" flex="5" ng-click="toggleLock('serial_number')">
-                                        {{getLockIcon('serial_number')}}
+                                    <md-icon class="material-icons" flex="5" ng-click="toggleLock('model_number')">
+                                        {{getLockIcon('model_number')}}
                                         <md-tooltip>
-                                            {{getLockTooltip('serial_number')}}
+                                            {{getLockTooltip('model_number')}}
                                         </md-tooltip>
                                     </md-icon>
                                 </section>

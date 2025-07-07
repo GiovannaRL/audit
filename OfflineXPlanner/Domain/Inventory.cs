@@ -140,8 +140,8 @@ namespace OfflineXPlanner.Domain
             SerialNumber = assetInventory.serial_number; 
             Manufacturer = assetInventory.manufacturer_description;
             Description = assetInventory.asset_description;
-            ModelNumber = assetInventory.serial_number;
-            ModelName = assetInventory.serial_name;
+            ModelNumber = assetInventory.model_number;
+            ModelName = assetInventory.model_name;
             JSN = assetInventory.jsn_code;
             JSNNomenclature = assetInventory.jsn_nomenclature;
             PlannedQty = assetInventory.budget_qty.GetValueOrDefault();

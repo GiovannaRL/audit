@@ -7,7 +7,7 @@ AS
 
 
 	SELECT top 1000 p.project_description, pp.description as phase_description, pd.description as department_description, pr.drawing_room_name as room_name, pr.drawing_room_number as room_number, a.asset_description, a.asset_code,
-		pri.jsn_code, pri.serial_number, pri.serial_name, pri.manufacturer_description, unit_budget, unit_freight, unit_install, unit_tax, unit_markup, unit_escalation, pri.date_modified
+		pri.jsn_code, pri.model_number, pri.model_name, pri.manufacturer_description, unit_budget, unit_freight, unit_install, unit_tax, unit_markup, unit_escalation, pri.date_modified
 	FROM project_room_inventory pri
 	INNER JOIN assets a ON a.asset_id = pri.asset_id and a.domain_id = pri.asset_domain_id
 	INNER JOIN project p ON p.project_id = pri.project_id and p.domain_id = pri.domain_id
@@ -17,5 +17,5 @@ AS
 	WHERE pri.domain_id = @domainId
 	AND date_modified >= DATEADD(DAY, 1, EOMONTH(GETDATE(), -1 * @period)) 
 	AND ((@projectId > 0 AND pri.project_id = @projectId) OR @projectId = 0) 
-	AND (@assetCode is null OR (CONCAT(asset_code, jsn_code, pri.asset_description, manufacturer_description, pri.serial_name, pri.serial_number) LIKE '%' + @assetCode + '%')) 
+	AND (@assetCode is null OR (CONCAT(asset_code, jsn_code, pri.asset_description, manufacturer_description, pri.model_name, pri.model_number) LIKE '%' + @assetCode + '%')) 
 	ORDER BY pri.date_modified desc

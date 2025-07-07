@@ -23,8 +23,8 @@
                 var columns = [
                         { field: "asset.asset_code", title: "Code", width: 300 },
                         { field: "asset.asset_description", title: "Description", width: 300 },
-                        { field: "asset.serial_number", title: "Model No.", width: 200 },
-                        { field: "asset.serial_name", title: "Model Name", width: 230 },
+                        { field: "asset.model_number", title: "Model No.", width: 200 },
+                        { field: "asset.model_name", title: "Model Name", width: 230 },
                         { field: "manufacturer", title: "Manufacturer", width: 150 }
                 ];
 

@@ -284,12 +284,12 @@ namespace reportsWebJob.Services
             string wherePri = where.Replace("a.", "pri.").Replace("cc.id", "pri.cost_center_id").Replace("cc.", "pri.");
 
             /* Get initial data */
-            StringBuilder select = new StringBuilder("SELECT a.TYPE, a.resp, a.asset_domain_id, a.asset_id, a.asset_code, a.asset_description, a.manufacturer_description AS manufacturer, a.serial_number AS model_no, a.serial_name AS model_name, SUM(a.budget_qty) AS budget_qty, SUM(a.budget_qty_sf) AS budget_qty_sf, SUM(a.dnp_qty) AS dnp_qty, SUM(a.dnp_qty_sf) AS dnp_qty_sf, SUM(a.lease_qty) AS lease_qty, SUM(a.lease_qty_sf) AS lease_qty, SUM(a.po_qty) AS po_qty, SUM(a.po_qty_sf) AS po_qty_sf, SUM(a.total_budget_amt) AS total_budget_amt, SUM(a.total_po_amt) AS total_po_amt, SUM(a.buyout_delta) AS buyout_delta, a.cad_id, COALESCE(a.tag, '') AS tag, cc.description AS cost_center ");
+            StringBuilder select = new StringBuilder("SELECT a.TYPE, a.resp, a.asset_domain_id, a.asset_id, a.asset_code, a.asset_description, a.manufacturer_description AS manufacturer, a.model_number AS model_no, a.model_name AS model_name, SUM(a.budget_qty) AS budget_qty, SUM(a.budget_qty_sf) AS budget_qty_sf, SUM(a.dnp_qty) AS dnp_qty, SUM(a.dnp_qty_sf) AS dnp_qty_sf, SUM(a.lease_qty) AS lease_qty, SUM(a.lease_qty_sf) AS lease_qty, SUM(a.po_qty) AS po_qty, SUM(a.po_qty_sf) AS po_qty_sf, SUM(a.total_budget_amt) AS total_budget_amt, SUM(a.total_po_amt) AS total_po_amt, SUM(a.buyout_delta) AS buyout_delta, a.cad_id, COALESCE(a.tag, '') AS tag, cc.description AS cost_center ");
             select.Append("FROM inventory_w_relo_v AS a  ");
             select.Append("LEFT JOIN cost_center AS cc ON cc.id = a.cost_center_id ");
             select.Append("WHERE a.type = 'NEW' AND ");
             select.Append(where.Replace("WHERE", ""));
-            select.Append(" GROUP BY a.type, a.resp, a.asset_domain_id, a.asset_id, a.asset_code, a.asset_description, a.manufacturer_description, a.serial_number, a.serial_name, a.cad_id, COALESCE(a.tag, ''), cc.description ORDER BY a.asset_code, a.type;");
+            select.Append(" GROUP BY a.type, a.resp, a.asset_domain_id, a.asset_id, a.asset_code, a.asset_description, a.manufacturer_description, a.model_number, a.model_name, a.cad_id, COALESCE(a.tag, ''), cc.description ORDER BY a.asset_code, a.type;");
             
             List<AssetStatusItem> items = this._db.Database.SqlQuery<AssetStatusItem>(select.ToString()).ToList();
             

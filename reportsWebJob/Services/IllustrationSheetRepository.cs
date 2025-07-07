@@ -133,7 +133,7 @@ namespace reportsWebJob.Services
                 stringWriter.Write("<td><strong>Description:</strong> " + sheet.asset_description + "</td>");
                 stringWriter.Write("</tr>");
                 stringWriter.Write("<tr>");
-                stringWriter.Write("<td><strong>Name/Model/#:</strong> " + sheet.serial_name + " / " + sheet.serial_number + "</td>");
+                stringWriter.Write("<td><strong>Name/Model/#:</strong> " + sheet.model_name + " / " + sheet.model_number + "</td>");
                 stringWriter.Write("</tr>");
                 stringWriter.Write("<tr>");
                 stringWriter.Write("<td><strong>Size:</strong> " + sheet.weight + " W x " + sheet.depth + " D x " + sheet.height + " H" + "</td>");
@@ -324,7 +324,7 @@ namespace reportsWebJob.Services
 
             /* Get initial data */
             StringBuilder select = new StringBuilder("SELECT distinct pri.project_id, pri.phase_id, pri.department_id, pri.room_id, pri.domain_id, pri.asset_id, pri.asset_domain_id, pri.inventory_id, pri.asset_description, pri.placement, pri.height, pri.width, pri.depth, pri.jsn_code, pri.unit_budget_total, ");
-            select.Append("a.photo, pri.serial_number, pri.serial_name, a.weight, a.weight_limit, pri.comment as asset_comment, pri.manufacturer_description, d.description as department_description, p.project_description, p.locked_comment, p.locked_date, f.name as facility, c.name as client, ac.description as prefix_description, ");
+            select.Append("a.photo, pri.model_number, pri.model_name, a.weight, a.weight_limit, pri.comment as asset_comment, pri.manufacturer_description, d.description as department_description, p.project_description, p.locked_comment, p.locked_date, f.name as facility, c.name as client, ac.description as prefix_description, ");
             select.Append("( ");
             select.Append("select pdoc.blob_file_name from documents_associations da ");
             select.Append("inner join project_documents pdoc on pdoc.id = da.document_id and pdoc.project_domain_id = da.project_domain_id and pdoc.type_id = " + DocumentTypeIdEnum.AssetPhoto);

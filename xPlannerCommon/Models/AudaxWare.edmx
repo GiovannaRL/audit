@@ -124,7 +124,7 @@
           <Property Name="width" Type="varchar" MaxLength="25" />
           <Property Name="depth" Type="varchar" MaxLength="25" />
           <Property Name="weight" Type="varchar" MaxLength="25" />
-          <Property Name="serial_number" Type="varchar" MaxLength="100" />
+          <Property Name="model_number" Type="varchar" MaxLength="100" />
           <Property Name="min_cost" Type="numeric" Precision="10" Scale="2" />
           <Property Name="max_cost" Type="numeric" Precision="10" Scale="2" />
           <Property Name="avg_cost" Type="numeric" Precision="10" Scale="2" />
@@ -195,7 +195,7 @@
           <Property Name="plu_treated_water" Type="bit" />
           <Property Name="plu_relief" Type="bit" />
           <Property Name="plu_chilled_water" Type="bit" />
-          <Property Name="serial_name" Type="varchar" MaxLength="150" />
+          <Property Name="model_name" Type="varchar" MaxLength="150" />
           <Property Name="useful_life" Type="int" />
           <Property Name="loaded_weight" Type="numeric" Precision="10" Scale="2" />
           <Property Name="ship_weight" Type="numeric" Precision="10" Scale="2" />
@@ -1106,10 +1106,10 @@
           <Property Name="jsn_ow" Type="bit" />
           <Property Name="manufacturer_description" Type="varchar" MaxLength="100" />
           <Property Name="manufacturer_description_ow" Type="bit" />
-          <Property Name="serial_number" Type="varchar" MaxLength="100" />
-          <Property Name="serial_number_ow" Type="bit" />
-          <Property Name="serial_name" Type="varchar" MaxLength="150" />
-          <Property Name="serial_name_ow" Type="bit" />
+          <Property Name="model_number" Type="varchar" MaxLength="100" />
+          <Property Name="model_number_ow" Type="bit" />
+          <Property Name="model_name" Type="varchar" MaxLength="150" />
+          <Property Name="model_name_ow" Type="bit" />
           <Property Name="cut_sheet_filename" Type="varchar" MaxLength="100" />
           <Property Name="final_disposition" Type="varchar" MaxLength="200" />
           <Property Name="delivered_date" Type="date" />
@@ -1143,6 +1143,7 @@
           <Property Name="amps" Type="varchar" MaxLength="20" />
           <Property Name="amps_ow" Type="bit" />
           <Property Name="date_modified" Type="date" />
+          <Property Name="serial_number" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="project_user">
           <Key>
@@ -1460,8 +1461,9 @@ warning 6002: The table/view 'audaxware.dbo.asset_inventory' does not have a pri
           <Property Name="buyout_delta" Type="numeric" Precision="38" Scale="15" />
           <Property Name="cut_sheet" Type="varchar" MaxLength="100" />
           <Property Name="cad_block" Type="varchar" MaxLength="100" />
-          <Property Name="serial_number" Type="varchar" MaxLength="100" />
-          <Property Name="serial_name" Type="varchar" MaxLength="150" />
+          <Property Name="model_number" Type="varchar" MaxLength="100" />
+          <Property Name="model_name" Type="varchar" MaxLength="150" />
+          <Property Name="serial_number" Type="varchar" MaxLength="50" />
           <Property Name="revit" Type="varchar" MaxLength="100" />
           <Property Name="photo_rotate" Type="int" />
           <Property Name="photo" Type="varchar" MaxLength="100" />
@@ -1660,8 +1662,8 @@ warning 6002: The table/view 'audaxware.dbo.asset_inventory' does not have a pri
           <Property Name="temporary_location" Type="varchar" MaxLength="200" />
           <Property Name="jsn_ow" Type="bit" />
           <Property Name="manufacturer_description_ow" Type="bit" />
-          <Property Name="serial_number_ow" Type="bit" />
-          <Property Name="serial_name_ow" Type="bit" />
+          <Property Name="model_number_ow" Type="bit" />
+          <Property Name="model_name_ow" Type="bit" />
           <Property Name="final_disposition" Type="varchar" MaxLength="200" />
           <Property Name="delivered_date" Type="date" />
           <Property Name="received_date" Type="date" />
@@ -1691,8 +1693,8 @@ warning 6002: The table/view 'audaxware.dbo.asset_summarized' does not have a pr
           <Property Name="revit" Type="varchar" MaxLength="100" />
           <Property Name="photo" Type="varchar" MaxLength="100" />
           <Property Name="asset_code" Type="varchar" MaxLength="25" />
-          <Property Name="serial_name" Type="varchar" MaxLength="150" />
-          <Property Name="serial_number" Type="varchar" MaxLength="100" />
+          <Property Name="model_name" Type="varchar" MaxLength="150" />
+          <Property Name="model_number" Type="varchar" MaxLength="100" />
           <Property Name="asset_description" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="min_cost" Type="numeric" Precision="10" Scale="2" />
           <Property Name="max_cost" Type="numeric" Precision="10" Scale="2" />
@@ -1978,8 +1980,8 @@ warning 6002: The table/view 'audaxware.dbo.inventory_w_relo_v' does not have a 
           <Property Name="cad_id" Type="varchar" MaxLength="25" />
           <Property Name="tag" Type="varchar" MaxLength="5000" />
           <Property Name="jsn_code" Type="varchar" MaxLength="10" />
-          <Property Name="serial_number" Type="varchar" MaxLength="100" />
-          <Property Name="serial_name" Type="varchar" MaxLength="150" />
+          <Property Name="model_number" Type="varchar" MaxLength="100" />
+          <Property Name="model_name" Type="varchar" MaxLength="150" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'audaxware.dbo.item_status_v' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -3978,10 +3980,10 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Parameter Name="jsn_ow" Type="bit" Mode="In" />
           <Parameter Name="manufacturer_description" Type="varchar" Mode="In" />
           <Parameter Name="manufacturer_description_ow" Type="bit" Mode="In" />
-          <Parameter Name="serial_number" Type="varchar" Mode="In" />
-          <Parameter Name="serial_number_ow" Type="bit" Mode="In" />
-          <Parameter Name="serial_name" Type="varchar" Mode="In" />
-          <Parameter Name="serial_name_ow" Type="bit" Mode="In" />
+          <Parameter Name="model_number" Type="varchar" Mode="In" />
+          <Parameter Name="model_number_ow" Type="bit" Mode="In" />
+          <Parameter Name="model_name" Type="varchar" Mode="In" />
+          <Parameter Name="model_name_ow" Type="bit" Mode="In" />
           <Parameter Name="jsn_code" Type="varchar" Mode="In" />
           <Parameter Name="jsn_u1" Type="varchar" Mode="In" />
           <Parameter Name="jsn_u2" Type="varchar" Mode="In" />
@@ -4026,11 +4028,12 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Parameter Name="categories_id" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="get_asset_rooms" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="PROJECT_ID" Type="int" Mode="In" />
-          <Parameter Name="ASSET_IDS" Type="varchar" Mode="In" />
-          <Parameter Name="PHASE_ID" Type="int" Mode="In" />
-          <Parameter Name="DEPARTMENT_ID" Type="int" Mode="In" />
-          <Parameter Name="ROOM_ID" Type="int" Mode="In" />
+          <Parameter Name="ProjectId" Type="int" Mode="In" />
+          <Parameter Name="DomainId" Type="int" Mode="In" />
+          <Parameter Name="AssetIds" Type="varchar" Mode="In" />
+          <Parameter Name="PhaseId" Type="int" Mode="In" />
+          <Parameter Name="DepartmentId" Type="int" Mode="In" />
+          <Parameter Name="RoomId" Type="int" Mode="In" />
         </Function>
         <Function Name="get_associated_manufacturers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="domain_id" Type="smallint" Mode="In" />
@@ -4431,8 +4434,9 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
     [asset_inventory].[buyout_delta] AS [buyout_delta], 
     [asset_inventory].[cut_sheet] AS [cut_sheet], 
     [asset_inventory].[cad_block] AS [cad_block], 
+    [asset_inventory].[model_number] AS [model_number], 
+    [asset_inventory].[model_name] AS [model_name], 
     [asset_inventory].[serial_number] AS [serial_number], 
-    [asset_inventory].[serial_name] AS [serial_name], 
     [asset_inventory].[revit] AS [revit], 
     [asset_inventory].[photo_rotate] AS [photo_rotate], 
     [asset_inventory].[photo] AS [photo], 
@@ -4631,8 +4635,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
     [asset_inventory].[temporary_location] AS [temporary_location], 
     [asset_inventory].[jsn_ow] AS [jsn_ow], 
     [asset_inventory].[manufacturer_description_ow] AS [manufacturer_description_ow], 
-    [asset_inventory].[serial_number_ow] AS [serial_number_ow], 
-    [asset_inventory].[serial_name_ow] AS [serial_name_ow], 
+    [asset_inventory].[model_number_ow] AS [model_number_ow], 
+    [asset_inventory].[model_name_ow] AS [model_name_ow], 
     [asset_inventory].[final_disposition] AS [final_disposition], 
     [asset_inventory].[delivered_date] AS [delivered_date], 
     [asset_inventory].[received_date] AS [received_date], 
@@ -4651,8 +4655,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
     [asset_summarized].[revit] AS [revit], 
     [asset_summarized].[photo] AS [photo], 
     [asset_summarized].[asset_code] AS [asset_code], 
-    [asset_summarized].[serial_name] AS [serial_name], 
-    [asset_summarized].[serial_number] AS [serial_number], 
+    [asset_summarized].[model_name] AS [model_name], 
+    [asset_summarized].[model_number] AS [model_number], 
     [asset_summarized].[asset_description] AS [asset_description], 
     [asset_summarized].[min_cost] AS [min_cost], 
     [asset_summarized].[max_cost] AS [max_cost], 
@@ -4898,8 +4902,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
     [inventory_w_relo_v].[cad_id] AS [cad_id], 
     [inventory_w_relo_v].[tag] AS [tag], 
     [inventory_w_relo_v].[jsn_code] AS [jsn_code], 
-    [inventory_w_relo_v].[serial_number] AS [serial_number], 
-    [inventory_w_relo_v].[serial_name] AS [serial_name]
+    [inventory_w_relo_v].[model_number] AS [model_number], 
+    [inventory_w_relo_v].[model_name] AS [model_name]
     FROM [dbo].[inventory_w_relo_v] AS [inventory_w_relo_v]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="item_status_v" EntityType="Self.item_status_v" store:Type="Views" store:Schema="dbo">
@@ -7198,11 +7202,12 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             <End Role="temporary_location" EntitySet="temporary_location" />
           </AssociationSet>
           <FunctionImport Name="get_asset_rooms" ReturnType="Collection(AudaxWare.get_asset_rooms_Result)">
-            <Parameter Name="PROJECT_ID" Mode="In" Type="Int32" />
-            <Parameter Name="ASSET_IDS" Mode="In" Type="String" />
-            <Parameter Name="PHASE_ID" Mode="In" Type="Int32" />
-            <Parameter Name="DEPARTMENT_ID" Mode="In" Type="Int32" />
-            <Parameter Name="ROOM_ID" Mode="In" Type="Int32" />
+            <Parameter Name="ProjectId" Mode="In" Type="Int32" />
+            <Parameter Name="DomainId" Mode="In" Type="Int32" />
+            <Parameter Name="AssetIds" Mode="In" Type="String" />
+            <Parameter Name="PhaseId" Mode="In" Type="Int32" />
+            <Parameter Name="DepartmentId" Mode="In" Type="Int32" />
+            <Parameter Name="RoomId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="update_inventories_cutsheet_filename">
             <Parameter Name="inventories_id" Mode="In" Type="String" />
@@ -7446,10 +7451,10 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
             <Parameter Name="jsn_ow" Mode="In" Type="Boolean" />
             <Parameter Name="manufacturer_description" Mode="In" Type="String" />
             <Parameter Name="manufacturer_description_ow" Mode="In" Type="Boolean" />
-            <Parameter Name="serial_number" Mode="In" Type="String" />
-            <Parameter Name="serial_number_ow" Mode="In" Type="Boolean" />
-            <Parameter Name="serial_name" Mode="In" Type="String" />
-            <Parameter Name="serial_name_ow" Mode="In" Type="Boolean" />
+            <Parameter Name="model_number" Mode="In" Type="String" />
+            <Parameter Name="model_number_ow" Mode="In" Type="Boolean" />
+            <Parameter Name="model_name" Mode="In" Type="String" />
+            <Parameter Name="model_name_ow" Mode="In" Type="Boolean" />
             <Parameter Name="jsn_code" Mode="In" Type="String" />
             <Parameter Name="jsn_u1" Mode="In" Type="String" />
             <Parameter Name="jsn_u2" Mode="In" Type="String" />
@@ -7682,8 +7687,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Name="default_resp" Nullable="false" MaxLength="4" Type="String" />
           <Property Name="manufacturer_id" Nullable="false" Type="Int32" />
           <Property Name="manufacturer_domain_id" Nullable="false" Type="Int16" />
-          <Property Name="serial_number" Nullable="true" MaxLength="100" Type="String" />
-          <Property Name="serial_name" Nullable="true" MaxLength="150" Type="String" />
+          <Property Name="model_number" Nullable="true" MaxLength="100" Type="String" />
+          <Property Name="model_name" Nullable="true" MaxLength="150" Type="String" />
           <Property Name="asset_description" Nullable="false" MaxLength="300" Type="String" />
           <Property Name="jsn_id" Nullable="true" Type="Int32" />
         </ComplexType>
@@ -7713,7 +7718,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Name="width" Nullable="true" MaxLength="25" Type="String" />
           <Property Name="depth" Nullable="true" MaxLength="25" Type="String" />
           <Property Name="weight" Nullable="true" MaxLength="25" Type="String" />
-          <Property Name="serial_number" Nullable="true" MaxLength="100" Type="String" />
+          <Property Name="model_number" Nullable="true" MaxLength="100" Type="String" />
           <Property Name="min_cost" Nullable="true" Precision="10" Scale="2" Type="Decimal" />
           <Property Name="max_cost" Nullable="true" Precision="10" Scale="2" Type="Decimal" />
           <Property Name="avg_cost" Nullable="true" Precision="10" Scale="2" Type="Decimal" />
@@ -7784,7 +7789,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Name="plu_treated_water" Nullable="true" Type="Boolean" />
           <Property Name="plu_relief" Nullable="true" Type="Boolean" />
           <Property Name="plu_chilled_water" Nullable="true" Type="Boolean" />
-          <Property Name="serial_name" Nullable="true" MaxLength="150" Type="String" />
+          <Property Name="model_name" Nullable="true" MaxLength="150" Type="String" />
           <Property Name="useful_life" Nullable="true" Type="Int32" />
           <Property Name="loaded_weight" Nullable="true" Precision="10" Scale="2" Type="Decimal" />
           <Property Name="ship_weight" Nullable="true" Precision="10" Scale="2" Type="Decimal" />
@@ -7843,7 +7848,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Name="width" Nullable="true" MaxLength="25" Type="String" />
           <Property Name="depth" Nullable="true" MaxLength="25" Type="String" />
           <Property Name="weight" Nullable="true" MaxLength="25" Type="String" />
-          <Property Name="serial_number" Nullable="true" MaxLength="100" Type="String" />
+          <Property Name="model_number" Nullable="true" MaxLength="100" Type="String" />
           <Property Name="min_cost" Nullable="true" Precision="10" Scale="2" Type="Decimal" />
           <Property Name="max_cost" Nullable="true" Precision="10" Scale="2" Type="Decimal" />
           <Property Name="avg_cost" Nullable="true" Precision="10" Scale="2" Type="Decimal" />
@@ -7914,7 +7919,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Name="plu_treated_water" Nullable="true" Type="Boolean" />
           <Property Name="plu_relief" Nullable="true" Type="Boolean" />
           <Property Name="plu_chilled_water" Nullable="true" Type="Boolean" />
-          <Property Name="serial_name" Nullable="true" MaxLength="150" Type="String" />
+          <Property Name="model_name" Nullable="true" MaxLength="150" Type="String" />
           <Property Name="useful_life" Nullable="true" Type="Int32" />
           <Property Name="loaded_weight" Nullable="true" Precision="10" Scale="2" Type="Decimal" />
           <Property Name="ship_weight" Nullable="true" Precision="10" Scale="2" Type="Decimal" />
@@ -8129,7 +8134,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Name="width" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="depth" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="weight" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="serial_number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="model_number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="min_cost" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="max_cost" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="avg_cost" Type="Decimal" Precision="10" Scale="2" />
@@ -8200,7 +8205,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Name="plu_treated_water" Type="Boolean" />
           <Property Name="plu_relief" Type="Boolean" />
           <Property Name="plu_chilled_water" Type="Boolean" />
-          <Property Name="serial_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="model_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="useful_life" Type="Int32" />
           <Property Name="loaded_weight" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="ship_weight" Type="Decimal" Precision="10" Scale="2" />
@@ -8412,8 +8417,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Name="revit" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="asset_code" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="serial_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="serial_number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="model_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="model_number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="asset_description" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="min_cost" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="max_cost" Type="Decimal" Precision="10" Scale="2" />
@@ -8562,8 +8567,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Name="buyout_delta" Nullable="true" Precision="38" Scale="15" Type="Decimal" />
           <Property Name="cut_sheet" Nullable="true" MaxLength="100" Type="String" />
           <Property Name="cad_block" Nullable="true" MaxLength="100" Type="String" />
-          <Property Name="serial_number" Nullable="true" MaxLength="100" Type="String" />
-          <Property Name="serial_name" Nullable="true" MaxLength="150" Type="String" />
+          <Property Name="model_number" Nullable="true" MaxLength="100" Type="String" />
+          <Property Name="model_name" Nullable="true" MaxLength="150" Type="String" />
           <Property Name="revit" Nullable="true" MaxLength="100" Type="String" />
           <Property Name="photo" Nullable="true" MaxLength="100" Type="String" />
           <Property Name="discontinued" Nullable="false" MaxLength="1" Type="String" />
@@ -8724,8 +8729,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Type="String" Name="target_room" Nullable="true" MaxLength="325" />
           <Property Type="Boolean" Name="jsn_ow" Nullable="true" />
           <Property Type="Boolean" Name="manufacturer_description_ow" Nullable="true" />
-          <Property Type="Boolean" Name="serial_number_ow" Nullable="true" />
-          <Property Type="Boolean" Name="serial_name_ow" Nullable="true" />
+          <Property Type="Boolean" Name="model_number_ow" Nullable="true" />
+          <Property Type="Boolean" Name="model_name_ow" Nullable="true" />
           <Property Type="Int16" Name="photo_domain_id" Nullable="false" />
         </ComplexType>
         <EntityType Name="project">
@@ -9405,8 +9410,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           </ReferentialConstraint>
         </Association>
         <ComplexType Name="get_asset_rooms_Result">
-          <Property Type="String" Name="serial_number" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="serial_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="model_number" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="model_name" Nullable="true" MaxLength="150" />
           <Property Type="String" Name="phase_desc" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="project_id" Nullable="false" />
           <Property Type="Int32" Name="department_id" Nullable="false" />
@@ -9951,8 +9956,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Type="String" Name="asset_code" Nullable="true" MaxLength="25" />
           <Property Type="String" Name="asset_description" Nullable="true" MaxLength="300" />
           <Property Type="String" Name="manufacturer_description" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="serial_number" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="serial_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="model_number" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="model_name" Nullable="true" MaxLength="150" />
           <Property Type="Int32" Name="budget_qty" Nullable="true" />
           <Property Type="String" Name="jsn_code" Nullable="true" MaxLength="10" />
           <Property Type="Decimal" Name="budget_amt" Nullable="true" Precision="38" Scale="2" />
@@ -10008,8 +10013,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Type="Int32" Name="room_id" Nullable="false" />
           <Property Type="Int32" Name="asset_id" Nullable="false" />
           <Property Type="String" Name="asset_code" Nullable="true" MaxLength="25" />
-          <Property Type="String" Name="serial_number" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="serial_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="model_number" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="model_name" Nullable="true" MaxLength="150" />
           <Property Type="String" Name="manufacturer_description" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="asset_description" Nullable="true" MaxLength="300" />
           <Property Type="Int32" Name="room_count" Nullable="false" />
@@ -10149,10 +10154,10 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Type="Boolean" Name="jsn_ow" Nullable="true" />
           <Property Type="String" Name="manufacturer_description" Nullable="true" MaxLength="100" />
           <Property Type="Boolean" Name="manufacturer_description_ow" Nullable="true" />
-          <Property Type="String" Name="serial_number" Nullable="true" MaxLength="100" />
-          <Property Type="Boolean" Name="serial_number_ow" Nullable="true" />
-          <Property Type="String" Name="serial_name" Nullable="true" MaxLength="150" />
-          <Property Type="Boolean" Name="serial_name_ow" Nullable="true" />
+          <Property Type="String" Name="model_number" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="model_number_ow" Nullable="true" />
+          <Property Type="String" Name="model_name" Nullable="true" MaxLength="150" />
+          <Property Type="Boolean" Name="model_name_ow" Nullable="true" />
           <Property Type="String" Name="cut_sheet_filename" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="final_disposition" Nullable="true" MaxLength="200" />
           <Property Type="DateTime" Name="delivered_date" Nullable="true" />
@@ -10401,8 +10406,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Name="cad_id" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="tag" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
           <Property Name="jsn_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="serial_number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="serial_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="model_number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="model_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="User_gridView">
           <Key>
@@ -10536,10 +10541,10 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Name="jsn_ow" Type="Boolean" />
           <Property Name="manufacturer_description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="manufacturer_description_ow" Type="Boolean" />
-          <Property Name="serial_number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="serial_number_ow" Type="Boolean" />
-          <Property Name="serial_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="serial_name_ow" Type="Boolean" />
+          <Property Name="model_number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="model_number_ow" Type="Boolean" />
+          <Property Name="model_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="model_name_ow" Type="Boolean" />
           <Property Name="cut_sheet_filename" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="final_disposition" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="delivered_date" Type="DateTime" Precision="0" />
@@ -10584,6 +10589,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <NavigationProperty Name="inventory_purchase_order" Relationship="AudaxWare.project_room_inventory_inventory_purchase_order_fk" FromRole="project_room_inventory" ToRole="inventory_purchase_order" />
           <NavigationProperty Name="project_documents" Relationship="AudaxWare.linked_document_inventory_fk" FromRole="project_room_inventory" ToRole="project_documents" />
           <NavigationProperty Name="project_room" Relationship="AudaxWare.project_room_project_room_inventory_fk" FromRole="project_room_inventory" ToRole="project_room" />
+          <Property Name="serial_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="inventory_in_fk">
           <End Type="AudaxWare.project_room_inventory" Role="project_room_inventory" Multiplicity="1" />
@@ -10768,8 +10774,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Type="String" Name="asset_description" Nullable="false" MaxLength="300" />
           <Property Type="String" Name="asset_code" Nullable="true" MaxLength="25" />
           <Property Type="String" Name="jsn_code" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="serial_number" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="serial_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="model_number" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="model_name" Nullable="true" MaxLength="150" />
           <Property Type="String" Name="manufacturer_description" Nullable="true" MaxLength="100" />
           <Property Type="Decimal" Name="unit_budget" Nullable="true" Precision="10" Scale="2" />
           <Property Type="Decimal" Name="unit_freight" Nullable="true" Precision="10" Scale="2" />
@@ -10961,8 +10967,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Type="Decimal" Name="buyout_delta" Nullable="true" Precision="38" Scale="15" />
           <Property Type="String" Name="cut_sheet" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="cad_block" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="serial_number" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="serial_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="model_number" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="model_name" Nullable="true" MaxLength="150" />
           <Property Type="String" Name="revit" Nullable="true" MaxLength="100" />
           <Property Type="Int32" Name="photo_rotate" Nullable="true" />
           <Property Type="String" Name="photo" Nullable="true" MaxLength="100" />
@@ -11161,8 +11167,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Type="String" Name="temporary_location" Nullable="true" MaxLength="200" />
           <Property Type="Boolean" Name="jsn_ow" Nullable="true" />
           <Property Type="Boolean" Name="manufacturer_description_ow" Nullable="true" />
-          <Property Type="Boolean" Name="serial_number_ow" Nullable="true" />
-          <Property Type="Boolean" Name="serial_name_ow" Nullable="true" />
+          <Property Type="Boolean" Name="model_number_ow" Nullable="true" />
+          <Property Type="Boolean" Name="model_name_ow" Nullable="true" />
           <Property Type="String" Name="final_disposition" Nullable="true" MaxLength="200" />
           <Property Type="DateTime" Name="delivered_date" Nullable="true" />
           <Property Type="DateTime" Name="received_date" Nullable="true" />
@@ -11264,8 +11270,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Name="buyout_delta" Type="Decimal" Precision="38" Scale="15" />
           <Property Name="cut_sheet" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="cad_block" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="serial_number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="serial_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="model_number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="model_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="revit" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="photo_rotate" Type="Int32" />
           <Property Name="photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -11464,8 +11470,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Name="temporary_location" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="jsn_ow" Type="Boolean" />
           <Property Name="manufacturer_description_ow" Type="Boolean" />
-          <Property Name="serial_number_ow" Type="Boolean" />
-          <Property Name="serial_name_ow" Type="Boolean" />
+          <Property Name="model_number_ow" Type="Boolean" />
+          <Property Name="model_name_ow" Type="Boolean" />
           <Property Name="final_disposition" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="delivered_date" Type="DateTime" Precision="0" />
           <Property Name="received_date" Type="DateTime" Precision="0" />
@@ -11473,6 +11479,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <Property Name="date_added" Type="DateTime" Precision="0" />
           <Property Name="eq_unit_desc" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="asset_comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="serial_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -12338,7 +12345,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
                 <ScalarProperty Name="ship_weight" ColumnName="ship_weight" />
                 <ScalarProperty Name="loaded_weight" ColumnName="loaded_weight" />
                 <ScalarProperty Name="useful_life" ColumnName="useful_life" />
-                <ScalarProperty Name="serial_name" ColumnName="serial_name" />
+                <ScalarProperty Name="model_name" ColumnName="model_name" />
                 <ScalarProperty Name="plu_chilled_water" ColumnName="plu_chilled_water" />
                 <ScalarProperty Name="plu_relief" ColumnName="plu_relief" />
                 <ScalarProperty Name="plu_treated_water" ColumnName="plu_treated_water" />
@@ -12409,7 +12416,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
                 <ScalarProperty Name="avg_cost" ColumnName="avg_cost" />
                 <ScalarProperty Name="max_cost" ColumnName="max_cost" />
                 <ScalarProperty Name="min_cost" ColumnName="min_cost" />
-                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
+                <ScalarProperty Name="model_number" ColumnName="model_number" />
                 <ScalarProperty Name="weight" ColumnName="weight" />
                 <ScalarProperty Name="depth" ColumnName="depth" />
                 <ScalarProperty Name="width" ColumnName="width" />
@@ -12551,8 +12558,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
                 <ScalarProperty Name="max_cost" ColumnName="max_cost" />
                 <ScalarProperty Name="min_cost" ColumnName="min_cost" />
                 <ScalarProperty Name="asset_description" ColumnName="asset_description" />
-                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
-                <ScalarProperty Name="serial_name" ColumnName="serial_name" />
+                <ScalarProperty Name="model_number" ColumnName="model_number" />
+                <ScalarProperty Name="model_name" ColumnName="model_name" />
                 <ScalarProperty Name="asset_code" ColumnName="asset_code" />
                 <ScalarProperty Name="photo" ColumnName="photo" />
                 <ScalarProperty Name="revit" ColumnName="revit" />
@@ -12749,8 +12756,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
                 <ScalarProperty Name="default_resp" ColumnName="default_resp" />
                 <ScalarProperty Name="manufacturer_id" ColumnName="manufacturer_id" />
                 <ScalarProperty Name="manufacturer_domain_id" ColumnName="manufacturer_domain_id" />
-                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
-                <ScalarProperty Name="serial_name" ColumnName="serial_name" />
+                <ScalarProperty Name="model_number" ColumnName="model_number" />
+                <ScalarProperty Name="model_name" ColumnName="model_name" />
                 <ScalarProperty Name="asset_description" ColumnName="asset_description" />
                 <ScalarProperty Name="jsn_id" ColumnName="jsn_id" />
               </ComplexTypeMapping>
@@ -12792,8 +12799,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
                 <ScalarProperty Name="buyout_delta" ColumnName="buyout_delta" />
                 <ScalarProperty Name="cut_sheet" ColumnName="cut_sheet" />
                 <ScalarProperty Name="cad_block" ColumnName="cad_block" />
-                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
-                <ScalarProperty Name="serial_name" ColumnName="serial_name" />
+                <ScalarProperty Name="model_number" ColumnName="model_number" />
+                <ScalarProperty Name="model_name" ColumnName="model_name" />
                 <ScalarProperty Name="revit" ColumnName="revit" />
                 <ScalarProperty Name="photo" ColumnName="photo" />
                 <ScalarProperty Name="discontinued" ColumnName="discontinued" />
@@ -12954,8 +12961,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
                 <ScalarProperty Name="target_room" ColumnName="target_room" />
                 <ScalarProperty Name="jsn_ow" ColumnName="jsn_ow" />
                 <ScalarProperty Name="manufacturer_description_ow" ColumnName="manufacturer_description_ow" />
-                <ScalarProperty Name="serial_number_ow" ColumnName="serial_number_ow" />
-                <ScalarProperty Name="serial_name_ow" ColumnName="serial_name_ow" />
+                <ScalarProperty Name="model_number_ow" ColumnName="model_number_ow" />
+                <ScalarProperty Name="model_name_ow" ColumnName="model_name_ow" />
                 <ScalarProperty Name="photo_domain_id" ColumnName="photo_domain_id" />
               </ComplexTypeMapping>
             </ResultMapping>
@@ -13001,7 +13008,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
                 <ScalarProperty Name="width" ColumnName="width" />
                 <ScalarProperty Name="depth" ColumnName="depth" />
                 <ScalarProperty Name="weight" ColumnName="weight" />
-                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
+                <ScalarProperty Name="model_number" ColumnName="model_number" />
                 <ScalarProperty Name="min_cost" ColumnName="min_cost" />
                 <ScalarProperty Name="max_cost" ColumnName="max_cost" />
                 <ScalarProperty Name="avg_cost" ColumnName="avg_cost" />
@@ -13072,7 +13079,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
                 <ScalarProperty Name="plu_treated_water" ColumnName="plu_treated_water" />
                 <ScalarProperty Name="plu_relief" ColumnName="plu_relief" />
                 <ScalarProperty Name="plu_chilled_water" ColumnName="plu_chilled_water" />
-                <ScalarProperty Name="serial_name" ColumnName="serial_name" />
+                <ScalarProperty Name="model_name" ColumnName="model_name" />
                 <ScalarProperty Name="useful_life" ColumnName="useful_life" />
                 <ScalarProperty Name="loaded_weight" ColumnName="loaded_weight" />
                 <ScalarProperty Name="ship_weight" ColumnName="ship_weight" />
@@ -13418,8 +13425,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <FunctionImportMapping FunctionImportName="get_asset_rooms" FunctionName="AudaxWare.Store.get_asset_rooms">
             <ResultMapping>
               <ComplexTypeMapping TypeName="AudaxWare.get_asset_rooms_Result">
-                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
-                <ScalarProperty Name="serial_name" ColumnName="serial_name" />
+                <ScalarProperty Name="model_number" ColumnName="model_number" />
+                <ScalarProperty Name="model_name" ColumnName="model_name" />
                 <ScalarProperty Name="phase_desc" ColumnName="phase_desc" />
                 <ScalarProperty Name="project_id" ColumnName="project_id" />
                 <ScalarProperty Name="department_id" ColumnName="department_id" />
@@ -13627,8 +13634,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
                 <ScalarProperty Name="asset_code" ColumnName="asset_code" />
                 <ScalarProperty Name="asset_description" ColumnName="asset_description" />
                 <ScalarProperty Name="manufacturer_description" ColumnName="manufacturer_description" />
-                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
-                <ScalarProperty Name="serial_name" ColumnName="serial_name" />
+                <ScalarProperty Name="model_number" ColumnName="model_number" />
+                <ScalarProperty Name="model_name" ColumnName="model_name" />
                 <ScalarProperty Name="budget_qty" ColumnName="budget_qty" />
                 <ScalarProperty Name="jsn_code" ColumnName="jsn_code" />
                 <ScalarProperty Name="budget_amt" ColumnName="budget_amt" />
@@ -13666,8 +13673,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
                 <ScalarProperty Name="room_id" ColumnName="room_id" />
                 <ScalarProperty Name="asset_id" ColumnName="asset_id" />
                 <ScalarProperty Name="asset_code" ColumnName="asset_code" />
-                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
-                <ScalarProperty Name="serial_name" ColumnName="serial_name" />
+                <ScalarProperty Name="model_number" ColumnName="model_number" />
+                <ScalarProperty Name="model_name" ColumnName="model_name" />
                 <ScalarProperty Name="manufacturer_description" ColumnName="manufacturer_description" />
                 <ScalarProperty Name="asset_description" ColumnName="asset_description" />
                 <ScalarProperty Name="room_count" ColumnName="room_count" />
@@ -13797,10 +13804,10 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
                 <ScalarProperty Name="jsn_ow" ColumnName="jsn_ow" />
                 <ScalarProperty Name="manufacturer_description" ColumnName="manufacturer_description" />
                 <ScalarProperty Name="manufacturer_description_ow" ColumnName="manufacturer_description_ow" />
-                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
-                <ScalarProperty Name="serial_number_ow" ColumnName="serial_number_ow" />
-                <ScalarProperty Name="serial_name" ColumnName="serial_name" />
-                <ScalarProperty Name="serial_name_ow" ColumnName="serial_name_ow" />
+                <ScalarProperty Name="model_number" ColumnName="model_number" />
+                <ScalarProperty Name="model_number_ow" ColumnName="model_number_ow" />
+                <ScalarProperty Name="model_name" ColumnName="model_name" />
+                <ScalarProperty Name="model_name_ow" ColumnName="model_name_ow" />
                 <ScalarProperty Name="cut_sheet_filename" ColumnName="cut_sheet_filename" />
                 <ScalarProperty Name="final_disposition" ColumnName="final_disposition" />
                 <ScalarProperty Name="delivered_date" ColumnName="delivered_date" />
@@ -13909,8 +13916,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <EntitySetMapping Name="inventory_w_relo_v">
             <EntityTypeMapping TypeName="AudaxWare.inventory_w_relo_v">
               <MappingFragment StoreEntitySet="inventory_w_relo_v">
-                <ScalarProperty Name="serial_name" ColumnName="serial_name" />
-                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
+                <ScalarProperty Name="model_name" ColumnName="model_name" />
+                <ScalarProperty Name="model_number" ColumnName="model_number" />
                 <ScalarProperty Name="jsn_code" ColumnName="jsn_code" />
                 <ScalarProperty Name="tag" ColumnName="tag" />
                 <ScalarProperty Name="cad_id" ColumnName="cad_id" />
@@ -13968,6 +13975,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <EntitySetMapping Name="project_room_inventory">
             <EntityTypeMapping TypeName="AudaxWare.project_room_inventory">
               <MappingFragment StoreEntitySet="project_room_inventory">
+                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
                 <ScalarProperty Name="date_modified" ColumnName="date_modified" />
                 <ScalarProperty Name="amps_ow" ColumnName="amps_ow" />
                 <ScalarProperty Name="amps" ColumnName="amps" />
@@ -14001,10 +14009,10 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
                 <ScalarProperty Name="delivered_date" ColumnName="delivered_date" />
                 <ScalarProperty Name="final_disposition" ColumnName="final_disposition" />
                 <ScalarProperty Name="cut_sheet_filename" ColumnName="cut_sheet_filename" />
-                <ScalarProperty Name="serial_name_ow" ColumnName="serial_name_ow" />
-                <ScalarProperty Name="serial_name" ColumnName="serial_name" />
-                <ScalarProperty Name="serial_number_ow" ColumnName="serial_number_ow" />
-                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
+                <ScalarProperty Name="model_name_ow" ColumnName="model_name_ow" />
+                <ScalarProperty Name="model_name" ColumnName="model_name" />
+                <ScalarProperty Name="model_number_ow" ColumnName="model_number_ow" />
+                <ScalarProperty Name="model_number" ColumnName="model_number" />
                 <ScalarProperty Name="manufacturer_description_ow" ColumnName="manufacturer_description_ow" />
                 <ScalarProperty Name="manufacturer_description" ColumnName="manufacturer_description" />
                 <ScalarProperty Name="jsn_ow" ColumnName="jsn_ow" />
@@ -14145,8 +14153,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
                 <ScalarProperty Name="asset_description" ColumnName="asset_description" />
                 <ScalarProperty Name="asset_code" ColumnName="asset_code" />
                 <ScalarProperty Name="jsn_code" ColumnName="jsn_code" />
-                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
-                <ScalarProperty Name="serial_name" ColumnName="serial_name" />
+                <ScalarProperty Name="model_number" ColumnName="model_number" />
+                <ScalarProperty Name="model_name" ColumnName="model_name" />
                 <ScalarProperty Name="manufacturer_description" ColumnName="manufacturer_description" />
                 <ScalarProperty Name="unit_budget" ColumnName="unit_budget" />
                 <ScalarProperty Name="unit_freight" ColumnName="unit_freight" />
@@ -14253,8 +14261,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
                 <ScalarProperty Name="buyout_delta" ColumnName="buyout_delta" />
                 <ScalarProperty Name="cut_sheet" ColumnName="cut_sheet" />
                 <ScalarProperty Name="cad_block" ColumnName="cad_block" />
-                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
-                <ScalarProperty Name="serial_name" ColumnName="serial_name" />
+                <ScalarProperty Name="model_number" ColumnName="model_number" />
+                <ScalarProperty Name="model_name" ColumnName="model_name" />
                 <ScalarProperty Name="revit" ColumnName="revit" />
                 <ScalarProperty Name="photo_rotate" ColumnName="photo_rotate" />
                 <ScalarProperty Name="photo" ColumnName="photo" />
@@ -14453,8 +14461,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
                 <ScalarProperty Name="temporary_location" ColumnName="temporary_location" />
                 <ScalarProperty Name="jsn_ow" ColumnName="jsn_ow" />
                 <ScalarProperty Name="manufacturer_description_ow" ColumnName="manufacturer_description_ow" />
-                <ScalarProperty Name="serial_number_ow" ColumnName="serial_number_ow" />
-                <ScalarProperty Name="serial_name_ow" ColumnName="serial_name_ow" />
+                <ScalarProperty Name="model_number_ow" ColumnName="model_number_ow" />
+                <ScalarProperty Name="model_name_ow" ColumnName="model_name_ow" />
                 <ScalarProperty Name="final_disposition" ColumnName="final_disposition" />
                 <ScalarProperty Name="delivered_date" ColumnName="delivered_date" />
                 <ScalarProperty Name="received_date" ColumnName="received_date" />
@@ -14499,6 +14507,7 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
           <EntitySetMapping Name="asset_inventory">
             <EntityTypeMapping TypeName="AudaxWare.asset_inventory">
               <MappingFragment StoreEntitySet="asset_inventory">
+                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
                 <ScalarProperty Name="asset_comment" ColumnName="asset_comment" />
                 <ScalarProperty Name="eq_unit_desc" ColumnName="eq_unit_desc" />
                 <ScalarProperty Name="date_added" ColumnName="date_added" />
@@ -14506,8 +14515,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
                 <ScalarProperty Name="received_date" ColumnName="received_date" />
                 <ScalarProperty Name="delivered_date" ColumnName="delivered_date" />
                 <ScalarProperty Name="final_disposition" ColumnName="final_disposition" />
-                <ScalarProperty Name="serial_name_ow" ColumnName="serial_name_ow" />
-                <ScalarProperty Name="serial_number_ow" ColumnName="serial_number_ow" />
+                <ScalarProperty Name="model_name_ow" ColumnName="model_name_ow" />
+                <ScalarProperty Name="model_number_ow" ColumnName="model_number_ow" />
                 <ScalarProperty Name="manufacturer_description_ow" ColumnName="manufacturer_description_ow" />
                 <ScalarProperty Name="jsn_ow" ColumnName="jsn_ow" />
                 <ScalarProperty Name="temporary_location" ColumnName="temporary_location" />
@@ -14706,8 +14715,8 @@ warning 6002: The table/view 'audaxware.dbo.vendor_contact_all' does not have a 
                 <ScalarProperty Name="photo" ColumnName="photo" />
                 <ScalarProperty Name="photo_rotate" ColumnName="photo_rotate" />
                 <ScalarProperty Name="revit" ColumnName="revit" />
-                <ScalarProperty Name="serial_name" ColumnName="serial_name" />
-                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
+                <ScalarProperty Name="model_name" ColumnName="model_name" />
+                <ScalarProperty Name="model_number" ColumnName="model_number" />
                 <ScalarProperty Name="cad_block" ColumnName="cad_block" />
                 <ScalarProperty Name="cut_sheet" ColumnName="cut_sheet" />
                 <ScalarProperty Name="buyout_delta" ColumnName="buyout_delta" />

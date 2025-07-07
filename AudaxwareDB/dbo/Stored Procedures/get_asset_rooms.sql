@@ -15,8 +15,8 @@ BEGIN
     -- ========================================================================================
 
     SELECT 
-        pri.serial_number,
-        pri.serial_name,
+        pri.model_number,
+        pri.model_name,
         pp.description AS phase_desc,
         pri.project_id,
         pri.department_id,
@@ -64,8 +64,8 @@ BEGIN
         AND (@DepartmentId = -1 OR pri.department_id = @DepartmentId)
         AND (@RoomId = -1 OR pri.room_id = @RoomId)
     GROUP BY 
-        pri.serial_number,
-        pri.serial_name,
+        pri.model_number,
+        pri.model_name,
         pp.description,
         pri.project_id,
         pri.department_id,

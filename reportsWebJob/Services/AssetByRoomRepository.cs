@@ -76,10 +76,10 @@ namespace reportsWebJob.Services
                         worksheet.Cells["A10:P10"].Copy(worksheet.Cells["A" + row + ":P" + row]);
                         worksheet.Cells[row, 1].Value = $"{dt.asset_information.asset_code} - {dt.asset_information.asset_description}";
                         row++;
-                        if (dt.asset_information.serial_number != null && !dt.asset_information.serial_number.Equals(""))
+                        if (dt.asset_information.model_number != null && !dt.asset_information.model_number.Equals(""))
                         {
                             worksheet.Cells["A10:P10"].Copy(worksheet.Cells["A" + row + ":P" + row]);
-                            worksheet.Cells[row, 1].Value = $"{dt.asset_information.manufacturer_description}: {dt.asset_information.serial_number}";
+                            worksheet.Cells[row, 1].Value = $"{dt.asset_information.manufacturer_description}: {dt.asset_information.model_number}";
                         }
                         row++;
                         if (dt.asset_information.comment != null && !dt.asset_information.comment.Equals(""))
@@ -191,8 +191,8 @@ namespace reportsWebJob.Services
                     {useCadId} AS asset_code,
                     {selectAssetDescription}
                     ai.manufacturer_description,
-                    COALESCE(ai.serial_name,'') AS serial_name,
-                    COALESCE(ai.serial_number,'') AS serial_number,
+                    COALESCE(ai.model_name,'') AS model_name,
+                    COALESCE(ai.model_number,'') AS model_number,
                     ai.asset_comment AS comment,
                     ai.eq_unit_desc,
                     ai.height,
@@ -218,8 +218,8 @@ namespace reportsWebJob.Services
                     {useCadId},
                     {selectAssetDescription}
                     ai.manufacturer_description,
-                    ai.serial_name,
-                    ai.serial_number,
+                    ai.model_name,
+                    ai.model_number,
                     ai.asset_comment,
                     ai.eq_unit_desc,
                     ai.height,
@@ -276,8 +276,8 @@ namespace reportsWebJob.Services
                         AND asset_domain_id = @asset_domain_id
                         AND asset_id = @asset_id
                         AND asset_description = @asset_description
-                        AND ISNULL(serial_name, '') = ISNULL(@serial_name, '')
-                        AND ISNULL(serial_number, '') = ISNULL(@serial_number, '')
+                        AND ISNULL(model_name, '') = ISNULL(@model_name, '')
+                        AND ISNULL(model_number, '') = ISNULL(@model_number, '')
                     GROUP BY
 	                    resp,
 	                    phase_description,
@@ -307,8 +307,8 @@ namespace reportsWebJob.Services
                     new SqlParameter("@asset_domain_id", asset.asset_domain_id),
                     new SqlParameter("@asset_id", asset.asset_id),
                     new SqlParameter("@asset_description", (object)asset.asset_description ?? DBNull.Value),
-                    new SqlParameter("@serial_name", (object)asset.serial_name ?? DBNull.Value),
-                    new SqlParameter("@serial_number", (object)asset.serial_number ?? DBNull.Value)
+                    new SqlParameter("@model_name", (object)asset.model_name ?? DBNull.Value),
+                    new SqlParameter("@model_number", (object)asset.model_number ?? DBNull.Value)
                 };
 
                 List<AssetByRoomLocation> rooms = _db.Database.SqlQuery<AssetByRoomLocation>(subQuery, parameters.ToArray()).ToList();

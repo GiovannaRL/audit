@@ -9,7 +9,7 @@ namespace xPlannerAPI.Tests.Repositories
     class ConsolidatedQueryResults
     {
         public static string[] groupBy1 = {"resp", "type_resp", "project_id", "asset_id", "asset_domain_id", "asset_code", "estimated_delivery_date", "cad_id",
-            "asset_description", "manufacturer_description", "cut_sheet", "cad_block", "serial_number", "serial_name", "revit", "photo", "photo_domain_id", "tag_photo", "photo_rotate", 
+            "asset_description", "manufacturer_description", "cut_sheet", "cad_block", "model_number", "model_name", "revit", "photo", "photo_domain_id", "tag_photo", "photo_rotate", 
             "discontinued", "cost_center", "cost_center_id", "current_location", "tag", "comment", "domain_id", "none_option", "quote_number", "vendor", "po_requested_number", 
             "medgas", "medgas_option", "medgas_oxygen", "medgas_air", "medgas_n2o", "medgas_co2", "medgas_wag", "medgas_other", "medgas_high_pressure", 
             "medgas_nitrogen", "medgas_vacuum", "medgas_steam", "medgas_natgas", 
@@ -32,7 +32,7 @@ namespace xPlannerAPI.Tests.Repositories
 
         public const string expectedResult1 =
             @"SELECT resp, type_resp, project_id, asset_id, asset_domain_id, asset_code, estimated_delivery_date, cad_id, 
-            asset_description, manufacturer_description, cut_sheet, cad_block, serial_number, serial_name, revit, photo, 
+            asset_description, manufacturer_description, cut_sheet, cad_block, model_number, model_name, revit, photo, 
             photo_domain_id, tag_photo, photo_rotate, discontinued, cost_center, cost_center_id, current_location, tag, 
             comment, domain_id, none_option, quote_number, vendor, po_requested_number, medgas, medgas_option, medgas_oxygen, 
             medgas_air, medgas_n2o, medgas_co2, medgas_wag, medgas_other, medgas_high_pressure, medgas_nitrogen, medgas_vacuum, 
@@ -98,11 +98,11 @@ namespace xPlannerAPI.Tests.Repositories
             SUM(COALESCE(total_budget, 0)) AS total_budget, CAST(MIN(placement_ow+0) AS BIT) as placement_ow, 
             CAST(MIN(asset_description_ow+0) AS BIT) as asset_description_ow, CAST(MIN(jsn_ow+0) AS BIT) as jsn_ow, 
             CAST(MIN(manufacturer_description_ow+0) AS BIT) as manufacturer_description_ow, 
-            CAST(MIN(serial_number_ow+0) AS BIT) as serial_number_ow, CAST(MIN(serial_name_ow+0) AS BIT) as serial_name_ow, 
+            CAST(MIN(model_number_ow+0) AS BIT) as model_number_ow, CAST(MIN(model_name_ow+0) AS BIT) as model_name_ow, 
             MIN(date_modified) as date_modified, MAX(date_added) as date_added, MIN(eq_unit_desc) as eq_unit_desc, 
             MIN(asset_comment) as asset_comment FROM asset_inventory a  WHERE project_id = 746 AND domain_id = 5 
             GROUP BY resp, type_resp, project_id, asset_id, asset_domain_id, asset_code, estimated_delivery_date, cad_id, 
-            asset_description, manufacturer_description, cut_sheet, cad_block, serial_number, serial_name, revit, photo, 
+            asset_description, manufacturer_description, cut_sheet, cad_block, model_number, model_name, revit, photo, 
             photo_domain_id, tag_photo, photo_rotate, discontinued, cost_center, cost_center_id, current_location, tag, 
             comment, domain_id, none_option, quote_number, vendor, po_requested_number, medgas, medgas_option, medgas_oxygen, 
             medgas_air, medgas_n2o, medgas_co2, medgas_wag, medgas_other, medgas_high_pressure, medgas_nitrogen, medgas_vacuum, 
@@ -124,7 +124,7 @@ namespace xPlannerAPI.Tests.Repositories
             delivered_date, received_date";
 
         public static string[] groupByWithoutTag = {"resp", "type_resp", "project_id", "asset_id", "asset_domain_id", "asset_code", "estimated_delivery_date", "cad_id",
-            "asset_description", "manufacturer_description", "cut_sheet", "cad_block", "serial_number", "serial_name", "revit", "photo", "photo_domain_id", "tag_photo", "photo_rotate",
+            "asset_description", "manufacturer_description", "cut_sheet", "cad_block", "model_number", "model_name", "revit", "photo", "photo_domain_id", "tag_photo", "photo_rotate",
             "discontinued", "cost_center", "cost_center_id", "current_location", "comment", "domain_id", "none_option", "quote_number", "vendor", "po_requested_number",
             "medgas", "medgas_option", "medgas_oxygen", "medgas_air", "medgas_n2o", "medgas_co2", "medgas_wag", "medgas_other", "medgas_high_pressure",
             "medgas_nitrogen", "medgas_vacuum", "medgas_steam", "medgas_natgas",
@@ -146,7 +146,7 @@ namespace xPlannerAPI.Tests.Repositories
             "unit_install_markup", "unit_tax", "ECN", "placement", "temporary_location", "final_disposition", "delivered_date", "received_date" };
 
         public static string[] groupByWithoutTagResp = { "type_resp", "project_id", "asset_id", "asset_domain_id", "asset_code", "estimated_delivery_date", "cad_id",
-            "asset_description", "manufacturer_description", "cut_sheet", "cad_block", "serial_number", "serial_name", "revit", "photo", "photo_domain_id", "tag_photo", "photo_rotate",
+            "asset_description", "manufacturer_description", "cut_sheet", "cad_block", "model_number", "model_name", "revit", "photo", "photo_domain_id", "tag_photo", "photo_rotate",
             "discontinued", "cost_center", "cost_center_id", "current_location", "comment", "domain_id", "none_option", "quote_number", "vendor", "po_requested_number",
             "medgas", "medgas_option", "medgas_oxygen", "medgas_air", "medgas_n2o", "medgas_co2", "medgas_wag", "medgas_other", "medgas_high_pressure",
             "medgas_nitrogen", "medgas_vacuum", "medgas_steam", "medgas_natgas",
@@ -168,7 +168,7 @@ namespace xPlannerAPI.Tests.Repositories
             "unit_install_markup", "unit_tax", "ECN", "placement", "temporary_location", "final_disposition", "delivered_date", "received_date" };
 
         public static string[] groupByWithoutTagRespCadId = { "type_resp", "project_id", "asset_id", "asset_domain_id", "asset_code", "estimated_delivery_date", 
-            "asset_description", "manufacturer_description", "cut_sheet", "cad_block", "serial_number", "serial_name", "revit", "photo", "photo_domain_id", "tag_photo", "photo_rotate",
+            "asset_description", "manufacturer_description", "cut_sheet", "cad_block", "model_number", "model_name", "revit", "photo", "photo_domain_id", "tag_photo", "photo_rotate",
             "discontinued", "cost_center", "cost_center_id", "current_location", "comment", "domain_id", "none_option", "quote_number", "vendor", "po_requested_number",
             "medgas", "medgas_option", "medgas_oxygen", "medgas_air", "medgas_n2o", "medgas_co2", "medgas_wag", "medgas_other", "medgas_high_pressure",
             "medgas_nitrogen", "medgas_vacuum", "medgas_steam", "medgas_natgas",

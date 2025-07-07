@@ -273,8 +273,8 @@
             { headerTemplate: "<md-checkbox class=\"checkbox\" md-indeterminate=\"allSelected(assignedAssetsGrid)\" ng-checked=\"allPagesSelected(assignedAssetsGrid)\" aria-label=\"checkbox\" ng-click=\"select($event, assignedAssetsGrid, true)\"></md-checkbox>", template: "<md-checkbox class=\"checkbox\" ng-click=\"select($event, assignedAssetsGrid)\" ng-checked=\"isSelected(assignedAssetsGrid, dataItem)\" aria-label=\"checkbox\"></md-checkbox>", width: "3em" },
             { field: "asset_code", title: "Code", width: 110 },
             { field: "manufacturer_description", title: "Manufacturer", width: 170, template: '<span>#: manufacturer_description #<md-tooltip>#: manufacturer_description #</md-tooltip></span>' },
-            { field: "serial_number", title: "Model Number", width: 150 },
-            { field: "serial_name", title: "Model Name", width: 150 },
+            { field: "model_number", title: "Model Number", width: 150 },
+            { field: "model_name", title: "Model Name", width: 150 },
             { field: "asset_description", title: "Name", width: 170, template: '<span>#: asset_description #<md-tooltip>#: asset_description #</md-tooltip></span>' },
             { field: "jsn_code", title: "JSN", width: 100 },
             { field: "po_qty", title: "Net New", width: 110, template: "<center>#: po_qty#</center>" },
@@ -359,7 +359,7 @@
                 model: {
                     fields: {
                         asset_code: { editable: false }, manufacturer_description: { editable: false },
-                        serial_number: { editable: false }, serial_name: { editable: false }, asset_description: { editable: false },
+                        model_number: { editable: false }, model_name: { editable: false }, asset_description: { editable: false },
                         po_qty: { editable: false }, po_unit_amt: { editable: false }, budget_qty: { editable: false },
                         //budget_amt: { editable: false }, total_po_amt: { type: "number", validation: { min: 0 }},
                         option_codes: { editable: false }, option_descriptions: { editable: false }, option_prices: { editable: false }
