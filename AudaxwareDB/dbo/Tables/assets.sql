@@ -258,13 +258,6 @@ CREATE TRIGGER update_asset_data
 ON assets AFTER UPDATE
 AS
 
-    --TRIS IS TEMPORARY AND WILL BE REMOVED IN THE FUTURE WHEN WE REMOVE THE SERIAL_NUMBER AND SERIAL_NAME COLUMNS FROM THE ASSETS TABLE
-    UPDATE a
-    SET 
-        model_number = i.serial_number,
-        model_name = i.serial_name
-    FROM dbo.assets a
-    INNER JOIN inserted i ON a.asset_id = i.asset_id AND a.domain_id = i.domain_id;
 
 
 	DECLARE @domain_id SMALLINT, @asset_id INTEGER, @jsn_id INTEGER, @jsn_domain_id SMALLINT,
