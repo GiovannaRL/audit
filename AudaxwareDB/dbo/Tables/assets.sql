@@ -222,15 +222,7 @@ BEGIN
 		@category_domain_id int,
 		@category varchar(100),
 		@subcategory varchar(100),
-		@asset_description varchar(400);
-
-    --TRIS IS TEMPORARY AND WILL BE REMOVED IN THE FUTURE WHEN WE REMOVE THE SERIAL_NUMBER AND SERIAL_NAME COLUMNS FROM THE ASSETS TABLE
-    UPDATE a
-    SET 
-        model_number = i.serial_number,
-        model_name = i.serial_name
-    FROM dbo.assets a
-    INNER JOIN inserted i ON a.asset_id = i.asset_id AND a.domain_id = i.domain_id;
+		@asset_description varchar(400);    
 
 	SELECT @asset_id = asset_id, @asset_domain_id = domain_id, @asset_suffix = asset_suffix, @subcategory_id = subcategory_id, @subcategory_domain_id = subcategory_domain_id FROM inserted;
 
