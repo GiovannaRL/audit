@@ -10,5 +10,4 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-:r .\UpdateModelColumnsData.sql
 
