@@ -140,7 +140,7 @@
 
     CONSTRAINT [inventory_pk] PRIMARY KEY CLUSTERED ([inventory_id] ASC),
     CONSTRAINT [asset_project_room_inventory_fk] FOREIGN KEY ([asset_id], [asset_domain_id]) REFERENCES [dbo].[assets] ([asset_id], [domain_id]),
-    CONSTRAINT [cost_center1_fk] FOREIGN KEY ([cost_center_id]) REFERENCES [dbo].[cost_center] ([id]),
+    CONSTRAINT [cost_center1_fk] FOREIGN KEY ([cost_center_id]) REFERENCES [dbo].[cost_center] ([id]) ON DELETE SET NULL,
     CONSTRAINT [project_room_project_room_inventory_fk] FOREIGN KEY ([project_id], [phase_id], [department_id], [room_id], [domain_id]) REFERENCES [dbo].[project_room] ([project_id], [phase_id], [department_id], [room_id], [domain_id]) ON DELETE CASCADE,
 	CONSTRAINT [linked_document_inventory_fk] FOREIGN KEY ([linked_document]) REFERENCES project_documents (id)
 );

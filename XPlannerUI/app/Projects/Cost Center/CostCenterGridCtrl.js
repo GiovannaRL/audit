@@ -145,7 +145,7 @@
             }
 
             if (GridService.verifySelected('delete', 'cost center', $scope.costCenterGrid)) {
-                DialogService.Confirm('Are you sure?', 'The cost center(s) will be deleted permanently').then(function () {
+                DialogService.Confirm('Are you sure?', 'Assets associated with the selected cost center(s) will have the cost center removed.<br/><br/> You cannot revert this change, the cost center(s) will be deleted permanently. Are you sure you want to proceed?').then(function () {
                     ProgressService.blockScreen();
                     GridService.deleteItems(WebApiService.cost_center,
                         function (item) { return { action: "Item", domain_id: item.domain_id, project_id: item.project_id, id: item.id }; },
