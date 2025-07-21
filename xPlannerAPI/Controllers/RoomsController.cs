@@ -217,18 +217,21 @@ namespace xPlannerAPI.Controllers
             using (IRoomRepository repository = new RoomRepository())
             {
                 var tableData = repository.GetRoomsAsTable(AudaxWareIdentity, id1, id2, id3, id4, id5);
-                tableData.Select(r => new
+
+                var projected = tableData.Select(r => new
                 {
                     domain_id = id1,
                     project_id = id2,
-                    phase_description = r.project_department.project_phase.description,
-                    department_desc = r.department_id,
+                    phase_id = r.phase_id,
+                    phase_description = r.project_department.project_phase.description,                    
+                    department_id = r.department_id,
                     department_description = r.project_department.description,
+                    room_id = r.room_id,
                     room_name = r.drawing_room_name,
                     room_number = r.drawing_room_number
                 }).ToList();
 
-                return Request.CreateResponse(HttpStatusCode.OK, tableData);
+                return Request.CreateResponse(HttpStatusCode.OK, projected);
             }
         }
 

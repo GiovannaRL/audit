@@ -37,7 +37,6 @@
                     }
                 },
                 filter: [{ field: "project_id", operator: "eq", value: local.params.project_id }]
-                //data: localStorageService.get('AllDepartmentsGrid') || []
             },
             scrollable: true,
             sortable: true,

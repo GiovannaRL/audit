@@ -83,6 +83,7 @@
                         headers: {
                             Authorization: "Bearer " + AuthService.getAccessToken()
                         }
+                        
                     }
                 },
                 error: function () {
@@ -101,12 +102,16 @@
                 },
                 filter: [],
             },
-            scrollable: true,
+            scrollable: {
+                virtual: false,
+                horizontal: true
+            },
             sortable: true,
             pageable: {
+                numeric: true,
                 pageSizes: [10, 20, 50],
-                pageSize: 10,
-                buttonCount: 10
+                pageSize: 20,
+                input: true
             },
             filterable: true,
             resizable: true,
@@ -117,10 +122,10 @@
             },
             columns: [
                 { headerTemplate: "<md-checkbox class=\"checkbox\" md-indeterminate=\"allSelected(departmentsGrid)\" ng-checked=\"allPagesSelected(departmentsGrid)\" aria-label=\"checkbox\" ng-click=\"select($event, departmentsGrid, true)\"></md-checkbox>", template: "<md-checkbox class=\"checkbox\" ng-click=\"select($event, departmentsGrid)\" ng-checked=\"isSelected(departmentsGrid, dataItem)\" aria-label=\"checkbox\"></md-checkbox>", width: "3em" },
-                { field: "project_department.project_phase.description", title: "Phase" },
-                { field: "project_department.description", title: "Department" },
-                { field: "drawing_room_number", title: "Room No." },
-                { field: "drawing_room_name", title: "Room Name" }
+                { field: "phase_description", title: "Phase" },
+                { field: "department_description", title: "Department" },
+                { field: "room_number", title: "Room No." },
+                { field: "room_name", title: "Room Name" }
                 
             ]
         };      
@@ -310,9 +315,9 @@
                         source_department_id: item.department_id,
                         source_room_id: item.room_id,
                         phase_id: $scope.targetData.phase_id ?? (item.project_id === local.params.project_id ? item.phase_id : -1),
-                        phase_description: selectedPhase ?? item.project_department.project_phase.description,
+                        phase_description: selectedPhase ?? item.phase_description,
                         department_id: $scope.targetData.department_id ?? (item.project_id === local.params.project_id ? item.department_id : -1),
-                        department_description: selectedDepartment ?? item.project_department.description,
+                        department_description: selectedDepartment ?? item.department_description,
                         room_name: item.drawing_room_name,
                         room_number: item.drawing_room_number,
                         room_id: item.room_id
