@@ -54,8 +54,13 @@ namespace xPlannerAPI.Services
             try
             {
                 var auditedData = _db.get_all_audit_data(domainId, null, null).ToList();
-                auditedData.Select(x => tableName.ContainsKey(x.table_name) ? tableName[x.table_name] : x.table_name);
-
+                foreach (var item in auditedData)
+                {
+                    if (tableName.ContainsKey(item.table_name))
+                    {
+                        item.table_name = tableName[item.table_name];
+                    }
+                }
                 return auditedData;
             }
             catch (Exception e)
@@ -65,23 +70,72 @@ namespace xPlannerAPI.Services
             }
         }
 
-        public IEnumerable<AuditData> GetAuditData(int auditLogId) {
-            var auditLog = _db.audit_log.Include("project").Where(x => x.audit_log_id == auditLogId).FirstOrDefault();
-            var originalData = JsonConvert.DeserializeObject<Dictionary<string, string>>(auditLog.original).ToArray();
-            var modifiedData = JsonConvert.DeserializeObject<Dictionary<string, string>>(auditLog.modified).ToArray();
-            var allData = new List<AuditData>();
+        public IEnumerable<AuditData> GetAuditData(int auditLogId)
+        {
+            var auditLog = _db.audit_log.Include("project")
+                                        .FirstOrDefault(x => x.audit_log_id == auditLogId);
 
-            for (int i = 0; i < originalData.Count(); i++)
+            if (auditLog == null)
+                return new List<AuditData>();
+
+            var originalData = JsonConvert.DeserializeObject<Dictionary<string, string>>(auditLog.original ?? "{}");
+            var modifiedData = JsonConvert.DeserializeObject<Dictionary<string, string>>(auditLog.modified ?? "{}");
+
+            var allKeys = originalData.Keys.Union(modifiedData.Keys).Distinct();
+            var result = new List<AuditData>();
+
+            foreach (var key in allKeys)
             {
-                var auditedData = new AuditData();
-                auditedData.column = originalData[i].Key;
-                auditedData.original = originalData[i].Value;
-                auditedData.modified = modifiedData.Count() > 0 ? modifiedData[i].Value : "";
-                allData.Add(auditedData);
+                string originalValue = originalData.ContainsKey(key) ? originalData[key] : null;
+                string modifiedValue = modifiedData.ContainsKey(key) ? modifiedData[key] : null;
+
+                // add modified values
+                if (originalValue != modifiedValue)
+                {
+                    result.Add(new AuditData
+                    {
+                        column = key,
+                        original = originalValue,
+                        modified = modifiedValue
+                    });
+                }
             }
 
-            return allData;
+            return result;
         }
+
+        public IEnumerable<AuditWithChanges> AllAuditDataWithChanges(int domainId)
+        {
+            var all = _db.get_all_audit_data(domainId, null, null).ToList();
+
+
+            var result = new List<AuditWithChanges>();
+
+            foreach (var audit in all)
+            {
+                var changes = GetAuditData(audit.audit_log_id)
+                                .Select(c => c.column)
+                                .ToList();
+
+                result.Add(new AuditWithChanges
+                {
+                    audit_log_id = audit.audit_log_id,
+                    username = audit.username,
+                    operation = audit.operation,
+                    table_name = audit.table_name,
+                    table_pk = audit.table_pk,
+                    comment = audit.comment,
+                    modified_date = audit.modified_date,
+                    project_description = audit.project_description,
+                    asset_code = audit.asset_code,
+                    // Concatenates the modified fields into a string
+                    changed_fields = string.Join(", ", changes)
+                });
+            }
+
+            return result;
+        }
+
 
 
         public bool CompareAndSaveAuditedData(Object oldData, Object newData, string operation, Object emptyObject = null, string header = null)

@@ -14,13 +14,23 @@ namespace xPlannerAPI.Controllers
     {
         
         [ActionName("All")]
-        public IEnumerable<get_all_audit_data_Result> GetAll(int id1)
+        public IEnumerable<AuditWithChanges> GetAll(int id1)
         {
             using (var repository = new AuditRepository())
             {
-                return repository.AllAuditData(id1);
+                return repository.AllAuditDataWithChanges(id1);
             }
         }
+
+        [ActionName("AllWithChanges")]
+        public IEnumerable<AuditWithChanges> GetAllWithChanges(int id1)
+        {
+            using (var repository = new AuditRepository())
+            {
+                return repository.AllAuditDataWithChanges(id1);
+            }
+        }
+
 
 
         [ActionName("GetItem")]
