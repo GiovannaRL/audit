@@ -17,10 +17,10 @@
                     <md-button class="md-raised md-primary select-all" style="font-size: 14px" ng-click="unselectAllToDisplay(selectedGroup)">
                         Hide
                     </md-button>
-                    <md-button class="md-raised md-primary select-all" style="font-size: 14px" ng-click="selectAllToConsolidate(selectedGroup)">
+                    <md-button ng-if="!isCatalog" class="md-raised md-primary select-all" style="font-size: 14px" ng-click="selectAllToConsolidate(selectedGroup)">
                         Consolidate
                     </md-button>
-                    <md-button class="md-raised md-primary select-all" style="font-size: 14px" ng-click="unselectAllToConsolidate(selectedGroup)">
+                    <md-button ng-if="!isCatalog" class="md-raised md-primary select-all" style="font-size: 14px" ng-click="unselectAllToConsolidate(selectedGroup)">
                         Unconsolidate
                     </md-button>
                 </section>
@@ -39,7 +39,7 @@
             <md-button class="md-raised md-primary select-all" ng-click="resetDefaultColumns()">
                 Reset Default Columns
             </md-button>
-            <md-button class="md-raised md-primary select-all" ng-click="resetDefaultConsolidation()">
+            <md-button ng-if="!isCatalog" class="md-raised md-primary select-all" ng-click="resetDefaultConsolidation()">
                 Reset Default Consolidation
             </md-button>
         </section>

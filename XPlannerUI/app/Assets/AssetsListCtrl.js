@@ -398,10 +398,11 @@
 
             ProgressService.blockScreen();
             var columns = $scope.assetsListGrid.columns;
-            DialogService.openModal('app/Utils/Modals/DisplayColumns.html', 'DisplayColumnsCtrl', { columns: columns })
+            DialogService.openModal('app/Utils/Modals/DisplayColumns.html', 'DisplayColumnsCtrl', { columns: columns, isCatalog: true })
                 .then(function (gridColumns) {
 
-                    gridColumns.forEach(function (item, index) {
+                    gridColumns.display.forEach(function (item, index) {
+
                         if (item.hidden != columns[index].hidden) {
                             if (item.hidden) {
                                 $scope.assetsListGrid.hideColumn(index);

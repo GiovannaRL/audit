@@ -4,7 +4,9 @@
         $scope.groups = AssetColumnsType.distinctTypes;
 
         local.columns = angular.copy(local.columns);
-        local.consolidated = angular.copy(local.consolidated);
+        local.consolidated = angular.copy(local.consolidated) || [];
+        $scope.isCatalog = angular.copy(local.isCatalog);
+
         var column_type = AssetColumnsType.fieldsMap;        
         var defaultViewColumn = [
             "Phase", "Department", "Room No.", "Room Name", "Resp", "Type", "Code", "Description", "Status", "PO Status", "Lease qty", "DNP qty", "Net New",
@@ -37,11 +39,29 @@
         /* begin - grid configuration */
 
         //columns
-        var columns = [{ field: 'column', title: 'Field' },
-        { field: 'type', title: 'Group' },
-        { field: 'display', title: 'Display', template: "<section layout=\"column\" layout-align=\"none center\"><md-checkbox style=\"margin-top: 0px; margin-bottom: 0px\" class=\"checkbox\" ng-checked=\"dataItem.display\" aria-label=\"checkbox\"></md-checkbox></section>", editor: CheckboxEditor },
-            { field: 'consolidate', title: 'Consolidate', template: "<section layout=\"column\" layout-align=\"none center\"><md-checkbox style=\"margin-top: 0px; margin-bottom: 0px\" class=\"checkbox\" ng-checked=\"CheckRequiredConsolidatedColumns(dataItem)\" ng-disabled=lockConsolidatedCheckBox(dataItem) aria-label=\"checkbox\"></md-checkbox></section>", editor: CheckboxEditor }
+        var columns = [
+            { field: 'column', title: 'Field' },
+            { field: 'type', title: 'Group' },
+            {
+                field: 'display',
+                title: 'Display',
+                template: "<section layout=\"column\" layout-align=\"none center\"><md-checkbox style=\"margin-top: 0px; margin-bottom: 0px\" class=\"checkbox\" ng-checked=\"dataItem.display\" aria-label=\"checkbox\"></md-checkbox></section>",
+                editor: CheckboxEditor
+            },
+            {
+                field: 'consolidate',
+                title: 'Consolidate',
+                template: "<section layout=\"column\" layout-align=\"none center\"><md-checkbox style=\"margin-top: 0px; margin-bottom: 0px\" class=\"checkbox\" ng-checked=\"CheckRequiredConsolidatedColumns(dataItem)\" ng-disabled=lockConsolidatedCheckBox(dataItem) aria-label=\"checkbox\"></md-checkbox></section>",
+                editor: CheckboxEditor
+            }
         ];
+
+        // Remove column consolidate on Catalog
+        if ($scope.isCatalog) {
+            columns = columns.filter(function (col) {
+                return col.field !== 'consolidate';
+            });
+        }
 
         // datasource
         var dataSource = {
@@ -96,9 +116,10 @@
                 var column = result.find(function (item) { return item.column == (title_changes[local.columns[i].field] || local.columns[i].title); });
                 if (column) {
                     local.columns[i].hidden = !column.display;
-                    if (column.consolidate) {
-                        gridColumn.consolidated.push(local.columns[i].field);                        
+                    if (!$scope.isCatalog && column.consolidate) {
+                        gridColumn.consolidated.push(local.columns[i].field);
                     }
+
                 }
             }
 

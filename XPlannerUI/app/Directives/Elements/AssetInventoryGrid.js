@@ -818,7 +818,7 @@
 
                 scope.chooseDisplayedColumns = function () {                
                     var columns = scope.assetsGrid.columns;
-                    DialogService.openModal('app/Utils/Modals/DisplayColumns.html', 'DisplayColumnsCtrl', { columns: columns, consolidated: consolidatedColumns })
+                    DialogService.openModal('app/Utils/Modals/DisplayColumns.html', 'DisplayColumnsCtrl', { columns: columns, consolidated: consolidatedColumns, isCatalog: false })
                         .then(function (gridColumns) {                            
                             ProgressService.blockScreen('assetsGrid');
 
