@@ -15,6 +15,7 @@ using xPlannerCommon.Models;
 using xPlannerCommon.Services;
 using System.Web;
 using xPlannerAPI.App_Data;
+using xPlannerAPI.Extensions;
 
 namespace xPlannerAPI.Controllers
 {
@@ -55,10 +56,15 @@ namespace xPlannerAPI.Controllers
                         {
                             requestStream = await Request.Content.ReadAsStreamAsync();
                         }
-
-
+                        
+                        
                         document.blob_file_name = string.Format("{0}{1}{2}_{3}.{4}", document.project_domain_id, document.project_id, document.id, document.filename, id4);
                         var blob = repositoryBlob.GetBlob(string.Format("project-documents{0}", document.project_domain_id), document.blob_file_name);
+
+                        if (!requestStream.IsImageValid())
+                        {
+                            return Request.CreateResponse(HttpStatusCode.BadRequest, new { ErrorMessage = "Invalid Image." });
+                        }
 
                         blob.Upload(requestStream, overwrite: true);
 

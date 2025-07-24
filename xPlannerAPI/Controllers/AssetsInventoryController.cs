@@ -11,7 +11,7 @@ using xPlannerCommon.Enumerators;
 using System.Net;
 using System.Diagnostics;
 using System;
-using xPlannerAPI.App_Data;
+using xPlannerAPI.Extensions;
 
 namespace xPlannerAPI.Controllers
 {
@@ -304,16 +304,38 @@ namespace xPlannerAPI.Controllers
         public HttpResponseMessage PostImportPictures([FromBody] List<FileData> pictures, int id1, int id2, int id3)
         {
 
-            if (pictures == null || !pictures.Any())
-                return Request.CreateResponse(HttpStatusCode.BadRequest, Helper.GetMaxRequestLengthMessage());
-
-            using (IAssetInventoryRepository inventoryRepository = new AssetInventoryRepository())
+                if (pictures == null || !pictures.Any())
             {
-                inventoryRepository.UploadInventoryPictures(id1, id2, id3, pictures);
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid or corrupted image.");
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, "");
-        }
+            foreach (var picture in pictures)
+            {
+                try
+                {
+                        if (!picture.IsImageValid())
+                        {
+                            return Request.CreateResponse(HttpStatusCode.BadRequest, $"The image '{picture.fileName}' appears to be corrupted or invalid.");
+                        }
+                }
+                catch
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, "Failed to process one or more images.");
+                }
+            }
+            try
+            {
+                using (var repository = new AssetInventoryRepository())
+                {
+                    repository.UploadInventoryPictures(id1, id2, id3, pictures);
+                    return Request.CreateResponse(HttpStatusCode.OK, "Success!");
+                }
+            }
+            catch (Exception ex)
+             {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+             }
+        }   
 
         /**
          * id1 = domain_id

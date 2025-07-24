@@ -454,6 +454,8 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\VendorContactsController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
+    <Compile Include="Extensions\FileDataExtensions.cs" />
+    <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
