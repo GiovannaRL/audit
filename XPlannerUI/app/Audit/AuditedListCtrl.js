@@ -1,5 +1,5 @@
 ﻿xPlanner.controller('AuditedListCtrl', ['$scope', 'GridService', 'HttpService', 'AuthService', 'DialogService', 'ProgressService',
-    'toastr', '$state', 
+    'toastr', '$state',
     function ($scope, GridService, HttpService, AuthService, DialogService, ProgressService, toastr, $state) {
 
         if (!AuthService.isAuthenticated()) {
@@ -51,8 +51,8 @@
             { field: "username", title: "User", width: "12px" },
             { field: "operation", title: "Operation", width: "10px" },
             { field: "table_name", title: "Table", width: "10px" },
-            { field: "original", title: "Original", width: "20px" },
-            { field: "modified", title: "Modified", width: "20px" },
+            { field: "original_fields", title: "Original", width: "20px" },
+            { field: "changed_fields", title: "Modified", width: "20px" },
             {
                 field: "modified_date", title: "Modified Date", format: "{0:MM/dd/yyyy}", width: "12px", template: "#: modified_date ? kendo.toString(kendo.parseDate(modified_date), \"MM/dd/yyyy\") : '' #"
             }
@@ -60,15 +60,25 @@
 
         $scope.options = GridService.getStructure(dataSource, columns, toolbar, gridOptions);
 
-
         function setDbClick(grid) {
             if (grid) {
-                grid.tbody.find("tr").dblclick(function () {
-                    var auditedData = grid.dataItem(this);
-                    $scope.openAddEditModal(true, auditedData);
+                grid.tbody.find("tr").off("dblclick").on("dblclick", function () {
+                    var clickedItem = grid.dataItem(this);
+                    var selectedItems = GridService.getSelecteds(grid);
+                    if (selectedItems.length !== 1) {
+                        toastr.error("Please select an audited item to view.");
+                        return;
+                    }
+                    var selectedItem = selectedItems[0];
+                    if (clickedItem.audit_log_id !== selectedItem.audit_log_id) {
+                        toastr.error("Click only on the selected item to view.");
+                        return;
+                    }
+                    $scope.openAddEditModal(true, clickedItem);
                 });
             }
-        };
+        }
+
 
         $scope.dataBound = function () {
             setDbClick($scope.auditGrid);
@@ -90,19 +100,24 @@
         $scope.allPagesSelected = GridService.allPagesSelected;
         /* END - Select the grid's rows */
 
-        $scope.openAddEditModal = function () {
-
-            if (GridService.verifySelected('edit', 'audit', $scope.auditGrid, true)) {
-                item = GridService.getSelecteds($scope.auditGrid)[0];
-                DialogService.openModal('app/Audit/Modals/ViewAudited.html', 'ViewAuditedCtrl', { audit: item })
-                    .then(function () {
-                        //$scope.auditGrid.dataSource.read();
-                    });
+        $scope.openAddEditModal = function (fromDblClick, auditedData) {
+            if (fromDblClick && auditedData) {
+                DialogService.openModal('app/Audit/Modals/ViewAudited.html', 'ViewAuditedCtrl', { audit: auditedData });
+                return;
             }
 
+            if (!GridService.verifySelected('edit', 'audit', $scope.auditGrid, true))
+                return;
+
+            var selectedItems = GridService.getSelecteds($scope.auditGrid);
+
+            if (selectedItems.length === 1) {
+                var item = selectedItems[0];
+                DialogService.openModal('app/Audit/Modals/ViewAudited.html', 'ViewAuditedCtrl', { audit: item });
+            }
         };
 
-        
 
-       
+
+
     }]);

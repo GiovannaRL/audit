@@ -12,7 +12,7 @@ namespace xPlannerCommon.Models
     using System;
     
     public partial class get_all_audit_data_Result
-    {
+    { 
         public int audit_log_id { get; set; }
         public string username { get; set; }
         public string operation { get; set; }
